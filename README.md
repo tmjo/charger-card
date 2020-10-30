@@ -2,9 +2,8 @@
 
 [![npm version][npm-image]][npm-url]
 [![hacs][hacs-image]][hacs-url]
-[![Patreon][patreon-image]][patreon-url]
 [![Buy Me A Coffee][buymeacoffee-image]][buymeacoffee-url]
-[![Twitter][twitter-image]][twitter-url]
+
 
 > EV Charger card for [Home Assistant][home-assistant] Lovelace UI
 
@@ -16,7 +15,7 @@ By default, Home Assistant does not provide any card for controlling chargers fo
 
 **💡 Tip:** If you like this project consider buying me a cup of ☕️ or 🥤:
 
-<a href="https://www.buymeacoffee.com/denysdovhan" target="_blank">
+<a href="https://www.buymeacoffee.com/tmjo" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" width="150px">
 </a>
 
@@ -48,7 +47,7 @@ This card can be configured using Lovelace UI editor.
 2. Click _Configure UI_.
 3. Click Plus button to add a new card.
 4. Find _Custom: Charger Card_ in the list.
-5. Choose `entity`.
+5. Choose `entity` and select the main status sensor of your charger.
 6. Now you should see the preview of the card!
 
 _Sorry, no support for `actions` and `stats` in visual config yet._
@@ -66,7 +65,7 @@ Here is what every option means:
 | -------------- | :-------: | ------------ | ----------------------------------------------------------------------- |
 | `type`         | `string`  | **Required** | `custom:charger-card`                                                    |
 | `entity`       | `string`  | **Required** | An entity_id within the `sensor` domain. Must be the main status of your charger.   |
-| `image`        | `string`  | `default`    | Path to image of your vacuum cleaner. Better to have `png` or `svg`.    |
+| `image`        | `string`  | `default`    | Path to custom image of your charger. Better to have `png` or `svg`.    |
 | `show_name`    | `boolean` | `true`       | Show friendly name of the vacuum.                                       |
 | `show_status`  | `boolean` | `true`       | Show status of the vacuum.                                              |
 | `show_toolbar` | `boolean` | `true`       | Show toolbar with actions.                                              |
@@ -76,7 +75,7 @@ Here is what every option means:
 
 ### `stats` object
 
-You can use any attribute of vacuum or even any entity by `entity_id` to display by stats section:
+In addition to the charger info, you can use any attribute of vacuum or even any entity by `entity_id` to display by stats section:
 
 | Name        |   Type   | Default  | Description                                     |
 | ----------- | :------: | -------- | ----------------------------------------------- |
@@ -98,7 +97,7 @@ You can defined [custom scripts][ha-scripts] for custom actions i.e cleaning spe
 
 ## Animations
 
-I've added some animations for this card to make it alive. Animations are applied only for `image` property. Here's how they look like:
+If choosing the default images of Easee chargers in any color, you can choose to show leds which will update according to charger status. This is identical to how the charger looks physically and similar to the Easee app and web site. 
 
 |              Cleaning               |                Docking                |
 | :---------------------------------: | :-----------------------------------: |
@@ -129,38 +128,30 @@ First of all, thanks! Check [contributing guideline](./CONTRIBUTING.md) for more
 ## Inspiration
 
 This project is heavily inspired by:
-- <a href="https://github.com/denysdovhan" target="_blank">denysdovhan</a> for inspiration to this card, the ideas are taken from his <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a>. Make sure to buy him a <a href="https://www.buymeacoffee.com/denysdovhan" target="_blank">coffee</a> too!
+- <a href="https://github.com/denysdovhan" target="_blank">denysdovhan</a> for inspiration to this card, the ideas are taken from his <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a>. Make sure to <a href="https://www.buymeacoffee.com/denysdovhan" target="_blank">buy him a coffee</a> too!
 
-Huge thanks for their ideas and efforts 👍
+Huge thanks for the ideas and efforts 👍
 
 ## License
 
 MIT © [Tor Magne Johannessen][tmjo]
 
 <!-- Badges -->
-
-[npm-url]: https://npmjs.org/package/vacuum-card
+[npm-url]: https://npmjs.org/package/charger-card
 [npm-image]: https://img.shields.io/npm/v/vacuum-card.svg?style=flat-square
 [hacs-url]: https://github.com/custom-components/hacs
 [hacs-image]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
-[patreon-url]: https://patreon.com/denysdovhan
-[patreon-image]: https://img.shields.io/badge/support-patreon-F96854.svg?style=flat-square
-[buymeacoffee-url]: https://patreon.com/denysdovhan
+[buymeacoffee-url]: https://www.buymeacoffee.com/tmjo
 [buymeacoffee-image]: https://img.shields.io/badge/support-buymeacoffee-222222.svg?style=flat-square
-[twitter-url]: https://twitter.com/denysdovhan
-[twitter-image]: https://img.shields.io/badge/twitter-%40denysdovhan-00ACEE.svg?style=flat-square
 
 <!-- References -->
-
 [home-assistant]: https://www.home-assistant.io/
 [hacs]: https://hacs.xyz
 [preview-image]: https://user-images.githubusercontent.com/3459374/83282788-c9e30280-a1e2-11ea-8e13-6208169ddc0a.png
 [cleaning-gif]: https://user-images.githubusercontent.com/3459374/81119202-fa60b500-8f32-11ea-9b23-325efa93d7ab.gif
 [returning-gif]: https://user-images.githubusercontent.com/3459374/81119452-765afd00-8f33-11ea-9dc5-9c26ba3f8c45.gif
-[latest-release]: https://github.com/denysdovhan/vacuum-card/releases/latest
+[latest-release]: https://github.com/tmjo/lovelace-charger-card/releases/latest
 [ha-scripts]: https://www.home-assistant.io/docs/scripts/
-[edit-readme]: https://github.com/denysdovhan/vacuum-card/edit/master/README.md
-[add-translation]: https://github.com/denysdovhan/vacuum-card/tree/master/src/translations
-[macbury-smart-house]: https://macbury.github.io/SmartHouse/HomeAssistant/Vacuum/
-[bbbenji-card]: https://gist.github.com/bbbenji/24372e423f8669b2e6713638d8f8ceb2
-[denysdovhan]: https://denysdovhan.com
+[edit-readme]: https://github.com/tmjo/lovelace-charger-card/edit/master/README.md
+[add-translation]: https://github.com/tmjo/lovelace-charger-card/tree/master/src/translations
+[tmjo]: https://github.com/tmjo
