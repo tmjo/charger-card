@@ -12,9 +12,6 @@ By default, Home Assistant does not provide any card for controlling chargers fo
 
 ![Preview of charger-card][preview-image]
 
-## Thanks to....
-Thanks to <a href="https://github.com/denysdovhan" target="_blank">denysdovhan</a> for inspiration to this card, the ideas are taken from his <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a>. Make sure to buy him a <a href="https://www.buymeacoffee.com/denysdovhan" target="_blank">coffee</a> too!
-
 ## Installing
 
 **💡 Tip:** If you like this project consider buying me a cup of ☕️ or 🥤:
@@ -112,43 +109,16 @@ I've added some animations for this card to make it alive. Animations are applie
 This card supports translations. Please, help to add more translations and improve existing ones. Here's a list of supported languages:
 
 - English
-- Українська (Ukrainian)
-- Deutsche (German)
-- Français (French)
-- Italiano (Italian)
-- Nederlands (Dutch)
-- Polski (Polish)
-- Русский (Russian)
-- Español (Spanish)
-- Čeština (Czech)
-- Magyar (Hungarian)
-- עִבְרִית (Hebrew)
-- Português (Portuguese)
-- Svenska (Swedish)
 - Norsk bokmål (Norwegian)
 - [_Your language?_][add-translation]
 
 ## Supported models
 
-This card relies on basic vacuum services, like `pause`, `start`, `stop`, `return_to_base`, etc. It should work with any robot vacuum, however I can physically test it only with my own robot vacuum.
+This card currently supports charging robots from <a href='https://easee-international.com/'>Easee</a>. It could be modified to support basically any charger, but adoptions of the code will be necessary since there is no platform in Home Assistant for chargers making the interface identical.
 
-If this card works with your vacuum cleaner, please open a PR and your model to the list.
-
-- Roborock S6
-- Roborock S5
-- Roborock S5 Max
-- Roborock S50
-- Roborock S4
-- Roborock E25
-- Roborock E4
-- Xiaomi Mi Robot (STYJ02YM)
-- Xiaomi Mi Robot 1S
-- Roomba 675
-- Roomba 960
-- Dyson 360 Eye
-- Neato D7
-- Neato D6
-- [_Your vacuum?_][edit-readme]
+Supported chargers:
+- Easee
+- [_Your charger?_][edit-readme]
 
 ## Development
 
@@ -159,15 +129,13 @@ First of all, thanks! Check [contributing guideline](./CONTRIBUTING.md) for more
 ## Inspiration
 
 This project is heavily inspired by:
-
-- [MacBury Smart House][macbury-smart-house] — basically, this project is a refinement of MacBury's custom card.
-- [Benji][bbbenji-card] vacuum card — this is where I noticed this vacuum card design for the [first time](https://github.com/bbbenji/synthwave-hass/issues/29).
+- <a href="https://github.com/denysdovhan" target="_blank">denysdovhan</a> for inspiration to this card, the ideas are taken from his <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a>. Make sure to buy him a <a href="https://www.buymeacoffee.com/denysdovhan" target="_blank">coffee</a> too!
 
 Huge thanks for their ideas and efforts 👍
 
 ## License
 
-MIT © [Denys Dovhan][denysdovhan]
+MIT © [Tor Magne Johannessen][tmjo]
 
 <!-- Badges -->
 
