@@ -1,0 +1,52 @@
+{
+  "status": {
+    "STANDBY": "Ventemodus",
+    "PAUSED": "Pause",
+    "CHARGING": "Lader",
+    "READY_TO_CHARGE": "Klar til lading",
+    "ERROR": "Feil",
+    "CAR_CONNECTED": "Bil tilkoblet"
+  },
+  "common": {
+    "name": "Charger Card",
+    "description": "Charger card gir deg mulighet for å styre din laderobot.",
+    "start": "Start",
+    "continue": "Fortsett",
+    "pause": "Pause",
+    "stop": "Stopp",
+    "override": "Overstyr plan",
+    "reboot": "Reboot lader",
+    "not_available": "Lader utilgjengelig"
+  },
+  "error": {
+    "missing_entity": "Du må angi en entity!"
+  },
+  "editor": {
+    "entity": "Entity (Påkrevd)",
+    "chargerImage": "Laderbilde og -farge",
+    "customImage": "Eget bilde (opsjon - overstyrer laderbilde)",
+    "theme": "Fargemal",
+    "compact_view": "Kompakt",
+    "compact_view_aria_label_on": "Toggle compact view on",
+    "compact_view_aria_label_off": "Toggle compact view off",
+    "show_name": "Vis navn",
+    "show_name_aria_label_on": "Toggle display name on",
+    "show_name_aria_label_off": "Toggle display name off",
+    "show_leds": "Vis led",
+    "show_leds_aria_label_on": "Toggle animated leds (overlay on image) on",
+    "show_leds_aria_label_off": "Toggle animated leds (overlay on image) off",
+    "show_status": "Vis status",
+    "show_status_aria_label_on": "Toggle display status on",
+    "show_status_aria_label_off": "Toggle display status off",
+    "show_stats": "Vis Data Tabell (stats)",
+    "show_stats_aria_label_on": "Toggle display data table on",
+    "show_stats_aria_label_off": "Toggle display data table off",
+    "show_collapsibles": "Vis sammenslåbare menyvalg",
+    "show_collapsibles_aria_label_on": "Toggle display collapsible menus on",
+    "show_collapsibles_aria_label_off": "Toggle display collapsible menus off",  
+    "show_toolbar": "Vis verktøylinje",
+    "show_toolbar_aria_label_on": "Toggle display toolbar on",
+    "show_toolbar_aria_label_off": "Toggle display toolbar off",
+    "code_only_note": "Merk: Egendefinerte actions og data tabell (stats) er kun tilgjengelig ved å benytte Code Editor manuelt."
+  }
+}
