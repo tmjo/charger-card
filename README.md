@@ -1,6 +1,5 @@
 # EV Charger Card
 
-[![npm version][npm-image]][npm-url]
 [![hacs][hacs-image]][hacs-url]
 [![Buy Me A Coffee][buymeacoffee-image]][buymeacoffee-url]
 
@@ -13,7 +12,7 @@ By default, Home Assistant does not provide any card for controlling chargers fo
 
 ## Installing
 
-**💡 Tip:** If you like this project consider buying me a cup of ☕️ or 🥤:
+**💡 Tip:** If you like this project consider buying me a cup of ☕️:
 
 <a href="https://www.buymeacoffee.com/tmjo" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" width="150px">
@@ -45,14 +44,15 @@ This card can be configured using Lovelace UI editor.
 4. Find _Custom: Charger Card_ in the list.
 5. Choose `entity` and select the main status sensor of your charger.
 6. Now you should see the preview of the card!
+7. Do your customizations in UI editor or manually in code editor.
 
-_Sorry, no support for `actions` and `stats` in visual config yet._
+_Sorry, there is no support for `actions` and `stats` in visual UI editor yet._
 
 Typical example of using this card in YAML config would look like this:
 
 ```yaml
 type: 'custom:charger-card'
-entity: sensor.easee_1_status
+entity: sensor.easee_status
 ```
 
 Here is what every option means:
@@ -61,35 +61,40 @@ Here is what every option means:
 | -------------- | :-------: | ------------ | ----------------------------------------------------------------------- |
 | `type`         | `string`  | **Required** | `custom:charger-card`                                                    |
 | `entity`       | `string`  | **Required** | An entity_id within the `sensor` domain. Must be the main status of your charger.   |
-| `image`        | `string`  | `default`    | Path to custom image of your charger. Better to have `png` or `svg`.    |
-| `show_name`    | `boolean` | `true`       | Show friendly name of the vacuum.                                       |
-| `show_status`  | `boolean` | `true`       | Show status of the vacuum.                                              |
+| `customCardTheme`| `string`  | Optional    | Select a custom theme of colors    |
+| `chargerImage`| `string`  | Anthracite    | Select a charger image from defaults    |
+| `customImage`  | `string`  | Optional    | Path to custom image of your charger. Better to have `png` or `svg`. This will override the chargerImage selection.   |
+| `compact_view`    | `boolean` | `false`       | Show compact view of the card.                                       |
+| `show_name`    | `boolean` | `true`       | Show friendly name of the charger.                                       |
+| `show_leds`  | `boolean` | `true`       | Show status leds for the charger, fits best with Easee chargers.              |
+| `show_status`  | `boolean` | `true`       | Show status of the charger.                                              |
+| `show_collapsibles`  | `boolean` | `true`       | Show collapsible menu buttons                                      |
 | `show_toolbar` | `boolean` | `true`       | Show toolbar with actions.                                              |
-| `compact_view` | `boolean` | `false`      | Compact view without image.                                             |
-| `stats`        | `object`  | Optional     | Custom per state stats for your vacuum cleaner                          |
-| `actions`      | `object`  | Optional     | Custom actions for your vacuum cleaner.                                 |
+| `show_stats` | `boolean` | `true`       | Show data table (stats). If not modified in `stats`, default values are shown.          |
+| `stats`        | `object`  | Optional     | Custom per state stats for your charger or something else, leave empty for default data fields |
+| `actions`      | `object`  | Optional     | Custom actions for your charger.                                 |
 
 ### `stats` object
 
-In addition to the charger info, you can use any attribute of vacuum or even any entity by `entity_id` to display by stats section:
+In addition to the charger info, you can use any sensor or sensor attribute of your choosing to be shown in the stats data table section:
 
 | Name        |   Type   | Default  | Description                                     |
 | ----------- | :------: | -------- | ----------------------------------------------- |
-| `entity_id` | `string` | Optional | An entity_id with state, i.e. `sensor.vacuum`.  |
-| `attribute` | `string` | Optional | Attribute name of the stat, i.e. `filter_left`. |
-| `unit`      | `string` | Optional | Unit of measure, i.e. `hours`.                  |
-| `subtitle`  | `string` | Optional | Friendly name of the stat, i.e. `Filter`.       |
+| `entity_id` | `string` | Optional | An entity_id with state, i.e. `easee_status`.  |
+| `attribute` | `string` | Optional | Attribute name of the stat, i.e. `circuit_ratedCurrent`. |
+| `unit`      | `string` | Optional | Unit of measure, i.e. `A`.                  |
+| `subtitle`  | `string` | Optional | Friendly name of the stat, i.e. `Rated Current`.       |
 
 ### `actions` object
 
-You can defined [custom scripts][ha-scripts] for custom actions i.e cleaning specific room and add them to this card with `actions` option.
+You can define [custom scripts][ha-scripts] or use services for custom actions and add them to this card with `actions` option.
 
 | Name           |   Type   | Default                           | Description                                        |
 | -------------- | :------: | --------------------------------- | -------------------------------------------------- |
-| `name`         | `string` | Optional                          | Friendly name of the action, i.e. `Clean bedroom`. |
-| `service`      | `string` | Optional                          | A service to call, i.e. `script.clean_bedroom`.    |
+| `name`         | `string` | Optional                          | Friendly name of the action, i.e. `Update FW`. |
+| `service`      | `string` | Optional                          | A service to call, i.e. `easee.update_firmware`.    |
 | `icon`         | `string` | Optional                          | Any icon for action button.                        |
-| `service_data` | `object` | `service_data` for `service` call |
+| `service_data` | `object` | `service_data` for `service` call | Verify necessary data in HA Developer Tools -> Services |
 
 ## Animations
 
@@ -127,7 +132,6 @@ MIT © [Tor Magne Johannessen][tmjo]
 
 <!-- Badges -->
 [npm-url]: https://npmjs.org/package/charger-card
-[npm-image]: https://img.shields.io/npm/v/vacuum-card.svg?style=flat-square
 [hacs-url]: https://github.com/custom-components/hacs
 [hacs-image]: https://img.shields.io/badge/HACS-Custom-orange.svg
 [buymeacoffee-url]: https://www.buymeacoffee.com/tmjo
