@@ -3,7 +3,6 @@ import { hasConfigOrEntityChanged, fireEvent, domainIcon } from 'custom-card-hel
 import './charger-card-editor';
 import localize from './localize';
 import styles from './styles';
-// import defaultImage from './img/charger_generic_223x302.png';
 import * as cconst from './const';
 
 if (!customElements.get('ha-icon-button')) {
@@ -58,7 +57,6 @@ class ChargerCard extends LitElement {
   get usedChargerLimit(){
     const { dynamicChargerCurrent, dynamicCircuitCurrent, maxChargerCurrent, maxCircuitCurrent } = this.getEntities();
     const circuitRatedCurrent = this.hass.states[this.config.entity].attributes["circuit_ratedCurrent"];
-    // const usedChargerLimit = Math.min(dynamicChargerCurrent.state, dynamicCircuitCurrent.state, maxChargerCurrent.state, maxCircuitCurrent.state, circuitRatedCurrent);
     const usedChargerLimit = Math.min(this.getEntityState(dynamicChargerCurrent), this.getEntityState(dynamicCircuitCurrent), this.getEntityState(maxChargerCurrent), this.getEntityState(maxCircuitCurrent), circuitRatedCurrent);
     return usedChargerLimit;
   }
@@ -149,9 +147,6 @@ class ChargerCard extends LitElement {
 
   getEntityId(entity_base){
     try{    
-      
-      // let myVar = entity_base.split(".")[0] + "." +this.entityBasename +"_" +entity_base.split(".")[1];
-      // console.log(myVar);
       return entity_base.split(".")[0] + "." +this.entityBasename +"_" +entity_base.split(".")[1];
     }catch(err){
       return null;
@@ -232,14 +227,6 @@ class ChargerCard extends LitElement {
       return null;
     }
   }
-  // getEntityState(entity_base){
-  //   console.log(entity_base);
-  //   try{
-  //     return this.getEntity(entity_base).state;
-  //   }catch(err){
-  //     return null;
-  //   }
-  // }
 
   getEntityAttribute(entity_base, attribute){
     try{
@@ -404,7 +391,6 @@ class ChargerCard extends LitElement {
   }
 
   renderImage(state) {
-    // if (this.compactView || !this.image) {
     let compactview = "";
     if(this.compactView){compactview = "-compact";}
 
@@ -426,7 +412,7 @@ class ChargerCard extends LitElement {
   }
 
   renderStats(state) {
-    /* SHOW DATATABLE? */
+    /* SHOW DATATABLE */
     if (!this.showStats) {
       return html``;
     }
@@ -521,7 +507,7 @@ class ChargerCard extends LitElement {
 
 
   renderCollapsibleConfig(){
-    /* SHOW COLLAPSIBLE? */
+    /* SHOW COLLAPSIBLES */
     if (!this.showCollapsibles) {
       return html``;
     }
@@ -555,7 +541,7 @@ class ChargerCard extends LitElement {
   }
 
   renderCollapsibleInfo(){
-    /* SHOW COLLAPSIBLE? */
+    /* SHOW COLLAPSIBLES */
     if (!this.showCollapsibles) {
       return html``;
     }
@@ -587,7 +573,7 @@ class ChargerCard extends LitElement {
   }  
 
   renderCollapsibleLimits(){
-    /* SHOW COLLAPSIBLE? */
+    /* SHOW COLLAPSIBLES */
     if (!this.showCollapsibles) {
       return html``;
     }
@@ -621,12 +607,10 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    // let value = entity.state;
     let value = this.getEntityState(entity);
     let icon = this.renderIcon(entity);
     let useUnit = this.getEntityAttribute(entity, 'unit_of_measurement');
     if(round){
-      // value = Math.round(entity.state);
       value = Math.round(value);
     }
     return html`
@@ -665,9 +649,7 @@ class ChargerCard extends LitElement {
     
     const sources = cconst.CURRENTLIMITS;
     let value = this.getEntityState(entity);
-    // let selected = sources.indexOf(entity.state);
     let selected = sources.indexOf(value);
-    // let useUnit = entity.attributes['unit_of_measurement'];
     let useUnit = this.getEntityAttribute(entity, 'unit_of_measurement');
     let useIcon = icon === undefined ? this.renderIcon(entity) : icon;
 
@@ -715,13 +697,10 @@ class ChargerCard extends LitElement {
     if(entity === null || entity === undefined){
       return html``;
     }
-    // let value = entity.state;
     let value = this.getEntityState(entity);
-    // let unit = entity.attributes['unit_of_measurement'];
     let useUnit = this.getEntityAttribute(entity, 'unit_of_measurement');
     let icon = this.renderIcon(entity);
     if(round){
-      // value = Math.round(entity.state);
       value = Math.round(value);
     }
     return html`
@@ -736,16 +715,14 @@ class ChargerCard extends LitElement {
   }
 
   renderIcon(entity){
-    // let icon = entity.attributes['icon'] ==! undefined ? entity.attributes['icon'] : cconst.ICONS[this.getEntityBase(entity.entity_id)] || "mdi:cancel";
     let entity_id = entity.entity_id;
     let icon = this.getEntityAttribute(entity, 'icon') ==! null ? this.getEntityAttribute(entity, 'icon') : cconst.ICONS[this.getEntityBase(entity_id)] || "mdi:cancel";
     let domainIcon = this.getEntityAttribute(entity, 'device_class') ==! null ? domainIcon(this.getEntityAttribute(entity, 'device_class'), this.getEntityState(entity)) : false;
-    // return domainicon ==! undefined ? domainicon : icon ==! undefined ? icon : cconst.ICONS[this.getEntityBase(entity.entity_id)] || "mdi:cancel";
     return domainIcon || icon;
   }
 
   renderToolbar(state) {
-    /* SHOW TOOLBAR? */
+    /* SHOW TOOLBAR */
     if (!this.showToolbar) {
       return html``;
     }
@@ -753,11 +730,6 @@ class ChargerCard extends LitElement {
     /* CUSTOM BUTTONS FROM CONFIG */
     const { actions = [] } = this.config;
     const customButtons = actions.map(({ name, service, icon, service_data }) => {
-      // const execute = () => {
-      //   const [domain, name] = service.split('.');
-      //   this.hass.callService(domain, name, service_data);
-      // };
-      // return html`<ha-icon-button icon="${icon}" title="${name}" @click="${execute}"></ha-icon-button>`;
       return this.renderToolbarButton(service, icon, name, service_data);
     });
 
@@ -829,17 +801,6 @@ class ChargerCard extends LitElement {
               </div>           
     `;
   }
-
-  // renderToolbarButton(service, icon, text){
-  //   return html`
-  //           <paper-button @click="${() => this.callService(service)}">
-  //             <div class="tooltip">
-  //               <ha-icon icon="${icon}"></ha-icon>
-  //               <span class="tooltiptext">${localize(text)}</span>
-  //             </div>
-  //           </paper-button>
-  //   `;
-  // }
 
   renderCompact() {
     const { state } = this.entity;

@@ -53,10 +53,6 @@ export class ChargerCardEditor extends LitElement {
 
   get _show_name() {
     if (this._config) {
-      // if(this._config.show_name != undefined){
-      //   console.log("this config show_name: " +this._config.show_name);      
-      //   return this._config.show_name;
-      // }
       return this._config.show_name !== undefined ? this._config.show_name : true;
     }
     return true;

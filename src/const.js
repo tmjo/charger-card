@@ -50,14 +50,6 @@ import imageBlack from './img/charger_black_223x302.png';
 import imageWhite from './img/charger_white_223x302.png';
 import imageDarkblue from './img/charger_darkblue_223x302.png';
 
-// export const CHARGER_IMAGES = {
-//     "Generic": imageGeneric,
-//     "Anthracite": imageAnthracite,
-//     "Red": imageRed,
-//     "Black": imageBlack,
-//     "White": imageWhite,
-//     "Darkblue": imageDarkblue
-// };
 
 export const DEFAULTIMAGE = "Generic";
 export const CHARGER_IMAGES = [
@@ -68,24 +60,6 @@ export const CHARGER_IMAGES = [
     {name: "White", img: imageWhite},
     {name: "Darkblue", img: imageDarkblue},
 ];
-
-// export const CHARGER_IMAGES = new Map([
-//                 ['Generic', imageGeneric],
-//                 ['Anthracite', imageAnthracite],
-//                 ['Red', imageRed],
-//                 ['Black', imageBlack],
-//                 ['White', imageWhite],
-//                 ['Darkblue', imageDarkblue],
-// ]);
-
-// export const CHARGER_IMAGES = {
-//     imageGeneric,
-//     imageAnthracite,
-//     imageRed,
-//     imageBlack,
-//     imageWhite,
-//     imageDarkblue,
-// };
 
 import ledOff from './img/charger_leds_bg.gif';
 import ledWhite2 from './img/charger_leds_white_2.gif';
@@ -119,26 +93,6 @@ export const LEDIMAGES = {
 
 };
 
-
-// export const LEDIMAGES = {
-//     normal: {
-//          'STANDBY': "./img/charger_leds_white_2.gif",
-//          'PAUSED': "./img/charger_leds_white_all.gif",
-//          'CHARGING': "./img/charger_leds_white_flashing.gif",
-//          'READY_TO_CHARGE': "./img/charger_leds_white_all.gif",
-//          'ERROR': "./img/charger_leds_off.gif",
-//          'CAR_CONNECTED': "./img/charger_leds_white_all.gif",        
-//     },
-//     smart: {
-//         'STANDBY': "./img/charger_leds_blue_2.gif",
-//         'PAUSED': "./img/charger_leds_blue_all.gif",
-//         'CHARGING': "./img/charger_leds_blue_flashing.gif",
-//         'READY_TO_CHARGE': "./img/charger_leds_blue_all.gif",
-//         'ERROR': "./img/charger_leds_off.gif",
-//         'CAR_CONNECTED': "./img/charger_leds_blue_all.gif",        
-//     }
-
-// };
 
 export const ICONS={
     "binary_sensor.cable_locked_car" : "mdi:lock",
