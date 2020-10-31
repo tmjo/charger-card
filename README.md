@@ -96,9 +96,13 @@ You can define [custom scripts][ha-scripts] or use services for custom actions a
 | `icon`         | `string` | Optional                          | Any icon for action button.                        |
 | `service_data` | `object` | `service_data` for `service` call | Verify necessary data in HA Developer Tools -> Services |
 
-## Animations
+## Features
 
-If choosing the default images of Easee chargers in any color, you can also choose to show leds which will behave according to charger status. This is identical to how the charger looks physically and similar to the Easee app and web site. Two leds for standby, all leds when connected, flashing while charging and so on. If SmartCharging is enabled, leds will be blue.
+- Animations: If choosing the default images of Easee chargers in any color, you can also choose to show leds which will behave according to charger status. This is identical to how the charger looks physically and similar to the Easee app and web site. Two leds for standby, all leds when connected, flashing while charging and so on. If SmartCharging is enabled, leds will be blue.
+- Collapsible menu buttons: Click on one of the menu buttons (if you enabled them) to get more info, config or limit settings.
+- Possibility to set current limits from UI
+- Stats items (data table) will depend on charger status and show most relevant information unless you choose to customize it
+- Action items on toolbar will depend on charger status and show most relevant actions. Custom actions are added in addition to defaults.
 
 ## Supported languages
 This card supports translations. Please, help to add more translations and improve existing ones. Here's a list of supported languages:
