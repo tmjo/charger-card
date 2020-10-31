@@ -20,13 +20,9 @@ By default, Home Assistant does not provide any card for controlling chargers fo
 </a>
 
 ### HACS
-
-This card is available in [HACS][hacs] (Home Assistant Community Store).
-
-Just search for `Charger Card` in plugins tab.
+This card is not yet available as default in [HACS][hacs] (Home Assistant Community Store), but can still be installed through HACS by adding this repository as a custom repository inside HACS settings. 
 
 ### Manual
-
 1. Download `charger-card.js` file from the [latest-release].
 2. Put `charger-card.js` file into your `config/www` folder.
 3. Add reference to `charger-card.js` in Lovelace. There are two ways to do that:
@@ -97,14 +93,9 @@ You can defined [custom scripts][ha-scripts] for custom actions i.e cleaning spe
 
 ## Animations
 
-If choosing the default images of Easee chargers in any color, you can choose to show leds which will update according to charger status. This is identical to how the charger looks physically and similar to the Easee app and web site. 
-
-|              Cleaning               |                Docking                |
-| :---------------------------------: | :-----------------------------------: |
-| ![Cleaning anumation][cleaning-gif] | ![Returning anumation][returning-gif] |
+If choosing the default images of Easee chargers in any color, you can also choose to show leds which will behave according to charger status. This is identical to how the charger looks physically and similar to the Easee app and web site. Two leds for standby, all leds when connected, flashing while charging and so on. If SmartCharging is enabled, leds will be blue.
 
 ## Supported languages
-
 This card supports translations. Please, help to add more translations and improve existing ones. Here's a list of supported languages:
 
 - English
@@ -112,7 +103,6 @@ This card supports translations. Please, help to add more translations and impro
 - [_Your language?_][add-translation]
 
 ## Supported models
-
 This card currently supports charging robots from <a href='https://easee-international.com/'>Easee</a>. It could be modified to support basically any charger, but adoptions of the code will be necessary since there is no platform in Home Assistant for chargers making the interface identical.
 
 Supported chargers:
@@ -120,7 +110,6 @@ Supported chargers:
 - [_Your charger?_][edit-readme]
 
 ## Development
-
 Want to contribute to the project?
 
 First of all, thanks! Check [contributing guideline](./CONTRIBUTING.md) for more information.
@@ -140,16 +129,14 @@ MIT © [Tor Magne Johannessen][tmjo]
 [npm-url]: https://npmjs.org/package/charger-card
 [npm-image]: https://img.shields.io/npm/v/vacuum-card.svg?style=flat-square
 [hacs-url]: https://github.com/custom-components/hacs
-[hacs-image]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
+[hacs-image]: https://img.shields.io/badge/HACS-Custom-orange.svg
 [buymeacoffee-url]: https://www.buymeacoffee.com/tmjo
 [buymeacoffee-image]: https://img.shields.io/badge/support-buymeacoffee-222222.svg?style=flat-square
 
 <!-- References -->
 [home-assistant]: https://www.home-assistant.io/
 [hacs]: https://hacs.xyz
-[preview-image]: https://user-images.githubusercontent.com/3459374/83282788-c9e30280-a1e2-11ea-8e13-6208169ddc0a.png
-[cleaning-gif]: https://user-images.githubusercontent.com/3459374/81119202-fa60b500-8f32-11ea-9b23-325efa93d7ab.gif
-[returning-gif]: https://user-images.githubusercontent.com/3459374/81119452-765afd00-8f33-11ea-9dc5-9c26ba3f8c45.gif
+[preview-image]: https://user-images.githubusercontent.com/54450177/97765425-56874900-1b12-11eb-9c0c-87721e0b5748.png
 [latest-release]: https://github.com/tmjo/lovelace-charger-card/releases/latest
 [ha-scripts]: https://www.home-assistant.io/docs/scripts/
 [edit-readme]: https://github.com/tmjo/lovelace-charger-card/edit/master/README.md
