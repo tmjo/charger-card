@@ -1,11 +1,11 @@
 {
   "status": {
-    "STANDBY": "Standby",
-    "PAUSED": "Paused",
-    "CHARGING": "Charging",
-    "READY_TO_CHARGE": "Ready to charge",
-    "ERROR": "Error",
-    "CAR_CONNECTED": "Car connected"
+    "disconnected": "Disconnected",
+    "awaiting_start": "Paused or awaiting start",
+    "charging": "Charging",
+    "completed": "Completed or awaiting car",
+    "error": "Error",
+    "ready_to_charge": "Ready to charge"
   },
   "common": {
     "name": "Charger Card",
@@ -43,7 +43,7 @@
     "show_stats_aria_label_off": "Toggle display data table off",
     "show_collapsibles": "Show collapsible menu buttons",
     "show_collapsibles_aria_label_on": "Toggle display collapsible menus on",
-    "show_collapsibles_aria_label_off": "Toggle display collapsible menus off",  
+    "show_collapsibles_aria_label_off": "Toggle display collapsible menus off",
     "show_toolbar": "Show Toolbar",
     "show_toolbar_aria_label_on": "Toggle display toolbar on",
     "show_toolbar_aria_label_off": "Toggle display toolbar off",

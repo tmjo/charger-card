@@ -1,11 +1,11 @@
 {
   "status": {
-    "STANDBY": "Ventemodus",
-    "PAUSED": "Pause",
-    "CHARGING": "Lader",
-    "READY_TO_CHARGE": "Klar til lading",
-    "ERROR": "Feil",
-    "CAR_CONNECTED": "Bil tilkoblet"
+    "disconnected": "Frakoblet",
+    "awaiting_start": "Pauset eller venter på start",
+    "charging": "Lader",
+    "completed": "Fullført eller venter på bil",
+    "error": "Feil",
+    "ready_to_charge": "Klar til lading"
   },
   "common": {
     "name": "Charger Card",
@@ -43,7 +43,7 @@
     "show_stats_aria_label_off": "Toggle display data table off",
     "show_collapsibles": "Vis sammenslåbare menyvalg",
     "show_collapsibles_aria_label_on": "Toggle display collapsible menus on",
-    "show_collapsibles_aria_label_off": "Toggle display collapsible menus off",  
+    "show_collapsibles_aria_label_off": "Toggle display collapsible menus off",
     "show_toolbar": "Vis verktøylinje",
     "show_toolbar_aria_label_on": "Toggle display toolbar on",
     "show_toolbar_aria_label_off": "Toggle display toolbar off",
