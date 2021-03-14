@@ -135,18 +135,18 @@ class ChargerCard extends LitElement {
     return this.config.compact_view;
   }
   get useStatsDefault() {
-    if (this.config.useStatsDefault === undefined || this.config.stats === undefined) {
+    if (this.config.stats === undefined) {
       return true;
     }
     return false;
   }
-  
+
   get entityBasename(){
     return this.config.entity.split(".")[1].replace(cconst.STATUS_ENTITY_BASE, "");
   }
 
   getEntityId(entity_base){
-    try{    
+    try{
       return entity_base.split(".")[0] + "." +this.entityBasename +"_" +entity_base.split(".")[1];
     }catch(err){
       return null;
@@ -154,7 +154,7 @@ class ChargerCard extends LitElement {
   }
 
   getEntityBase(entity_id){
-    try{    
+    try{
       return entity_id.split(".")[0] + "." +entity_id.split(".")[1].replace(this.entityBasename +"_","");
     }catch(err){
       return null;
@@ -212,7 +212,7 @@ class ChargerCard extends LitElement {
   }
 
   getEntity(entity_base){
-    try{    
+    try{
       return this.hass.states[this.getEntityId(entity_base)];
     }catch(err){
       return null;
@@ -234,7 +234,7 @@ class ChargerCard extends LitElement {
     }catch(err){
       return null;
     }
-  }  
+  }
 
   getEntityAttributes(entity_base){
     try{
@@ -264,7 +264,7 @@ class ChargerCard extends LitElement {
       }
       case cconst.CHARGERSTATUS.CHARGING_3:{
         return [
-          {entity_id: this.getEntityId(cconst.ENTITIES.sessionEnergy), unit: "kWh", subtitle: "Energy"},        
+          {entity_id: this.getEntityId(cconst.ENTITIES.sessionEnergy), unit: "kWh", subtitle: "Energy"},
           {entity_id: this.getEntityId(cconst.ENTITIES.energyPerHour), unit: "kWh/h", subtitle: "Rate"},
           {entity_id: this.getEntityId(cconst.ENTITIES.circuitCurrent), unit: "A", subtitle: "Circuit"},
           {entity_id: this.getEntityId(cconst.ENTITIES.outputCurrent), unit: "A", subtitle: "Allowed"},
@@ -404,7 +404,7 @@ class ChargerCard extends LitElement {
     if (this.showLeds) {
       let compactview = "";
       if(this.compactView){compactview = "-compact";}
-  
+
       const smartCharging = this.getEntityState(cconst.ENTITIES.smartCharging);
       return html`<img class="charger led${compactview}" src="${this.imageLed(state, smartCharging)}" @click="${() => this.handleMore()}"?more-info="true"/> `;
     }
@@ -437,13 +437,13 @@ class ChargerCard extends LitElement {
         return this.renderStatsHtml(calcValue, unit, subtitle);
       }
       this.getEntity()
-      try{    
+      try{
         const value = attribute ? this.hass.states[entity_id].attributes[attribute] : this.hass.states[entity_id].state
         return this.renderStatsHtml(value, unit, subtitle, this.hass.states[entity_id]);
       }catch(err){
         return null;
       }
-      
+
     });
   }
 
@@ -519,7 +519,7 @@ class ChargerCard extends LitElement {
     <div class="wrap-collabsible">
       <input id="collapsible" class="toggle" type="checkbox">
         <label for="collapsible" class="lbl-toggle">
-          <div class="tooltip-right">  
+          <div class="tooltip-right">
             <ha-icon icon="mdi:cog"></ha-icon>
             <span class="tooltiptext-right">Click for config</span>
           </div>
@@ -534,7 +534,7 @@ class ChargerCard extends LitElement {
             ${this.renderCollapsibleItems(costPerKwh, "Energy cost")}
             ${this.renderCollapsibleItems(updateAvailable, "Update Available")}
             ${updateAvailableState === 'on' && this.entity.state === cconst.CHARGERSTATUS.STANDBY_1 ? this.renderCollapsibleServiceItems(undefined, "update_firmware", "Update", "mdi:file-download", "Update Firmware") : ''}
-            ${this.renderCollapsibleServiceItems(undefined, "reboot", "Reboot", "mdi:restart", "Reboot")}         
+            ${this.renderCollapsibleServiceItems(undefined, "reboot", "Reboot", "mdi:restart", "Reboot")}
         </div>
       </div>
   `;
@@ -552,25 +552,25 @@ class ChargerCard extends LitElement {
       <div class="wrap-collabsible-info">
         <input id="collapsible-info" class="toggle-info" type="checkbox">
           <label for="collapsible-info" class="lbl-toggle-info">
-            <div class="tooltip-right">  
+            <div class="tooltip-right">
               <ha-icon icon="mdi:information"></ha-icon>
               <span class="tooltiptext-right">Click for info</span>
             </div>
           </label>
         <div class="collapsible-content-info">
           <div class="content-inner-info">
-              ${this.renderCollapsibleItems(isOnline, "Online")}    
+              ${this.renderCollapsibleItems(isOnline, "Online")}
               ${this.renderCollapsibleItems(voltage, "Voltage", true)}
-              ${this.renderCollapsibleItems(totalPower, "Power", true)}            
+              ${this.renderCollapsibleItems(totalPower, "Power", true)}
               ${this.renderCollapsibleItems(inCurrent, "Charger Current", true)}
               ${this.renderCollapsibleItems(circuitCurrent, "Circuit Current", true)}
               ${this.renderCollapsibleItems(energyPerHour, "Energy per hour")}
               ${this.renderCollapsibleItems(sessionEnergy, "Session Energy")}
           </div>
-        </div>  
-      </div>      
+        </div>
+      </div>
   `;
-  }  
+  }
 
   renderCollapsibleLimits(){
     /* SHOW COLLAPSIBLES */
@@ -584,7 +584,7 @@ class ChargerCard extends LitElement {
       <div class="wrap-collabsible-lim">
         <input id="collapsible-lim" class="toggle-lim" type="checkbox">
           <label for="collapsible-lim" class="lbl-toggle-lim">
-            <div class="tooltip-right">  
+            <div class="tooltip-right">
               <ha-icon icon="mdi:speedometer"></ha-icon>
               <span class="tooltiptext-right">Click for limits</span>
             </div>
@@ -596,12 +596,12 @@ class ChargerCard extends LitElement {
               ${this.renderCollapsibleDropDownItems(maxCircuitCurrent, cconst.SERVICES.circuitMaxCurrent, "Max Circuit", undefined, "Max Circuit Current", true)}
               ${this.renderCollapsibleDropDownItems(dynamicCircuitCurrent, cconst.SERVICES.circuitDynCurrent, "Dyn Circuit", undefined, "Dyn Charger Current", true)}
           </div>
-        </div>  
-      </div>      
+        </div>
+      </div>
   `;
-  }  
+  }
 
-  
+
   renderCollapsibleItems(entity, tooltip, round=false){
     if(entity === null || entity === undefined){
       return html``;
@@ -617,7 +617,7 @@ class ChargerCard extends LitElement {
             <div class="collapsible-item" @click="${() => this.handleMore(entity)}"?more-info="true">
               <div class="tooltip">
                 <ha-icon icon="${icon}"></ha-icon>
-                <br>${value} ${useUnit} 
+                <br>${value} ${useUnit}
                 <span class="tooltiptext">${tooltip}</span>
               </div>
             </div>
@@ -646,7 +646,7 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    
+
     const sources = cconst.CURRENTLIMITS;
     let value = this.getEntityState(entity);
     let selected = sources.indexOf(value);
@@ -667,10 +667,10 @@ class ChargerCard extends LitElement {
         </paper-listbox>
       </paper-menu-button>
     `;
-  }  
+  }
 
   renderInfoItemsLeft(){
-    const { isOnline} = this.getEntities();    
+    const { isOnline} = this.getEntities();
     return html`
       ${this.renderInfoItem(isOnline, "Online")}
     `;
@@ -680,7 +680,7 @@ class ChargerCard extends LitElement {
     const { totalPower, voltage} = this.getEntities();
     return html`
       ${this.renderInfoItem(voltage, "Voltage", true)}
-      ${this.renderInfoItem(totalPower, "Power", true)}                 
+      ${this.renderInfoItem(totalPower, "Power", true)}
     `;
   }
 
@@ -688,7 +688,7 @@ class ChargerCard extends LitElement {
     const { totalPower, voltage} = this.getEntities();
     return html`
       ${this.renderInfoItem(voltage, "Voltage", true)}
-      ${this.renderInfoItem(totalPower, "Power", true)}                 
+      ${this.renderInfoItem(totalPower, "Power", true)}
     `;
 
   }
@@ -706,8 +706,8 @@ class ChargerCard extends LitElement {
     return html`
             <div class="infoitems-item" @click="${() => this.handleMore(entity)}"?more-info="true">
               <div class="tooltip">
-              <ha-icon icon="${icon}"></ha-icon>              
-                ${value} ${useUnit} 
+              <ha-icon icon="${icon}"></ha-icon>
+                ${value} ${useUnit}
                 <span class="tooltiptext">${tooltip}</span>
               </div>
             </div>
@@ -748,7 +748,7 @@ class ChargerCard extends LitElement {
             ${this.renderToolbarButton('override_schedule','hass:motion-play','common.override')}
         `;
         break;
-      }        
+      }
       case cconst.CHARGERSTATUS.CHARGING_3: {
         stateButtons = html`
             ${this.renderToolbarButton('pause','hass:pause','common.pause')}
@@ -783,7 +783,7 @@ class ChargerCard extends LitElement {
               ${stateButtons}
             <div class="fill-gap"></div>
               ${customButtons}
-          </div>    
+          </div>
     `;
   }
 
@@ -798,7 +798,7 @@ class ChargerCard extends LitElement {
               <div class="tooltip">
                 <ha-icon-button icon="${icon}" title="${useText}" @click="${() => this.callService(service, isRequest, service_data)}"></ha-icon-button>
                 <span class="tooltiptext">${useText}</span>
-              </div>           
+              </div>
     `;
   }
 
@@ -808,9 +808,9 @@ class ChargerCard extends LitElement {
       <ha-card>
         <div class="preview-compact">
           ${this.renderImage(state)}
-          
+
           <div class="metadata">
-            ${this.renderName()} 
+            ${this.renderName()}
             ${this.renderStatus()}
           </div>
 
@@ -822,7 +822,7 @@ class ChargerCard extends LitElement {
           <div class="stats">
             ${this.renderStats(state)}
           </div>
-        </div>     
+        </div>
 
         ${this.renderToolbar(state)}
       </ha-card>
@@ -848,7 +848,7 @@ class ChargerCard extends LitElement {
           </div>
 
           ${this.renderImage(state)}
-          
+
           <div class="metadata">
             ${this.renderName()} ${this.renderStatus()}
           </div>
@@ -860,7 +860,7 @@ class ChargerCard extends LitElement {
           <div class="stats">
             ${this.renderStats(state)}
           </div>
-        </div>     
+        </div>
 
         ${this.renderToolbar(state)}
       </ha-card>
@@ -904,12 +904,12 @@ class ChargerCard extends LitElement {
         this.style.setProperty('--custom-icon-color', '#FFF')
         break;
       }
-    } 
+    }
   }
 
   render() {
-    this.renderCustomCardTheme();    
-    
+    this.renderCustomCardTheme();
+
     if (!this.entity) {
       return html`
         <ha-card>
@@ -923,8 +923,8 @@ class ChargerCard extends LitElement {
         </ha-card>
       `;
     }
-       
-    if (this.compactView) {    
+
+    if (this.compactView) {
       return this.renderCompact();
     }else{
       return this.renderFull();
