@@ -534,7 +534,7 @@ class ChargerCard extends LitElement {
             ${this.renderCollapsibleItems(costPerKwh, "Energy cost")}
             ${this.renderCollapsibleItems(updateAvailable, "Update Available")}
             ${updateAvailableState === 'on' && this.entity.state === cconst.CHARGERSTATUS.STANDBY_1 ? this.renderCollapsibleServiceItems(undefined, "update_firmware", "Update", "mdi:file-download", "Update Firmware") : ''}
-            ${this.renderCollapsibleServiceItems(undefined, "reboot", "Reboot", "mdi:restart", "Reboot")}
+            ${updateAvailableState === 'on' && this.entity.state === cconst.CHARGERSTATUS.STANDBY_1 ? this.renderCollapsibleServiceItems(undefined, "reboot", "Reboot", "mdi:restart", "Reboot") : ''}
         </div>
       </div>
   `;
@@ -625,13 +625,13 @@ class ChargerCard extends LitElement {
   }
 
   renderCollapsibleServiceItems(entity, service, text, icon, tooltip, isRequest=true, options={}){
-    if(entity === null || entity === undefined){
-      return html``;
+    let useIcon = icon;
+    if (icon === null || icon === undefined) {
+      let useIcon = this.renderIcon(entity);
     }
 
-    let useIcon = icon === undefined ? this.renderIcon(entity) : icon;
     return html`
-            <div class="collapsible-item" @click="${() => this.callService(service, isRequest, options)}" @dblclick="${() => this.handleMore(entity)}"?more-info="true">
+            <div class="collapsible-item" @click="${() => this.callService(service, isRequest, options)}">
               <div class="tooltip">
                 <ha-icon icon="${useIcon}"></ha-icon>
                 <br>${text}
