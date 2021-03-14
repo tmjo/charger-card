@@ -111,6 +111,7 @@ export const ICONS = {
   'sensor.reason_for_no_current': 'mdi:alert-circle',
   'sensor.session_energy': 'mdi:flash',
   'sensor.energy_per_hour': 'mdi:flash',
+  'sensor.lifetime_energy' : 'mdi:flash',
   'switch.smart_charging': 'mdi:auto-fix',
   'sensor.power': 'mdi:flash',
   'binary_sensor.update_available': 'mdi:file-download',

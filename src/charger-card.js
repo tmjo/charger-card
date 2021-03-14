@@ -180,6 +180,7 @@ class ChargerCard extends LitElement {
     const reasonForNoCurrent = this.getEntity(cconst.ENTITIES.reasonForNoCurrent);
     const sessionEnergy = this.getEntity(cconst.ENTITIES.sessionEnergy);
     const energyPerHour = this.getEntity(cconst.ENTITIES.energyPerHour);
+    const energyLifetime = this.getEntity(cconst.ENTITIES.energyLifetime);
     const smartCharging = this.getEntity(cconst.ENTITIES.smartCharging);
     const totalPower = this.getEntity(cconst.ENTITIES.totalPower);
     const updateAvailable = this.getEntity(cconst.ENTITIES.updateAvailable);
@@ -205,6 +206,7 @@ class ChargerCard extends LitElement {
       reasonForNoCurrent,
       sessionEnergy,
       energyPerHour,
+      energyLifetime,
       smartCharging,
       totalPower,
       updateAvailable,
@@ -549,7 +551,7 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    const { isOnline, voltage, totalPower, circuitCurrent, inCurrent, sessionEnergy, energyPerHour} = this.getEntities();
+    const { isOnline, voltage, totalPower, circuitCurrent, inCurrent, sessionEnergy, energyPerHour, energyLifetime} = this.getEntities();
 
     return html`
       <div class="wrap-collabsible-info">
@@ -569,6 +571,7 @@ class ChargerCard extends LitElement {
               ${this.renderCollapsibleItems(circuitCurrent, "Circuit Current", true)}
               ${this.renderCollapsibleItems(energyPerHour, "Energy per hour")}
               ${this.renderCollapsibleItems(sessionEnergy, "Session Energy")}
+              ${this.renderCollapsibleItems(energyLifetime, "Lifetime Energy", true)}
           </div>
         </div>
       </div>
