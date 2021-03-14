@@ -101,6 +101,7 @@ export const ICONS = {
   'sensor.dynamic_charger_limit': 'mdi:sine-wave',
   'sensor.dynamic_circuit_limit': 'mdi:sine-wave',
   'switch.enable_idle_current': 'mdi:current-dc',
+  'sensor.offline_circuit_limit': 'mdi:sine-wave',
   'sensor.current': 'mdi:sine-wave',
   'switch.is_enabled': 'mdi:power',
   'sensor.max_charger_limit': 'mdi:sine-wave',

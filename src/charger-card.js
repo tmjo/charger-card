@@ -170,6 +170,7 @@ class ChargerCard extends LitElement {
     const dynamicChargerCurrent = this.getEntity(cconst.ENTITIES.dynamicChargerCurrent);
     const dynamicCircuitCurrent = this.getEntity(cconst.ENTITIES.dynamicCircuitCurrent);
     const enableIdleCurrent = this.getEntity(cconst.ENTITIES.enableIdleCurrent);
+    const offlineCircuitCurrent = this.getEntity(cconst.ENTITIES.offlineCircuitCurrent);
     const inCurrent = this.getEntity(cconst.ENTITIES.inCurrent);
     const isEnabled = this.getEntity(cconst.ENTITIES.isEnabled);
     const maxChargerCurrent = this.getEntity(cconst.ENTITIES.maxChargerCurrent);
@@ -194,6 +195,7 @@ class ChargerCard extends LitElement {
       dynamicChargerCurrent,
       dynamicCircuitCurrent,
       enableIdleCurrent,
+      offlineCircuitCurrent,
       inCurrent,
       isEnabled,
       maxChargerCurrent,
@@ -512,7 +514,7 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    const { cableLocked, cableLockedPermanently, enableIdleCurrent, isEnabled, smartCharging, updateAvailable, costPerKwh} = this.getEntities();
+    const { cableLocked, cableLockedPermanently, enableIdleCurrent, isEnabled, smartCharging, updateAvailable, costPerKwh, offlineCircuitCurrent} = this.getEntities();
     let updateAvailableState = this.getEntityState(updateAvailable) || "off";
 
     return html`
@@ -528,6 +530,7 @@ class ChargerCard extends LitElement {
         <div class="content-inner">
             ${this.renderCollapsibleItems(isEnabled, "Enabled")}
             ${this.renderCollapsibleItems(enableIdleCurrent, "Idle Current")}
+            ${this.renderCollapsibleItems(offlineCircuitCurrent, "Offline limit")}
             ${this.renderCollapsibleItems(cableLockedPermanently, "Permanently Locked")}
             ${this.renderCollapsibleItems(cableLocked, "Locked")}
             ${this.renderCollapsibleItems(smartCharging, "Smart Charging")}
