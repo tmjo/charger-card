@@ -64,6 +64,7 @@ export const SERVICES = {
   chargerDynCurrent: 'set_charger_dynamic_limit',
   circuitMaxCurrent: 'set_charger_circuit_max_limit',
   circuitDynCurrent: 'set_charger_circuit_dynamic_limit',
+  circuitOfflineCurrent: 'set_charger_circuit_offline_limit',
 };
 
 import imageGeneric from './img/charger_generic_223x302.png';

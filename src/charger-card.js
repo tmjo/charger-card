@@ -516,7 +516,7 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    const { cableLocked, cableLockedPermanently, enableIdleCurrent, isEnabled, smartCharging, updateAvailable, costPerKwh, offlineCircuitCurrent} = this.getEntities();
+    const { cableLocked, cableLockedPermanently, enableIdleCurrent, isEnabled, smartCharging, updateAvailable, costPerKwh} = this.getEntities();
     let updateAvailableState = this.getEntityState(updateAvailable) || "off";
 
     return html`
@@ -532,7 +532,6 @@ class ChargerCard extends LitElement {
         <div class="content-inner">
             ${this.renderCollapsibleItems(isEnabled, "Enabled")}
             ${this.renderCollapsibleItems(enableIdleCurrent, "Idle Current")}
-            ${this.renderCollapsibleItems(offlineCircuitCurrent, "Offline limit")}
             ${this.renderCollapsibleItems(cableLockedPermanently, "Permanently Locked")}
             ${this.renderCollapsibleItems(cableLocked, "Locked")}
             ${this.renderCollapsibleItems(smartCharging, "Smart Charging")}
@@ -584,7 +583,7 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    const { maxChargerCurrent, maxCircuitCurrent, dynamicChargerCurrent, dynamicCircuitCurrent} = this.getEntities();
+    const { maxChargerCurrent, maxCircuitCurrent, dynamicChargerCurrent, dynamicCircuitCurrent, offlineCircuitCurrent} = this.getEntities();
 
     return html`
       <div class="wrap-collabsible-lim">
@@ -597,10 +596,11 @@ class ChargerCard extends LitElement {
           </label>
         <div class="collapsible-content-lim">
           <div class="content-inner-lim">
-              ${this.renderCollapsibleDropDownItems(maxChargerCurrent, cconst.SERVICES.chargerMaxCurrent, "Max Charger", undefined, "Max Charger Current", true)}
-              ${this.renderCollapsibleDropDownItems(dynamicChargerCurrent, cconst.SERVICES.chargerDynCurrent, "Dyn Charger", undefined, "Dyn Charger Current", true)}
-              ${this.renderCollapsibleDropDownItems(maxCircuitCurrent, cconst.SERVICES.circuitMaxCurrent, "Max Circuit", undefined, "Max Circuit Current", true)}
-              ${this.renderCollapsibleDropDownItems(dynamicCircuitCurrent, cconst.SERVICES.circuitDynCurrent, "Dyn Circuit", undefined, "Dyn Charger Current", true)}
+              ${this.renderCollapsibleDropDownItems(maxChargerCurrent, cconst.SERVICES.chargerMaxCurrent, "Max Charger", undefined, "Max Charger Limit", true)}
+              ${this.renderCollapsibleDropDownItems(dynamicChargerCurrent, cconst.SERVICES.chargerDynCurrent, "Dyn Charger", undefined, "Dyn Charger Limit", true)}
+              ${this.renderCollapsibleDropDownItems(maxCircuitCurrent, cconst.SERVICES.circuitMaxCurrent, "Max Circuit", undefined, "Max Circuit Limit", true)}
+              ${this.renderCollapsibleDropDownItems(dynamicCircuitCurrent, cconst.SERVICES.circuitDynCurrent, "Dyn Circuit", undefined, "Dyn Charger Limit", true)}
+              ${this.renderCollapsibleDropDownItems(offlineCircuitCurrent, cconst.SERVICES.circuitOfflineCurrent, "Off Lim", undefined, "Offline Limit", true)}
           </div>
         </div>
       </div>
