@@ -599,7 +599,7 @@ class ChargerCard extends LitElement {
               ${this.renderCollapsibleDropDownItems(maxChargerCurrent, cconst.SERVICES.chargerMaxCurrent, "Max Charger", undefined, "Max Charger Limit", true)}
               ${this.renderCollapsibleDropDownItems(dynamicChargerCurrent, cconst.SERVICES.chargerDynCurrent, "Dyn Charger", undefined, "Dyn Charger Limit", true)}
               ${this.renderCollapsibleDropDownItems(maxCircuitCurrent, cconst.SERVICES.circuitMaxCurrent, "Max Circuit", undefined, "Max Circuit Limit", true)}
-              ${this.renderCollapsibleDropDownItems(dynamicCircuitCurrent, cconst.SERVICES.circuitDynCurrent, "Dyn Circuit", undefined, "Dyn Charger Limit", true)}
+              ${this.renderCollapsibleDropDownItems(dynamicCircuitCurrent, cconst.SERVICES.circuitDynCurrent, "Dyn Circuit", undefined, "Dyn Circuit Limit", true)}
               ${this.renderCollapsibleDropDownItems(offlineCircuitCurrent, cconst.SERVICES.circuitOfflineCurrent, "Off Lim", undefined, "Offline Limit", true)}
           </div>
         </div>
