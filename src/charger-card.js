@@ -388,7 +388,7 @@ class ChargerCard extends LitElement {
 
   imageLed(state, smartCharging) {
     let chargingMode = "normal";
-    if(smartCharging === "on"){
+    if(smartCharging == "on"){
       chargingMode = "smart";
     }
     return cconst.LEDIMAGES[chargingMode][state] || cconst.LEDIMAGES[chargingMode]["DEFAULT"];
@@ -409,7 +409,7 @@ class ChargerCard extends LitElement {
       let compactview = "";
       if(this.compactView){compactview = "-compact";}
 
-      const smartCharging = this.getEntityState(cconst.ENTITIES.smartCharging);
+      const smartCharging = this.getEntityState(this.getEntity(cconst.ENTITIES.smartCharging));
       return html`<img class="charger led${compactview}" src="${this.imageLed(state, smartCharging)}" @click="${() => this.handleMore()}"?more-info="true"/> `;
     }
     return html ``;
