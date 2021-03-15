@@ -565,7 +565,7 @@ class ChargerCard extends LitElement {
           <div class="content-inner-info">
               ${this.renderCollapsibleItems(isOnline, "Online")}
               ${this.renderCollapsibleItems(voltage, "Voltage", true)}
-              ${this.renderCollapsibleItems(totalPower, "Power", true)}
+              ${this.renderCollapsibleItems(totalPower, "Power")}
               ${this.renderCollapsibleItems(inCurrent, "Charger Current", true)}
               ${this.renderCollapsibleItems(circuitCurrent, "Circuit Current", true)}
               ${this.renderCollapsibleItems(energyPerHour, "Energy per hour")}
@@ -686,7 +686,7 @@ class ChargerCard extends LitElement {
     const { totalPower, voltage} = this.getEntities();
     return html`
       ${this.renderInfoItem(voltage, "Voltage", true)}
-      ${this.renderInfoItem(totalPower, "Power", true)}
+      ${this.renderInfoItem(totalPower, "Power")}
     `;
   }
 
