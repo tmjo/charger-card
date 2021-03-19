@@ -1,4 +1,4 @@
-export const CARD_VERSION = '0.0.6a';
+export const VERSION = '0.0.6a';
 
 export const CHARGERDOMAIN = 'easee';
 export const STATUS_ENTITY_BASE = '_status';
