@@ -17,11 +17,11 @@ Only native speaker can translate to specific language.
 
 1. Clone this repo to wherever you want:
    ```sh
-   git clone https://github.com/tmjo/lovelace-charger-card.git
+   git clone https://github.com/tmjo/charger-card.git
    ```
 2. Go into the repo folder:
    ```sh
-   cd lovelace-charger-card
+   cd charger-card
    ```
 3. Install dependencies (Node.js and npm are required):
    ```sh
