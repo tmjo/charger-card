@@ -469,6 +469,10 @@ class ChargerCard extends LitElement {
         const current = e.target.getAttribute('value');
         return this.callService(service, isRequest, { current });
       }
+      case cconst.SERVICES.circuitOfflineCurrent: {
+        const currentP1 = e.target.getAttribute('value');
+        return this.callService(service, isRequest, { currentP1 });
+      }
       case cconst.SERVICES.circuitMaxCurrent: {
         const currentP1 = e.target.getAttribute('value');
         return this.callService(service, isRequest, { currentP1 });
