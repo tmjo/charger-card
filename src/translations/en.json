@@ -16,7 +16,17 @@
     "stop": "Stop",
     "override": "Override schedule",
     "reboot": "Reboot charger",
-    "not_available": "Charger not available"
+    "not_available": "Charger not available",
+    "click_for_info": "Click for Info",
+    "click_for_config": "Click for Config",
+    "click_for_limits": "Click for Limits",
+    "online": "Online",
+    "voltage": "Voltage",
+    "power": "Power",
+    "charger_current": "Changer Current",
+    "energy_per_hour": "Energy per Hour",
+    "lifetime_energy": "Lifetime Energy",
+    "circuit_current": "Circuit Energy"
   },
   "error": {
     "missing_entity": "Specifying entity is required!"
@@ -48,5 +58,12 @@
     "show_toolbar_aria_label_on": "Toggle display toolbar on",
     "show_toolbar_aria_label_off": "Toggle display toolbar off",
     "code_only_note": "Note: Custom actions and data table (stats) options are available exclusively using Code Editor manually."
+  },
+  "charger_status": {
+    "sessionEnergy": "Session Energy"
+  },
+  "charger_substatus": {
+    "not_requesting_current": "Not Requesting Current",
+    "ok": "Ok"
   }
 }

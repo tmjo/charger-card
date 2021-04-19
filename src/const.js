@@ -126,6 +126,7 @@ export const CUSTOM_CARD_THEMES = [
   { name: 'theme_default', desc: 'Default (HA)' },
   { name: 'theme_transp_blue', desc: 'Transparent Blue' },
   { name: 'theme_transp_black', desc: 'Transparent Black' },
+  { name: 'theme_transp_white', desc: 'Transparent White' },
   { name: 'theme_lightgrey_blue', desc: 'LightGrey Blue' },
 ];
 

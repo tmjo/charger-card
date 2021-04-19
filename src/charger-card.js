@@ -293,7 +293,7 @@ class ChargerCard extends LitElement {
           {
             entity_id: this.getEntityId(cconst.ENTITIES.sessionEnergy),
             unit: 'kWh',
-            subtitle: 'Session Energy',
+            subtitle: localize('charger_status.sessionEnergy'),
           },
           {
             calcValue: this.usedChargerLimit,
@@ -317,7 +317,7 @@ class ChargerCard extends LitElement {
           {
             entity_id: this.getEntityId(cconst.ENTITIES.sessionEnergy),
             unit: 'kWh',
-            subtitle: 'Session Energy',
+            subtitle: localize('charger_status.sessionEnergy'),
           },
           {
             entity_id: this.getEntityId(cconst.ENTITIES.basicSchedule),
@@ -370,7 +370,7 @@ class ChargerCard extends LitElement {
           {
             entity_id: this.getEntityId(cconst.ENTITIES.sessionEnergy),
             unit: 'kWh',
-            subtitle: 'Session Energy',
+            subtitle: localize('charger_status.sessionEnergy'),
           },
           {
             calcValue: this.usedChargerLimit,
@@ -389,7 +389,7 @@ class ChargerCard extends LitElement {
           {
             entity_id: this.getEntityId(cconst.ENTITIES.sessionEnergy),
             unit: 'kWh',
-            subtitle: 'Session Energy',
+            subtitle: localize('charger_status.sessionEnergy'),
           },
           {
             calcValue: this.usedChargerLimit,
@@ -403,7 +403,7 @@ class ChargerCard extends LitElement {
           {
             entity_id: this.getEntityId(cconst.ENTITIES.sessionEnergy),
             unit: 'kWh',
-            subtitle: 'Session Energy',
+            subtitle: localize('charger_status.sessionEnergy'),
           },
           {
             calcValue: this.usedChargerLimit,
@@ -656,7 +656,10 @@ class ChargerCard extends LitElement {
     const { state } = this.entity;
     const { reasonForNoCurrent } = this.getEntities();
     const localizedStatus = localize(`status.${state}`) || state;
-    let subStatusText = this.getEntityState(reasonForNoCurrent) || '';
+    let subStatusText =
+      localize(
+        `charger_substatus.${this.getEntityState(reasonForNoCurrent)}`
+      ) || '';
 
     return html`
       <div
@@ -699,6 +702,7 @@ class ChargerCard extends LitElement {
       costPerKwh,
     } = this.getEntities();
     let updateAvailableState = this.getEntityState(updateAvailable) || 'off';
+    let localizedClickForConfig = localize('common.click_for_config');
 
     return html`
       <div class="wrap-collabsible">
@@ -706,7 +710,7 @@ class ChargerCard extends LitElement {
         <label for="collapsible" class="lbl-toggle">
           <div class="tooltip-right">
             <ha-icon icon="mdi:cog"></ha-icon>
-            <span class="tooltiptext-right">Click for config</span>
+            <span class="tooltiptext-right">${localizedClickForConfig}</span>
           </div>
         </label>
         <div class="collapsible-content">
@@ -764,31 +768,47 @@ class ChargerCard extends LitElement {
       energyLifetime,
     } = this.getEntities();
 
+    let localizedClickForStatus = localize('common.click_for_info');
+
     return html`
       <div class="wrap-collabsible-info">
         <input id="collapsible-info" class="toggle-info" type="checkbox" />
         <label for="collapsible-info" class="lbl-toggle-info">
           <div class="tooltip-right">
             <ha-icon icon="mdi:information"></ha-icon>
-            <span class="tooltiptext-right">Click for info</span>
+            <span class="tooltiptext-right">${localizedClickForStatus}</span>
           </div>
         </label>
         <div class="collapsible-content-info">
           <div class="content-inner-info">
-            ${this.renderCollapsibleItems(isOnline, 'Online')}
-            ${this.renderCollapsibleItems(voltage, 'Voltage', true)}
-            ${this.renderCollapsibleItems(totalPower, 'Power')}
-            ${this.renderCollapsibleItems(inCurrent, 'Charger Current', true)}
+            ${this.renderCollapsibleItems(isOnline, localize('common.online'))}
             ${this.renderCollapsibleItems(
-              circuitCurrent,
-              'Circuit Current',
+              voltage,
+              localize('common.voltage'),
               true
             )}
-            ${this.renderCollapsibleItems(energyPerHour, 'Energy per hour')}
-            ${this.renderCollapsibleItems(sessionEnergy, 'Session Energy')}
+            ${this.renderCollapsibleItems(totalPower, localize('common.power'))}
+            ${this.renderCollapsibleItems(
+              inCurrent,
+              localize('common.charger_current'),
+              true
+            )}
+            ${this.renderCollapsibleItems(
+              circuitCurrent,
+              localize('common.circuit_current'),
+              true
+            )}
+            ${this.renderCollapsibleItems(
+              energyPerHour,
+              localize('common.energy_per_hour')
+            )}
+            ${this.renderCollapsibleItems(
+              sessionEnergy,
+              localize('charger_status.sessionEnergy')
+            )}
             ${this.renderCollapsibleItems(
               energyLifetime,
-              'Lifetime Energy',
+              localize('common.lifetime_energy'),
               true
             )}
           </div>
@@ -810,6 +830,7 @@ class ChargerCard extends LitElement {
       dynamicCircuitCurrent,
       offlineCircuitCurrent,
     } = this.getEntities();
+    let localizedClickForLimits = localize('common.click_for_limits');
 
     return html`
       <div class="wrap-collabsible-lim">
@@ -817,7 +838,7 @@ class ChargerCard extends LitElement {
         <label for="collapsible-lim" class="lbl-toggle-lim">
           <div class="tooltip-right">
             <ha-icon icon="mdi:speedometer"></ha-icon>
-            <span class="tooltiptext-right">Click for limits</span>
+            <span class="tooltiptext-right">${localizedClickForLimits}</span>
           </div>
         </label>
         <div class="collapsible-content-lim">
@@ -968,22 +989,22 @@ class ChargerCard extends LitElement {
 
   renderInfoItemsLeft() {
     const { isOnline } = this.getEntities();
-    return html` ${this.renderInfoItem(isOnline, 'Online')} `;
+    return html` ${this.renderInfoItem(isOnline, localize('common.online'))} `;
   }
 
   renderInfoItemsRight() {
     const { totalPower, voltage } = this.getEntities();
     return html`
-      ${this.renderInfoItem(voltage, 'Voltage', true)}
-      ${this.renderInfoItem(totalPower, 'Power')}
+      ${this.renderInfoItem(voltage, localize('common.voltage'), true)}
+      ${this.renderInfoItem(totalPower, localize('common.power'))}
     `;
   }
 
   renderInfoItemsCompact() {
     const { totalPower, voltage } = this.getEntities();
     return html`
-      ${this.renderInfoItem(voltage, 'Voltage', true)}
-      ${this.renderInfoItem(totalPower, 'Power', true)}
+      ${this.renderInfoItem(voltage, localize('common.voltage'), true)}
+      ${this.renderInfoItem(totalPower, localize('common.power'), true)}
     `;
   }
 
@@ -1223,6 +1244,13 @@ class ChargerCard extends LitElement {
         this.style.setProperty('--custom-text-color', 'black');
         this.style.setProperty('--custom-primary-color', 'black');
         this.style.setProperty('--custom-icon-color', 'black');
+        break;
+      }
+      case 'theme_transp_white': {
+        this.style.setProperty('--custom-card-background-color', 'transparent');
+        this.style.setProperty('--custom-text-color', 'white');
+        this.style.setProperty('--custom-primary-color', 'white');
+        this.style.setProperty('--custom-icon-color', 'white');
         break;
       }
       case 'theme_lightgrey_blue': {
