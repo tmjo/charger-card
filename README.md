@@ -3,7 +3,6 @@
 [![hacs][hacs-image]][hacs-url]
 [![Buy Me A Coffee][buymeacoffee-image]][buymeacoffee-url]
 
-
 > EV Charger card for [Home Assistant][home-assistant] Lovelace UI
 
 By default, Home Assistant does not provide any card for controlling chargers for electrical vehicles (EVs). This card displays the state and allows to control your charger.
@@ -19,9 +18,11 @@ By default, Home Assistant does not provide any card for controlling chargers fo
 </a>
 
 ### HACS
-This card is not yet available as default in [HACS][hacs] (Home Assistant Community Store), but can still be installed through HACS by adding this repository as a custom repository inside HACS settings. 
+
+This card is not yet available as default in [HACS][hacs] (Home Assistant Community Store), but can still be installed through HACS by adding this repository as a custom repository inside HACS settings.
 
 ### Manual
+
 1. Download `charger-card.js` file from the [latest-release].
 2. Put `charger-card.js` file into your `config/www` folder.
 3. Add reference to `charger-card.js` in Lovelace. There are two ways to do that:
@@ -57,43 +58,43 @@ entity: sensor.easee_status
 
 Here is what every option means:
 
-| Name           |   Type    | Default      | Description                                                             |
-| -------------- | :-------: | ------------ | ----------------------------------------------------------------------- |
-| `type`         | `string`  | **Required** | `custom:charger-card`                                                    |
-| `entity`       | `string`  | **Required** | An entity_id within the `sensor` domain. Must be the main status of your charger.   |
-| `customCardTheme`| `string`  | Optional    | Select a custom theme of colors    |
-| `chargerImage`| `string`  | Anthracite    | Select a charger image from defaults    |
-| `customImage`  | `string`  | Optional    | Path to custom image of your charger. Better to have `png` or `svg`. This will override the chargerImage selection.   |
-| `compact_view`    | `boolean` | `false`       | Show compact view of the card.                                       |
-| `show_name`    | `boolean` | `true`       | Show friendly name of the charger.                                       |
-| `show_leds`  | `boolean` | `true`       | Show status leds for the charger, fits best with Easee chargers.              |
-| `show_status`  | `boolean` | `true`       | Show status of the charger.                                              |
-| `show_collapsibles`  | `boolean` | `true`       | Show collapsible menu buttons                                      |
-| `show_toolbar` | `boolean` | `true`       | Show toolbar with actions.                                              |
-| `show_stats` | `boolean` | `true`       | Show data table (stats). If not modified in `stats`, default values are shown.          |
-| `stats`        | `object`  | Optional     | Custom per state stats for your charger or something else, leave empty for default data fields |
-| `actions`      | `object`  | Optional     | Custom actions for your charger.                                 |
+| Name                |   Type    | Default      | Description                                                                                                         |
+| ------------------- | :-------: | ------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `type`              | `string`  | **Required** | `custom:charger-card`                                                                                               |
+| `entity`            | `string`  | **Required** | An entity_id within the `sensor` domain. Must be the main status of your charger.                                   |
+| `customCardTheme`   | `string`  | Optional     | Select a custom theme of colors                                                                                     |
+| `chargerImage`      | `string`  | Anthracite   | Select a charger image from defaults                                                                                |
+| `customImage`       | `string`  | Optional     | Path to custom image of your charger. Better to have `png` or `svg`. This will override the chargerImage selection. |
+| `compact_view`      | `boolean` | `false`      | Show compact view of the card.                                                                                      |
+| `show_name`         | `boolean` | `true`       | Show friendly name of the charger.                                                                                  |
+| `show_leds`         | `boolean` | `true`       | Show status leds for the charger, fits best with Easee chargers.                                                    |
+| `show_status`       | `boolean` | `true`       | Show status of the charger.                                                                                         |
+| `show_collapsibles` | `boolean` | `true`       | Show collapsible menu buttons                                                                                       |
+| `show_toolbar`      | `boolean` | `true`       | Show toolbar with actions.                                                                                          |
+| `show_stats`        | `boolean` | `true`       | Show data table (stats). If not modified in `stats`, default values are shown.                                      |
+| `stats`             | `object`  | Optional     | Custom per state stats for your charger or something else, leave empty for default data fields                      |
+| `actions`           | `object`  | Optional     | Custom actions for your charger.                                                                                    |
 
 ### `stats` object
 
 In addition to the charger info, you can use any sensor or sensor attribute of your choosing to be shown in the stats data table section:
 
-| Name        |   Type   | Default  | Description                                     |
-| ----------- | :------: | -------- | ----------------------------------------------- |
-| `entity_id` | `string` | Optional | An entity_id with state, i.e. `easee_status`.  |
+| Name        |   Type   | Default  | Description                                              |
+| ----------- | :------: | -------- | -------------------------------------------------------- |
+| `entity_id` | `string` | Optional | An entity_id with state, i.e. `easee_status`.            |
 | `attribute` | `string` | Optional | Attribute name of the stat, i.e. `circuit_ratedCurrent`. |
-| `unit`      | `string` | Optional | Unit of measure, i.e. `A`.                  |
-| `subtitle`  | `string` | Optional | Friendly name of the stat, i.e. `Rated Current`.       |
+| `unit`      | `string` | Optional | Unit of measure, i.e. `A`.                               |
+| `subtitle`  | `string` | Optional | Friendly name of the stat, i.e. `Rated Current`.         |
 
 ### `actions` object
 
 You can define [custom scripts][ha-scripts] or use services for custom actions and add them to this card with `actions` option.
 
-| Name           |   Type   | Default                           | Description                                        |
-| -------------- | :------: | --------------------------------- | -------------------------------------------------- |
-| `name`         | `string` | Optional                          | Friendly name of the action, i.e. `Update FW`. |
-| `service`      | `string` | Optional                          | A service to call, i.e. `easee.update_firmware`.    |
-| `icon`         | `string` | Optional                          | Any icon for action button.                        |
+| Name           |   Type   | Default                           | Description                                             |
+| -------------- | :------: | --------------------------------- | ------------------------------------------------------- |
+| `name`         | `string` | Optional                          | Friendly name of the action, i.e. `Update FW`.          |
+| `service`      | `string` | Optional                          | A service to call, i.e. `easee.update_firmware`.        |
+| `icon`         | `string` | Optional                          | Any icon for action button.                             |
 | `service_data` | `object` | `service_data` for `service` call | Verify necessary data in HA Developer Tools -> Services |
 
 ## Features
@@ -105,20 +106,25 @@ You can define [custom scripts][ha-scripts] or use services for custom actions a
 - Action items on toolbar will depend on charger status and show most relevant actions. Custom actions are added in addition to defaults.
 
 ## Supported languages
+
 This card supports translations. Please, help to add more translations and improve existing ones. Here's a list of supported languages:
 
 - English
 - Norsk bokmål (Norwegian)
+- Svenska
 - [_Your language?_][add-translation]
 
 ## Supported models
+
 This card currently supports charging robots from <a href='https://easee-international.com/'>Easee</a>. It could be modified to support basically any charger, but adoptions of the code will be necessary since there is no platform in Home Assistant for chargers making the interface identical.
 
 Supported chargers:
+
 - Easee
 - [_Your charger?_][edit-readme]
 
 ## Development
+
 Want to contribute to the project?
 
 First of all, thanks! Check [contributing guideline](./CONTRIBUTING.md) for more information.
@@ -126,6 +132,7 @@ First of all, thanks! Check [contributing guideline](./CONTRIBUTING.md) for more
 ## Inspiration
 
 This project is heavily inspired by:
+
 - <a href="https://github.com/denysdovhan" target="_blank">denysdovhan</a> for inspiration to this card, the ideas are taken from his <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a>. Make sure to <a href="https://www.buymeacoffee.com/denysdovhan" target="_blank">buy him a coffee</a> too!
 
 Huge thanks for the ideas and efforts 👍
@@ -135,6 +142,7 @@ Huge thanks for the ideas and efforts 👍
 MIT © [Tor Magne Johannessen][tmjo]
 
 <!-- Badges -->
+
 [npm-url]: https://npmjs.org/package/charger-card
 [hacs-url]: https://github.com/custom-components/hacs
 [hacs-image]: https://img.shields.io/badge/HACS-Custom-orange.svg
@@ -142,6 +150,7 @@ MIT © [Tor Magne Johannessen][tmjo]
 [buymeacoffee-image]: https://img.shields.io/badge/support-buymeacoffee-222222.svg?style=flat-square
 
 <!-- References -->
+
 [home-assistant]: https://www.home-assistant.io/
 [hacs]: https://hacs.xyz
 [preview-image]: https://user-images.githubusercontent.com/54450177/97765425-56874900-1b12-11eb-9c0c-87721e0b5748.png

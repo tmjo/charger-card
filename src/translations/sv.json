@@ -1,0 +1,69 @@
+{
+  "status": {
+    "disconnected": "Frånkopplad",
+    "awaiting_start": "Pausad eller inväntar start",
+    "charging": "Laddar",
+    "completed": "Färdig eller inväntar bil",
+    "error": "Error",
+    "ready_to_charge": "Klar att ladda"
+  },
+  "common": {
+    "name": "Charger Card",
+    "description": "Charger card ger dig möjlighet att styra din laddningsrobot.",
+    "start": "Starta",
+    "continue": "Återuppta",
+    "pause": "Pausa",
+    "stop": "Stopp",
+    "override": "Åsidosätt schema",
+    "reboot": "Starta om laddared",
+    "not_available": "Laddaren inte tillgänglig",
+    "click_for_info": "Klicka för info",
+    "click_for_config": "Klicka för konfigurering",
+    "click_for_limits": "Klicka för begränsningar",
+    "online": "Uppkopplad",
+    "voltage": "Spänning",
+    "power": "Kraft",
+    "charger_current": "Laddningsenergi",
+    "energy_per_hour": "Energi per timme",
+    "lifetime_energy": "Livstids energi",
+    "circuit_current": "Kretsenergi"
+  },
+  "error": {
+    "missing_entity": "Entiteten måsta anges!"
+  },
+  "editor": {
+    "entity": "Entitet (Obligatorisk)",
+    "chargerImage": "Laddar bild och färg",
+    "customImage": "Egen bild (Frivilligt - åsidosätter laddarbild)",
+    "theme": "Färgtema",
+    "compact_view": "Kompakt vy",
+    "compact_view_aria_label_on": "Toggle compact view on",
+    "compact_view_aria_label_off": "Toggle compact view off",
+    "show_name": "Visa namn",
+    "show_name_aria_label_on": "Toggle display name on",
+    "show_name_aria_label_off": "Toggle display name off",
+    "show_leds": "Visa Leds",
+    "show_leds_aria_label_on": "Toggle animated leds (overlay on image) on",
+    "show_leds_aria_label_off": "Toggle animated leds (overlay on image) off",
+    "show_status": "Visa Status",
+    "show_status_aria_label_on": "Toggle display status on",
+    "show_status_aria_label_off": "Toggle display status off",
+    "show_stats": "Visa Data Tabell (stats)",
+    "show_stats_aria_label_on": "Toggle display data table on",
+    "show_stats_aria_label_off": "Toggle display data table off",
+    "show_collapsibles": "Show collapsible menu buttons",
+    "show_collapsibles_aria_label_on": "Toggle display collapsible menus on",
+    "show_collapsibles_aria_label_off": "Toggle display collapsible menus off",
+    "show_toolbar": "Visa verktygsfält",
+    "show_toolbar_aria_label_on": "Toggle display toolbar on",
+    "show_toolbar_aria_label_off": "Toggle display toolbar off",
+    "code_only_note": "Notera: Egendefinierade Custom actions och data tabell (stats) är bara tillgängligt när Code Editorn används manuellt."
+  },
+  "charger_status": {
+    "sessionEnergy": "Sessionsenergi"
+  },
+  "charger_substatus": {
+    "not_requesting_current": "Ingen bil ansluten",
+    "ok": "Klar"
+  }
+}
