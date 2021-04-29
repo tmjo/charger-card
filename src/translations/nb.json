@@ -1,7 +1,7 @@
 {
   "status": {
     "disconnected": "Frakoblet",
-    "awaiting_start": "Pauset eller venter på start",
+    "awaiting_start": "Pauset eller venter start",
     "charging": "Lader",
     "completed": "Fullført eller venter på bil",
     "error": "Feil",
@@ -17,16 +17,16 @@
     "override": "Overstyr plan",
     "reboot": "Reboot lader",
     "not_available": "Lader utilgjengelig",
-    "click_for_info": "Click for Info",
-    "click_for_config": "Click for Config",
-    "click_for_limits": "Click for Limits",
+    "click_for_info": "Klikk for info",
+    "click_for_config": "Klikk for konfigurasjon",
+    "click_for_limits": "Klikk for limiteringer",
     "online": "Online",
-    "voltage": "Voltage",
-    "power": "Power",
-    "charger_current": "Changer Current",
-    "energy_per_hour": "Energy per Hour",
-    "lifetime_energy": "Lifetime Energy",
-    "circuit_current": "Circuit Energy"
+    "voltage": "Spenning",
+    "power": "Effekt",
+    "charger_current": "Ladestrøm",
+    "energy_per_hour": "Energi per time",
+    "lifetime_energy": "Energi totalt",
+    "circuit_current": "Kursstrøm"
   },
   "error": {
     "missing_entity": "Du må angi en entity!"
@@ -60,10 +60,10 @@
     "code_only_note": "Merk: Egendefinerte actions og data tabell (stats) er kun tilgjengelig ved å benytte Code Editor manuelt."
   },
   "charger_status": {
-    "sessionEnergy": "Session Energy"
+    "sessionEnergy": "Energi ladeøkt"
   },
   "charger_substatus": {
-    "not_requesting_current": "Not Requesting Current",
+    "not_requesting_current": "Bilen ber ikke om strøm",
     "ok": "Ok"
   }
 }

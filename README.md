@@ -111,7 +111,7 @@ This card supports translations. Please, help to add more translations and impro
 
 - English
 - Norsk bokmål (Norwegian)
-- Svenska
+- Svenska (by [jockesoft](https://github.com/jockesoft))
 - [_Your language?_][add-translation]
 
 ## Supported models
