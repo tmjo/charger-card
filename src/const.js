@@ -1,4 +1,4 @@
-export const VERSION = '0.0.7';
+export const VERSION = '0.0.8';
 
 export const CHARGERDOMAIN = 'easee';
 export const STATUS_ENTITY_BASE = '_status';
