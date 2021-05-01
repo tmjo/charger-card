@@ -40,7 +40,7 @@ export default css`
     cursor: pointer;
     overflow: hidden;
     position: relative;
-    height: 220px;
+    height: 250px;
 
     // border-color: yellow;
     // border-style: solid;
@@ -161,10 +161,10 @@ export default css`
 
   .charger.led-compact {
     position: relative;
-    top: -195px;
+    top: 20px;
     // position: absolute;
     // top: 95px;
-    left: -150px;
+    left: -170px;
     width: 2px;
 
     // border-color: red;
@@ -272,10 +272,10 @@ export default css`
     // text-align: center;
     // font-weight: bold;
     color: var(--custom-text-color);
-    font-size: 16px;
+    // font-size: 16px;
     position: relative;
-    top: -250px;
-    left: 170px;
+    // top: -250px;
+    left: 160px;
 
     // border-color: pink;
     // border-style: dashed;
@@ -291,8 +291,28 @@ export default css`
     text-transform: uppercase;
     font-size: 22px;
   }
+  .status-text-compact {
+    color: var(--custom-text-color);
+    white-space: nowrap;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    // margin-left: calc(20px + 9px); /* size + margin of spinner */
+    text-transform: uppercase;
+    font-size: 16px;
+  }
 
   .status-detail-text {
+    color: var(--custom-text-color);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-transform: uppercase;
+    font-size: 9px;
+  }
+
+  .status-detail-text-compact {
+    // margin-left: calc(20px + 9px); /* size + margin of spinner */
     color: var(--custom-text-color);
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -330,8 +350,8 @@ export default css`
     color: var(--custom-text-color);
     font-size: 16px;
     position: relative;
-    top: -250px;
-    left: 200px;
+    top: 15px;
+    left: 160px;
 
     // border-color: grey;
     // border-style: dashed;

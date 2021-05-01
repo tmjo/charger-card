@@ -667,7 +667,7 @@ class ChargerCard extends LitElement {
         @click="${() => this.handleMore()}"
         ?more-info="true"
       >
-        <span class="status-text" alt=${localizedStatus}>
+        <span class="status-text${compactview}" alt=${localizedStatus}>
           ${localizedStatus}
         </span>
         <ha-circular-progress
@@ -675,7 +675,7 @@ class ChargerCard extends LitElement {
           size="small"
         ></ha-circular-progress>
         <div
-          class="status-detail-text"
+          class="status-detail-text${compactview}"
           alt=${subStatusText}
           @click="${() => this.handleMore(reasonForNoCurrent)}"
           ?more-info="true"
