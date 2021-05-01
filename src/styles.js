@@ -12,7 +12,7 @@ export default css`
     flex: 1;
     position: relative;
     padding: 0px;
-    border-radius: 4px;
+    // border-radius: 4px;
     // overflow: hidden;    // Removed to show tooltips outside of card
 
     // border-color: coral;
@@ -20,7 +20,9 @@ export default css`
   }
 
   .preview {
-    background: var(--custom-card-background-color); //var(--custom-primary-color);
+    background: var(
+      --custom-card-background-color
+    ); //var(--custom-primary-color);
     cursor: pointer;
     overflow: hidden;
     position: relative;
@@ -32,7 +34,9 @@ export default css`
   }
 
   .preview-compact {
-    background: var(--custom-card-background-color); //var(--custom-primary-color);
+    background: var(
+      --custom-card-background-color
+    ); //var(--custom-primary-color);
     cursor: pointer;
     overflow: hidden;
     position: relative;
@@ -41,7 +45,6 @@ export default css`
     // border-color: yellow;
     // border-style: solid;
   }
-
 
   .preview.not-available {
     filter: grayscale(1);
@@ -140,16 +143,14 @@ export default css`
     left: 10px;
     top: 0px;
 
-
     // border-color: red;
     // border-style: dashed;
   }
 
-
-  .charger.led{
+  .charger.led {
     position: relative;
     top: -175px;
-    // position: absolute;    
+    // position: absolute;
     // top: 95px;
     // left: 245px;
     width: 2px;
@@ -158,17 +159,17 @@ export default css`
     // border-style: dashed;
   }
 
-  .charger.led-compact{
+  .charger.led-compact {
     position: relative;
     top: -195px;
-    // position: absolute;    
+    // position: absolute;
     // top: 95px;
     left: -150px;
     width: 2px;
 
     // border-color: red;
     // border-style: dashed;
-  }  
+  }
 
   .charger.charging,
   .charger.on {
@@ -224,7 +225,7 @@ export default css`
 
     height: 250px;
     text-align: right;
-    // transform: translate(10px, 50%);    
+    // transform: translate(10px, 50%);
     top: 30px;
     left: 20px;
     position: absolute;
@@ -244,8 +245,6 @@ export default css`
     // border: 1px;
     // border-style: dotted;
   }
-
-
 
   .status {
     display: block;
@@ -278,7 +277,6 @@ export default css`
     top: -250px;
     left: 170px;
 
-
     // border-color: pink;
     // border-style: dashed;
   }
@@ -301,7 +299,7 @@ export default css`
     overflow: hidden;
     text-transform: uppercase;
     font-size: 9px;
-  }  
+  }
 
   .status ha-circular-progress {
     --mdc-theme-primary: var(
@@ -337,7 +335,7 @@ export default css`
 
     // border-color: grey;
     // border-style: dashed;
-  }  
+  }
 
   .not-available {
     text-align: center;
@@ -348,8 +346,8 @@ export default css`
   .metadata {
     display: block;
     margin: 20px auto;
-    position:relative;
-    top:-50px;
+    position: relative;
+    top: -50px;
 
     // border-color: pink;
     // border-style: dashed;
@@ -388,7 +386,7 @@ export default css`
   }
 
   .toolbar {
-    background: var(--lovelace-background, var(--primary-background-color));
+    // background: var(--lovelace-background, var(--primary-background-color));
     min-height: 30px;
     display: flex;
     flex-direction: row;
@@ -424,9 +422,9 @@ export default css`
     margin-right: 10px;
     padding: 10px;
     cursor: pointer;
-    
+
     // border-color: blue;
-    // border-style: dashed;    
+    // border-style: dashed;
   }
 
   .toolbar ha-icon-button:active,
@@ -438,19 +436,12 @@ export default css`
   .toolbar paper-button {
     color: var(--custom-primary-color);
     flex-direction: row;
-
-
   }
 
   .toolbar ha-icon {
     color: var(--custom-primary-color);
     padding-right: 15px;
   }
-
-
-
-
-
 
   /* Tooltip container */
 
@@ -459,13 +450,13 @@ export default css`
     display: inline-block;
     // border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
   }
-  
+
   /* Tooltip text */
   .tooltip {
     position: relative;
     display: inline-block;
   }
-  
+
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 160px;
@@ -480,9 +471,9 @@ export default css`
     left: 50%;
     margin-left: -80px;
   }
-  
+
   .tooltip .tooltiptext::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -507,9 +498,8 @@ export default css`
     right: 105%;
   }
 
-
   .tooltip-right .tooltiptext-right::after {
-    content: " ";
+    content: ' ';
     position: absolute;
     top: 50%;
     left: 100%; /* To the right of the tooltip */
@@ -517,27 +507,22 @@ export default css`
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent transparent black;
-  }  
-  
+  }
+
   .tooltip:hover .tooltiptext {
     visibility: visible;
   }
-  
+
   .tooltip-right:hover .tooltiptext-right {
     visibility: visible;
   }
-
-
-
-
-
 
   /* CSS COLLAPSIBLE */
 
   input[type='checkbox'] {
     display: none;
   }
-  
+
   .lbl-toggle {
     display: block;
     // text-align: right;
@@ -556,27 +541,27 @@ export default css`
     width: 30px;
     height: 30px;
     // align: right;
-    // float: right;    
-    z-index: 1; 
+    // float: right;
+    z-index: 1;
     // margin-left: auto;
     // margin-right: auto;
 
     // border-style: dotted;
-    // border-color: red; 
+    // border-color: red;
   }
-   
+
   .collapsible-content {
     max-height: 0px;
     overflow: hidden;
-    
+
     // transition: max-height .25s ease-in-out;
   }
-  
+
   .toggle:checked + .lbl-toggle + .collapsible-content {
     max-height: 200px;
     // height: 200px;
     position: relative;
-    top: 0px;   
+    top: 0px;
     // margin-left: auto;
     // margin-right: auto;
     // width: 100%;
@@ -591,20 +576,20 @@ export default css`
     justify-content: space-evenly;
     color: var(--custom-text-color);
 
-    // border-style: solid; 
+    // border-style: solid;
     // border-color: red;
   }
-  
+
   .collapsible-content .content-inner {
     color: var(--custom-text-color);
     background: transparent;
     text-align: center;
     max-height: 200px;
     height: 70px;
-    // vertical-align: middle; 
+    // vertical-align: middle;
     // width: 100%;
-    // z-index: 3; 
-    content: "";
+    // z-index: 3;
+    content: '';
     clear: both;
     display: table;
 
@@ -615,23 +600,19 @@ export default css`
     // border-color: white;
   }
 
-  .collapsible-item{
+  .collapsible-item {
     display: inline;
     text-align: center;
-    align-items: center;    
+    align-items: center;
     padding: 5px;
     // font-weight: bold;
     // border: 1px;
     // border-style: dotted;
     justify-content: center;
     vertical-align: middle;
-
-
   }
 
-
   /* collapsible info */
-
 
   .lbl-toggle-info {
     display: block;
@@ -645,17 +626,17 @@ export default css`
     right: 0px;
     width: 30px;
     height: 30px;
-    z-index: 1; 
+    z-index: 1;
 
-    // border-style: dotted;    
+    // border-style: dotted;
     // border-color: darkblue;
-  }  
+  }
 
   .toggle-info:checked + .lbl-toggle-info + .collapsible-content-info {
     max-height: 200px;
     // height: 200px;
     position: relative;
-    top: 0px;   
+    top: 0px;
     // margin-left: auto;
     // margin-right: auto;
     // width: 100%;
@@ -670,20 +651,20 @@ export default css`
     justify-content: space-evenly;
     color: var(--custom-text-color);
 
-    // border-style: solid; 
+    // border-style: solid;
     // border-color: red;
   }
-  
+
   .collapsible-content-info .content-inner-info {
     color: var(--custom-text-color);
     background: transparent;
     text-align: center;
     max-height: 200px;
     height: 70px;
-    // vertical-align: middle; 
+    // vertical-align: middle;
     // width: 100%;
-    // z-index: 3; 
-    content: "";
+    // z-index: 3;
+    content: '';
     clear: both;
     display: table;
 
@@ -692,8 +673,7 @@ export default css`
 
     // border-style: dashed;
     // border-color: white;
-  }  
-
+  }
 
   // .wrap-collabsible-info {
   //   // display: flex;
@@ -750,20 +730,15 @@ export default css`
   //   border-style: solid;
 
   // }
-  
+
   .collapsible-content-info {
     max-height: 0px;
     overflow: hidden;
-    
+
     // transition: max-height .25s ease-in-out;
   }
 
-  
-
-
-
   /* collapsible limits */
-
 
   .lbl-toggle-lim {
     display: block;
@@ -777,17 +752,17 @@ export default css`
     right: 0px;
     width: 30px;
     height: 30px;
-    z-index: 1; 
+    z-index: 1;
 
-    // border-style: dotted;    
+    // border-style: dotted;
     // border-color: darkblue;
-  }  
+  }
 
   .toggle-lim:checked + .lbl-toggle-lim + .collapsible-content-lim {
     max-height: 200px;
     // height: 200px;
     position: relative;
-    top: 0px;   
+    top: 0px;
     // margin-left: auto;
     // margin-right: auto;
     // width: 100%;
@@ -802,20 +777,20 @@ export default css`
     justify-content: space-evenly;
     color: var(--custom-text-color);
 
-    // border-style: solid; 
+    // border-style: solid;
     // border-color: red;
   }
-  
+
   .collapsible-content-lim .content-inner-lim {
     color: var(--custom-text-color);
     background: transparent;
     text-align: center;
     max-height: 200px;
     height: 70px;
-    // vertical-align: middle; 
+    // vertical-align: middle;
     // width: 100%;
-    // z-index: 3; 
-    content: "";
+    // z-index: 3;
+    content: '';
     clear: both;
     display: table;
 
@@ -825,8 +800,7 @@ export default css`
 
     // border-style: dashed;
     // border-color: white;
-  }  
-
+  }
 
   // .wrap-collabsible-lim {
   //   // display: flex;
@@ -856,13 +830,10 @@ export default css`
 
   // }
 
-  
   .collapsible-content-lim {
     max-height: 0px;
     overflow: hidden;
-    
+
     // transition: max-height .25s ease-in-out;
   }
-
-
 `;
