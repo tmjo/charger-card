@@ -1210,33 +1210,21 @@ class ChargerCard extends LitElement {
 
   renderCustomCardTheme() {
     switch (this.customCardTheme) {
+      case 'theme_custom': {
+        break;
+      }
       case 'theme_default': {
-        this.style.setProperty(
-          '--custom-card-background-color',
-          'var(--primary-color)'
-        );
-        this.style.setProperty(
-          '--custom-text-color',
-          'var(--text-primary-color)'
-        );
-        this.style.setProperty(
-          '--custom-primary-color',
-          'var(--primary-color)'
-        );
-        this.style.setProperty('--custom-icon-color', '#FFF');
+        this.style.setProperty('--custom-card-background-color', '#03A9F4');
+        this.style.setProperty('--custom-text-color', '#FFFFFF');
+        this.style.setProperty('--custom-primary-color', '#03A9F4');
+        this.style.setProperty('--custom-icon-color', '#FFFFFF');
         break;
       }
       case 'theme_transp_blue': {
         this.style.setProperty('--custom-card-background-color', 'transparent');
-        this.style.setProperty('--custom-text-color', 'black');
-        this.style.setProperty(
-          '--custom-primary-color',
-          'var(--primary-color)'
-        );
-        this.style.setProperty(
-          '--custom-icon-color',
-          'var(--state-icon-color)'
-        );
+        this.style.setProperty('--custom-text-color', '#03A9F4');
+        this.style.setProperty('--custom-primary-color', '#03A9F4');
+        this.style.setProperty('--custom-icon-color', '#03A9F4');
         break;
       }
       case 'theme_transp_black': {
@@ -1255,28 +1243,16 @@ class ChargerCard extends LitElement {
       }
       case 'theme_lightgrey_blue': {
         this.style.setProperty('--custom-card-background-color', 'lightgrey');
-        this.style.setProperty('--custom-text-color', 'var(--primary-color)');
-        this.style.setProperty(
-          '--custom-primary-color',
-          'var(--primary-color)'
-        );
-        this.style.setProperty('--custom-icon-color', '#FFF');
+        this.style.setProperty('--custom-text-color', '#03A9F4');
+        this.style.setProperty('--custom-primary-color', '#03A9F4');
+        this.style.setProperty('--custom-icon-color', '#03A9F4');
         break;
       }
       default: {
-        this.style.setProperty(
-          '--custom-card-background-color',
-          'var(--primary-color)'
-        );
-        this.style.setProperty(
-          '--custom-text-color',
-          'var(--text-primary-color)'
-        );
-        this.style.setProperty(
-          '--custom-primary-color',
-          'var(--primary-color)'
-        );
-        this.style.setProperty('--custom-icon-color', '#FFF');
+        this.style.setProperty('--custom-card-background-color', '#03A9F4');
+        this.style.setProperty('--custom-text-color', '#FFFFFF');
+        this.style.setProperty('--custom-primary-color', '#03A9F4');
+        this.style.setProperty('--custom-icon-color', '#FFFFFF');
         break;
       }
     }

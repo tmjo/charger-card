@@ -123,7 +123,8 @@ export const CURRENTLIMITS = [8.0, 10.0, 16.0, 20.0, 25.0, 32.0];
 
 export const DEFAULT_CUSTOMCARDTHEME = 'theme_default';
 export const CUSTOM_CARD_THEMES = [
-  { name: 'theme_default', desc: 'Default (HA)' },
+  { name: 'theme_default', desc: 'Default HA colors' },
+  { name: 'theme_custom', desc: 'Use custom theme' },
   { name: 'theme_transp_blue', desc: 'Transparent Blue' },
   { name: 'theme_transp_black', desc: 'Transparent Black' },
   { name: 'theme_transp_white', desc: 'Transparent White' },
