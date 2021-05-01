@@ -62,7 +62,7 @@ Here is what every option means:
 | ------------------- | :-------: | ------------ | ------------------------------------------------------------------------------------------------------------------- |
 | `type`              | `string`  | **Required** | `custom:charger-card`                                                                                               |
 | `entity`            | `string`  | **Required** | An entity_id within the `sensor` domain. Must be the main status of your charger.                                   |
-| `customCardTheme`   | `string`  | Optional     | Select a custom theme of colors                                                                                     |
+| `customCardTheme`   | `string`  | Optional     | Select a custom theme of colors, or use "theme_custom" to apply the theme you use in HA                             |
 | `chargerImage`      | `string`  | Anthracite   | Select a charger image from defaults                                                                                |
 | `customImage`       | `string`  | Optional     | Path to custom image of your charger. Better to have `png` or `svg`. This will override the chargerImage selection. |
 | `compact_view`      | `boolean` | `false`      | Show compact view of the card.                                                                                      |
