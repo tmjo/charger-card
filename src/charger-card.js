@@ -568,16 +568,24 @@ class ChargerCard extends LitElement {
     if (!this.showStats) {
       return html``;
     }
+    let compactview = '';
+    if (this.compactView) {
+      compactview = '-compact';
+    }
 
     /* DEFAULT DATATABLE */
     if (this.useStatsDefault) {
       const statsList = this.getStatsDefault(state) || [];
-      return this.renderStatsList(state, statsList);
+      return html`<div class="stats${compactview}">
+        ${this.renderStatsList(state, statsList)}
+      </div>`;
       /* CUSTOM DATATABLE */
     } else {
       const { stats = {} } = this.config;
       const statsList = stats[state] || stats.default || [];
-      return this.renderStatsList(state, statsList);
+      return html`<div class="stats${compactview}">
+        ${this.renderStatsList(state, statsList)}
+      </div>`;
     }
   }
 
@@ -659,7 +667,7 @@ class ChargerCard extends LitElement {
     let subStatusText =
       localize(
         `charger_substatus.${this.getEntityState(reasonForNoCurrent)}`
-      ) || '';
+      ) || this.getEntityState(reasonForNoCurrent);
 
     return html`
       <div
@@ -1171,7 +1179,7 @@ class ChargerCard extends LitElement {
 
           <div class="infoitems">${this.renderInfoItemsCompact()}</div>
 
-          <div class="stats">${this.renderStats(state)}</div>
+          ${this.renderStats(state)}
         </div>
 
         ${this.renderToolbar(state)}
@@ -1198,9 +1206,7 @@ class ChargerCard extends LitElement {
           </div>
 
           ${this.renderCollapsibleConfig()} ${this.renderCollapsibleInfo()}
-          ${this.renderCollapsibleLimits()}
-
-          <div class="stats">${this.renderStats(state)}</div>
+          ${this.renderCollapsibleLimits()} ${this.renderStats(state)}
         </div>
 
         ${this.renderToolbar(state)}
