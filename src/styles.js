@@ -27,8 +27,6 @@ export default css`
     overflow: hidden;
     position: relative;
 
-    // height: 220px;
-
     // border-color: yellow;
     // border-style: solid;
   }
@@ -40,7 +38,7 @@ export default css`
     cursor: pointer;
     overflow: hidden;
     position: relative;
-    height: 250px;
+    height: 220px;
 
     // border-color: yellow;
     // border-style: solid;
@@ -132,11 +130,12 @@ export default css`
 
   .charger-compact {
     display: block;
-    max-width: 50%;
-    width: 130px;
-    max-height: 200px;
+    // max-width: 50%;
+    // width: 130px;
+    max-width: 400px;
+    max-height: 130px;
     image-rendering: crisp-edges;
-    margin: 10px auto 10px auto;
+    margin: 20px auto 10px 20px;
     position: absolute;
     // left: -150px;
     // top: -20px;
@@ -160,12 +159,15 @@ export default css`
   }
 
   .charger.led-compact {
-    position: relative;
+    // position: relative;
+    position: absolute;
     top: 20px;
     // position: absolute;
     // top: 95px;
-    left: -170px;
-    width: 2px;
+    // left: -170px;
+    left: 77px;
+    top: 22px;
+    width: 1.4px;
 
     // border-color: red;
     // border-style: dashed;
@@ -272,10 +274,9 @@ export default css`
     // text-align: center;
     // font-weight: bold;
     color: var(--custom-text-color);
-    // font-size: 16px;
-    position: relative;
-    // top: -250px;
+    position: absolute;
     left: 160px;
+    top: 65px;
 
     // border-color: pink;
     // border-style: dashed;
@@ -342,17 +343,17 @@ export default css`
   }
 
   .charger-name-compact {
-    display: block;
+    // display: block;
     // align-items: center;
     // justify-content: center;
     // text-align: center;
     // font-weight: bold;
     color: var(--custom-text-color);
     font-size: 16px;
-    position: relative;
-    top: 15px;
+    // position: relative;
+    position: absolute;
     left: 160px;
-
+    top: 55px;
     // border-color: grey;
     // border-style: dashed;
   }
@@ -384,11 +385,29 @@ export default css`
     // border-style: dashed;
   }
 
+  .stats-compact {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    color: var(--custom-text-color);
+
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 160px;
+
+    // border-color: black;
+    // border-style: dashed;
+  }
+
   .stats-block {
     margin: 10px 0px;
     text-align: center;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     flex-grow: 1;
+    // border-color: black;
+    // border-style: dashed;
   }
 
   .stats-block:last-child {
