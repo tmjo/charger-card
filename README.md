@@ -112,6 +112,7 @@ This card supports translations. Please, help to add more translations and impro
 - English
 - Norsk bokmål (Norwegian)
 - Svenska (by [jockesoft](https://github.com/jockesoft))
+- German (by [DeerMaximum](https://github.com/DeerMaximum))
 - [_Your language?_][add-translation]
 
 ## Supported models
