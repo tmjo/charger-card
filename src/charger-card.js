@@ -1157,9 +1157,9 @@ class ChargerCard extends LitElement {
     return html`
       <div class="tooltip">
         <ha-icon-button
-          icon="${icon}"
           title="${useText}"
           @click="${() => this.callService(service, isRequest, service_data)}"
+          ><ha-icon icon="${icon}"></ha-icon
         ></ha-icon-button>
         <span class="tooltiptext">${useText}</span>
       </div>
