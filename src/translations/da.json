@@ -1,0 +1,69 @@
+{
+    "status": {
+      "disconnected": "Frakoblet",
+      "awaiting_start": "Afventer start",
+      "charging": "Oplader",
+      "completed": "Gennemført",
+      "error": "Fejl",
+      "ready_to_charge": "Klar til opladning"
+    },
+    "common": {
+      "name": "Charger Card",
+      "description": "Charger card gir dig mulighed for at styre din ladeboks.",
+      "start": "Start",
+      "continue": "Fortsæt",
+      "pause": "Pause",
+      "stop": "Stop",
+      "override": "Overstyr plan",
+      "reboot": "Genstart ladeboks",
+      "not_available": "Lader utilgængelig",
+      "click_for_info": "Klik for info",
+      "click_for_config": "Klik for konfiguration",
+      "click_for_limits": "Klik for limiteringer",
+      "online": "Online",
+      "voltage": "Spænding",
+      "power": "Effekt",
+      "charger_current": "Ladestrøm",
+      "energy_per_hour": "Energi per time",
+      "lifetime_energy": "Energi totalt",
+      "circuit_current": "Kredsløbstrøm"
+    },
+    "error": {
+      "missing_entity": "Du skal angive en entitet!"
+    },
+    "editor": {
+      "entity": "Entitet (obligatorisk)",
+      "chargerImage": "Billede og -farvevalg",
+      "customImage": "Valgfrit billede (erstatter billede af laderobot)",
+      "theme": "Farvevalg",
+      "compact_view": "Kompakt",
+      "compact_view_aria_label_on": "Slå kompakt tilstand til",
+      "compact_view_aria_label_off": "Slå kompakt tilstand fra",
+      "show_name": "Vis navn",
+      "show_name_aria_label_on": "Vis navn",
+      "show_name_aria_label_off": "Vis ikke navn",
+      "show_leds": "Vis LED lys",
+      "show_leds_aria_label_on": "Slå animerede LED lys til",
+      "show_leds_aria_label_off": "Slå animerede LED lys fra",
+      "show_status": "Vis status",
+      "show_status_aria_label_on": "Vis status",
+      "show_status_aria_label_off": "Vis ikke status",
+      "show_stats": "Vis data tabel (statistik)",
+      "show_stats_aria_label_on": "Vis data tabel (statistik)",
+      "show_stats_aria_label_off": "Vis ikke data tabel (statistik)",
+      "show_collapsibles": "Vis foldbar menu",
+      "show_collapsibles_aria_label_on": "Vis foldbar menu",
+      "show_collapsibles_aria_label_off": "Vis ikke foldbar menu",
+      "show_toolbar": "Vis værktøjslinje",
+      "show_toolbar_aria_label_on": "Vis værktøjslinje",
+      "show_toolbar_aria_label_off": "Vis ikke værktøjslinje",
+      "code_only_note": "Bemærk: Brugerdefinerede actions og data tabel (statistik) funktioner kan kun benyttes ved manuelt at redigere via Code Editor."
+    },
+    "charger_status": {
+      "sessionEnergy": "Energi session"
+    },
+    "charger_substatus": {
+      "not_requesting_current": "Bilen anmoder ikke om strøm",
+      "ok": "Ok"
+    }
+  }

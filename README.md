@@ -19,7 +19,9 @@ By default, Home Assistant does not provide any card for controlling chargers fo
 
 ### HACS
 
-This card is not yet available as default in [HACS][hacs] (Home Assistant Community Store), but can still be installed through HACS by adding this repository as a custom repository inside HACS settings.
+This card is available in [HACS][hacs] (Home Assistant Community Store).
+
+Just search for `Charger Card` under Frontend.
 
 ### Manual
 
@@ -113,6 +115,7 @@ This card supports translations. Please, help to add more translations and impro
 - Norsk bokmål (Norwegian)
 - Svenska (by [jockesoft](https://github.com/jockesoft))
 - German (by [DeerMaximum](https://github.com/DeerMaximum))
+- Danish (by [dykandDK](https://github.com/dykandDK))
 - [_Your language?_][add-translation]
 
 ## Supported models
