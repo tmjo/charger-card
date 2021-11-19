@@ -6,13 +6,15 @@ import * as nb from './translations/nb.json';
 import * as sv from './translations/sv.json';
 import * as de from './translations/de.json';
 import * as da from './translations/da.json';
+import * as ca from './translations/ca.json';
 
 var languages = {
   en,
   nb,
   sv,
   de,
-  da
+  da,
+  ca
 };
 
 const DEFAULT_LANG = 'en';

@@ -116,6 +116,7 @@ This card supports translations. Please, help to add more translations and impro
 - Svenska (by [jockesoft](https://github.com/jockesoft))
 - German (by [DeerMaximum](https://github.com/DeerMaximum))
 - Danish (by [dykandDK](https://github.com/dykandDK))
+- Catalan (by [gerardag](https://github.com/gerardag))
 - [_Your language?_][add-translation]
 
 ## Supported models
