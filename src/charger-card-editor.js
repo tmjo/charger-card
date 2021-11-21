@@ -16,26 +16,58 @@ export class ChargerCardEditor extends LitElement {
     this._config = config;
 
     if (!this._config.entity) {
-      this._config.entity = this.getEntitiesByType('sensor')[0] || '';
+      this._config.entity = this.getAllEntitiesByType('sensor')[0] || '';
       fireEvent(this, 'config-changed', { config: this._config });
     }
   }
 
-  get _entity() {
-    if (this._config) {
-      return this._config.entity || '';
-    }
+  // get _brand("brand")() {
+  //   if (this._config) {
+  //     return this._config.brand || '';
+  //   }
 
+  //   return '';
+  // }
+
+  // get _prefix() {
+  //   if (this._config) {
+  //     return this._config.prefix || '';
+  //   }
+
+  //   return '';
+  // }
+
+  get_config(item) {
+    if (this._config) {
+      return this._config[`${item}`] || '';
+    }
+    return '';
+
+  }
+
+  get_sensors(sensor) {
+    if (this._config) {
+      // console.log("TEST (" + sensor + "): " + this._config[`${sensor}`]);
+      return this._config[`${sensor}`] || '';
+    }
     return '';
   }
 
-  get _customImage() {
-    if (this._config) {
-      return this._config.customImage || '';
-    }
+  // get _entity() {
+  //   if (this._config) {
+  //     return this._config.entity || '';
+  //   }
 
-    return '';
-  }
+  //   return '';
+  // }
+
+  // get _customImage() {
+  //   if (this._config) {
+  //     return this._config.customImage || '';
+  //   }
+
+  //   return '';
+  // }
 
   get _chargerImage(){
     if (this._config) {
@@ -49,7 +81,7 @@ export class ChargerCardEditor extends LitElement {
       return this._config.customCardTheme || '';
     }
     return cconst.DEFAULT_CUSTOMCARDTHEME;
-  }  
+  }
 
   get _show_name() {
     if (this._config) {
@@ -57,18 +89,18 @@ export class ChargerCardEditor extends LitElement {
     }
     return true;
   }
-  
+
   get _show_leds() {
     if (this._config) {
       return this._config.show_leds !== undefined ? this._config.show_leds : true;
     }
     return true;
-  }  
+  }
 
   get _show_status() {
     if (this._config) {
       return this._config.show_status !== undefined ? this._config.show_status : true;
-      
+
     }
     return true;
   }
@@ -102,7 +134,11 @@ export class ChargerCardEditor extends LitElement {
     return false;
   }
 
-  getEntitiesByType(type) {
+  getAllEntities(type) {
+    return Object.keys(this.hass.states)
+  }
+
+  getAllEntitiesByType(type) {
     return Object.keys(this.hass.states).filter(
       (eid) => eid.substr(0, eid.indexOf('.')) === type
     );
@@ -113,14 +149,33 @@ export class ChargerCardEditor extends LitElement {
       return html``;
     }
 
-    const chargerEntities = this.getEntitiesByType('sensor');
+    const allEntities = this.getAllEntities();
+    const chargerBrands = ["Easee", "Other" ];
+
+
 
     return html`
       <div class="card-config">
-      
+
+      <strong>
+      ${localize('editor.instruction')}
+      </strong>
+
+
+        <paper-dropdown-menu label="${localize('editor.brand')}" @value-changed=${this._valueChanged} .configValue=${'brand'}>
+          <paper-listbox slot="dropdown-content" .selected=${chargerBrands.indexOf(this.get_config("brand"))}>
+            ${chargerBrands.map(brand => {
+              return html` <paper-item>${brand}</paper-item> `;
+            })}
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+        ${this.setEntityConfig()}
+        ${this.setEntityPrefix()}
+
         <paper-dropdown-menu label="${localize('editor.entity')}" @value-changed=${this._valueChanged} .configValue=${'entity'}>
-          <paper-listbox slot="dropdown-content" .selected=${chargerEntities.indexOf(this._entity)}>
-            ${chargerEntities.map(entity => {
+          <paper-listbox slot="dropdown-content" .selected=${allEntities.indexOf(this.get_config("entity"))}>
+            ${allEntities.map(entity => {
               return html` <paper-item>${entity}</paper-item> `;
             })}
           </paper-listbox>
@@ -144,7 +199,7 @@ export class ChargerCardEditor extends LitElement {
         </paper-dropdown-menu>
 
 
-        <paper-input label="${localize('editor.customImage')}" .value=${this._customImage} .configValue=${'customImage'} @value-changed=${this._valueChanged}"></paper-input>
+        <paper-input label="${localize('editor.customImage')}" .value=${this.get_config("customImage")} .configValue=${'customImage'} @value-changed=${this._valueChanged}"></paper-input>
 
         <p class="option">
           <ha-switch
@@ -262,6 +317,67 @@ export class ChargerCardEditor extends LitElement {
     `;
   }
 
+
+  setEntityPrefix() {
+    try{
+        this._config = {
+          ...this._config,
+          ["prefix"]:
+            this._config.entity
+              .split('.')[1]
+              .replace(cconst.EASEE_MAIN_ENTITY_BASE, ''),
+        };
+      }catch (err) {
+
+      }
+    }
+
+  getEntityId(entitybasename) {
+    try {
+      return (
+        entitybasename.split('.')[0] +
+        '.' +
+        this._config["prefix"] +
+        '_' +
+        entitybasename.split('.')[1]
+      );
+    } catch (err) {
+      return null;
+    }
+  }
+
+
+  setEntityConfig() {
+    if (this.get_config("brand") === "Easee") {
+      for (let entity in cconst.EASEE_ENTITIES) {
+        // console.log("EASEE: " +entity +" --> " +cconst.ENTITIES[entity]);
+        this._config = {
+          ...this._config,
+          [`${entity}`]:
+            this.getEntityId(cconst.EASEE_ENTITIES[entity]),
+        };
+      }
+      return html``;
+    }
+    else {
+      const allEntities = this.getAllEntities();
+      return html`${cconst.ENTITIES_CARD.map(customentity => {
+        // return html`<paper-input label="${customentity}" .value="" .configValue=${customentity}"></paper-input>`;
+        return html`<paper-dropdown-menu label="${customentity}" @value-changed=${this._valueChanged} .configValue=${customentity}>
+        <paper-listbox slot="dropdown-content" .selected=${allEntities.indexOf(this.get_sensors(customentity))}>
+          ${allEntities.map(entity => {
+          return html` <paper-item>${entity}</paper-item> `;
+        })}
+        </paper-listbox>
+      </paper-dropdown-menu>`
+
+      })}
+    `;
+    }
+  }
+
+
+
   _valueChanged(ev) {
     if (!this._config || !this.hass) {
       console.log("C: no config")
@@ -274,9 +390,9 @@ export class ChargerCardEditor extends LitElement {
     }
     if (target.configValue) {
       if (target.value === '') {
-        delete this._config[target.configValue];
+        // delete this._config[target.configValue];
       } else {
-        
+
         this._config = {
           ...this._config,
           [target.configValue]:

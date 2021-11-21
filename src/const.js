@@ -1,39 +1,33 @@
 export const VERSION = '0.0.14';
 
-export const CHARGERDOMAIN = 'easee';
-export const STATUS_ENTITY_BASE = '_status';
+export const ENTITIES_CARD = [
+  // "status",
+  "cableLocked",
+  "cableLockedPermanently",
+  "basicSchedule",
+  "circuitCurrent",
+  "costPerKwh",
+  "dynamicChargerCurrent",
+  "dynamicCircuitCurrent",
+  "enableIdleCurrent",
+  "inCurrent",
+  "isEnabled",
+  "maxChargerCurrent",
+  "maxCircuitCurrent",
+  "offlineCircuitCurrent",
+  "isOnline",
+  "outputCurrent",
+  "reasonForNoCurrent",
+  "sessionEnergy",
+  "energyPerHour",
+  "energyLifetime",
+  "smartCharging",
+  "totalPower",
+  "updateAvailable",
+  "voltage",
+];
 
-export const CHARGERSTATUS = {
-  STANDBY_1: 'disconnected',
-  PAUSED_2: 'awaiting_start',
-  CHARGING_3: 'charging',
-  READY_4: 'completed',
-  ERROR_5: 'error',
-  CONNECTED_6: 'ready_to_charge',
-};
-
-export const LEDIMAGES = {
-  normal: {
-    DEFAULT: ledOff,
-    disconnected: ledWhite2,
-    awaiting_start: ledWhiteAll,
-    charging: ledWhiteFlashing,
-    completed: ledWhiteAll,
-    error: ledRedFlashing,
-    ready_to_charge: ledWhiteAll,
-  },
-  smart: {
-    DEFAULT: ledOff,
-    disconnected: ledBlue2,
-    awaiting_start: ledBlueAll,
-    charging: ledBlueFlashing,
-    completed: ledBlueAll,
-    error: ledRedFlashing,
-    ready_to_charge: ledBlueAll,
-  },
-};
-
-export const ENTITIES = {
+export const EASEE_ENTITIES = {
   cableLocked: 'binary_sensor.cable_locked',
   cableLockedPermanently: 'switch.cable_locked_permanently',
   basicSchedule: 'binary_sensor.basic_schedule',
@@ -59,13 +53,47 @@ export const ENTITIES = {
   voltage: 'sensor.voltage',
 };
 
-export const SERVICES = {
+export const EASEE_SERVICES = {
   chargerMaxCurrent: 'set_charger_max_limit',
   chargerDynCurrent: 'set_charger_dynamic_limit',
   circuitMaxCurrent: 'set_charger_circuit_max_limit',
   circuitDynCurrent: 'set_charger_circuit_dynamic_limit',
   circuitOfflineCurrent: 'set_charger_circuit_offline_limit',
 };
+
+export const EASEE_DOMAIN = 'easee';
+export const EASEE_MAIN_ENTITY_BASE = '_status';
+
+export const EASEE_CHARGERSTATUS = {
+  STANDBY_1: 'disconnected',
+  PAUSED_2: 'awaiting_start',
+  CHARGING_3: 'charging',
+  READY_4: 'completed',
+  ERROR_5: 'error',
+  CONNECTED_6: 'ready_to_charge',
+};
+
+export const EASEE_LEDIMAGES = {
+  normal: {
+    DEFAULT: ledOff,
+    disconnected: ledWhite2,
+    awaiting_start: ledWhiteAll,
+    charging: ledWhiteFlashing,
+    completed: ledWhiteAll,
+    error: ledRedFlashing,
+    ready_to_charge: ledWhiteAll,
+  },
+  smart: {
+    DEFAULT: ledOff,
+    disconnected: ledBlue2,
+    awaiting_start: ledBlueAll,
+    charging: ledBlueFlashing,
+    completed: ledBlueAll,
+    error: ledRedFlashing,
+    ready_to_charge: ledBlueAll,
+  },
+};
+
 
 import imageGeneric from './img/charger_generic_223x302.png';
 import imageAnthracite from './img/charger_anthracite_223x302.png';

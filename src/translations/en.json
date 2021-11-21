@@ -32,7 +32,9 @@
     "missing_entity": "Specifying entity is required!"
   },
   "editor": {
-    "entity": "Entity (Required)",
+    "instruction": "Select your charger brand and it's main sensor. The card will automatically detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+    "brand": "Brand (Required)",
+    "entity": "Main Entity (Required)",
     "chargerImage": "Charger image and color",
     "customImage": "Custom image (Optional - overrides charger image)",
     "theme": "Color theme",
