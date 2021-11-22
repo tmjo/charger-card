@@ -164,66 +164,50 @@ class ChargerCard extends LitElement {
       .replace(cconst.EASEE_MAIN_ENTITY_BASE, '');
   }
 
-  getEntityId(entity_base) {
-    try {
-      return (
-        entity_base.split('.')[0] +
-        '.' +
-        this.entityBasename +
-        '_' +
-        entity_base.split('.')[1]
-      );
-    } catch (err) {
-      return null;
-    }
-  }
-
   getEntityBase(entity_id) {
-    try {
-      return (
-        entity_id.split('.')[0] +
-        '.' +
-        entity_id.split('.')[1].replace(this.entityBasename + '_', '')
-      );
-    } catch (err) {
-      return null;
+    for (let c in this.config) {
+      // console.log("config: " +c)
+      if (this.config[c] === entity_id) {
+        return c
+      }
+
     }
   }
 
   getEntities() {
-    const cableLocked = this.getEntity(cconst.EASEE_ENTITIES.cableLocked);
+    const cableLocked = this.getEntity(this.config.cableLocked);
     const cableLockedPermanently = this.getEntity(
-      cconst.EASEE_ENTITIES.cableLockedPermanently
+      this.config.cableLockedPermanently
     );
-    const basicSchedule = this.getEntity(cconst.EASEE_ENTITIES.basicSchedule);
-    const circuitCurrent = this.getEntity(cconst.EASEE_ENTITIES.circuitCurrent);
-    const costPerKwh = this.getEntity(cconst.EASEE_ENTITIES.costPerKwh);
+    const basicSchedule = this.getEntity(this.config.basicSchedule);
+    const circuitCurrent = this.getEntity(this.config.circuitCurrent);
+    const costPerKwh = this.getEntity(this.config.costPerKwh);
     const dynamicChargerCurrent = this.getEntity(
-      cconst.EASEE_ENTITIES.dynamicChargerCurrent
+      this.config.dynamicChargerCurrent
     );
     const dynamicCircuitCurrent = this.getEntity(
-      cconst.EASEE_ENTITIES.dynamicCircuitCurrent
+      this.config.dynamicCircuitCurrent
     );
-    const enableIdleCurrent = this.getEntity(cconst.EASEE_ENTITIES.enableIdleCurrent);
+    const enableIdleCurrent = this.getEntity(this.config.enableIdleCurrent);
     const offlineCircuitCurrent = this.getEntity(
-      cconst.EASEE_ENTITIES.offlineCircuitCurrent
+      this.config.offlineCircuitCurrent
     );
-    const inCurrent = this.getEntity(cconst.EASEE_ENTITIES.inCurrent);
-    const isEnabled = this.getEntity(cconst.EASEE_ENTITIES.isEnabled);
-    const maxChargerCurrent = this.getEntity(cconst.EASEE_ENTITIES.maxChargerCurrent);
-    const maxCircuitCurrent = this.getEntity(cconst.EASEE_ENTITIES.maxCircuitCurrent);
-    const isOnline = this.getEntity(cconst.EASEE_ENTITIES.isOnline);
-    const outputCurrent = this.getEntity(cconst.EASEE_ENTITIES.outputCurrent);
+    const inCurrent = this.getEntity(this.config.inCurrent);
+    const isEnabled = this.getEntity(this.config.isEnabled);
+    const maxChargerCurrent = this.getEntity(this.config.maxChargerCurrent);
+    const maxCircuitCurrent = this.getEntity(this.config.maxCircuitCurrent);
+    const isOnline = this.getEntity(this.config.isOnline);
+    const outputCurrent = this.getEntity(this.config.outputCurrent);
     const reasonForNoCurrent = this.getEntity(
-      cconst.EASEE_ENTITIES.reasonForNoCurrent
+      this.config.reasonForNoCurrent
     );
-    const sessionEnergy = this.getEntity(cconst.EASEE_ENTITIES.sessionEnergy);
-    const energyPerHour = this.getEntity(cconst.EASEE_ENTITIES.energyPerHour);
-    const energyLifetime = this.getEntity(cconst.EASEE_ENTITIES.energyLifetime);
-    const smartCharging = this.getEntity(cconst.EASEE_ENTITIES.smartCharging);
-    const totalPower = this.getEntity(cconst.EASEE_ENTITIES.totalPower);
-    const updateAvailable = this.getEntity(cconst.EASEE_ENTITIES.updateAvailable);
-    const voltage = this.getEntity(cconst.EASEE_ENTITIES.voltage);
+    const sessionEnergy = this.getEntity(this.config.sessionEnergy);
+    const energyPerHour = this.getEntity(this.config.energyPerHour);
+    const energyLifetime = this.getEntity(this.config.energyLifetime);
+    const smartCharging = this.getEntity(this.config.smartCharging);
+    const totalPower = this.getEntity(this.config.totalPower);
+    const updateAvailable = this.getEntity(this.config.updateAvailable);
+    const voltage = this.getEntity(this.config.voltage);
     const status = this.entity;
 
     return {
@@ -254,13 +238,13 @@ class ChargerCard extends LitElement {
     };
   }
 
-  // getEntity(entity_base) {
-  //   try {
-  //     return this.hass.states[this.getEntityId(entity_base)];
-  //   } catch (err) {
-  //     return null;
-  //   }
-  // }
+  getEntity(entity_name) {
+    try {
+      return this.hass.states[entity_name];
+    } catch (err) {
+      return null;
+    }
+  }
 
   getEntityState(entity) {
     try {
@@ -270,17 +254,17 @@ class ChargerCard extends LitElement {
     }
   }
 
-  getEntityAttribute(entity_base, attribute) {
+  getEntityAttribute(entity_name, attribute) {
     try {
-      return this.getEntityAttributes(entity_base).attributes[attribute];
+      return this.hass.states[entity_name].attributes[attribute];
     } catch (err) {
       return null;
     }
   }
 
-  getEntityAttributes(entity_base) {
+  getEntityAttributes(entity_name) {
     try {
-      return this.hass.states[this.getEntityId(entity_base)].attributes;
+      return this.hass.states[entity_name].attributes;
     } catch (err) {
       return null;
     }
@@ -291,7 +275,7 @@ class ChargerCard extends LitElement {
       case cconst.EASEE_CHARGERSTATUS.STANDBY_1: {
         return [
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.sessionEnergy),
+            entity_id: (this.config.sessionEnergy),
             unit: 'kWh',
             subtitle: localize('charger_status.sessionEnergy'),
           },
@@ -301,7 +285,7 @@ class ChargerCard extends LitElement {
             subtitle: 'Current Limit',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.cableLockedPermanently),
+            entity_id: (this.config.cableLockedPermanently),
             unit: '',
             subtitle: 'Permanently Locked',
           },
@@ -315,17 +299,17 @@ class ChargerCard extends LitElement {
             subtitle: 'Current Limit',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.sessionEnergy),
+            entity_id: (this.config.sessionEnergy),
             unit: 'kWh',
             subtitle: localize('charger_status.sessionEnergy'),
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.basicSchedule),
+            entity_id: (this.config.basicSchedule),
             unit: '',
             subtitle: 'Schedule',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.smartCharging),
+            entity_id: (this.config.smartCharging),
             unit: '',
             subtitle: 'Smart Charging',
           },
@@ -334,32 +318,32 @@ class ChargerCard extends LitElement {
       case cconst.EASEE_CHARGERSTATUS.CHARGING_3: {
         return [
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.sessionEnergy),
+            entity_id: (this.config.sessionEnergy),
             unit: 'kWh',
             subtitle: 'Energy',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.energyPerHour),
+            entity_id: (this.config.energyPerHour),
             unit: 'kWh/h',
             subtitle: 'Rate',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.circuitCurrent),
+            entity_id: (this.config.circuitCurrent),
             unit: 'A',
             subtitle: 'Circuit',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.outputCurrent),
+            entity_id: (this.config.outputCurrent),
             unit: 'A',
             subtitle: 'Allowed',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.inCurrent),
+            entity_id: (this.config.inCurrent),
             unit: 'A',
             subtitle: 'Actual',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.totalPower),
+            entity_id: (this.config.totalPower),
             unit: 'kW',
             subtitle: 'Power',
           },
@@ -368,7 +352,7 @@ class ChargerCard extends LitElement {
       case cconst.EASEE_CHARGERSTATUS.READY_4: {
         return [
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.sessionEnergy),
+            entity_id: (this.config.sessionEnergy),
             unit: 'kWh',
             subtitle: localize('charger_status.sessionEnergy'),
           },
@@ -378,7 +362,7 @@ class ChargerCard extends LitElement {
             subtitle: 'Current Limit',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.basicSchedule),
+            entity_id: (this.config.basicSchedule),
             unit: '',
             subtitle: 'Schedule',
           },
@@ -387,7 +371,7 @@ class ChargerCard extends LitElement {
       case cconst.EASEE_CHARGERSTATUS.ERROR_5: {
         return [
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.sessionEnergy),
+            entity_id: (this.config.sessionEnergy),
             unit: 'kWh',
             subtitle: localize('charger_status.sessionEnergy'),
           },
@@ -401,7 +385,7 @@ class ChargerCard extends LitElement {
       case cconst.EASEE_CHARGERSTATUS.CONNECTED_6: {
         return [
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.sessionEnergy),
+            entity_id: (this.config.sessionEnergy),
             unit: 'kWh',
             subtitle: localize('charger_status.sessionEnergy'),
           },
@@ -411,7 +395,7 @@ class ChargerCard extends LitElement {
             subtitle: 'Current Limit',
           },
           {
-            entity_id: this.getEntityId(cconst.EASEE_ENTITIES.basicSchedule),
+            entity_id: (this.config.basicSchedule),
             unit: '',
             subtitle: 'Schedule',
           },
@@ -551,7 +535,7 @@ class ChargerCard extends LitElement {
       }
 
       const smartCharging = this.getEntityState(
-        this.getEntity(cconst.EASEE_ENTITIES.smartCharging)
+        this.getEntity(this.config.smartCharging)
       );
       return html`<img
         class="charger led${compactview}"
@@ -1044,13 +1028,14 @@ class ChargerCard extends LitElement {
   renderIcon(entity) {
     let entity_id = entity.entity_id;
     let icon =
-      this.getEntityAttribute(entity, 'icon') !== null
-        ? this.getEntityAttribute(entity, 'icon')
-        : cconst.ICONS[this.getEntityBase(entity_id)] || 'mdi:cancel';
+      this.getEntityAttribute(entity_id, 'icon') !== undefined
+      ? this.getEntityAttribute(entity_id, 'icon')
+      : cconst.ICONS[this.getEntityBase(entity_id)] || 'mdi:cancel';
+    //TODO: Find a way to get device class icons (which are not in attributes)
     let domainIcon =
-      this.getEntityAttribute(entity, 'device_class') == !null
+      this.getEntityAttribute(entity_id, 'device_class') == !null
         ? domainIcon(
-            this.getEntityAttribute(entity, 'device_class'),
+            this.getEntityAttribute(entity_id, 'device_class'),
             this.getEntityState(entity)
           )
         : false;
