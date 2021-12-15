@@ -17,42 +17,63 @@ var languages = {
   ca
 };
 
-const DEFAULT_LANG = 'en';
-
-export default function localize(string, search, replace) {
-  const [section, key] = string.split('.');
-
-  let langStored;
-
-  try {
-    langStored = JSON.parse(localStorage.getItem('selectedLanguage'));
-  } catch (e) {
-    langStored = localStorage.getItem('selectedLanguage');
-  }
-
-  const lang = (langStored || navigator.language.split('-')[0] || DEFAULT_LANG)
-    .replace(/['"]+/g, '')
-    .replace('-', '_');
+export default function localize(string, search = '', replace = ''){
+  const lang = (localStorage.getItem('selectedLanguage') || 'en').replace(/['"]+/g, '').replace('-', '_');
 
   let translated;
 
   try {
-    translated = languages[lang][section][key];
+    translated = string.split('.').reduce((o, i) => o[i], languages[lang]);
   } catch (e) {
-    translated = languages[DEFAULT_LANG][section][key];
+    translated = string.split('.').reduce((o, i) => o[i], languages['en']);
   }
 
-  if (translated === undefined) {
-    translated = languages[DEFAULT_LANG][section][key];
-  }
-
-  if (translated === undefined) {
-    return;
-  }
+  // if (translated === undefined) translated = string.split('.').reduce((o, i) => o[i], languages['en']);
+  if (translated === undefined) translated = string;
 
   if (search !== '' && replace !== '') {
     translated = translated.replace(search, replace);
   }
-
   return translated;
 }
+
+
+// const DEFAULT_LANG = 'en';
+
+// export default function localize(string, search, replace) {
+//   const [section, key] = string.split('.');
+
+//   let langStored;
+
+//   try {
+//     langStored = JSON.parse(localStorage.getItem('selectedLanguage'));
+//   } catch (e) {
+//     langStored = localStorage.getItem('selectedLanguage');
+//   }
+
+//   const lang = (langStored || navigator.language.split('-')[0] || DEFAULT_LANG)
+//     .replace(/['"]+/g, '')
+//     .replace('-', '_');
+
+//   let translated;
+
+//   try {
+//     translated = languages[lang][section][key];
+//   } catch (e) {
+//     translated = languages[DEFAULT_LANG][section][key];
+//   }
+
+//   if (translated === undefined) {
+//     translated = languages[DEFAULT_LANG][section][key];
+//   }
+
+//   if (translated === undefined) {
+//     return string;
+//   }
+
+//   if (search !== '' && replace !== '') {
+//     translated = translated.replace(search, replace);
+//   }
+
+//   return translated;
+// }

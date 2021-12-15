@@ -29,7 +29,9 @@
     "circuit_current": "Circuit Energy"
   },
   "error": {
-    "missing_entity": "Specifying entity is required!"
+    "missing_entity": "Specifying entity is required!",
+    "missing_config": "Error in config!",
+    "missing_group": "No entities defined in group!"
   },
   "editor": {
     "instruction": "Select your charger brand and it's main sensor. The card will automatically detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
@@ -64,7 +66,8 @@
   "charger_status": {
     "sessionEnergy": "Session Energy"
   },
-  "charger_substatus": {
+  "substatus": {
+    "SUBSTATUS": "Substatus",
     "not_requesting_current": "Not Requesting Current",
     "ok": "Ok",
     "pending_schedule": "Pending schedule",

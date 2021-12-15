@@ -2,6 +2,8 @@ import { LitElement, html, css } from 'lit-element';
 import { fireEvent } from 'custom-card-helpers';
 import localize from './localize';
 import * as cconst from './const';
+// let easee = await import('./const_easee.js');
+import * as easee from './const_easee.js';
 
 export class ChargerCardEditor extends LitElement {
   static get properties() {
@@ -150,9 +152,6 @@ export class ChargerCardEditor extends LitElement {
     }
 
     const allEntities = this.getAllEntities();
-    const chargerBrands = ["Easee", "Other" ];
-
-
 
     return html`
       <div class="card-config">
@@ -162,15 +161,15 @@ export class ChargerCardEditor extends LitElement {
       </strong>
 
 
-        <paper-dropdown-menu label="${localize('editor.brand')}" @value-changed=${this._valueChanged} .configValue=${'brand'}>
-          <paper-listbox slot="dropdown-content" .selected=${chargerBrands.indexOf(this.get_config("brand"))}>
-            ${chargerBrands.map(brand => {
+        <paper-dropdown-menu label="${localize('editor.brand')}" @value-changed=${this.setCardConfigType} .configValue=${'brand'}>
+          <paper-listbox slot="dropdown-content" .selected=${Object.values(cconst.CARDCONFIGTYPES).indexOf(this.get_config("brand"))}>
+            ${Object.values(cconst.CARDCONFIGTYPES).map(brand => {
               return html` <paper-item>${brand}</paper-item> `;
             })}
           </paper-listbox>
         </paper-dropdown-menu>
 
-        ${this.setEntityConfig()}
+
         ${this.setEntityPrefix()}
 
         <paper-dropdown-menu label="${localize('editor.entity')}" @value-changed=${this._valueChanged} .configValue=${'entity'}>
@@ -325,7 +324,7 @@ export class ChargerCardEditor extends LitElement {
           ["prefix"]:
             this._config.entity
               .split('.')[1]
-              .replace(cconst.EASEE_MAIN_ENTITY_BASE, ''),
+              .replace(easee.EASEE_MAIN_ENTITY_BASE, ''),
         };
       }catch (err) {
 
@@ -347,33 +346,57 @@ export class ChargerCardEditor extends LitElement {
   }
 
 
-  setEntityConfig() {
-    if (this.get_config("brand") === "Easee") {
-      for (let entity in cconst.EASEE_ENTITIES) {
-        // console.log("EASEE: " +entity +" --> " +cconst.ENTITIES[entity]);
+  setCardConfigType(ev) {
+    const target = ev.target;
+
+    // if (this[`_${target.configValue}`] === target.value) {
+    if (this._config[`${target.configValue}`] === target.value) {
+      console.log("SETCARDCONFIGTYPE EQUAL");
+      return;
+    }
+
+    console.log(this._config[`${target.configValue}`]);
+    console.log(target.value);
+
+    // if (this.get_config("brand") === "Easee") {
+    if (target.value === cconst.CARDCONFIGTYPES.easee) {
+      // console.log("SETCARDCONFIGTYPE EASEE");
+      // for (let entity in easee.ENTITIES_ALL) {
+      //   // console.log("EASEE: " +entity +" --> " +cconst.ENTITIES[entity]);
+      //   this._config = {
+      //     ...this._config,
+      //     [`${entity}`]:
+      //       this.getEntityId(easee.ENTITIES_ALL[entity]),
+      //   };
+      // }
+    }else if(target.value === cconst.CARDCONFIGTYPES.test){
+      console.log("SETCARDCONFIGTYPE TEST");
+      for (let entity in easee.EASEE_DEFAULT) {
         this._config = {
           ...this._config,
           [`${entity}`]:
-            this.getEntityId(cconst.EASEE_ENTITIES[entity]),
+            easee.EASEE_DEFAULT[entity],
         };
       }
-      return html``;
-    }
-    else {
-      const allEntities = this.getAllEntities();
-      return html`${cconst.ENTITIES_CARD.map(customentity => {
-        // return html`<paper-input label="${customentity}" .value="" .configValue=${customentity}"></paper-input>`;
-        return html`<paper-dropdown-menu label="${customentity}" @value-changed=${this._valueChanged} .configValue=${customentity}>
-        <paper-listbox slot="dropdown-content" .selected=${allEntities.indexOf(this.get_sensors(customentity))}>
-          ${allEntities.map(entity => {
-          return html` <paper-item>${entity}</paper-item> `;
-        })}
-        </paper-listbox>
-      </paper-dropdown-menu>`
+    } else {
+    //   console.log("SETCARDCONFIGTYPE OTHER");
+    //   const allEntities = this.getAllEntities();
+    //   return html`${cconst.ENTITIES_CARD.map(customentity => {
+    //     // return html`<paper-input label="${customentity}" .value="" .configValue=${customentity}"></paper-input>`;
+    //     return html`<paper-dropdown-menu label="${customentity}" @value-changed=${this._valueChanged} .configValue=${customentity}>
+    //     <paper-listbox slot="dropdown-content" .selected=${allEntities.indexOf(this.get_sensors(customentity))}>
+    //       ${allEntities.map(entity => {
+    //       return html` <paper-item>${entity}</paper-item> `;
+    //     })}
+    //     </paper-listbox>
+    //   </paper-dropdown-menu>`
 
-      })}
-    `;
+    //   })}
+    // `;
     }
+    this._valueChanged(ev)
+    fireEvent(this, 'config-changed', { config: this._config });
+    return;
   }
 
 
@@ -390,13 +413,13 @@ export class ChargerCardEditor extends LitElement {
     }
     if (target.configValue) {
       if (target.value === '') {
-        // delete this._config[target.configValue];
+        const tmpConfig = { ...this._config };
+        delete tmpConfig[target.configValue];
+        this._config = tmpConfig;
       } else {
-
         this._config = {
           ...this._config,
-          [target.configValue]:
-            target.checked !== undefined ? target.checked : target.value,
+          [target.configValue]: target.checked !== undefined ? target.checked : target.value,
         };
       }
     }

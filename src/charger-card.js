@@ -5,12 +5,16 @@ import localize from './localize';
 import styles from './styles';
 import * as cconst from './const';
 
-if (!customElements.get('ha-icon-button')) {
-  customElements.define(
-    'ha-icon-button',
-    class extends customElements.get('paper-icon-button') {}
-  );
-}
+// let easee = await import('./const_easee.js');
+import * as easee from './const_easee.js';
+
+
+// if (!customElements.get('ha-icon-button')) {
+//   customElements.define(
+//     'ha-icon-button',
+//     class extends customElements.get('paper-icon-button') {}
+//   );
+// }
 
 class ChargerCard extends LitElement {
   static get properties() {
@@ -20,11 +24,6 @@ class ChargerCard extends LitElement {
       requestInProgress: Boolean,
     };
   }
-
-  static get styles() {
-    return styles;
-  }
-
   static async getConfigElement() {
     return document.createElement('charger-card-editor');
   }
@@ -40,60 +39,58 @@ class ChargerCard extends LitElement {
     };
   }
 
+  static get styles() {
+    return styles;
+  }
+
   get entity() {
     return this.hass.states[this.config.entity];
   }
 
-  get chargerId() {
-    return this.hass.states[this.config.entity].attributes['id'];
-  }
+  // get chargerId() {
+  //   return this.hass.states[this.config.entity].attributes['id'];
+  // }
 
-  get chargerDomain() {
-    // if (this.config.domain === undefined) {
-    return cconst.EASEE_DOMAIN;
-    // }
-  }
+  // get chargerDomain() {
+  //   // if (this.config.domain === undefined) {
+  //   return easee.DOMAIN;
+  //   // }
+  // }
 
-  get usedChargerLimit() {
-    const {
-      dynamicChargerCurrent,
-      dynamicCircuitCurrent,
-      maxChargerCurrent,
-      maxCircuitCurrent,
-    } = this.getEntities();
-    const circuitRatedCurrent = this.hass.states[this.config.entity].attributes[
-      'circuit_ratedCurrent'
-    ];
-    const usedChargerLimit = Math.min(
-      this.getEntityState(dynamicChargerCurrent),
-      this.getEntityState(dynamicCircuitCurrent),
-      this.getEntityState(maxChargerCurrent),
-      this.getEntityState(maxCircuitCurrent),
-      circuitRatedCurrent
-    );
-    return usedChargerLimit;
-  }
+  // get usedChargerLimit() {
+  //   const {
+  //     dynamicChargerCurrent,
+  //     dynamicCircuitCurrent,
+  //     maxChargerCurrent,
+  //     maxCircuitCurrent,
+  //   } = this.getEntities();
+  //   const circuitRatedCurrent = this.hass.states[this.config.entity].attributes[
+  //     'circuit_ratedCurrent'
+  //   ];
+  //   const usedChargerLimit = Math.min(
+  //     this.getEntityState(dynamicChargerCurrent),
+  //     this.getEntityState(dynamicCircuitCurrent),
+  //     this.getEntityState(maxChargerCurrent),
+  //     this.getEntityState(maxCircuitCurrent),
+  //     circuitRatedCurrent
+  //   );
+  //   return usedChargerLimit;
+  // }
 
   get image() {
-    let imgselected = this.config.chargerImage || cconst.DEFAULTIMAGE;
-
-    const chargerImage = cconst.CHARGER_IMAGES.find(({ name }) => {
-      if (name === imgselected) {
-        return name;
-      }
-    });
-
-    if (
-      this.config.customImage === undefined ||
-      this.config.customImage === ''
-    ) {
-      try {
-        return chargerImage.img;
-      } catch (err) {
-        return null;
-      }
+    let image;
+    if (this.config.customImage !== undefined && this.config.customImage !== null && this.config.customImage !== '') {
+      // For images in www try path \local\image.png
+      image = this.config.customImage;
+    } else {
+      let imageSel = this.config.chargerImage || cconst.DEFAULTIMAGE;
+      image = cconst.CHARGER_IMAGES.find(({ name }) => {
+        if (name === imageSel) {
+          return name;
+        }
+      }).img;
     }
-    return this.config.customImage;
+    return image;
   }
 
   get customCardTheme() {
@@ -151,91 +148,98 @@ class ChargerCard extends LitElement {
     }
     return this.config.compact_view;
   }
-  get useStatsDefault() {
-    if (this.config.stats === undefined) {
-      return true;
+
+  get currentlimits() {
+    if (this.config.currentlimits !== undefined && Array.isArray(this.config.currentlimits)) {
+      return this.config.currentlimits;
     }
-    return false;
+    return cconst.CURRENTLIMITS;
   }
 
-  get entityBasename() {
-    return this.config.entity
-      .split('.')[1]
-      .replace(cconst.EASEE_MAIN_ENTITY_BASE, '');
+  get statetext() {
+    if (this.config.statetext !== undefined && typeof this.config.statetext == 'object') {
+      return this.config.statetext;
+    }
+    return [{}];
   }
 
-  getEntityBase(entity_id) {
-    for (let c in this.config) {
-      // console.log("config: " +c)
-      if (this.config[c] === entity_id) {
-        return c
+
+  getCardData(configgroup) {
+    var entities = {};
+
+    if (configgroup === undefined || configgroup === null) {
+      return null;
+    } else if(typeof configgroup == 'object'){
+      for (let [key, val] of Object.entries(configgroup)) {
+        if (typeof val == 'object' && 'entity_id' in val) {
+          // Get entity
+          var entity = this.getEntity(val['entity_id']);
+          if (entity !== undefined && entity !== null ) {
+            var entityinfo = { 'entity': entity };
+
+            //Set defaults if not given in config
+            if (val['unit'] === undefined) { entityinfo['unit'] = entity.attributes['unit_of_measurement'] || null };
+            if (val['unit_show'] === undefined) { entityinfo['unit_show'] = false };
+            if (val['unit_showontext'] === undefined) { entityinfo['unit_showontext'] = false };
+            if (val['text'] === undefined) { entityinfo['text'] = entity.attributes['friendly_name'] || null };
+            if (val['icon'] === undefined) { entityinfo['icon'] = this.getEntityIcon(entity) };
+            if (val['round'] === undefined) { entityinfo['round'] = false };
+            if (val['type'] === undefined) { entityinfo['type'] = 'info' };
+            // service
+            // service_data
+
+            // Use attribute if given in config
+            entityinfo['useval'] = 'attribute' in val && val['attribute'] in entity.attributes ? entity.attributes[val['attribute']] : entity.state || null;
+
+            //Apply rounding of number if specified, round to zero decimals if other than integer given (for instance true)
+            if (val['round'] !== undefined) {
+              var decimals = Number.isInteger(val['round']) ? val['round'] : 0;
+              entityinfo['useval'] = this.round(entityinfo['useval'], decimals);
+            }
+
+            entities[key] = Object.assign(entityinfo, val);
+          }
+        } else if (typeof val == 'object') {
+          // For states and similar
+          entities[key] = this.getCardData(val);
+        }
       }
+    } else {
+          // For strings and non-objects
+          entities = configgroup;
+        }
+    // console.log(entities);
+    return entities;
+  }
 
+
+  getEntityIcon(entity) {
+    if (entity === undefined || entity === null || typeof entity !== 'object') {
+        return null;
+    } else if ('icon' in entity.attributes) {
+        return entity.attributes['icon'];
+    } else if ('device_class' in entity.attributes) {
+        //TODO: Find better way to get deviceclass icons
+        return cconst.DEVICECLASS_ICONS[entity.attributes['device_class']] || null;
+    }
+    return null;
+  }
+
+  getCollapsibleButton(button, deftext, deficon) {
+    let btns = this.config.collapsiblebuttons;
+    try {
+      return { text: btns[button].text, icon: btns[button].icon };
+    } catch (err) {
+      return { text: deftext, icon: deficon };
     }
   }
 
-  getEntities() {
-    const cableLocked = this.getEntity(this.config.cableLocked);
-    const cableLockedPermanently = this.getEntity(
-      this.config.cableLockedPermanently
-    );
-    const basicSchedule = this.getEntity(this.config.basicSchedule);
-    const circuitCurrent = this.getEntity(this.config.circuitCurrent);
-    const costPerKwh = this.getEntity(this.config.costPerKwh);
-    const dynamicChargerCurrent = this.getEntity(
-      this.config.dynamicChargerCurrent
-    );
-    const dynamicCircuitCurrent = this.getEntity(
-      this.config.dynamicCircuitCurrent
-    );
-    const enableIdleCurrent = this.getEntity(this.config.enableIdleCurrent);
-    const offlineCircuitCurrent = this.getEntity(
-      this.config.offlineCircuitCurrent
-    );
-    const inCurrent = this.getEntity(this.config.inCurrent);
-    const isEnabled = this.getEntity(this.config.isEnabled);
-    const maxChargerCurrent = this.getEntity(this.config.maxChargerCurrent);
-    const maxCircuitCurrent = this.getEntity(this.config.maxCircuitCurrent);
-    const isOnline = this.getEntity(this.config.isOnline);
-    const outputCurrent = this.getEntity(this.config.outputCurrent);
-    const reasonForNoCurrent = this.getEntity(
-      this.config.reasonForNoCurrent
-    );
-    const sessionEnergy = this.getEntity(this.config.sessionEnergy);
-    const energyPerHour = this.getEntity(this.config.energyPerHour);
-    const energyLifetime = this.getEntity(this.config.energyLifetime);
-    const smartCharging = this.getEntity(this.config.smartCharging);
-    const totalPower = this.getEntity(this.config.totalPower);
-    const updateAvailable = this.getEntity(this.config.updateAvailable);
-    const voltage = this.getEntity(this.config.voltage);
-    const status = this.entity;
-
-    return {
-      cableLocked,
-      cableLockedPermanently,
-      basicSchedule,
-      circuitCurrent,
-      costPerKwh,
-      dynamicChargerCurrent,
-      dynamicCircuitCurrent,
-      enableIdleCurrent,
-      offlineCircuitCurrent,
-      inCurrent,
-      isEnabled,
-      maxChargerCurrent,
-      maxCircuitCurrent,
-      isOnline,
-      outputCurrent,
-      reasonForNoCurrent,
-      sessionEnergy,
-      energyPerHour,
-      energyLifetime,
-      smartCharging,
-      totalPower,
-      updateAvailable,
-      voltage,
-      status,
-    };
+  round(value, decimals) {
+    try{
+      return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    } catch (err){
+      return null;
+    }
   }
 
   getEntity(entity_name) {
@@ -246,163 +250,25 @@ class ChargerCard extends LitElement {
     }
   }
 
-  getEntityState(entity) {
-    try {
-      return entity.state;
-    } catch (err) {
-      return null;
-    }
-  }
+  // getEntityState(entity) {
+  //   try {
+  //     return entity.state;
+  //   } catch (err) {
+  //     return null;
+  //   }
+  // }
 
-  getEntityAttribute(entity_name, attribute) {
-    try {
-      return this.hass.states[entity_name].attributes[attribute];
-    } catch (err) {
-      return null;
-    }
-  }
-
-  getEntityAttributes(entity_name) {
-    try {
-      return this.hass.states[entity_name].attributes;
-    } catch (err) {
-      return null;
-    }
-  }
-
-  getStatsDefault(state) {
-    switch (state) {
-      case cconst.EASEE_CHARGERSTATUS.STANDBY_1: {
-        return [
-          {
-            entity_id: (this.config.sessionEnergy),
-            unit: 'kWh',
-            subtitle: localize('charger_status.sessionEnergy'),
-          },
-          {
-            calcValue: this.usedChargerLimit,
-            unit: 'A',
-            subtitle: 'Current Limit',
-          },
-          {
-            entity_id: (this.config.cableLockedPermanently),
-            unit: '',
-            subtitle: 'Permanently Locked',
-          },
-        ];
-      }
-      case cconst.EASEE_CHARGERSTATUS.PAUSED_2: {
-        return [
-          {
-            calcValue: this.usedChargerLimit,
-            unit: 'A',
-            subtitle: 'Current Limit',
-          },
-          {
-            entity_id: (this.config.sessionEnergy),
-            unit: 'kWh',
-            subtitle: localize('charger_status.sessionEnergy'),
-          },
-          {
-            entity_id: (this.config.basicSchedule),
-            unit: '',
-            subtitle: 'Schedule',
-          },
-          {
-            entity_id: (this.config.smartCharging),
-            unit: '',
-            subtitle: 'Smart Charging',
-          },
-        ];
-      }
-      case cconst.EASEE_CHARGERSTATUS.CHARGING_3: {
-        return [
-          {
-            entity_id: (this.config.sessionEnergy),
-            unit: 'kWh',
-            subtitle: 'Energy',
-          },
-          {
-            entity_id: (this.config.energyPerHour),
-            unit: 'kWh/h',
-            subtitle: 'Rate',
-          },
-          {
-            entity_id: (this.config.circuitCurrent),
-            unit: 'A',
-            subtitle: 'Circuit',
-          },
-          {
-            entity_id: (this.config.outputCurrent),
-            unit: 'A',
-            subtitle: 'Allowed',
-          },
-          {
-            entity_id: (this.config.inCurrent),
-            unit: 'A',
-            subtitle: 'Actual',
-          },
-          {
-            entity_id: (this.config.totalPower),
-            unit: 'kW',
-            subtitle: 'Power',
-          },
-        ];
-      }
-      case cconst.EASEE_CHARGERSTATUS.READY_4: {
-        return [
-          {
-            entity_id: (this.config.sessionEnergy),
-            unit: 'kWh',
-            subtitle: localize('charger_status.sessionEnergy'),
-          },
-          {
-            calcValue: this.usedChargerLimit,
-            unit: 'A',
-            subtitle: 'Current Limit',
-          },
-          {
-            entity_id: (this.config.basicSchedule),
-            unit: '',
-            subtitle: 'Schedule',
-          },
-        ];
-      }
-      case cconst.EASEE_CHARGERSTATUS.ERROR_5: {
-        return [
-          {
-            entity_id: (this.config.sessionEnergy),
-            unit: 'kWh',
-            subtitle: localize('charger_status.sessionEnergy'),
-          },
-          {
-            calcValue: this.usedChargerLimit,
-            unit: 'A',
-            subtitle: 'Current Limit',
-          },
-        ];
-      }
-      case cconst.EASEE_CHARGERSTATUS.CONNECTED_6: {
-        return [
-          {
-            entity_id: (this.config.sessionEnergy),
-            unit: 'kWh',
-            subtitle: localize('charger_status.sessionEnergy'),
-          },
-          {
-            calcValue: this.usedChargerLimit,
-            unit: 'A',
-            subtitle: 'Current Limit',
-          },
-          {
-            entity_id: (this.config.basicSchedule),
-            unit: '',
-            subtitle: 'Schedule',
-          },
-        ];
-      }
-    }
-  }
+  // getEntityAttribute(entity_name, attribute = null) {
+  //   try {
+  //     if (attribute == null) {
+  //       return this.hass.states[entity_name].attributes;
+  //     } else {
+  //       return this.hass.states[entity_name].attributes[attribute];
+  //     }
+  //   } catch (err) {
+  //     return null;
+  //   }
+  // }
 
   setConfig(config) {
     if (!config.entity) {
@@ -423,7 +289,7 @@ class ChargerCard extends LitElement {
     if (
       changedProps.get('hass') &&
       changedProps.get('hass').states[this.config.entity].state !==
-        this.hass.states[this.config.entity].state
+      this.hass.states[this.config.entity].state
     ) {
       this.requestInProgress = false;
     }
@@ -445,69 +311,48 @@ class ChargerCard extends LitElement {
 
   setServiceData(service, isRequest, e) {
     switch (service) {
-      case cconst.EASEE_SERVICES.chargerMaxCurrent: {
+      case easee.SERVICES.chargerMaxCurrent: {
         const current = e.target.getAttribute('value');
         return this.callService(service, isRequest, { current });
       }
-      case cconst.EASEE_SERVICES.chargerDynCurrent: {
+      case easee.SERVICES.chargerDynCurrent: {
         const current = e.target.getAttribute('value');
         return this.callService(service, isRequest, { current });
       }
-      case cconst.EASEE_SERVICES.circuitOfflineCurrent: {
+      case easee.SERVICES.circuitOfflineCurrent: {
         const currentP1 = e.target.getAttribute('value');
         return this.callService(service, isRequest, { currentP1 });
       }
-      case cconst.EASEE_SERVICES.circuitMaxCurrent: {
+      case easee.SERVICES.circuitMaxCurrent: {
         const currentP1 = e.target.getAttribute('value');
         return this.callService(service, isRequest, { currentP1 });
       }
-      case cconst.EASEE_SERVICES.circuitDynCurrent: {
+      case easee.SERVICES.circuitDynCurrent: {
         const currentP1 = e.target.getAttribute('value');
         return this.callService(service, isRequest, { currentP1 });
       }
     }
   }
 
-  callService(service, isRequest = true, options = {}) {
-    this.hass.callService(this.chargerDomain, service, {
-      charger_id: this.chargerId,
-      ...options,
-    });
-
-    if (isRequest) {
-      // this.requestInProgress = true; //TODO: Removed, must be improved to check all sensors
-      this.requestUpdate();
+  callService(service, isRequest = true, servicedata = {}, domain = null) {
+    if (service === undefined || service === null) {
+      console.error("Trying to call an empty service - please check your card configuration.");
+      this.hass.callService("persistent_notification", "create", { title: "No service", message: "No service defined for this action." });
+    } else {
+      service = service.split(".");
+      // console.log(service[0])
+      // console.log(service[1])
+      // console.log(servicedata)
+      this.hass.callService(service[0], service[1], servicedata[0]);
+      // this.hass.callService(service[0], service[1], {
+      //   charger_id: this.chargerId,
+      //   ...options,
+      // });
+      if (isRequest) {
+        // this.requestInProgress = true; //TODO: Removed, must be improved to check all sensors
+        this.requestUpdate();
+      }
     }
-  }
-
-  getAttributes(entity) {
-    const {
-      status,
-      state,
-      friendly_name,
-      name,
-      site_name,
-      icon,
-    } = entity.attributes;
-
-    return {
-      status: status || state,
-      friendly_name,
-      name,
-      site_name,
-      icon,
-    };
-  }
-
-  imageLed(state, smartCharging) {
-    let chargingMode = 'normal';
-    if (smartCharging == 'on') {
-      chargingMode = 'smart';
-    }
-    return (
-      cconst.EASEE_LEDIMAGES[chargingMode][state] ||
-      cconst.EASEE_LEDIMAGES[chargingMode]['DEFAULT']
-    );
   }
 
   renderImage(state) {
@@ -528,23 +373,17 @@ class ChargerCard extends LitElement {
   }
 
   renderLeds(state) {
-    if (this.showLeds) {
-      let compactview = '';
-      if (this.compactView) {
-        compactview = '-compact';
-      }
-
-      const smartCharging = this.getEntityState(
-        this.getEntity(this.config.smartCharging)
-      );
-      return html`<img
-        class="charger led${compactview}"
-        src="${this.imageLed(state, smartCharging)}"
-        @click="${() => this.handleMore()}"
-        ?more-info="true"
-      /> `;
+    if (!this.showLeds) {
+      return html``;
     }
-    return html``;
+    let carddatas = this.getCardData(this.config["smartcharging"]);
+    let chargingmode = 'normal';
+    if (carddatas !== null && carddatas !== undefined && typeof carddatas === 'object') {
+      chargingmode = carddatas[0].entity.state == 'on' ? 'smart' : 'normal';
+    }
+    let imageled = easee.EASEE_LEDIMAGES[chargingmode][state] || easee.EASEE_LEDIMAGES[chargingmode]['DEFAULT'];
+    let compactview = this.compactView ? '-compact' : '';
+    return html`<img class="charger led${compactview}" src="${imageled}" @click="${() => this.handleMore(carddatas.entity)}"?more-info="true"/> `;
   }
 
   renderStats(state) {
@@ -552,495 +391,221 @@ class ChargerCard extends LitElement {
     if (!this.showStats) {
       return html``;
     }
-    let compactview = '';
-    if (this.compactView) {
-      compactview = '-compact';
-    }
+    let compactview = this.compactView ? '-compact' : '';
+    const stats = this.getCardData(this.config.stats)
+    const statsList = (stats !== undefined && stats !== null) ? stats[state] || stats['default'] :[];
 
-    /* DEFAULT DATATABLE */
-    if (this.useStatsDefault) {
-      const statsList = this.getStatsDefault(state) || [];
-      return html`<div class="stats${compactview}">
-        ${this.renderStatsList(state, statsList)}
-      </div>`;
-      /* CUSTOM DATATABLE */
-    } else {
-      const { stats = {} } = this.config;
-      const statsList = stats[state] || stats.default || [];
-      return html`<div class="stats${compactview}">
-        ${this.renderStatsList(state, statsList)}
-      </div>`;
-    }
-  }
-
-  renderStatsList(state, statsList) {
-    return statsList.map(
-      ({ entity_id, attribute, calcValue, unit, subtitle }) => {
-        if (!entity_id && !attribute && !calcValue) {
-          return html``;
-        } else if (calcValue) {
-          return this.renderStatsHtml(calcValue, unit, subtitle);
-        }
-        this.getEntity();
-        try {
-          const value = attribute
-            ? this.hass.states[entity_id].attributes[attribute]
-            : this.hass.states[entity_id].state;
-          return this.renderStatsHtml(
-            value,
-            unit,
-            subtitle,
-            this.hass.states[entity_id]
-          );
-        } catch (err) {
-          return null;
-        }
+    return html`<div class="stats${compactview}">
+      ${Object.values(statsList).map(stat => {
+          if (!stat.entity_id && !stat.attribute) {
+            return html``;
+          }
+          try {
+            return html`
+            <div
+              class="stats-block"
+              @click="${() => this.handleMore(stat.entity)}"
+              ?more-info="true"
+            >
+              <span class="stats-value">${stat.useval}</span>
+              ${stat.unit}
+              <div class="stats-subtitle">${stat.text}</div>
+            </div>
+          `;
+          } catch (err) {
+            return null;
+          }
+        })
       }
-    );
-  }
+      </div>`;
+    }
 
-  renderStatsHtml(value, unit, subtitle, entity = this.entity) {
-    return html`
-      <div
-        class="stats-block"
-        @click="${() => this.handleMore(entity)}"
-        ?more-info="true"
-      >
-        <span class="stats-value">${value}</span>
-        ${unit}
-        <div class="stats-subtitle">${subtitle}</div>
-      </div>
-    `;
-  }
 
   renderName() {
-    const { name, site_name } = this.getAttributes(this.entity);
     if (!this.showName) {
       return html``;
     }
 
-    let compactview = '';
-    if (this.compactView) {
-      compactview = '-compact';
-    }
+    let carddata_name = this.getCardData(this.config["name"]);
+    let carddata_location = this.getCardData(this.config["location"]);
+    var name = "NAME";
+    var location = "LOCATION";
+    var moreEntity = null;
+    let compactview = this.compactView ? '-compact' : '';
 
+    if (carddata_name !== null && carddata_name !== undefined) {
+      name = typeof carddata_name == 'object' ? carddata_name[0].useval : carddata_name;
+      moreEntity = typeof carddata_name == 'object' ? carddata_name[0].entity : null;
+    }
+    if (carddata_location !== null && carddata_location !== undefined) {
+      location = typeof carddata_location == 'object' ? carddata_location[0].useval : carddata_location;
+    }
     return html`
       <div
         class="charger-name${compactview}"
-        @click="${() => this.handleMore()}"
+        @click="${() => this.handleMore(moreEntity)}"
         ?more-info="true"
       >
-        ${site_name} - ${name}
+        ${location} - ${name}
       </div>
     `;
   }
+
 
   renderStatus() {
     if (!this.showStatus) {
       return html``;
     }
+    let carddata_status = this.getCardData(this.config["status"]);
+    let carddata_substatus = this.getCardData(this.config["substatus"]);
+    var status = "STATUS";
+    var substatus = "SUBSTATUS";
+    var entityStatus = null;
+    var entitySubstatus = null;
+    let compactview = this.compactView ? '-compact' : '';
 
-    let compactview = '';
-    if (this.compactView) {
-      compactview = '-compact';
+    if (carddata_status !== null && carddata_status !== undefined) {
+      status = typeof carddata_status == 'object' ? carddata_status[0].useval : carddata_status;
+      entityStatus = typeof carddata_status == 'object' ? carddata_status[0].entity : null;
+    }
+    if (carddata_substatus !== null && carddata_substatus !== undefined) {
+      substatus = typeof carddata_substatus == 'object' ? carddata_substatus[0].useval : carddata_substatus;
+      entitySubstatus = typeof carddata_substatus == 'object' ? carddata_substatus[0].entity : null;
     }
 
-    const { state } = this.entity;
-    const { reasonForNoCurrent } = this.getEntities();
-    const localizedStatus = localize(`status.${state}`) || state;
-    let subStatusText =
-      localize(
-        `charger_substatus.${this.getEntityState(reasonForNoCurrent)}`
-      ) || this.getEntityState(reasonForNoCurrent);
+    //Localize
+    status = this.statetext[0][status] || localize("status." + status) || status;
+    substatus = localize("substatus." + substatus) || substatus;
 
     return html`
-      <div
-        class="status${compactview}"
-        @click="${() => this.handleMore()}"
-        ?more-info="true"
-      >
-        <span class="status-text${compactview}" alt=${localizedStatus}>
-          ${localizedStatus}
-        </span>
-        <ha-circular-progress
-          .active=${this.requestInProgress}
-          size="small"
-        ></ha-circular-progress>
-        <div
-          class="status-detail-text${compactview}"
-          alt=${subStatusText}
-          @click="${() => this.handleMore(reasonForNoCurrent)}"
+      <div class="status${compactview}" @click="${() => this.handleMore(entityStatus)}"?more-info="true">
+        <span class="status-text${compactview}" alt=${status}>${status}</span>
+        <ha-circular-progress .active=${this.requestInProgress} size="small"></ha-circular-progress>
+        <div class="status-detail-text${compactview}" alt=${substatus} @click="${() => this.handleMore(entitySubstatus)}"?more-info="true">
+          ${substatus}
+        </div>
+      </div>
+    `;
+  }
+
+
+  renderCollapsible(group, icon, tooltip, style, itemtype) {
+    /* SHOW COLLAPSIBLES */
+    if (!this.showCollapsibles) {
+      return html``;
+    }
+    // TODO: CONDITIONAL SHOWING OF UPDATEAVAILABLE ETC, INCLUDING SERVICE CALLS AND USED LIMIT (CALCVAL)
+    // let updateAvailableState = this.getEntityState(updateAvailable) || 'off';
+
+    // ${this.renderCollapsibleDropDownItems(
+    //   maxChargerCurrent,
+    //   easee.SERVICES.chargerMaxCurrent,
+    //   'Max Charger',
+    //   undefined,
+    //   'Max Charger Limit',
+    //   true
+    // )}
+
+    let carddatas = this.getCardData(this.config[group]);
+    return html`
+      <div class="wrap-collabsible${style}">
+        <input id="collapsible${style}" class="toggle${style}" type="checkbox" />
+        <label for="collapsible${style}" class="lbl-toggle${style}">
+          <div class="tooltip-right">
+            <ha-icon icon="${icon}"></ha-icon>
+            <span class="tooltiptext-right">${localize(tooltip)}</span>
+          </div>
+        </label>
+        <div class="collapsible-content${style}">
+          <div class="content-inner${style}">
+            ${carddatas !== null ? Object.values(carddatas).map(carddata => {return this.renderCollapsibleItems(carddata, itemtype);}):localize('error.missing_group')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  renderCollapsibleItems(carddata, itemtype='') {
+    if (carddata === null || carddata === undefined || typeof carddata !== 'object') {
+      return html``;
+    }
+
+    if (itemtype === '' || itemtype === 'info') {
+      var options = "";
+      return html`
+        <div class="collapsible-item"
+          @click="${() => this.handleMore(carddata.entity)}"
           ?more-info="true"
         >
-          ${subStatusText}
-        </div>
-      </div>
-    `;
-  }
-
-  renderCollapsibleConfig() {
-    /* SHOW COLLAPSIBLES */
-    if (!this.showCollapsibles) {
-      return html``;
-    }
-
-    const {
-      cableLocked,
-      cableLockedPermanently,
-      enableIdleCurrent,
-      isEnabled,
-      smartCharging,
-      updateAvailable,
-      costPerKwh,
-    } = this.getEntities();
-    let updateAvailableState = this.getEntityState(updateAvailable) || 'off';
-    let localizedClickForConfig = localize('common.click_for_config');
-
-    return html`
-      <div class="wrap-collabsible">
-        <input id="collapsible" class="toggle" type="checkbox" />
-        <label for="collapsible" class="lbl-toggle">
-          <div class="tooltip-right">
-            <ha-icon icon="mdi:cog"></ha-icon>
-            <span class="tooltiptext-right">${localizedClickForConfig}</span>
-          </div>
-        </label>
-        <div class="collapsible-content">
-          <div class="content-inner">
-            ${this.renderCollapsibleItems(isEnabled, 'Enabled')}
-            ${this.renderCollapsibleItems(enableIdleCurrent, 'Idle Current')}
-            ${this.renderCollapsibleItems(
-              cableLockedPermanently,
-              'Permanently Locked'
-            )}
-            ${this.renderCollapsibleItems(cableLocked, 'Locked')}
-            ${this.renderCollapsibleItems(smartCharging, 'Smart Charging')}
-            ${this.renderCollapsibleItems(costPerKwh, 'Energy cost')}
-            ${this.renderCollapsibleItems(updateAvailable, 'Update Available')}
-            ${updateAvailableState === 'on' &&
-            this.entity.state === cconst.EASEE_CHARGERSTATUS.STANDBY_1
-              ? this.renderCollapsibleServiceItems(
-                  undefined,
-                  'update_firmware',
-                  'Update',
-                  'mdi:file-download',
-                  'Update Firmware'
-                )
-              : ''}
-            ${updateAvailableState === 'on' &&
-            this.entity.state === cconst.EASEE_CHARGERSTATUS.STANDBY_1
-              ? this.renderCollapsibleServiceItems(
-                  undefined,
-                  'reboot',
-                  'Reboot',
-                  'mdi:restart',
-                  'Reboot'
-                )
-              : ''}
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  renderCollapsibleInfo() {
-    /* SHOW COLLAPSIBLES */
-    if (!this.showCollapsibles) {
-      return html``;
-    }
-
-    const {
-      isOnline,
-      voltage,
-      totalPower,
-      circuitCurrent,
-      inCurrent,
-      sessionEnergy,
-      energyPerHour,
-      energyLifetime,
-    } = this.getEntities();
-
-    let localizedClickForStatus = localize('common.click_for_info');
-
-    return html`
-      <div class="wrap-collabsible-info">
-        <input id="collapsible-info" class="toggle-info" type="checkbox" />
-        <label for="collapsible-info" class="lbl-toggle-info">
-          <div class="tooltip-right">
-            <ha-icon icon="mdi:information"></ha-icon>
-            <span class="tooltiptext-right">${localizedClickForStatus}</span>
-          </div>
-        </label>
-        <div class="collapsible-content-info">
-          <div class="content-inner-info">
-            ${this.renderCollapsibleItems(isOnline, localize('common.online'))}
-            ${this.renderCollapsibleItems(
-              voltage,
-              localize('common.voltage'),
-              true
-            )}
-            ${this.renderCollapsibleItems(totalPower, localize('common.power'))}
-            ${this.renderCollapsibleItems(
-              inCurrent,
-              localize('common.charger_current'),
-              true
-            )}
-            ${this.renderCollapsibleItems(
-              circuitCurrent,
-              localize('common.circuit_current'),
-              true
-            )}
-            ${this.renderCollapsibleItems(
-              energyPerHour,
-              localize('common.energy_per_hour')
-            )}
-            ${this.renderCollapsibleItems(
-              sessionEnergy,
-              localize('charger_status.sessionEnergy')
-            )}
-            ${this.renderCollapsibleItems(
-              energyLifetime,
-              localize('common.lifetime_energy'),
-              true
-            )}
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  renderCollapsibleLimits() {
-    /* SHOW COLLAPSIBLES */
-    if (!this.showCollapsibles) {
-      return html``;
-    }
-
-    const {
-      maxChargerCurrent,
-      maxCircuitCurrent,
-      dynamicChargerCurrent,
-      dynamicCircuitCurrent,
-      offlineCircuitCurrent,
-    } = this.getEntities();
-    let localizedClickForLimits = localize('common.click_for_limits');
-
-    return html`
-      <div class="wrap-collabsible-lim">
-        <input id="collapsible-lim" class="toggle-lim" type="checkbox" />
-        <label for="collapsible-lim" class="lbl-toggle-lim">
-          <div class="tooltip-right">
-            <ha-icon icon="mdi:speedometer"></ha-icon>
-            <span class="tooltiptext-right">${localizedClickForLimits}</span>
-          </div>
-        </label>
-        <div class="collapsible-content-lim">
-          <div class="content-inner-lim">
-            ${this.renderCollapsibleDropDownItems(
-              maxChargerCurrent,
-              cconst.EASEE_SERVICES.chargerMaxCurrent,
-              'Max Charger',
-              undefined,
-              'Max Charger Limit',
-              true
-            )}
-            ${this.renderCollapsibleDropDownItems(
-              dynamicChargerCurrent,
-              cconst.EASEE_SERVICES.chargerDynCurrent,
-              'Dyn Charger',
-              undefined,
-              'Dyn Charger Limit',
-              true
-            )}
-            ${this.renderCollapsibleDropDownItems(
-              maxCircuitCurrent,
-              cconst.EASEE_SERVICES.circuitMaxCurrent,
-              'Max Circuit',
-              undefined,
-              'Max Circuit Limit',
-              true
-            )}
-            ${this.renderCollapsibleDropDownItems(
-              dynamicCircuitCurrent,
-              cconst.EASEE_SERVICES.circuitDynCurrent,
-              'Dyn Circuit',
-              undefined,
-              'Dyn Circuit Limit',
-              true
-            )}
-            ${this.renderCollapsibleDropDownItems(
-              offlineCircuitCurrent,
-              cconst.EASEE_SERVICES.circuitOfflineCurrent,
-              'Off Lim',
-              undefined,
-              'Offline Limit',
-              true
-            )}
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  renderCollapsibleItems(entity, tooltip, round = false) {
-    if (entity === null || entity === undefined) {
-      return html``;
-    }
-
-    let value = this.getEntityState(entity);
-    let icon = this.renderIcon(entity);
-    let useUnit = this.getEntityAttribute(entity, 'unit_of_measurement');
-    if (round) {
-      value = Math.round(value);
-    }
-    return html`
-      <div
-        class="collapsible-item"
-        @click="${() => this.handleMore(entity)}"
-        ?more-info="true"
-      >
-        <div class="tooltip">
-          <ha-icon icon="${icon}"></ha-icon>
-          <br />${value} ${useUnit}
-          <span class="tooltiptext">${tooltip}</span>
-        </div>
-      </div>
-    `;
-  }
-
-  renderCollapsibleServiceItems(
-    entity,
-    service,
-    text,
-    icon,
-    tooltip,
-    isRequest = true,
-    options = {}
-  ) {
-    let useIcon = icon;
-    if (icon === null || icon === undefined) {
-      useIcon = this.renderIcon(entity);
-    }
-
-    return html`
-      <div
-        class="collapsible-item"
-        @click="${() => this.callService(service, isRequest, options)}"
-      >
-        <div class="tooltip">
-          <ha-icon icon="${useIcon}"></ha-icon>
-          <br />${text}
-          <span class="tooltiptext">${tooltip}</span>
-        </div>
-      </div>
-    `;
-  }
-
-  renderCollapsibleDropDownItems(
-    entity,
-    service,
-    text,
-    icon,
-    tooltip,
-    isRequest = true
-  ) {
-    if (entity === null || entity === undefined) {
-      return html``;
-    }
-
-    const sources = cconst.CURRENTLIMITS;
-    let value = this.getEntityState(entity);
-    let selected = sources.indexOf(value);
-    let useUnit = this.getEntityAttribute(entity, 'unit_of_measurement');
-    let useIcon = icon === undefined ? this.renderIcon(entity) : icon;
-
-    return html`
-      <paper-menu-button
-        slot="dropdown-trigger"
-        .noAnimations=${true}
-        @click="${(e) => e.stopPropagation()}"
-      >
-        <paper-button slot="dropdown-trigger">
           <div class="tooltip">
-            <ha-icon icon="${useIcon}"></ha-icon>
-            <br />${value}${useUnit}
-            <span class="tooltiptext">${tooltip}</span>
+            <ha-icon icon="${carddata.icon}"></ha-icon>
+            <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
+            <span class="tooltiptext">${carddata.text} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
           </div>
-        </paper-button>
-        <paper-listbox
-          slot="dropdown-content"
-          selected=${selected}
-          @click="${(e) => this.setServiceData(service, isRequest, e)}"
-        >
-          ${sources.map(
-            (item) => html`<paper-item value=${item}>${item}</paper-item>`
-          )}
-        </paper-listbox>
-      </paper-menu-button>
-    `;
-  }
+        </div>
+      `;
+    }else if (itemtype === 'service') {
+        var options = "";
+        return html`
+          <div class="collapsible-item"
+            @click="${() => this.callService(carddata.service, true, carddata.service_data)}"
+            ?more-info="true"
+          >
+            <div class="tooltip">
+              <ha-icon icon="${carddata.icon}"></ha-icon>
+              <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
+              <span class="tooltiptext">${carddata.text} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
+            </div>
+          </div>
+        `;
 
-  renderInfoItemsLeft() {
-    const { isOnline } = this.getEntities();
-    return html` ${this.renderInfoItem(isOnline, localize('common.online'))} `;
-  }
-
-  renderInfoItemsRight() {
-    const { totalPower, voltage } = this.getEntities();
-    return html`
-      ${this.renderInfoItem(voltage, localize('common.voltage'), true)}
-      ${this.renderInfoItem(totalPower, localize('common.power'))}
-    `;
-  }
-
-  renderInfoItemsCompact() {
-    const { totalPower, voltage } = this.getEntities();
-    return html`
-      ${this.renderInfoItem(voltage, localize('common.voltage'), true)}
-      ${this.renderInfoItem(totalPower, localize('common.power'), true)}
-    `;
-  }
-
-  renderInfoItem(entity, tooltip, round = false) {
-    if (entity === null || entity === undefined) {
+    } else if (itemtype === 'dropdown') {
+        const sources = cconst.CURRENTLIMITS;
+        let selected = sources.indexOf(carddata.useval);
+        return html`
+          <paper-menu-button slot="dropdown-trigger" .noAnimations=${true} @click="${(e) => e.stopPropagation()}">
+            <paper-button slot="dropdown-trigger">
+              <div class="tooltip">
+                <ha-icon icon="${carddata.icon}"></ha-icon>
+                <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
+                <span class="tooltiptext">${carddata.text} ${carddata.unit_showontext ? "(" +carddata.unit +")" : ''}</span>
+              </div>
+            </paper-button>
+            <paper-listbox slot="dropdown-content" selected=${selected} @click="${(e) => this.setServiceData(carddata.service, true, e)}">
+              ${sources.map((item) => html`<paper-item value=${item}>${item}</paper-item>`)}
+            </paper-listbox>
+          </paper-menu-button>
+        `;
+    } else {
       return html``;
     }
-    let value = this.getEntityState(entity);
-    let useUnit = this.getEntityAttribute(entity, 'unit_of_measurement');
-    let icon = this.renderIcon(entity);
-    if (round) {
-      value = Math.round(value);
+  }
+
+  renderMainInfoLeftRight(data) {
+    let carddatas = this.getCardData(this.config[data]);
+    if (carddatas === null || carddatas === undefined || typeof carddatas !== 'object') {
+      return html``;
     }
+
     return html`
-      <div
-        class="infoitems-item"
-        @click="${() => this.handleMore(entity)}"
-        ?more-info="true"
+      ${carddatas !== null ? Object.values(carddatas).map(carddata => {
+        return html`
+        <div
+        class='infoitems-item'
+        @click='${() => this.handleMore(carddata.entity)}'
+        ?more-info='true'
       >
-        <div class="tooltip">
-          <ha-icon icon="${icon}"></ha-icon>
-          ${value} ${useUnit}
-          <span class="tooltiptext">${tooltip}</span>
+        <div class='tooltip'>
+          <ha-icon icon='${carddata.icon}'></ha-icon>
+          ${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
+          <span class='tooltiptext'>${carddata.text} ${carddata.unit_showontext ? '(' +carddata.unit +')' : ''}</span>
         </div>
       </div>
+      `
+     }) : ''}
     `;
   }
 
-  renderIcon(entity) {
-    let entity_id = entity.entity_id;
-    let icon =
-      this.getEntityAttribute(entity_id, 'icon') !== undefined
-      ? this.getEntityAttribute(entity_id, 'icon')
-      : cconst.ICONS[this.getEntityBase(entity_id)] || 'mdi:cancel';
-    //TODO: Find a way to get device class icons (which are not in attributes)
-    let domainIcon =
-      this.getEntityAttribute(entity_id, 'device_class') == !null
-        ? domainIcon(
-            this.getEntityAttribute(entity_id, 'device_class'),
-            this.getEntityState(entity)
-          )
-        : false;
-    return domainIcon || icon;
-  }
 
   renderToolbar(state) {
     /* SHOW TOOLBAR */
@@ -1048,91 +613,29 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    /* CUSTOM BUTTONS FROM CONFIG */
-    const { actions = [] } = this.config;
-    const customButtons = actions.map(
-      ({ name, service, icon, service_data }) => {
-        return this.renderToolbarButton(service, icon, name, service_data);
-      }
-    );
+    var toolbardata_left = this.getCardData(this.config.toolbar_left);
+    var toolbardata_right = this.getCardData(this.config.toolbar_right);
+    toolbardata_left = toolbardata_left !== null ? toolbardata_left[state] || toolbardata_left.default || [] : [];
+    toolbardata_right = toolbardata_right !== null ? toolbardata_right[state] || toolbardata_right.default || [] : [];
 
-    let stateButtons = html``;
+    var toolbar_left = Object.values(toolbardata_left).map(btn => {
+      return this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data)
+    })
 
-    /* STATE BUTTONS */
-    switch (state) {
-      case cconst.EASEE_CHARGERSTATUS.STANDBY_1: {
-        stateButtons = html``;
-        break;
-      }
-      case cconst.EASEE_CHARGERSTATUS.PAUSED_2: {
-        stateButtons = html`
-          ${this.renderToolbarButton('stop', 'hass:stop', 'common.stop')}
-          ${this.renderToolbarButton(
-            'resume',
-            'hass:play-pause',
-            'common.continue'
-          )}
-          ${this.renderToolbarButton(
-            'override_schedule',
-            'hass:motion-play',
-            'common.override'
-          )}
-        `;
-        break;
-      }
-      case cconst.EASEE_CHARGERSTATUS.CHARGING_3: {
-        stateButtons = html`
-          ${this.renderToolbarButton('pause', 'hass:pause', 'common.pause')}
-          ${this.renderToolbarButton('stop', 'hass:stop', 'common.stop')}
-        `;
-        break;
-      }
-      case cconst.EASEE_CHARGERSTATUS.READY_4: {
-        stateButtons = html`
-          ${this.renderToolbarButton('stop', 'hass:stop', 'common.stop')}
-          ${this.renderToolbarButton(
-            'override_schedule',
-            'hass:motion-play',
-            'common.override'
-          )}
-        `;
-        break;
-      }
-      case cconst.EASEE_CHARGERSTATUS.ERROR_5: {
-        stateButtons = html`
-          ${this.renderToolbarButton('reboot', 'hass:restart', 'common.reboot')}
-        `;
-        break;
-      }
-      case cconst.EASEE_CHARGERSTATUS.CONNECTED_6: {
-        stateButtons = html`
-          ${this.renderToolbarButton('stop', 'hass:stop', 'common.stop')}
-          ${this.renderToolbarButton(
-            'override_schedule',
-            'hass:motion-play',
-            'common.override'
-          )}
-        `;
-        break;
-      }
-    }
+    var toolbar_right = Object.values(toolbardata_right).map(btn => {
+      return this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data)
+    })
 
     return html`
       <div class="toolbar">
-        ${stateButtons}
+        ${toolbar_left}
         <div class="fill-gap"></div>
-        ${customButtons}
+        ${toolbar_right}
       </div>
     `;
   }
 
-  renderToolbarButton(
-    service,
-    icon,
-    text,
-    service_data = {},
-    isRequest = true
-  ) {
+  renderToolbarButton(service, icon, text, service_data = {},isRequest = true) {
     let useText = '';
     try {
       useText = localize(text);
@@ -1157,16 +660,12 @@ class ChargerCard extends LitElement {
       <ha-card>
         <div class="preview-compact">
           ${this.renderImage(state)}
-
           <div class="metadata">
             ${this.renderName()} ${this.renderStatus()}
           </div>
-
-          <div class="infoitems">${this.renderInfoItemsCompact()}</div>
-
+          <div class="infoitems">${this.renderMainInfoLeftRight('info_right')}</div>
           ${this.renderStats(state)}
         </div>
-
         ${this.renderToolbar(state)}
       </ha-card>
     `;
@@ -1174,26 +673,25 @@ class ChargerCard extends LitElement {
 
   renderFull() {
     const { state } = this.entity;
-
+    const btn1 = this.getCollapsibleButton('group1', 'common.click_for_limits', 'mdi:speedometer');
+    const btn2 = this.getCollapsibleButton('group2', 'common.click_for_info', 'mdi:information');
+    const btn3 = this.getCollapsibleButton('group3', 'common.click_for_config', 'mdi:cog');
     return html`
       <ha-card>
         <div class="preview">
           <div class="header">
-            <div class="infoitems-left">${this.renderInfoItemsLeft()}</div>
-
-            <div class="infoitems">${this.renderInfoItemsRight()}</div>
+            <div class="infoitems-left">${this.renderMainInfoLeftRight('info_left')}</div>
+            <div class="infoitems">${this.renderMainInfoLeftRight('info_right')}</div>
           </div>
-
           ${this.renderImage(state)}
-
           <div class="metadata">
             ${this.renderName()} ${this.renderStatus()}
           </div>
-
-          ${this.renderCollapsibleConfig()} ${this.renderCollapsibleInfo()}
-          ${this.renderCollapsibleLimits()} ${this.renderStats(state)}
+            ${this.renderCollapsible('group1', btn1.icon, btn1.text, '-lim','dropdown')}
+            ${this.renderCollapsible('group2', btn2.icon, btn2.text, '-info','info')}
+            ${this.renderCollapsible('group3', btn3.icon, btn3.text, '', 'info')}
+            ${this.renderStats(state)}
         </div>
-
         ${this.renderToolbar(state)}
       </ha-card>
     `;
