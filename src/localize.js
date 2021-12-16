@@ -28,7 +28,7 @@ export default function localize(string, search = '', replace = ''){
     try {
       translated = string.split('.').reduce((o, i) => o[i], languages['en']);
     } catch (ee) {
-      return null;
+      return string;
     }
   }
 
