@@ -296,10 +296,16 @@ export const DEFAULT_CONFIG = {
     },
 
     // OVERRIDE COLLAPSIBLE BUTTON ICONS AND TOOLTIP TEXT
-    collapsiblebuttons: {
-        group1: {text: 'Click for limits', icon: 'mdi:speedometer'},
-        group2: {text: 'Click for info', icon: 'mdi:information'},
-        group3: {text: 'Click for config', icon: 'mdi:cog'},
-    }
+    collapsiblebuttons: [
+        {
+            group1: { text: 'Click for limits', icon: 'mdi:speedometer' }
+        },
+        {
+            group2: { text: 'Click for info', icon: 'mdi:information' }
+        },
+        {
+            group3: { text: 'Click for config', icon: 'mdi:cog' }
+        },
+    ]
 };
 

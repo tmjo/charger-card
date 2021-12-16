@@ -164,117 +164,82 @@ class ChargerCard extends LitElement {
   }
 
 
-  // getCardData(configgroup) {
-  //   var entities = {};
-
-  //   if (configgroup === undefined || configgroup === null) {
-  //     return null;
-  //   } else if (typeof configgroup == 'object') {
-  //     console.log(configgroup)
-  //     console.log(Array.isArray(configgroup))
-  //     for (let [key, val] of Object.entries(configgroup)) {
-  //       if (typeof val == 'object' && 'entity_id' in val) {
-  //         // Get entity
-  //         var entity = this.getEntity(val['entity_id']);
-  //         if (entity !== undefined && entity !== null ) {
-  //           var entityinfo = { 'entity': entity };
-
-  //           //Set defaults if not given in config
-  //           if (val['unit'] === undefined) { entityinfo['unit'] = entity.attributes['unit_of_measurement'] || null };
-  //           if (val['unit_show'] === undefined) { entityinfo['unit_show'] = false };
-  //           if (val['unit_showontext'] === undefined) { entityinfo['unit_showontext'] = false };
-  //           if (val['text'] === undefined) { entityinfo['text'] = entity.attributes['friendly_name'] || null };
-  //           if (val['icon'] === undefined) { entityinfo['icon'] = this.getEntityIcon(entity) };
-  //           if (val['round'] === undefined) { entityinfo['round'] = false };
-  //           if (val['type'] === undefined) { entityinfo['type'] = 'info' };
-  //           // service
-  //           // service_data
-
-  //           // Use attribute if given in config
-  //           entityinfo['useval'] = 'attribute' in val && val['attribute'] in entity.attributes ? entity.attributes[val['attribute']] : entity.state || null;
-
-  //           //Apply rounding of number if specified, round to zero decimals if other than integer given (for instance true)
-  //           if (val['round'] !== undefined) {
-  //             var decimals = Number.isInteger(val['round']) ? val['round'] : 0;
-  //             entityinfo['useval'] = this.round(entityinfo['useval'], decimals);
-  //           }
-
-  //           entities[key] = Object.assign(entityinfo, val);
-  //         }
-  //       } else if (typeof val == 'object') {
-  //         // For states and similar
-  //         entities[key] = this.getCardData(val);
-  //       }
-  //     }
-  //   } else {
-  //         // For strings and non-objects
-  //         entities = configgroup;
-  //       }
-  //   // console.log(entities);
-  //   return entities;
-  // }
-
   getCardData(configgroup) {
     var entities = {};
 
     if (configgroup === undefined || configgroup === null) {
       return null;
     } else if (typeof configgroup == 'object' && Array.isArray(configgroup)) {
+        // ARRAYS OF ENTITY DATA
         for (let [key, val] of Object.entries(configgroup)) {
           if (typeof val == 'object' && 'entity_id' in val) {
-
-            entities[key] = this.getCardEntityInfo(val);
+            entities[key] = this.getCardCheckData(val);
           }
       }
       return entities;
+    } else if (typeof configgroup == 'object' && 'entity_id' in configgroup) {
+        // SINGLE ENTITY DATA
+        entities = this.getCardCheckData(configgroup);
+        return entities;
 
-      } else if (typeof configgroup == 'object' && configgroup == 'stats') {
-          // For stats
-          return entities = this.getCardEntityInfo(configgroup);
-      } else if (typeof configgroup == 'object') {
-        // For states and similar
-        return entities = this.getCardEntityInfo(configgroup);
-      } else {
-        // For strings and non-objects
-        entities = configgroup;
-      }
+    } else if (typeof configgroup == 'object'){
+        // STATES DEPENDANT STUFF (STATS AND TOOLBAR)
+        var stateobj = {};
+        for (let [statekey, stateval] of Object.entries(configgroup)) {
+          var stateentities = {};
+          for (let [key, val] of Object.entries(stateval)) {
+            if (typeof val == 'object') {
+              stateentities[key] = this.getCardCheckData(val);
+            }
+            stateobj[statekey] = stateentities;
+          }
+        }
+        return stateobj;
+    } else {
+      // STRINGS AND NON-OBJECTS
+      entities = configgroup;
+    }
     // console.log(entities);
     return entities;
   }
 
-  getCardEntityInfo(val) {
+  getCardCheckData(val) {
     // Get entity
-    var entity = this.getEntity(val.entity_id);
-    if (entity !== undefined && entity !== null) {
-      var entityinfo = { 'entity': entity };
+    var entityinfo = {};
 
-      //Set defaults if not given in config
-      if (val.unit === undefined) { entityinfo['unit'] = entity.attributes['unit_of_measurement'] || null };
-      if (val.unit_show === undefined) { entityinfo['unit_show'] = false };
-      if (val.unit_showontext === undefined) { entityinfo['unit_showontext'] = false };
-      if (val.text === undefined) { entityinfo['text'] = entity.attributes['friendly_name'] || null };
-      if (val.icon === undefined) { entityinfo['icon'] = this.getEntityIcon(entity) };
-      if (val.round === undefined) { entityinfo['round'] = false };
-      if (val.type === undefined) { entityinfo['type'] = 'info' };
-      // service
-      // service_data
+    //Set defaults if not given in config
+    entityinfo['entity_id'] = val.entity_id !== undefined ? val.entity_id : null;
+    entityinfo['unit'] = val.unit !== undefined ? val.entity_id : this.getEntityAttr(entityinfo.entity_id, 'unit_of_measurement');
+    entityinfo['text'] = val.text !== undefined ? val.text : this.getEntityAttr(entityinfo.entity_id, 'friendly_name');
+    entityinfo['icon'] = val.icon !== undefined ? val.icon : this.getEntityIcon(entityinfo.entity_id);
+    entityinfo['unit_show'] = val.unit_show !== undefined ? val.unit_show : false;
+    entityinfo['unit_showontext'] = val.unit_showontext !== undefined ? val.unit_showontext : false;
+    entityinfo['round'] = val.round !== undefined ? val.round : false;
+    entityinfo['type'] = val.type !== undefined ? val.type : 'info';
+    entityinfo['attribute'] = val.attribute !== undefined ? val.attribute : null;
+    entityinfo['useval'] = this.getEntityState(entityinfo.entity_id);
+    entityinfo['service'] = val.service !== undefined ? val.service : null;
+    // service_data
 
-      // Use attribute if given in config
-      entityinfo.useval = val.attribute !== null && val.attribute in entity.attributes ? entity.attributes[val.attribute] : entity.state || null;
+    // Get entity
+    entityinfo['entity'] = this.getEntity(entityinfo.entity_id);
 
-      //Apply rounding of number if specified, round to zero decimals if other than integer given (for instance true)
-      if (val.round !== undefined) {
-        var decimals = Number.isInteger(val.round) ? val.round : 0;
-        entityinfo.useval = this.round(entityinfo.useval, decimals);
-      }
-      return Object.assign(entityinfo, val);
+    // Use attribute if given in config
+    if (entityinfo.entity !== null && entityinfo.attribute != null && entityinfo.attribute in entityinfo.entity.attributes) {
+      entityinfo['useval'] = this.getEntityAttr(entityinfo.entity_id, entityinfo.attribute);
     }
-    return val;
 
-
+    //Apply rounding of number if specified, round to zero decimals if other than integer given (for instance true)
+    if (entityinfo.round) {
+      var decimals = Number.isInteger(entityinfo.round) ? entityinfo.round : 0;
+      entityinfo.useval = this.round(entityinfo.useval, decimals);
+    }
+    // return Object.assign(entityinfo, val);
+    return entityinfo;
   }
 
-  getEntityIcon(entity) {
+  getEntityIcon(entity_id) {
+    var entity = this.getEntity(entity_id);
     if (entity === undefined || entity === null || typeof entity !== 'object') {
         return null;
     } else if ('icon' in entity.attributes) {
@@ -299,37 +264,34 @@ class ChargerCard extends LitElement {
     try{
       return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
     } catch (err){
-      return null;
+      return value;
     }
   }
 
-  getEntity(entity_name) {
+  getEntity(entity_id) {
     try {
-      return this.hass.states[entity_name];
+      return this.hass.states[entity_id];
     } catch (err) {
       return null;
     }
   }
 
-  // getEntityState(entity) {
-  //   try {
-  //     return entity.state;
-  //   } catch (err) {
-  //     return null;
-  //   }
-  // }
+  getEntityState(entity_id) {
+    try {
+      return this.hass.states[entity_id].state;
+    } catch (err) {
+      return null;
+    }
+  }
 
-  // getEntityAttribute(entity_name, attribute = null) {
-  //   try {
-  //     if (attribute == null) {
-  //       return this.hass.states[entity_name].attributes;
-  //     } else {
-  //       return this.hass.states[entity_name].attributes[attribute];
-  //     }
-  //   } catch (err) {
-  //     return null;
-  //   }
-  // }
+  getEntityAttr(entity_id, attribute=null) {
+    try {
+      var attr = attribute === null ? this.hass.states[entity_id].attributes : this.hass.states[entity_id].attributes[attribute];
+      return attr;
+    } catch (err) {
+      return null;
+    }
+  }
 
   setConfig(config) {
     if (!config.entity) {
@@ -453,16 +415,16 @@ class ChargerCard extends LitElement {
       return html``;
     }
     var compactview = this.compactView ? '-compact' : '';
-    var stats = this.getCardData(this.config.stats);
-    // // var stats = (stats !== undefined && stats !== null) ? stats[state] || stats['default'] :[];
-    stats = stats !== null && Array.isArray(stats) ? stats[state] || stats['default'] : [];
-
+    var stats;
+    if (this.config['stats'] !== undefined && this.config['stats'] !== null) {
+      stats = this.getCardData(this.config['stats']);
+      stats = stats !== undefined && stats !== null ? stats[state] || stats['default'] : [];
+    } else {
+      console.info("Stats is turned on but no stats given in config.")
+      stats = {};
+    }
     return html`<div class="stats${compactview}">
       ${Object.values(stats).map(stat => {
-          if (!stat.entity_id && !stat.attribute) {
-            return html``;
-          }
-          try {
             return html`
             <div
               class="stats-block"
@@ -474,9 +436,6 @@ class ChargerCard extends LitElement {
               <div class="stats-subtitle">${stat.text}</div>
             </div>
           `;
-          } catch (err) {
-            return null;
-          }
         })
       }
       </div>`;
@@ -685,6 +644,7 @@ class ChargerCard extends LitElement {
     toolbardata_right = toolbardata_right !== null ? toolbardata_right[state] || toolbardata_right.default || [] : [];
 
     var toolbar_left = Object.values(toolbardata_left).map(btn => {
+      console.log(btn)
       return this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data)
     })
 
