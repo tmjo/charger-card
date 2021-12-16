@@ -31,22 +31,22 @@ export const LEDIMAGES = {
     },
   };
 
-export const SERVICES = {
-    chargerMaxCurrent: 'set_charger_max_limit',
-    chargerDynCurrent: 'set_charger_dynamic_limit',
-    circuitMaxCurrent: 'set_charger_circuit_max_limit',
-    circuitDynCurrent: 'set_charger_circuit_dynamic_limit',
-    circuitOfflineCurrent: 'set_charger_circuit_offline_limit'
-};
+// export const SERVICES = {
+//     chargerMaxCurrent: 'set_charger_max_limit',
+//     chargerDynCurrent: 'set_charger_dynamic_limit',
+//     circuitMaxCurrent: 'set_charger_circuit_max_limit',
+//     circuitDynCurrent: 'set_charger_circuit_dynamic_limit',
+//     circuitOfflineCurrent: 'set_charger_circuit_offline_limit'
+// };
 
-export const STATUS = {
-    'disconnected' : "disconnected",
-    'awaiting_start': 'awaiting_start',
-    'charging': 'charging',
-    'completed': 'completed',
-    'error': 'error',
-    'error': 'ready_to_charge'
-  };
+// export const STATUS = {
+//     'disconnected' : "disconnected",
+//     'awaiting_start': 'awaiting_start',
+//     'charging': 'charging',
+//     'completed': 'completed',
+//     'error': 'error',
+//     'error': 'ready_to_charge'
+//   };
 
 export const DEFAULT_CONFIG = {
     // TEMPLATE
@@ -83,6 +83,32 @@ export const DEFAULT_CONFIG = {
     smartcharging: {
         entity_id: 'switch.easee_1_smart_charging',
     },
+
+    // OVERRIDE CURRENTLIMITS
+    currentlimits: [10, 16, 20, 25, 32],
+
+    // OVERRIDE STATE TEXT - also overrides translation
+    statetext: {
+        disconnected: 'Disconnected',
+        awaiting_start: 'Paused or awaiting start',
+        charging: 'Charging',
+        completed: 'Completed or awaiting car',
+        error: 'Error',
+        ready_to_charge: 'Ready to charge',
+    },
+
+    // OVERRIDE COLLAPSIBLE BUTTON ICONS AND TOOLTIP TEXT
+    collapsiblebuttons: [
+        {
+            group1: { text: 'Click for limits', icon: 'mdi:speedometer' }
+        },
+        {
+            group2: { text: 'Click for info', icon: 'mdi:information' }
+        },
+        {
+            group3: { text: 'Click for config', icon: 'mdi:cog' }
+        },
+    ],
 
     //ICONS LEFT AND RIGHT
     info_left: [
@@ -430,30 +456,5 @@ export const DEFAULT_CONFIG = {
         ],
     },
 
-    // OVERRIDE CURRENTLIMITS
-    currentlimits: [10, 16, 20, 25, 32],
-
-    // OVERRIDE STATE TEXT - also overrides translation
-    statetext: {
-        disconnected: 'Disconnected',
-        awaiting_start: 'Paused or awaiting start',
-        charging: 'Charging',
-        completed: 'Completed or awaiting car',
-        error: 'Error',
-        ready_to_charge: 'Ready to charge',
-    },
-
-    // OVERRIDE COLLAPSIBLE BUTTON ICONS AND TOOLTIP TEXT
-    collapsiblebuttons: [
-        {
-            group1: { text: 'Click for limits', icon: 'mdi:speedometer' }
-        },
-        {
-            group2: { text: 'Click for info', icon: 'mdi:information' }
-        },
-        {
-            group3: { text: 'Click for config', icon: 'mdi:cog' }
-        },
-    ]
 };
 
