@@ -428,6 +428,7 @@ export default css`
     // background: var(--lovelace-background, var(--primary-background-color));
     min-height: 30px;
     display: flex;
+    margin: 0 20px 0 20px;
     flex-direction: row;
     justify-content: space-evenly;
 
