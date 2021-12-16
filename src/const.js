@@ -23,7 +23,7 @@ import imageBlack from './img/charger_black_223x302.png';
 import imageWhite from './img/charger_white_223x302.png';
 import imageDarkblue from './img/charger_darkblue_223x302.png';
 
-export const DEFAULTIMAGE = 'Generic';
+export const DEFAULT_IMAGE = 'Generic';
 export const CHARGER_IMAGES = [
   { name: 'Generic', img: imageGeneric },
   { name: 'Anthracite', img: imageAnthracite },
@@ -33,9 +33,9 @@ export const CHARGER_IMAGES = [
   { name: 'Darkblue', img: imageDarkblue },
 ];
 
-export const CURRENTLIMITS = [8.0, 10.0, 16.0, 20.0, 25.0, 32.0];
+export const DEFAULT_CURRENTLIMITS = [8.0, 10.0, 16.0, 20.0, 25.0, 32.0];
 export const DEFAULT_CUSTOMCARDTHEME = 'theme_default';
-export const CUSTOM_CARD_THEMES = [
+export const CARD_THEMES = [
   { name: 'theme_default', desc: 'Default HA colors' },
   { name: 'theme_custom', desc: 'Use custom theme' },
   { name: 'theme_transp_blue', desc: 'Transparent Blue' },

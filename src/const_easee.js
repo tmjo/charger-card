@@ -1,5 +1,5 @@
 export const DOMAIN = 'easee';
-export const EASEE_MAIN_ENTITY_BASE = '_status';
+export const MAIN_ENTITY_BASE = '_status';
 
 import ledOff from './img/charger_leds_bg.gif';
 import ledWhite2 from './img/charger_leds_white_2.gif';
@@ -10,7 +10,7 @@ import ledBlueAll from './img/charger_leds_blue_all.gif';
 import ledBlueFlashing from './img/charger_leds_blue_flashing.gif';
 import ledRedFlashing from './img/charger_leds_red_flashing.gif';
 
-export const EASEE_LEDIMAGES = {
+export const LEDIMAGES = {
     normal: {
       DEFAULT: ledOff,
       disconnected: ledWhite2,
@@ -39,7 +39,7 @@ export const SERVICES = {
     circuitOfflineCurrent: 'set_charger_circuit_offline_limit'
 };
 
-export const CHARGERSTATUS = {
+export const STATUS = {
     'disconnected' : "disconnected",
     'awaiting_start': 'awaiting_start',
     'charging': 'charging',
@@ -48,7 +48,7 @@ export const CHARGERSTATUS = {
     'error': 'ready_to_charge'
   };
 
-export const EASEE_DEFAULT = {
+export const DEFAULT_CONFIG = {
     // TEMPLATE
 
     // template: [{
@@ -66,128 +66,140 @@ export const EASEE_DEFAULT = {
     //   }],
 
     //NAME, LOCATION, STATUS ETC
-    name: [{
+    name: {
         entity_id: 'sensor.easee_1_status',
         attribute: 'name',
-    }],
-    location: [{
+    },
+    location: {
         entity_id: 'sensor.easee_1_status',
         attribute: 'site_name',
-    }],
-    status: [{
+    },
+    status: {
         entity_id: 'sensor.easee_1_status',
-    }],
-    substatus: [{
+    },
+    substatus: {
         entity_id: 'sensor.easee_1_reason_for_no_current',
-    }],
-    smartcharging: [{
+    },
+    smartcharging: {
         entity_id: 'switch.easee_1_smart_charging',
-    }],
+    },
 
     //ICONS LEFT AND RIGHT
-    info_left: [{
+    info_left: [
+        {
         entity_id: 'binary_sensor.easee_1_online',
         text: 'Online'
-      }],
-    info_right: [{
+        }
+    ],
+    info_right: [
+        {
         entity_id: 'sensor.easee_1_voltage',
         text: 'Voltage'
-    },{
+        },{
         entity_id: 'sensor.easee_1_power',
         text: 'Power'
-    }],
+        }
+    ],
 
     //LIMITS
-    group1: [{
+    group1: [
+        {
         entity_id: 'sensor.easee_1_dynamic_charger_limit',
         text: 'Dyn. charger limit'
-    },{
+        },{
         entity_id: 'sensor.easee_1_dynamic_circuit_limit',
         text: 'Dyn. circuit limit'
-    },{
+        },{
         entity_id: 'sensor.easee_1_max_charger_limit',
         text: 'Charger limit'
-    },{
+        },{
         entity_id: 'sensor.easee_1_max_circuit_limit',
         text: 'Circuit limit'
-    },{
+        },{
         entity_id: 'sensor.easee_1_offline_circuit_limit',
         text: 'Offline circuit limit'
-    },{
+        },{
         entity_id: 'sensor.easee_1_output_limit',
         text: 'Output limit'
-    }],
+        }
+    ],
 
     //INFO
-    group2: [{
+    group2: [
+        {
         entity_id: 'binary_sensor.easee_1_online',
         text: 'Online'
-    },{
+        },{
         entity_id: 'sensor.easee_1_voltage',
         text: 'Voltage'
-    },{
+        },{
         entity_id: 'sensor.easee_1_power',
         text: 'Power'
-    },{
+        },{
         entity_id: 'sensor.easee_1_current',
         text: 'Current'
-    },{
+        },{
         entity_id: 'sensor.easee_1_circuit_current',
         text: 'Circuit Current'
-    },{
+        },{
         entity_id: 'sensor.easee_1_energy_per_hour',
         text: 'Energy per hour'
-    },{
+        },{
         entity_id: 'sensor.easee_1_lifetime_energy',
         text: 'Total energy'
-    },{
+        },{
         entity_id: 'sensor.easee_1_session_energy',
         text: 'Total energy'
-    }],
+        }
+    ],
 
     //CONFIG
-    group3: [{
+    group3: [
+        {
         entity_id: 'switch.easee_1_is_enabled',
         text: 'Enabled'
-    },{
+        },{
         entity_id: 'switch.easee_1_enable_idle_current',
         text: 'Idle Current'
-    },{
+        },{
         entity_id: 'binary_sensor.easee_1_cable_locked',
         text: 'Cable locked'
-    },{
+        },{
         entity_id: 'switch.easee_1_cable_locked_permanently',
         text: 'Perm. locked'
-    },{
+        },{
         entity_id: 'switch.easee_1_smart_charging',
         text: 'Smart charging'
-    },{
+        },{
         entity_id: 'sensor.easee_1_cost_per_kwh',
         text: 'Cost per kWh'
-    },{
+        },{
         entity_id: 'binary_sensor.easee_1_update_available',
         text: 'Update available'
-    },{
+        },{
         entity_id: 'binary_sensor.easee_1_basic_schedule',
         text: 'Schedule'
-    }],
+        }
+    ],
 
-    //STATS - based on state of main entity
+    //STATS - based on state of main entity, default if state not found
     stats: {
 
-        default: [{
+        default: [
+            {
             entity_id: 'binary_sensor.easee_1_basic_schedule',
             text: 'Schedule'
-        }, {
+            }, {
             entity_id: 'binary_sensor.easee_1_basic_schedule',
             text: 'Schedule'
-        }
+            }
         ],
 
-        disconnected: [{
+        disconnected: [
+            {
             entity_id: 'sensor.easee_1_session_energy',
             text: 'Energy'
-        }, {
+            }, {
             entity_id: 'switch.easee_1_cable_locked_permanently',
             text: 'CableLocked'
             },
@@ -197,13 +209,14 @@ export const EASEE_DEFAULT = {
             // }
         ],
 
-        awaiting_start: [{
+        awaiting_start: [
+            {
             entity_id: 'sensor.easee_1_session_energy',
             text: 'Energy'
-        }, {
+            }, {
             entity_id: 'binary_sensor.easee_1_basic_schedule',
             text: 'Schedule'
-        }, {
+            }, {
             entity_id: 'switch.easee_1_smart_charging',
             text: 'SmartCharging'
             },
@@ -213,53 +226,56 @@ export const EASEE_DEFAULT = {
             // }
         ],
 
-        charging: [{
+        charging: [
+            {
             entity_id: 'sensor.easee_1_session_energy',
             text: 'Energy'
-        }, {
+            }, {
             entity_id: 'sensor.easee_1_energy_per_hour',
             text: 'Rate'
-        },{
+            },{
             entity_id: 'sensor.easee_1_circuit_current',
             text: 'Circuit'
-        }, {
+            }, {
             entity_id: 'sensor.easee_1_output_limit',
             text: 'Allowed'
-        }, {
+            }, {
             entity_id: 'sensor.easee_1_current',
             text: 'Actual'
-        }, {
+            }, {
             entity_id: 'sensor.easee_1_power',
             text: 'Power'
-        }
+            }
         ],
 
-        completed: [{
+        completed: [
+            {
             entity_id: 'sensor.easee_1_session_energy',
             text: 'Energy'
-        }, {
+            }, {
             entity_id: 'binary_sensor.easee_1_basic_schedule',
             text: 'Schedule'
-        }
+            }
         ],
 
-        error: [{
+        error: [
+            {
             entity_id: 'sensor.easee_1_session_energy',
             text: 'Energy'
-        }, {
+            }, {
             entity_id: 'binary_sensor.easee_1_basic_schedule',
             text: 'Schedule'
-        }
+            }
         ],
-        ready_to_charge: [{
+        ready_to_charge: [
+            {
             entity_id: 'sensor.easee_1_session_energy',
             text: 'Energy'
-        }, {
+            }, {
             entity_id: 'binary_sensor.easee_1_basic_schedule',
             text: 'Schedule'
-        }
+            }
         ],
-
     },
 
     // toolbar: [{
@@ -270,14 +286,14 @@ export const EASEE_DEFAULT = {
     currentlimits: [10, 16, 20, 25, 32],
 
     // OVERRIDE STATE TEXT - also overrides translation
-    statetext: [{
+    statetext: {
         disconnected: 'Disconnected',
         awaiting_start: 'Paused or awaiting start',
         charging: 'Charging',
         completed: 'Completed or awaiting car',
         error: 'Error',
         ready_to_charge: 'Ready to charge',
-    }],
+    },
 
     // OVERRIDE COLLAPSIBLE BUTTON ICONS AND TOOLTIP TEXT
     collapsiblebuttons: {

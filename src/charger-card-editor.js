@@ -73,9 +73,9 @@ export class ChargerCardEditor extends LitElement {
 
   get _chargerImage(){
     if (this._config) {
-      return this._config.chargerImage || cconst.DEFAULTIMAGE;
+      return this._config.chargerImage || cconst.DEFAULT_IMAGE;
     }
-    return cconst.DEFAULTIMAGE;
+    return cconst.DEFAULT_IMAGE;
   }
 
   get _customCardTheme(){
@@ -182,7 +182,7 @@ export class ChargerCardEditor extends LitElement {
 
         <paper-dropdown-menu label="${localize('editor.theme')}" @value-changed=${this._valueChanged} .configValue=${'customCardTheme'}>
           <paper-listbox slot="dropdown-content" selected="${this._customCardTheme}" attr-for-selected="value">
-            ${cconst.CUSTOM_CARD_THEMES.map(customCardTheme => {
+            ${cconst.CARD_THEMES.map(customCardTheme => {
               return html` <paper-item value="${customCardTheme.name}">${customCardTheme.name}</paper-item> `;
             })}
           </paper-listbox>
@@ -324,7 +324,7 @@ export class ChargerCardEditor extends LitElement {
           ["prefix"]:
             this._config.entity
               .split('.')[1]
-              .replace(easee.EASEE_MAIN_ENTITY_BASE, ''),
+              .replace(easee.MAIN_ENTITY_BASE, ''),
         };
       }catch (err) {
 
@@ -371,11 +371,11 @@ export class ChargerCardEditor extends LitElement {
       // }
     }else if(target.value === cconst.CARDCONFIGTYPES.test){
       console.log("SETCARDCONFIGTYPE TEST");
-      for (let entity in easee.EASEE_DEFAULT) {
+      for (let entity in easee.DEFAULT_CONFIG) {
         this._config = {
           ...this._config,
           [`${entity}`]:
-            easee.EASEE_DEFAULT[entity],
+            easee.DEFAULT_CONFIG[entity],
         };
       }
     } else {

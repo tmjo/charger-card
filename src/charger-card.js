@@ -5,7 +5,7 @@ import localize from './localize';
 import styles from './styles';
 import * as cconst from './const';
 
-// let easee = await import('./const_easee.js');
+// var easee = await import('./const_easee.js');
 import * as easee from './const_easee.js';
 
 
@@ -78,12 +78,12 @@ class ChargerCard extends LitElement {
   // }
 
   get image() {
-    let image;
+    var image;
     if (this.config.customImage !== undefined && this.config.customImage !== null && this.config.customImage !== '') {
       // For images in www try path \local\image.png
       image = this.config.customImage;
     } else {
-      let imageSel = this.config.chargerImage || cconst.DEFAULTIMAGE;
+      var imageSel = this.config.chargerImage || cconst.DEFAULT_IMAGE;
       image = cconst.CHARGER_IMAGES.find(({ name }) => {
         if (name === imageSel) {
           return name;
@@ -153,7 +153,7 @@ class ChargerCard extends LitElement {
     if (this.config.currentlimits !== undefined && Array.isArray(this.config.currentlimits)) {
       return this.config.currentlimits;
     }
-    return cconst.CURRENTLIMITS;
+    return cconst.DEFAULT_CURRENTLIMITS;
   }
 
   get statetext() {
@@ -164,54 +164,115 @@ class ChargerCard extends LitElement {
   }
 
 
+  // getCardData(configgroup) {
+  //   var entities = {};
+
+  //   if (configgroup === undefined || configgroup === null) {
+  //     return null;
+  //   } else if (typeof configgroup == 'object') {
+  //     console.log(configgroup)
+  //     console.log(Array.isArray(configgroup))
+  //     for (let [key, val] of Object.entries(configgroup)) {
+  //       if (typeof val == 'object' && 'entity_id' in val) {
+  //         // Get entity
+  //         var entity = this.getEntity(val['entity_id']);
+  //         if (entity !== undefined && entity !== null ) {
+  //           var entityinfo = { 'entity': entity };
+
+  //           //Set defaults if not given in config
+  //           if (val['unit'] === undefined) { entityinfo['unit'] = entity.attributes['unit_of_measurement'] || null };
+  //           if (val['unit_show'] === undefined) { entityinfo['unit_show'] = false };
+  //           if (val['unit_showontext'] === undefined) { entityinfo['unit_showontext'] = false };
+  //           if (val['text'] === undefined) { entityinfo['text'] = entity.attributes['friendly_name'] || null };
+  //           if (val['icon'] === undefined) { entityinfo['icon'] = this.getEntityIcon(entity) };
+  //           if (val['round'] === undefined) { entityinfo['round'] = false };
+  //           if (val['type'] === undefined) { entityinfo['type'] = 'info' };
+  //           // service
+  //           // service_data
+
+  //           // Use attribute if given in config
+  //           entityinfo['useval'] = 'attribute' in val && val['attribute'] in entity.attributes ? entity.attributes[val['attribute']] : entity.state || null;
+
+  //           //Apply rounding of number if specified, round to zero decimals if other than integer given (for instance true)
+  //           if (val['round'] !== undefined) {
+  //             var decimals = Number.isInteger(val['round']) ? val['round'] : 0;
+  //             entityinfo['useval'] = this.round(entityinfo['useval'], decimals);
+  //           }
+
+  //           entities[key] = Object.assign(entityinfo, val);
+  //         }
+  //       } else if (typeof val == 'object') {
+  //         // For states and similar
+  //         entities[key] = this.getCardData(val);
+  //       }
+  //     }
+  //   } else {
+  //         // For strings and non-objects
+  //         entities = configgroup;
+  //       }
+  //   // console.log(entities);
+  //   return entities;
+  // }
+
   getCardData(configgroup) {
     var entities = {};
 
     if (configgroup === undefined || configgroup === null) {
       return null;
-    } else if(typeof configgroup == 'object'){
-      for (let [key, val] of Object.entries(configgroup)) {
-        if (typeof val == 'object' && 'entity_id' in val) {
-          // Get entity
-          var entity = this.getEntity(val['entity_id']);
-          if (entity !== undefined && entity !== null ) {
-            var entityinfo = { 'entity': entity };
+    } else if (typeof configgroup == 'object' && Array.isArray(configgroup)) {
+        for (let [key, val] of Object.entries(configgroup)) {
+          if (typeof val == 'object' && 'entity_id' in val) {
 
-            //Set defaults if not given in config
-            if (val['unit'] === undefined) { entityinfo['unit'] = entity.attributes['unit_of_measurement'] || null };
-            if (val['unit_show'] === undefined) { entityinfo['unit_show'] = false };
-            if (val['unit_showontext'] === undefined) { entityinfo['unit_showontext'] = false };
-            if (val['text'] === undefined) { entityinfo['text'] = entity.attributes['friendly_name'] || null };
-            if (val['icon'] === undefined) { entityinfo['icon'] = this.getEntityIcon(entity) };
-            if (val['round'] === undefined) { entityinfo['round'] = false };
-            if (val['type'] === undefined) { entityinfo['type'] = 'info' };
-            // service
-            // service_data
-
-            // Use attribute if given in config
-            entityinfo['useval'] = 'attribute' in val && val['attribute'] in entity.attributes ? entity.attributes[val['attribute']] : entity.state || null;
-
-            //Apply rounding of number if specified, round to zero decimals if other than integer given (for instance true)
-            if (val['round'] !== undefined) {
-              var decimals = Number.isInteger(val['round']) ? val['round'] : 0;
-              entityinfo['useval'] = this.round(entityinfo['useval'], decimals);
-            }
-
-            entities[key] = Object.assign(entityinfo, val);
+            entities[key] = this.getCardEntityInfo(val);
           }
-        } else if (typeof val == 'object') {
-          // For states and similar
-          entities[key] = this.getCardData(val);
-        }
       }
-    } else {
-          // For strings and non-objects
-          entities = configgroup;
-        }
+      return entities;
+
+      } else if (typeof configgroup == 'object' && configgroup == 'stats') {
+          // For stats
+          return entities = this.getCardEntityInfo(configgroup);
+      } else if (typeof configgroup == 'object') {
+        // For states and similar
+        return entities = this.getCardEntityInfo(configgroup);
+      } else {
+        // For strings and non-objects
+        entities = configgroup;
+      }
     // console.log(entities);
     return entities;
   }
 
+  getCardEntityInfo(val) {
+    // Get entity
+    var entity = this.getEntity(val.entity_id);
+    if (entity !== undefined && entity !== null) {
+      var entityinfo = { 'entity': entity };
+
+      //Set defaults if not given in config
+      if (val.unit === undefined) { entityinfo['unit'] = entity.attributes['unit_of_measurement'] || null };
+      if (val.unit_show === undefined) { entityinfo['unit_show'] = false };
+      if (val.unit_showontext === undefined) { entityinfo['unit_showontext'] = false };
+      if (val.text === undefined) { entityinfo['text'] = entity.attributes['friendly_name'] || null };
+      if (val.icon === undefined) { entityinfo['icon'] = this.getEntityIcon(entity) };
+      if (val.round === undefined) { entityinfo['round'] = false };
+      if (val.type === undefined) { entityinfo['type'] = 'info' };
+      // service
+      // service_data
+
+      // Use attribute if given in config
+      entityinfo.useval = val.attribute !== null && val.attribute in entity.attributes ? entity.attributes[val.attribute] : entity.state || null;
+
+      //Apply rounding of number if specified, round to zero decimals if other than integer given (for instance true)
+      if (val.round !== undefined) {
+        var decimals = Number.isInteger(val.round) ? val.round : 0;
+        entityinfo.useval = this.round(entityinfo.useval, decimals);
+      }
+      return Object.assign(entityinfo, val);
+    }
+    return val;
+
+
+  }
 
   getEntityIcon(entity) {
     if (entity === undefined || entity === null || typeof entity !== 'object') {
@@ -226,7 +287,7 @@ class ChargerCard extends LitElement {
   }
 
   getCollapsibleButton(button, deftext, deficon) {
-    let btns = this.config.collapsiblebuttons;
+    var btns = this.config.collapsiblebuttons;
     try {
       return { text: btns[button].text, icon: btns[button].icon };
     } catch (err) {
@@ -356,7 +417,7 @@ class ChargerCard extends LitElement {
   }
 
   renderImage(state) {
-    let compactview = '';
+    var compactview = '';
     if (this.compactView) {
       compactview = '-compact';
     }
@@ -376,13 +437,13 @@ class ChargerCard extends LitElement {
     if (!this.showLeds) {
       return html``;
     }
-    let carddatas = this.getCardData(this.config["smartcharging"]);
-    let chargingmode = 'normal';
+    var carddatas = this.getCardData(this.config["smartcharging"]);
+    var chargingmode = 'normal';
     if (carddatas !== null && carddatas !== undefined && typeof carddatas === 'object') {
-      chargingmode = carddatas[0].entity.state == 'on' ? 'smart' : 'normal';
+      chargingmode = carddatas.entity.state == 'on' ? 'smart' : 'normal';
     }
-    let imageled = easee.EASEE_LEDIMAGES[chargingmode][state] || easee.EASEE_LEDIMAGES[chargingmode]['DEFAULT'];
-    let compactview = this.compactView ? '-compact' : '';
+    var imageled = easee.LEDIMAGES[chargingmode][state] || easee.LEDIMAGES[chargingmode]['DEFAULT'];
+    var compactview = this.compactView ? '-compact' : '';
     return html`<img class="charger led${compactview}" src="${imageled}" @click="${() => this.handleMore(carddatas.entity)}"?more-info="true"/> `;
   }
 
@@ -391,12 +452,13 @@ class ChargerCard extends LitElement {
     if (!this.showStats) {
       return html``;
     }
-    let compactview = this.compactView ? '-compact' : '';
-    const stats = this.getCardData(this.config.stats)
-    const statsList = (stats !== undefined && stats !== null) ? stats[state] || stats['default'] :[];
+    var compactview = this.compactView ? '-compact' : '';
+    var stats = this.getCardData(this.config.stats);
+    // // var stats = (stats !== undefined && stats !== null) ? stats[state] || stats['default'] :[];
+    stats = stats !== null && Array.isArray(stats) ? stats[state] || stats['default'] : [];
 
     return html`<div class="stats${compactview}">
-      ${Object.values(statsList).map(stat => {
+      ${Object.values(stats).map(stat => {
           if (!stat.entity_id && !stat.attribute) {
             return html``;
           }
@@ -426,27 +488,34 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    let carddata_name = this.getCardData(this.config["name"]);
-    let carddata_location = this.getCardData(this.config["location"]);
-    var name = "NAME";
-    var location = "LOCATION";
+    var carddata_name = this.getCardData(this.config["name"]);
+    var carddata_location = this.getCardData(this.config["location"]);
+    var name;
+    var location;
     var moreEntity = null;
-    let compactview = this.compactView ? '-compact' : '';
+    var compactview = this.compactView ? '-compact' : '';
 
     if (carddata_name !== null && carddata_name !== undefined) {
-      name = typeof carddata_name == 'object' ? carddata_name[0].useval : carddata_name;
-      moreEntity = typeof carddata_name == 'object' ? carddata_name[0].entity : null;
+      name = typeof carddata_name == 'object' ? carddata_name.useval : carddata_name;
+      moreEntity = typeof carddata_name == 'object' ? carddata_name.entity : null;
     }
     if (carddata_location !== null && carddata_location !== undefined) {
-      location = typeof carddata_location == 'object' ? carddata_location[0].useval : carddata_location;
+      location = typeof carddata_location == 'object' ? carddata_location.useval : carddata_location;
     }
+
+    var combinator = "";
+    if (name !== undefined && location !== undefined) {
+      combinator = " - ";
+    }
+
+
     return html`
       <div
         class="charger-name${compactview}"
         @click="${() => this.handleMore(moreEntity)}"
         ?more-info="true"
       >
-        ${location} - ${name}
+        ${name}${combinator}${location}
       </div>
     `;
   }
@@ -456,32 +525,29 @@ class ChargerCard extends LitElement {
     if (!this.showStatus) {
       return html``;
     }
-    let carddata_status = this.getCardData(this.config["status"]);
-    let carddata_substatus = this.getCardData(this.config["substatus"]);
-    var status = "STATUS";
-    var substatus = "SUBSTATUS";
-    var entityStatus = null;
-    var entitySubstatus = null;
-    let compactview = this.compactView ? '-compact' : '';
+    var carddata_status = this.getCardData(this.config["status"]);
+    var carddata_substatus = this.getCardData(this.config["substatus"]);
+    var status =null, substatus=null;
+    var compactview = this.compactView ? '-compact' : '';
 
     if (carddata_status !== null && carddata_status !== undefined) {
-      status = typeof carddata_status == 'object' ? carddata_status[0].useval : carddata_status;
-      entityStatus = typeof carddata_status == 'object' ? carddata_status[0].entity : null;
+      status = typeof carddata_status == 'object' ? carddata_status.useval : carddata_status;
+    } else {
+      status = this.entity.state;
     }
     if (carddata_substatus !== null && carddata_substatus !== undefined) {
-      substatus = typeof carddata_substatus == 'object' ? carddata_substatus[0].useval : carddata_substatus;
-      entitySubstatus = typeof carddata_substatus == 'object' ? carddata_substatus[0].entity : null;
+      substatus = typeof carddata_substatus == 'object' ? carddata_substatus.useval : carddata_substatus;
     }
 
     //Localize
-    status = this.statetext[0][status] || localize("status." + status) || status;
-    substatus = localize("substatus." + substatus) || substatus;
+    status = status !== null ? this.statetext[status] || localize("status." + status) || status : '';
+    substatus = substatus !== null ? localize("substatus." + substatus) || substatus :'';
 
     return html`
-      <div class="status${compactview}" @click="${() => this.handleMore(entityStatus)}"?more-info="true">
+      <div class="status${compactview}" @click="${() => this.handleMore(carddata_status.entity || null)}"?more-info="true">
         <span class="status-text${compactview}" alt=${status}>${status}</span>
         <ha-circular-progress .active=${this.requestInProgress} size="small"></ha-circular-progress>
-        <div class="status-detail-text${compactview}" alt=${substatus} @click="${() => this.handleMore(entitySubstatus)}"?more-info="true">
+        <div class="status-detail-text${compactview}" alt=${substatus} @click="${() => this.handleMore(carddata_substatus.entity || null)}"?more-info="true">
           ${substatus}
         </div>
       </div>
@@ -495,7 +561,7 @@ class ChargerCard extends LitElement {
       return html``;
     }
     // TODO: CONDITIONAL SHOWING OF UPDATEAVAILABLE ETC, INCLUDING SERVICE CALLS AND USED LIMIT (CALCVAL)
-    // let updateAvailableState = this.getEntityState(updateAvailable) || 'off';
+    // var updateAvailableState = this.getEntityState(updateAvailable) || 'off';
 
     // ${this.renderCollapsibleDropDownItems(
     //   maxChargerCurrent,
@@ -506,7 +572,7 @@ class ChargerCard extends LitElement {
     //   true
     // )}
 
-    let carddatas = this.getCardData(this.config[group]);
+    var carddatas = this.getCardData(this.config[group]);
     return html`
       <div class="wrap-collabsible${style}">
         <input id="collapsible${style}" class="toggle${style}" type="checkbox" />
@@ -560,8 +626,8 @@ class ChargerCard extends LitElement {
         `;
 
     } else if (itemtype === 'dropdown') {
-        const sources = cconst.CURRENTLIMITS;
-        let selected = sources.indexOf(carddata.useval);
+        const sources = cconst.DEFAULT_CURRENTLIMITS;
+        var selected = sources.indexOf(carddata.useval);
         return html`
           <paper-menu-button slot="dropdown-trigger" .noAnimations=${true} @click="${(e) => e.stopPropagation()}">
             <paper-button slot="dropdown-trigger">
@@ -582,7 +648,7 @@ class ChargerCard extends LitElement {
   }
 
   renderMainInfoLeftRight(data) {
-    let carddatas = this.getCardData(this.config[data]);
+    var carddatas = this.getCardData(this.config[data]);
     if (carddatas === null || carddatas === undefined || typeof carddatas !== 'object') {
       return html``;
     }
@@ -636,7 +702,7 @@ class ChargerCard extends LitElement {
   }
 
   renderToolbarButton(service, icon, text, service_data = {},isRequest = true) {
-    let useText = '';
+    var useText = '';
     try {
       useText = localize(text);
     } catch (e) {
@@ -655,7 +721,7 @@ class ChargerCard extends LitElement {
   }
 
   renderCompact() {
-    const { state } = this.entity;
+    var { state } = this.entity;
     return html`
       <ha-card>
         <div class="preview-compact">
@@ -672,10 +738,10 @@ class ChargerCard extends LitElement {
   }
 
   renderFull() {
-    const { state } = this.entity;
-    const btn1 = this.getCollapsibleButton('group1', 'common.click_for_limits', 'mdi:speedometer');
-    const btn2 = this.getCollapsibleButton('group2', 'common.click_for_info', 'mdi:information');
-    const btn3 = this.getCollapsibleButton('group3', 'common.click_for_config', 'mdi:cog');
+    var { state } = this.entity;
+    var btn1 = this.getCollapsibleButton('group1', 'common.click_for_limits', 'mdi:speedometer');
+    var btn2 = this.getCollapsibleButton('group2', 'common.click_for_info', 'mdi:information');
+    var btn3 = this.getCollapsibleButton('group3', 'common.click_for_config', 'mdi:cog');
     return html`
       <ha-card>
         <div class="preview">

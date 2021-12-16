@@ -25,11 +25,15 @@ export default function localize(string, search = '', replace = ''){
   try {
     translated = string.split('.').reduce((o, i) => o[i], languages[lang]);
   } catch (e) {
-    translated = string.split('.').reduce((o, i) => o[i], languages['en']);
+    try {
+      translated = string.split('.').reduce((o, i) => o[i], languages['en']);
+    } catch (ee) {
+      return null;
+    }
   }
 
-  // if (translated === undefined) translated = string.split('.').reduce((o, i) => o[i], languages['en']);
-  if (translated === undefined) translated = string;
+  if (translated === undefined) translated = string.split('.').reduce((o, i) => o[i], languages['en']);
+  // if (translated === undefined) translated = string;
 
   if (search !== '' && replace !== '') {
     translated = translated.replace(search, replace);
