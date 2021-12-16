@@ -59,7 +59,7 @@ export const DEFAULT_CONFIG = {
     //     unit_showontext: true,          // show unit next to value in tooltip text
     //     text: '',                       // text to be used instead of entity friendly-name
     //     service: '',                    // service on format 'domain.service'
-    //     service_data: ['test','test'],  // service data for the service call
+    //     service_data: {'test','test'},  // service data for the service call
     //     icon: '',                       // icon to be used instead of entity icon
     //     round: 0,                       // round to specified number of decimals (integer)
     //     type: '',                       // type
@@ -104,81 +104,96 @@ export const DEFAULT_CONFIG = {
     //LIMITS
     group1: [
         {
-        entity_id: 'sensor.easee_1_dynamic_charger_limit',
-        text: 'Dyn. charger limit'
+            entity_id: 'sensor.easee_1_dynamic_charger_limit',
+            text: 'Dyn. charger limit'
+        },
+        {
+            entity_id: 'sensor.easee_1_dynamic_circuit_limit',
+            text: 'Dyn. circuit limit'
         },{
-        entity_id: 'sensor.easee_1_dynamic_circuit_limit',
-        text: 'Dyn. circuit limit'
+            entity_id: 'sensor.easee_1_max_charger_limit',
+            text: 'Charger limit'
         },{
-        entity_id: 'sensor.easee_1_max_charger_limit',
-        text: 'Charger limit'
+            entity_id: 'sensor.easee_1_max_circuit_limit',
+            text: 'Circuit limit'
         },{
-        entity_id: 'sensor.easee_1_max_circuit_limit',
-        text: 'Circuit limit'
+            entity_id: 'sensor.easee_1_offline_circuit_limit',
+            text: 'Offline circuit limit'
         },{
-        entity_id: 'sensor.easee_1_offline_circuit_limit',
-        text: 'Offline circuit limit'
-        },{
-        entity_id: 'sensor.easee_1_output_limit',
-        text: 'Output limit'
+            entity_id: 'sensor.easee_1_output_limit',
+            text: 'Output limit'
         }
     ],
 
     //INFO
     group2: [
         {
-        entity_id: 'binary_sensor.easee_1_online',
-        text: 'Online'
-        },{
-        entity_id: 'sensor.easee_1_voltage',
-        text: 'Voltage'
-        },{
-        entity_id: 'sensor.easee_1_power',
-        text: 'Power'
-        },{
-        entity_id: 'sensor.easee_1_current',
-        text: 'Current'
-        },{
-        entity_id: 'sensor.easee_1_circuit_current',
-        text: 'Circuit Current'
-        },{
-        entity_id: 'sensor.easee_1_energy_per_hour',
-        text: 'Energy per hour'
-        },{
-        entity_id: 'sensor.easee_1_lifetime_energy',
-        text: 'Total energy'
-        },{
-        entity_id: 'sensor.easee_1_session_energy',
-        text: 'Total energy'
+            entity_id: 'binary_sensor.easee_1_online',
+            text: 'Online'
+        },
+        {
+            entity_id: 'sensor.easee_1_voltage',
+            text: 'Voltage'
+        },
+        {
+            entity_id: 'sensor.easee_1_power',
+            text: 'Power'
+        },
+        {
+            entity_id: 'sensor.easee_1_current',
+            text: 'Current'
+        },
+        {
+            entity_id: 'sensor.easee_1_circuit_current',
+            text: 'Circuit Current'
+        },
+        {
+            entity_id: 'sensor.easee_1_energy_per_hour',
+            text: 'Energy per hour'
+        },
+        {
+            entity_id: 'sensor.easee_1_lifetime_energy',
+            text: 'Total energy'
+        },
+        {
+            entity_id: 'sensor.easee_1_session_energy',
+            text: 'Total energy'
         }
     ],
 
     //CONFIG
     group3: [
         {
-        entity_id: 'switch.easee_1_is_enabled',
-        text: 'Enabled'
-        },{
-        entity_id: 'switch.easee_1_enable_idle_current',
-        text: 'Idle Current'
-        },{
-        entity_id: 'binary_sensor.easee_1_cable_locked',
-        text: 'Cable locked'
-        },{
-        entity_id: 'switch.easee_1_cable_locked_permanently',
-        text: 'Perm. locked'
-        },{
-        entity_id: 'switch.easee_1_smart_charging',
-        text: 'Smart charging'
-        },{
-        entity_id: 'sensor.easee_1_cost_per_kwh',
-        text: 'Cost per kWh'
-        },{
-        entity_id: 'binary_sensor.easee_1_update_available',
-        text: 'Update available'
-        },{
-        entity_id: 'binary_sensor.easee_1_basic_schedule',
-        text: 'Schedule'
+            entity_id: 'switch.easee_1_is_enabled',
+            text: 'Enabled'
+        },
+        {
+            entity_id: 'switch.easee_1_enable_idle_current',
+            text: 'Idle Current'
+        },
+        {
+            entity_id: 'binary_sensor.easee_1_cable_locked',
+            text: 'Cable locked'
+        },
+        {
+            entity_id: 'switch.easee_1_cable_locked_permanently',
+            text: 'Perm. locked'
+        },
+        {
+            entity_id: 'switch.easee_1_smart_charging',
+            text: 'Smart charging'
+        },
+        {
+            entity_id: 'sensor.easee_1_cost_per_kwh',
+            text: 'Cost per kWh'
+        },
+        {
+            entity_id: 'binary_sensor.easee_1_update_available',
+            text: 'Update available'
+        },
+        {
+            entity_id: 'binary_sensor.easee_1_basic_schedule',
+            text: 'Schedule'
         }
     ],
 
@@ -187,38 +202,66 @@ export const DEFAULT_CONFIG = {
 
         default: [
             {
-            entity_id: 'binary_sensor.easee_1_basic_schedule',
-            text: 'Schedule'
-            }, {
-            entity_id: 'binary_sensor.easee_1_basic_schedule',
-            text: 'Schedule'
+                entity_id: 'binary_sensor.easee_1_basic_schedule',
+                text: 'Schedule'
+            },
+            {
+                entity_id: 'binary_sensor.easee_1_basic_schedule',
+                text: 'Schedule'
             }
         ],
 
         disconnected: [
             {
-            entity_id: 'sensor.easee_1_session_energy',
-            text: 'Energy'
-            }, {
-            entity_id: 'switch.easee_1_cable_locked_permanently',
-            text: 'CableLocked'
+                entity_id: 'sensor.easee_1_session_energy',
+                text: 'Energy'
             },
-            // {
-            // entity_id: 'sensor.usedCurrentLimit',
-            // text: 'Schedule'
-            // }
+            {
+                entity_id: 'switch.easee_1_cable_locked_permanently',
+                text: 'CableLocked'
+            },
+            {
+                entity_id: 'calculated',
+                text: 'Used Limit',
+                unit: 'A',
+                calc_function: 'min',
+                calc_entities: [
+                    {
+                        entity_id: 'sensor.easee_1_dynamic_charger_limit',
+                        // attribute: '',
+                    },
+                    {
+                        entity_id: 'sensor.easee_1_dynamic_circuit_limit',
+                        // attribute: '',
+                    },
+                    {
+                        entity_id: 'sensor.easee_1_max_charger_limit',
+                        // attribute: '',
+                    },
+                    {
+                        entity_id: 'sensor.easee_1_max_circuit_limit',
+                        // attribute: '',
+                    },
+                    {
+                        entity_id: 'sensor.easee_1_offline_circuit_limit',
+                        // attribute: '',
+                    },
+                ]
+            }
         ],
 
         awaiting_start: [
             {
-            entity_id: 'sensor.easee_1_session_energy',
-            text: 'Energy'
-            }, {
-            entity_id: 'binary_sensor.easee_1_basic_schedule',
-            text: 'Schedule'
-            }, {
-            entity_id: 'switch.easee_1_smart_charging',
-            text: 'SmartCharging'
+                entity_id: 'sensor.easee_1_session_energy',
+                text: 'Energy'
+            },
+            {
+                entity_id: 'binary_sensor.easee_1_basic_schedule',
+                text: 'Schedule'
+            },
+            {
+                entity_id: 'switch.easee_1_smart_charging',
+                text: 'SmartCharging'
             },
             // {
             // entity_id: 'sensor.usedCurrentLimit',
@@ -228,59 +271,164 @@ export const DEFAULT_CONFIG = {
 
         charging: [
             {
-            entity_id: 'sensor.easee_1_session_energy',
-            text: 'Energy'
-            }, {
-            entity_id: 'sensor.easee_1_energy_per_hour',
-            text: 'Rate'
-            },{
-            entity_id: 'sensor.easee_1_circuit_current',
-            text: 'Circuit'
-            }, {
-            entity_id: 'sensor.easee_1_output_limit',
-            text: 'Allowed'
-            }, {
-            entity_id: 'sensor.easee_1_current',
-            text: 'Actual'
-            }, {
-            entity_id: 'sensor.easee_1_power',
-            text: 'Power'
+                entity_id: 'sensor.easee_1_session_energy',
+                text: 'Energy'
+            },
+            {
+                entity_id: 'sensor.easee_1_energy_per_hour',
+                text: 'Rate'
+            },
+            {
+                entity_id: 'sensor.easee_1_circuit_current',
+                text: 'Circuit'
+            },
+            {
+                entity_id: 'sensor.easee_1_output_limit',
+                text: 'Allowed'
+            },
+            {
+                entity_id: 'sensor.easee_1_current',
+                text: 'Actual'
+            },
+            {
+                entity_id: 'sensor.easee_1_power',
+                text: 'Power'
             }
         ],
 
         completed: [
             {
-            entity_id: 'sensor.easee_1_session_energy',
-            text: 'Energy'
-            }, {
-            entity_id: 'binary_sensor.easee_1_basic_schedule',
-            text: 'Schedule'
+                entity_id: 'sensor.easee_1_session_energy',
+                text: 'Energy'
+            },
+            {
+                entity_id: 'binary_sensor.easee_1_basic_schedule',
+                text: 'Schedule'
             }
         ],
 
         error: [
             {
-            entity_id: 'sensor.easee_1_session_energy',
-            text: 'Energy'
-            }, {
-            entity_id: 'binary_sensor.easee_1_basic_schedule',
-            text: 'Schedule'
+                entity_id: 'sensor.easee_1_session_energy',
+                text: 'Energy'
+            },
+            {
+                entity_id: 'binary_sensor.easee_1_basic_schedule',
+                text: 'Schedule'
             }
         ],
         ready_to_charge: [
             {
-            entity_id: 'sensor.easee_1_session_energy',
-            text: 'Energy'
-            }, {
-            entity_id: 'binary_sensor.easee_1_basic_schedule',
-            text: 'Schedule'
+                entity_id: 'sensor.easee_1_session_energy',
+                text: 'Energy'
+            },
+            {
+                entity_id: 'binary_sensor.easee_1_basic_schedule',
+                text: 'Schedule'
             }
         ],
     },
 
-    // toolbar: [{
+    // TOOLBAR
+    toolbar_left: {
+        default: [
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:play-pause',
+            },
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:motion-play',
+                },
+            ],
 
-    // }],
+        disconnected: [
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'mdi:cancel',
+            },
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'mdi:cancel',
+            },
+        ],
+
+        awaiting_start: [
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:play-pause',
+            },
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:motion-play',
+            },
+        ],
+
+        charging: [
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:pause',
+            },
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:stop',
+            },
+        ],
+
+        completed: [
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:stop',
+            },
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:motion-play',
+            },
+        ],
+
+        error: [
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:restart',
+            },
+        ],
+        ready_to_charge: [
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:stop',
+            },
+            {
+                service: 'persistent_notification.create',
+                service_data: {message: 'test1', title: 'test'},
+                text: 'Schedule',
+                icon: 'hass:motion-play',
+            },
+        ],
+    },
 
     // OVERRIDE CURRENTLIMITS
     currentlimits: [10, 16, 20, 25, 32],

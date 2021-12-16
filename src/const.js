@@ -16,6 +16,8 @@ export const DEVICECLASS_ICONS = {
   power: 'mdi:flash',
 };
 
+export const DEFAULT_ICON = 'mdi:crosshairs-question';
+
 import imageGeneric from './img/charger_generic_223x302.png';
 import imageAnthracite from './img/charger_anthracite_223x302.png';
 import imageRed from './img/charger_red_223x302.png';

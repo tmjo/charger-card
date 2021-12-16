@@ -28,7 +28,7 @@ export default function localize(string, search = '', replace = ''){
     try {
       translated = string.split('.').reduce((o, i) => o[i], languages['en']);
     } catch (ee) {
-      return string;
+      translated = string;
     }
   }
 
@@ -38,7 +38,7 @@ export default function localize(string, search = '', replace = ''){
   if (search !== '' && replace !== '') {
     translated = translated.replace(search, replace);
   }
-  return translated;
+  return translated || string;
 }
 
 
