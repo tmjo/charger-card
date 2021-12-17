@@ -291,7 +291,6 @@ export class ChargerCardEditor extends LitElement {
 
 
   setEntityPrefix(domainbase) {
-    console.log(domainbase)
     try {
         this._config = {
           ...this._config,
