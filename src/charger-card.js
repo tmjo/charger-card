@@ -181,6 +181,9 @@ class ChargerCard extends LitElement {
     data['service'] = val.service !== undefined ? val.service : null;
     data['service_data'] = val.service_data !== undefined ? val.service_data : null;
     data['type'] = val.type !== undefined ? val.type : null;
+    data['conditional_entity'] = val.conditional_entity !== undefined ? val.conditional_entity : null;
+    data['conditional_attribute'] = val.conditional_attribute !== undefined ? val.conditional_attribute : null;
+    data['conditional_invert'] = val.conditional_invert !== undefined ? val.conditional_invert : null;
 
     // Get entity
     data['entity'] = this.getEntity(data.entity_id);
@@ -190,6 +193,7 @@ class ChargerCard extends LitElement {
       data['useval'] = this.getEntityAttr(data.entity_id, data.attribute);
     }
 
+    // Calculated entities
     if (data.entity_id == 'calculated') {
       data['calc_function'] = val.calc_function !== undefined ? val.calc_function : null;
       data['calc_entities'] = val.calc_entities !== undefined ? val.calc_entities : null;
@@ -207,7 +211,24 @@ class ChargerCard extends LitElement {
       var decimals = Number.isInteger(data.round) ? data.round : 0;
       data.useval = this.round(data.useval, decimals);
     }
-    // return Object.assign(entityinfo, val);
+
+    // Conditional entities
+    if (data.conditional_entity !== undefined && data.conditional_entity !== null) {
+      data['hide'] = false;
+      var cond_state, cond_attr;
+      cond_state = this.getEntityState(data.conditional_entity);
+      data['hide'] = cond_state !== null && (cond_state == 'off' || cond_state == 'false' || cond_state === false) ? true : data['hide'];
+      if (data.conditional_attribute !== undefined && data.conditional_attribute !== null) {
+        cond_attr = this.getEntityAttr(data.conditional_entity, data.conditional_attribute);
+        data['hide'] = cond_attr !== null && (cond_attr == 'off' || cond_attr == 'false' || cond_attr === false) ? true : data['hide'];
+      }
+
+      if (data.conditional_invert === true) {
+        data['hide'] = !data.hide;
+      }
+
+    }
+
     return data;
   }
 
@@ -537,7 +558,7 @@ class ChargerCard extends LitElement {
   }
 
   renderCollapsibleItems(carddata, itemtype='') {
-    if (carddata === null || carddata === undefined || typeof carddata !== 'object') {
+    if (carddata === null || carddata === undefined || typeof carddata !== 'object' || carddata.hide === true) {
       return html``;
     }
 
