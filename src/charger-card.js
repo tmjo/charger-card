@@ -5,6 +5,7 @@ import localize from './localize';
 import styles from './styles';
 import * as cconst from './const';
 import * as easee from './const_easee.js';
+import * as template from './const_template.js';
 
 
 class ChargerCard extends LitElement {
@@ -259,6 +260,11 @@ class ChargerCard extends LitElement {
       return calc;
   }
 
+  log(debug) {
+    if (this.config['debug'] === true) {
+      console.log(debug);
+    }
+  }
   getEntityIcon(entity_id) {
     var entity = this.getEntity(entity_id);
     if (entity === undefined || entity === null || typeof entity !== 'object') {
@@ -418,10 +424,10 @@ class ChargerCard extends LitElement {
     }
     var carddatas = this.getCardData(this.config["smartcharging"]);
     var chargingmode = 'normal';
-    if (carddatas !== null && carddatas !== undefined && typeof carddatas === 'object') {
+    if (carddatas !== null && carddatas !== undefined && typeof carddatas === 'object' && carddatas.entity !== null) {
       chargingmode = carddatas.entity.state == 'on' ? 'smart' : 'normal';
     }
-    var imageled = easee.LEDIMAGES[chargingmode][state] || easee.LEDIMAGES[chargingmode]['DEFAULT'];
+    var imageled = cconst.LEDIMAGES[chargingmode][state] || cconst.LEDIMAGES[chargingmode]['DEFAULT'];
     var compactview = this.compactView ? '-compact' : '';
     return html`<img class="charger led${compactview}" src="${imageled}" @click="${() => this.handleMore(carddatas.entity)}"?more-info="true"/> `;
   }
@@ -535,9 +541,6 @@ class ChargerCard extends LitElement {
     if (!this.showCollapsibles) {
       return html``;
     }
-    // TODO: CONDITIONAL SHOWING OF UPDATEAVAILABLE ETC, INCLUDING SERVICE CALLS AND USED LIMIT (CALCVAL)
-    // var updateAvailableState = this.getEntityState(updateAvailable) || 'off';
-
     var carddatas = this.getCardData(this.config[group]);
     return html`
       <div class="wrap-collabsible${style}">

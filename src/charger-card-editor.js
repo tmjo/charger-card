@@ -2,8 +2,9 @@ import { LitElement, html, css } from 'lit-element';
 import { fireEvent } from 'custom-card-helpers';
 import localize from './localize';
 import * as cconst from './const';
-// let easee = await import('./const_easee.js');
+
 import * as easee from './const_easee.js';
+import * as template from './const_template.js';
 
 export class ChargerCardEditor extends LitElement {
   static get properties() {
@@ -13,63 +14,6 @@ export class ChargerCardEditor extends LitElement {
       _toggle: Boolean,
     };
   }
-
-  setConfig(config) {
-    this._config = config;
-
-    if (!this._config.entity) {
-      this._config.entity = this.getAllEntitiesByType('sensor')[0] || '';
-      fireEvent(this, 'config-changed', { config: this._config });
-    }
-  }
-
-  // get _brand("brand")() {
-  //   if (this._config) {
-  //     return this._config.brand || '';
-  //   }
-
-  //   return '';
-  // }
-
-  // get _prefix() {
-  //   if (this._config) {
-  //     return this._config.prefix || '';
-  //   }
-
-  //   return '';
-  // }
-
-  get_config(item) {
-    if (this._config) {
-      return this._config[`${item}`] || '';
-    }
-    return '';
-
-  }
-
-  get_sensors(sensor) {
-    if (this._config) {
-      // console.log("TEST (" + sensor + "): " + this._config[`${sensor}`]);
-      return this._config[`${sensor}`] || '';
-    }
-    return '';
-  }
-
-  // get _entity() {
-  //   if (this._config) {
-  //     return this._config.entity || '';
-  //   }
-
-  //   return '';
-  // }
-
-  // get _customImage() {
-  //   if (this._config) {
-  //     return this._config.customImage || '';
-  //   }
-
-  //   return '';
-  // }
 
   get _chargerImage(){
     if (this._config) {
@@ -136,6 +80,44 @@ export class ChargerCardEditor extends LitElement {
     return false;
   }
 
+  get debug() {
+    if (this._config) {
+      return this._config.debug !== undefined ? this._config.debug : false;
+    }
+    return false;
+
+  }
+
+  setConfig(config) {
+    this._config = config;
+
+    if (!this._config.entity) {
+      this._config.entity = this.getAllEntitiesByType('sensor')[0] || '';
+      fireEvent(this, 'config-changed', { config: this._config });
+    }
+  }
+
+  get_config(item) {
+    if (this._config) {
+      return this._config[`${item}`] || '';
+    }
+    return '';
+
+  }
+
+  log(debug) {
+    if (this.debug !== undefined && this.debug === true) {
+      console.log(debug);
+    }
+  }
+
+  get_sensors(sensor) {
+    if (this._config) {
+      return this._config[`${sensor}`] || '';
+    }
+    return '';
+  }
+
   getAllEntities(type) {
     return Object.keys(this.hass.states)
   }
@@ -162,15 +144,12 @@ export class ChargerCardEditor extends LitElement {
 
 
         <paper-dropdown-menu label="${localize('editor.brand')}" @value-changed=${this.setCardConfigType} .configValue=${'brand'}>
-          <paper-listbox slot="dropdown-content" .selected=${Object.values(cconst.CARDCONFIGTYPES).indexOf(this.get_config("brand"))}>
+          <paper-listbox slot="dropdown-content" .selected=${cconst.CARDCONFIGTYPES.indexOf(this.get_config("brand"))}>
             ${Object.values(cconst.CARDCONFIGTYPES).map(brand => {
               return html` <paper-item>${brand}</paper-item> `;
             })}
           </paper-listbox>
         </paper-dropdown-menu>
-
-
-        ${this.setEntityPrefix()}
 
         <paper-dropdown-menu label="${localize('editor.entity')}" @value-changed=${this._valueChanged} .configValue=${'entity'}>
           <paper-listbox slot="dropdown-content" .selected=${allEntities.indexOf(this.get_config("entity"))}>
@@ -188,7 +167,6 @@ export class ChargerCardEditor extends LitElement {
           </paper-listbox>
         </paper-dropdown-menu>
 
-
         <paper-dropdown-menu label="${localize('editor.chargerImage')}" @value-changed=${this._valueChanged} .configValue=${'chargerImage'}>
           <paper-listbox slot="dropdown-content" selected="${this._chargerImage}" attr-for-selected="value">
             ${cconst.CHARGER_IMAGES.map(chargerImage => {
@@ -197,9 +175,7 @@ export class ChargerCardEditor extends LitElement {
           </paper-listbox>
         </paper-dropdown-menu>
 
-
         <paper-input label="${localize('editor.customImage')}" .value=${this.get_config("customImage")} .configValue=${'customImage'} @value-changed=${this._valueChanged}"></paper-input>
-
         <p class="option">
           <ha-switch
             aria-label=${localize(
@@ -291,9 +267,6 @@ export class ChargerCardEditor extends LitElement {
           ${localize('editor.show_stats')}
         </p>
 
-
-
-
         <p class="option">
           <ha-switch
             aria-label=${localize(
@@ -317,89 +290,91 @@ export class ChargerCardEditor extends LitElement {
   }
 
 
-  setEntityPrefix() {
-    try{
+  setEntityPrefix(domainbase) {
+    console.log(domainbase)
+    try {
         this._config = {
           ...this._config,
           ["prefix"]:
             this._config.entity
               .split('.')[1]
-              .replace(easee.MAIN_ENTITY_BASE, ''),
+              .replace(domainbase, ''),
         };
       }catch (err) {
 
       }
     }
 
-  getEntityId(entitybasename) {
-    try {
-      return (
-        entitybasename.split('.')[0] +
-        '.' +
-        this._config["prefix"] +
-        '_' +
-        entitybasename.split('.')[1]
-      );
-    } catch (err) {
-      return null;
-    }
-  }
+  // getEntityId(entitybasename) {
+  //   try {
+  //     return (
+  //       entitybasename.split('.')[0] +
+  //       '.' +
+  //       this._config["prefix"] +
+  //       '_' +
+  //       entitybasename.split('.')[1]
+  //     );
+  //   } catch (err) {
+  //     return null;
+  //   }
+  // }
 
 
   setCardConfigType(ev) {
-    const target = ev.target;
-
-    // if (this[`_${target.configValue}`] === target.value) {
-    if (this._config[`${target.configValue}`] === target.value) {
-      console.log("SETCARDCONFIGTYPE EQUAL");
+    if (this._config["brand"] == ev.target.value || ev.target.value == '') {
+      // console.log("SETCARDCONFIGTYPE EQUAL");
       return;
     }
 
-    console.log(this._config[`${target.configValue}`]);
-    console.log(target.value);
-
-    // if (this.get_config("brand") === "Easee") {
-    if (target.value === cconst.CARDCONFIGTYPES.easee) {
-      // console.log("SETCARDCONFIGTYPE EASEE");
-      // for (let entity in easee.ENTITIES_ALL) {
-      //   // console.log("EASEE: " +entity +" --> " +cconst.ENTITIES[entity]);
-      //   this._config = {
-      //     ...this._config,
-      //     [`${entity}`]:
-      //       this.getEntityId(easee.ENTITIES_ALL[entity]),
-      //   };
-      // }
-    }else if(target.value === cconst.CARDCONFIGTYPES.test){
-      console.log("SETCARDCONFIGTYPE TEST");
-      for (let entity in easee.DEFAULT_CONFIG) {
-        this._config = {
-          ...this._config,
-          [`${entity}`]:
-            easee.DEFAULT_CONFIG[entity],
-        };
-      }
-    } else {
-    //   console.log("SETCARDCONFIGTYPE OTHER");
-    //   const allEntities = this.getAllEntities();
-    //   return html`${cconst.ENTITIES_CARD.map(customentity => {
-    //     // return html`<paper-input label="${customentity}" .value="" .configValue=${customentity}"></paper-input>`;
-    //     return html`<paper-dropdown-menu label="${customentity}" @value-changed=${this._valueChanged} .configValue=${customentity}>
-    //     <paper-listbox slot="dropdown-content" .selected=${allEntities.indexOf(this.get_sensors(customentity))}>
-    //       ${allEntities.map(entity => {
-    //       return html` <paper-item>${entity}</paper-item> `;
-    //     })}
-    //     </paper-listbox>
-    //   </paper-dropdown-menu>`
-
-    //   })}
-    // `;
+    this._valueChanged(ev);
+    let domain = ev.target.value;
+    let domainconfig;
+    let domainbase;
+    switch (domain) {
+      case 'easee':
+        domainconfig = easee.DEFAULT_CONFIG;
+        domainbase = easee.MAIN_ENTITY_BASE;
+        break;
+      case 'other':
+        domainconfig = template.DEFAULT_CONFIG;
+        domainbase = template.MAIN_ENTITY_BASE;
+        break;
+      case 'test':
+        domainconfig = template.DEFAULT_CONFIG;
+        domainbase = template.MAIN_ENTITY_BASE;
+        break;
     }
-    this._valueChanged(ev)
+
+    // Set prefix by domain
+    this.setEntityPrefix(domainbase);
+
+    // Replace template with actual sensors
+    try {
+      domainconfig = JSON.parse(this.replaceAll(JSON.stringify(domainconfig), 'CHARGERNAME', this.get_config('prefix')));
+    } catch (err) {
+      console.error("Something went wrong with the default setup, please check your YAML configuration or enable debugging to see details.")
+    }
+    this.log("domain: " + domain);
+    this.log(domainconfig);
+
+    // Set config
+    for (let data in domainconfig) {
+      this._config = {
+        ...this._config,
+        [`${data}`]:
+          domainconfig[data],
+      };
+    }
+
+
+
     fireEvent(this, 'config-changed', { config: this._config });
     return;
   }
 
-
+  replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+  }
 
   _valueChanged(ev) {
     if (!this._config || !this.hass) {

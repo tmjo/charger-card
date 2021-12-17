@@ -148,6 +148,10 @@ Most details can be overridden on most features by using the following keywords:
 | type| Choose between `info`, `service` and `dropdown`. Info-items will appear as icons with tooltip, clicking them opens the specified entity. Service-items will do the same, but call a service when clicked (if it is provided). Dropdown-items will show a dropdown list to select from a list and call a specified service with this number as service data.|
 | calc_function | Choose between `min`, `max`, `mean`, `sum` to define a mathematical function to be performed on a specified list of entities or attributes. The result will be used on the sensor provided you specify `calculated` as the main `entity_id`.|
 | calc_entities | A list of entites or entity attributes that are used for the mathematical function. Specify a list of `entity_id`s and add `attribute`s if you prefer to use that.|
+| conditional_entity | Specify a boolean entity (returning on/off or true/false) to define if the entity should be shown based on state condition.
+| conditional_attribute | Specify a boolean entity and its attribute (returning on/off or true/false) to define if the entity should be shown based on state attribute condition.
+| conditional_invert | Invert the conditional rule, so that true/on means hide and false/off means show
+
 
 ## Main items
 | Config           |   Text |
@@ -168,9 +172,6 @@ Most details can be overridden on most features by using the following keywords:
 | currentlimits | Override the card default current limits by specifying a list of numbers. Used for current limit features of the card (if configured).
 | statetext | Override or custom-translate the status sensor state by providing better or cleaner text. See example.
 | collapsiblebuttons | Specify `text` and/or `icon` to customize the collapsible-buttons `group1`,`group2` and `group3` respectively. See example.
-| conditional_entity | Specify a boolean entity (returning on/off or true/false) to define if the entity should be shown based on state condition.
-| conditional_attribute | Specify a boolean entity and its attribute (returning on/off or true/false) to define if the entity should be shown based on state attribute condition.
-| conditional_invert | Invert the conditional rule, so that true/on means hide and false/off means show
 
 ## Advanced example (Easee charger)
 

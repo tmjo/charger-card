@@ -1,10 +1,9 @@
 export const VERSION = '0.0.14';
-
-export const CARDCONFIGTYPES = {
-  easee: "Easee",
-  test: "Test",
-  other: "Other",
-};
+export const CARDCONFIGTYPES = [
+  'easee',
+  'test',
+  'other',
+];
 
 // TODO: Find a way to read device_class icons instead of this
 export const DEVICECLASS_ICONS = {
@@ -46,3 +45,32 @@ export const CARD_THEMES = [
   { name: 'theme_lightgrey_blue', desc: 'LightGrey Blue' },
 ];
 
+import ledOff from './img/charger_leds_bg.gif';
+import ledWhite2 from './img/charger_leds_white_2.gif';
+import ledWhiteAll from './img/charger_leds_white_all.gif';
+import ledWhiteFlashing from './img/charger_leds_white_flashing.gif';
+import ledBlue2 from './img/charger_leds_blue_2.gif';
+import ledBlueAll from './img/charger_leds_blue_all.gif';
+import ledBlueFlashing from './img/charger_leds_blue_flashing.gif';
+import ledRedFlashing from './img/charger_leds_red_flashing.gif';
+
+export const LEDIMAGES = {
+    normal: {
+      DEFAULT: ledOff,
+      disconnected: ledWhite2,
+      awaiting_start: ledWhiteAll,
+      charging: ledWhiteFlashing,
+      completed: ledWhiteAll,
+      error: ledRedFlashing,
+      ready_to_charge: ledWhiteAll,
+    },
+    smart: {
+      DEFAULT: ledOff,
+      disconnected: ledBlue2,
+      awaiting_start: ledBlueAll,
+      charging: ledBlueFlashing,
+      completed: ledBlueAll,
+      error: ledRedFlashing,
+      ready_to_charge: ledBlueAll,
+    },
+  };
