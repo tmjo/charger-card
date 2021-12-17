@@ -62,6 +62,7 @@ Here is a list of the basic options. See _advanced configuration_ further down f
 | Name                |   Type    | Default      | Description                                                                                                         |
 | ------------------- | :-------: | ------------ | ------------------------------------------------------------------------------------------------------------------- |
 | `type`              | `string`  | **Required** | `custom:charger-card`                                                                                               |
+| `brand`             | `string`  | **Required** | Select the template charger or system. If available it will try to set a pre-defined setup for your system and will assume you have all entities with default names from the integration. You can still edit your configuration in YAML if you system does not comply with these assumptions. See advanced config for further details. |
 | `entity`            | `string`  | **Required** | The main status sensor for your charger (for Easee, look for the one named `status`).                                    |
 | `customCardTheme`   | `string`  | Optional     | Select a built-in theme of colors, or use `theme_custom` to apply the theme you have applied in HA.                             |
 | `chargerImage`      | `string`  | Anthracite   | Select a charger image from the built-in default images                                                                                |
@@ -79,34 +80,20 @@ Here is a list of the basic options. See _advanced configuration_ further down f
 
 ### `stats` object
 
-In addition to the charger info, you can use any sensor or sensor attribute of your choosing to be shown in the stats data table section:
+In addition to the charger info, you can use any sensor or sensor attribute of your choosing to be shown in the stats data table section. It can depend on charger status or you can use `default` to select one that shows for all charger states. See advanced configuration for examples.
 
-| Name        |   Type   | Default  | Description                                              |
-| ----------- | :------: | -------- | -------------------------------------------------------- |
-| `entity_id` | `string` | Optional | An entity_id with state, i.e. `easee_status`.            |
-| `attribute` | `string` | Optional | Attribute name of the stat, i.e. `circuit_ratedCurrent`. |
-| `unit`      | `string` | Optional | Unit of measure, i.e. `A`.                               |
-| `subtitle`  | `string` | Optional | Friendly name of the stat, i.e. `Rated Current`.         |
+### `toolbar_left / toolbar_right` objects
 
-### `actions` object
-
-You can define [custom scripts][ha-scripts] or use services for custom actions and add them to this card with `actions` option.
-
-| Name           |   Type   | Default                           | Description                                             |
-| -------------- | :------: | --------------------------------- | ------------------------------------------------------- |
-| `name`         | `string` | Optional                          | Friendly name of the action, i.e. `Update FW`.          |
-| `service`      | `string` | Optional                          | A service to call, i.e. `easee.update_firmware`.        |
-| `icon`         | `string` | Optional                          | Any icon for action button.                             |
-| `service_data` | `object` | `service_data` for `service` call | Verify necessary data in HA Developer Tools -> Services |
+You can define custom services to be run when clicking a button on the toolbar (right or left) as you prefer. It can depend on charger status or you can use `default` to select one that shows for all charger states. See advanced configuration for examples.
 
 ## Features
 
+- Fully customizable for your needs, the card may work for different chargers and other entities if you read the Advanced configuration section and customize it to your needs. For chargers that are supported by defaut, the setup is very easy (select brand and main entity and you should be done).
 - Animations: If choosing the default images of Easee chargers in any color, you can also choose to show leds which will behave according to charger status. This is identical to how the charger looks physically and similar to the Easee app and web site. Two leds for standby, all leds when connected, flashing while charging and so on. If SmartCharging is enabled, leds will be blue.
 - Collapsible menu buttons: Click on one of the menu buttons (if you enabled them) to get more info, config or limit settings.
 - Possibility to set current limits from UI
 - Stats items (data table) will depend on charger status and show most relevant information unless you choose to customize it
 - Action items on toolbar will depend on charger status and show most relevant actions. Custom actions are added in addition to defaults.
-- Fully customizable for your needs:
 
 ## Supported languages
 This card supports translations. Please, help to add more translations and improve existing ones. Here's a list of supported languages:
@@ -156,6 +143,7 @@ Most details can be overridden on most features by using the following keywords:
 ## Main items
 | Config           |   Text |
 | -------------- | --------|
+| debug |  Set this to true if you want debugging info, this is important if something doesn't work out right for you and you want to report it.
 | name |  Single entity with configuration details as shown in table above.
 | location | Single entity with configuration details as shown in table above.
 | status | Single entity with configuration details as shown in table above.
