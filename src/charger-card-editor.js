@@ -324,11 +324,12 @@ export class ChargerCardEditor extends LitElement {
       // console.log("SETCARDCONFIGTYPE EQUAL");
       return;
     }
-
     this._valueChanged(ev);
     let domain = ev.target.value;
     let domainconfig;
     let domainbase;
+
+    // Switch statement, UPDATE FOR NEW TEMPLATES
     switch (domain) {
       case 'easee':
         domainconfig = easee.DEFAULT_CONFIG;
@@ -338,7 +339,7 @@ export class ChargerCardEditor extends LitElement {
         domainconfig = template.DEFAULT_CONFIG;
         domainbase = template.MAIN_ENTITY_BASE;
         break;
-      case 'test':
+      case 'template':
         domainconfig = template.DEFAULT_CONFIG;
         domainbase = template.MAIN_ENTITY_BASE;
         break;

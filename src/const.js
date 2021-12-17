@@ -2,7 +2,7 @@ export const VERSION = '0.0.14';
 export const CARDCONFIGTYPES = [
   'easee',
   'test',
-  'other',
+  'template',
 ];
 
 // TODO: Find a way to read device_class icons instead of this
