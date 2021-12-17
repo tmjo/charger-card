@@ -335,7 +335,7 @@ export class ChargerCardEditor extends LitElement {
         domainconfig = easee.DEFAULT_CONFIG;
         domainbase = easee.MAIN_ENTITY_BASE;
         break;
-      case 'other':
+      case 'test':
         domainconfig = template.DEFAULT_CONFIG;
         domainbase = template.MAIN_ENTITY_BASE;
         break;
