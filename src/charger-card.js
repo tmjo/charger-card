@@ -125,6 +125,15 @@ class ChargerCard extends LitElement {
     return [{}];
   }
 
+  get debug() {
+    if (this.config) {
+      return this.config.debug !== undefined ? this.config.debug : false;
+    }
+    return false;
+
+  }
+
+
 
   getCardData(data) {
     var entities = {};
@@ -261,10 +270,11 @@ class ChargerCard extends LitElement {
   }
 
   log(debug) {
-    if (this.config['debug'] === true) {
+    if (this.debug !== undefined && this.debug === true) {
       console.log(debug);
     }
   }
+
   getEntityIcon(entity_id) {
     var entity = this.getEntity(entity_id);
     if (entity === undefined || entity === null || typeof entity !== 'object') {
