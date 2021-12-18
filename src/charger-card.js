@@ -279,7 +279,7 @@ class ChargerCard extends LitElement {
     var entity = this.getEntity(entity_id);
     if (entity === undefined || entity === null || typeof entity !== 'object') {
         return cconst.DEFAULT_ICON;
-    } else if ('icon' in entity.attributes) {
+    } else if ('icon' in entity.attributes && entity.attributes.icon !== '') {
         return entity.attributes['icon'];
     } else if ('device_class' in entity.attributes) {
         //TODO: Find better way to get deviceclass icons
