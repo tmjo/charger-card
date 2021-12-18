@@ -272,7 +272,7 @@ class ChargerCard extends LitElement {
 
   getEntityAttribute(entity_base, attribute) {
     try {
-      return this.getEntityAttributes(entity_base).attributes[attribute];
+      return this.getEntityAttributes(entity_base)[attribute];
     } catch (err) {
       return null;
     }
