@@ -44,13 +44,14 @@ This card can be configured using Lovelace UI editor.
 2. Click _Configure UI_.
 3. Click Plus button to add a new card.
 4. Find _Custom: Charger Card_ in the list.
-5. Choose `entity` and select the main status sensor of your charger.
-6. Now you should see the preview of the card!
-7. Do your customizations in UI editor or manually in code editor.
+5. Choose `brand` from the list which fits your need or select other.
+6. Choose `entity` and select the main status sensor of your charger.
+7. Now you should see the preview of the card!
+8. Do your customizations in UI editor or manually in the YAML code editor.
 
-_Sorry, there is no support for `actions` and `stats` in visual UI editor yet._
+_Sorry, there is no support for `toolbar` and `stats` in visual UI editor yet._
 
-Typical example of using this card in YAML config would look like this:
+A minimum example of using this card in YAML config would look like this:
 
 ```yaml
 type: 'custom:charger-card'
@@ -88,7 +89,7 @@ You can define custom services to be run when clicking a button on the toolbar (
 
 ## Features
 
-- Fully customizable for your needs, the card may work for different chargers and other entities if you read the Advanced configuration section and customize it to your needs. For chargers that are supported by defaut, the setup is very easy (select brand and main entity and you should be done).
+- Fully customizable for your needs, the card may work for different chargers and other entities if you read the Advanced configuration section and customize it to your needs. For chargers that are supported by default, the setup is very easy (select brand and main entity and you should be done).
 - Animations: If choosing the default images of Easee chargers in any color, you can also choose to show leds which will behave according to charger status. This is identical to how the charger looks physically and similar to the Easee app and web site. Two leds for standby, all leds when connected, flashing while charging and so on. If SmartCharging is enabled, leds will be blue.
 - Collapsible menu buttons: Click on one of the menu buttons (if you enabled them) to get more info, config or limit settings.
 - Possibility to set current limits from UI
