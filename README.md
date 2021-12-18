@@ -153,7 +153,7 @@ Most details can be overridden on most features by using the following keywords:
 | info_right | List of entities with configuration details as shown in table above. Defines static icons shown top-right of the card.
 | group1 | List of entities with configuration details as shown in table above. Defines the content of first collapsible-button (default limits).
 | group2 | List of entities with configuration details as shown in table above. Defines the content of second collapsible-button (default info).
-| group3 | List of entities with configuration details as shown in table above. Defines the content of first collapsible-button (default config).
+| group3 | List of entities with configuration details as shown in table above. Defines the content of third collapsible-button (default config).
 | stats | Provide the state of entity defined as status-sensor, then a list of entities with configuration details as shown in table above. Defines the datatable statistics (stats) in lower part of card, will change depending on status of charger. See example.
 | toolbar_left | Provide the state of entity defined as status-sensor, the a list of entities with configuration details as shown in table above. Defines the left aligned command buttons of the toolbar. See example.
 | toolbar_right | Provide the state of entity defined as status-sensor, the a list of entities with configuration details as shown in table above. Defines the right aligned command buttons of the toolbar.
