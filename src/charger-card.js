@@ -4,8 +4,8 @@ import './charger-card-editor';
 import localize from './localize';
 import styles from './styles';
 import * as cconst from './const';
-import * as easee from './const_easee.js';
-import * as template from './const_template.js';
+// import * as easee from './const_easee.js';
+// import * as template from './const_template.js';
 
 
 class ChargerCard extends LitElement {
@@ -577,9 +577,7 @@ class ChargerCard extends LitElement {
     if (carddata === null || carddata === undefined || typeof carddata !== 'object' || carddata.hide === true) {
       return html``;
     }
-
     if (itemtype === 'info' || itemtype === '' || itemtype === null) {
-      var options = "";
       return html`
         <div class="collapsible-item"
           @click="${() => this.handleMore(carddata.entity)}"
@@ -593,7 +591,6 @@ class ChargerCard extends LitElement {
         </div>
       `;
     }else if (itemtype === 'service') {
-        var options = "";
         return html`
           <div class="collapsible-item"
             @click="${() => this.callService(carddata.service, true, carddata.service_data)}"
