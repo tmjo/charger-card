@@ -306,7 +306,7 @@ class ChargerCard extends LitElement {
     }
   }
 
-  math_sum = function(array) {
+  math_sum(array) {
     var total = 0;
     for (var i=0; i<array.length; i++) {
       total += array[i];
@@ -314,7 +314,7 @@ class ChargerCard extends LitElement {
     return total;
   };
 
-  math_mean = function(array) {
+  math_mean(array) {
     return this.math_sum(array) / array.length;
   };
 
@@ -420,18 +420,21 @@ class ChargerCard extends LitElement {
     if (!this.image) {
       return html``;
     }
-    return html` <img
+    return html`<div class='image'> <img
         class="charger${compactview}"
         src="${this.image}"
         @click="${() => this.handleMore()}"
         ?more-info="true"
-      />${this.renderLeds(state)}`;
+      />${this.renderLeds(state)}
+      </div>`;
   }
 
   renderLeds(state) {
-    if (!this.showLeds) {
-      return html``;
-    }
+    // if (!this.showLeds) {
+    //   return html``;
+    // }
+    var hide = this.showLeds === true ? '' : '-hidden';
+
     var carddatas = this.getCardData(this.config["smartcharging"]);
     var chargingmode = 'normal';
     if (carddatas !== null && carddatas !== undefined && typeof carddatas === 'object' && carddatas.entity !== null) {
@@ -439,7 +442,7 @@ class ChargerCard extends LitElement {
     }
     var imageled = cconst.LEDIMAGES[chargingmode][state] || cconst.LEDIMAGES[chargingmode]['DEFAULT'];
     var compactview = this.compactView ? '-compact' : '';
-    return html`<img class="charger led${compactview}" src="${imageled}" @click="${() => this.handleMore(carddatas.entity)}"?more-info="true"/> `;
+    return html`<img class="charger led${hide}${compactview}" src="${imageled}" @click="${() => this.handleMore(carddatas.entity)}"?more-info="true"/> `;
   }
 
   renderStats(state) {
@@ -456,7 +459,7 @@ class ChargerCard extends LitElement {
       console.info("Stats is turned on but no stats given in config.")
       stats = {};
     }
-    return html`<div class="stats${compactview}">
+    return html`
       ${Object.values(stats).map(stat => {
             return html`
             <div
@@ -471,7 +474,7 @@ class ChargerCard extends LitElement {
           `;
         })
       }
-      </div>`;
+      `;
     }
 
 
@@ -632,18 +635,21 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
+    var tooltip = data == 'info_right' ? '-right' : '';
+
     return html`
       ${carddatas !== null ? Object.values(carddatas).map(carddata => {
         return html`
         <div
-        class='infoitems-item'
+        class='infoitems-item-${data}'
         @click='${() => this.handleMore(carddata.entity)}'
         ?more-info='true'
       >
         <div class='tooltip'>
-          <ha-icon icon='${carddata.icon}'></ha-icon>
+          <ha-icon icon=${data == 'info_left' ? carddata.icon :''}></ha-icon>
           ${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
-          <span class='tooltiptext'>${carddata.text} ${carddata.unit_showontext ? '(' +carddata.unit +')' : ''}</span>
+          <ha-icon icon=${data == 'info_right' ? carddata.icon :''}></ha-icon>
+          <span class='tooltiptext${tooltip}'>${carddata.text} ${carddata.unit_showontext ? '(' +carddata.unit +')' : ''}</span>
         </div>
       </div>
       `
@@ -704,7 +710,9 @@ class ChargerCard extends LitElement {
             ${this.renderName()} ${this.renderStatus()}
           </div>
           <div class="infoitems">${this.renderMainInfoLeftRight('info_right')}</div>
-          ${this.renderStats(state)}
+          <div class="stats-compact">
+            ${this.renderStats(state)}
+          </div>
         </div>
         ${this.renderToolbar(state)}
       </ha-card>
@@ -730,7 +738,9 @@ class ChargerCard extends LitElement {
             ${this.renderCollapsible('group1', btn1.icon, btn1.text, '-lim','dropdown')}
             ${this.renderCollapsible('group2', btn2.icon, btn2.text, '-info','info')}
             ${this.renderCollapsible('group3', btn3.icon, btn3.text, '', 'info')}
-            ${this.renderStats(state)}
+            <div class="stats">
+              ${this.renderStats(state)}
+            </div>
         </div>
         ${this.renderToolbar(state)}
       </ha-card>
