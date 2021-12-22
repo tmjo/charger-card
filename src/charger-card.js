@@ -245,7 +245,7 @@ class ChargerCard extends LitElement {
   getEntityCalcVal(calcfunc, entities) {
     var calc;
     var calc_array = [];
-    for (let [key, val] of Object.entries(entities)) {
+    for (let [val] of Object.entries(entities)) {
       let useval = val.attribute !== undefined ? this.getEntityAttr(val.entity_id, val.attribute) : this.getEntityState(val.entity_id);
       calc_array.push(Number(useval));
       }
@@ -394,7 +394,7 @@ class ChargerCard extends LitElement {
     return this.callService(service, isRequest, service_data_mod)
   }
 
-  callService(service, isRequest = true, service_data = {}, domain = null) {
+  callService(service, isRequest = true, service_data = {}) {
     console.log(service);
     console.log(service_data);
 
@@ -450,7 +450,7 @@ class ChargerCard extends LitElement {
     if (!this.showStats) {
       return html``;
     }
-    var compactview = this.compactView ? '-compact' : '';
+    // var compactview = this.compactView ? '-compact' : '';
     var stats;
     if (this.config['stats'] !== undefined && this.config['stats'] !== null) {
       stats = this.getCardData(this.config['stats']);

@@ -118,7 +118,7 @@ export class ChargerCardEditor extends LitElement {
     return '';
   }
 
-  getAllEntities(type) {
+  getAllEntities() {
     return Object.keys(this.hass.states)
   }
 
@@ -300,7 +300,7 @@ export class ChargerCardEditor extends LitElement {
               .replace(domainbase, ''),
         };
       }catch (err) {
-
+        this.log('Error setting entity prefix.')
       }
     }
 

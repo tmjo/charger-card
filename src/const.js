@@ -14,7 +14,6 @@ export const DEVICECLASS_ICONS = {
   energy: 'mdi:flash',
   power: 'mdi:flash',
   plug: 'mdi:power-plug',
-  lock: 'mdi:lock',
 };
 
 export const DEFAULT_ICON = 'mdi:crosshairs-question';
