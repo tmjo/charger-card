@@ -144,7 +144,6 @@ Most details can be overridden on most features by using the following keywords:
 
 | Config             | Text                                                                                                                                                                                                                                                       |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| debug              | Set this to true if you want debugging info, this is important if something doesn't work out right for you and you want to report it.                                                                                                                      |
 | name               | Single entity with configuration details as shown in table above.                                                                                                                                                                                          |
 | location           | Single entity with configuration details as shown in table above.                                                                                                                                                                                          |
 | status             | Single entity with configuration details as shown in table above.                                                                                                                                                                                          |
@@ -160,7 +159,9 @@ Most details can be overridden on most features by using the following keywords:
 | toolbar_right      | Provide the state of entity defined as status-sensor, the a list of entities with configuration details as shown in table above. Defines the right aligned command buttons of the toolbar.                                                                 |
 | currentlimits      | Override the card default current limits by specifying a list of numbers. Used for current limit features of the card (if configured).                                                                                                                     |
 | statetext          | Override or custom-translate the status sensor state by providing better or cleaner text. See example.                                                                                                                                                     |
-| collapsiblebuttons | Specify `text` and/or `icon` to customize the collapsible-buttons `group1`,`group2` and `group3` respectively. See example.                                                                                                                                |
+| collapsiblebuttons | Specify `text` and/or `icon` to customize the collapsible-buttons `group1`,`group2` and `group3` respectively. See example.          |
+| debug              | Set this to true if you want debugging info, this is important if something doesn't work out right for you and you want to report it.                                                              |
+|translate|Set this to false if you want to disable all (well, most....) translations.|
 
 ## Advanced example (Easee charger)
 
