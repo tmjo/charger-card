@@ -1,43 +1,21 @@
 {
-  "status": {
-    "disconnected": "Disconnected",
-    "awaiting_start": "Paused or awaiting start",
-    "charging": "Charging",
-    "completed": "Completed or awaiting car",
-    "error": "Error",
-    "ready_to_charge": "Ready to charge"
-  },
   "common": {
     "name": "Charger Card",
-    "description": "Charger card allows you to control your charging robot.",
-    "start": "Start",
-    "continue": "Resume",
-    "pause": "Pause",
-    "stop": "Stop",
-    "override": "Override schedule",
-    "reboot": "Reboot charger",
-    "not_available": "Charger not available",
+    "description": "Charger card allows you to control your EV homecharger (or something else).",
     "click_for_info": "Click for Info",
     "click_for_config": "Click for Config",
-    "click_for_limits": "Click for Limits",
-    "online": "Online",
-    "voltage": "Voltage",
-    "power": "Power",
-    "charger_current": "Changer Current",
-    "energy_per_hour": "Energy per Hour",
-    "lifetime_energy": "Lifetime Energy",
-    "circuit_current": "Circuit Energy"
+    "click_for_limits": "Click for Limits"
   },
   "error": {
     "missing_entity": "Specifying entity is required!",
-    "missing_config": "Error in config!",
-    "missing_group": "No entities defined in group!"
+    "not_available": "Not available",
+    "missing_config": "Error in config!"
   },
   "editor": {
-    "instruction": "Select your charger brand and it's main sensor. The card will automatically detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+    "instruction": "Select your charger brand and it's main sensor. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
     "brand": "Brand (Required)",
     "entity": "Main Entity (Required)",
-    "chargerImage": "Charger image and color",
+    "chargerImage": "Built-in images and color",
     "customImage": "Custom image (Optional - overrides charger image)",
     "theme": "Color theme",
     "compact_view": "Compact View",
@@ -61,32 +39,107 @@
     "show_toolbar": "Show Toolbar",
     "show_toolbar_aria_label_on": "Toggle display toolbar on",
     "show_toolbar_aria_label_off": "Toggle display toolbar off",
-    "code_only_note": "Note: Custom actions and data table (stats) options are available exclusively using Code Editor manually."
+    "code_only_note": "Note: Advanced config such as toolbar and datatable (stats) are only in YAML-mode."
   },
-  "charger_status": {
-    "sessionEnergy": "Session Energy"
+
+  "easee": {
+    "status" : {
+      "disconnected": "Disconnected",
+      "awaiting_start": "Paused or awaiting start",
+      "charging": "Charging",
+      "completed": "Completed or awaiting car",
+      "error": "Error",
+      "ready_to_charge": "Ready to charge"
+    },
+    "substatus" : {
+      "ok": "Ok",
+      "pending_schedule": "Pending schedule",
+      "none": "None",
+      "max_circuit_current_too_low": "Max circuit current too low",
+      "max_dynamic_circuit_current_too_low": "Max dynamic circuit current too low",
+      "max_dynamic_charger_current_too_low": "Max dynamic charger current too low",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Max dynamic offline circuit current too low",
+      "max_charger_current_too_low": "Max charger current too low",
+      "circuit_fuse_too_low": "Circuit fuse too low",
+      "waiting_in_queue": "Waiting in queue",
+      "waiting_in_fully": "Waiting in fully",
+      "illegal_grid_type": "Illegal grid type",
+      "no_current_request": "No current request",
+      "not_requesting_current": "Not requesting current",
+      "charger_disabled": "Charger Disabled",
+      "pending_authorization": "Pending Authorization",
+      "charger_in_error_state": "Charger in error state",
+      "undefined": "Undefined"
+    },
+    "common" : {
+      "start": "Start",
+      "continue": "Resume",
+      "pause": "Pause",
+      "stop": "Stop",
+      "override": "Override schedule",
+      "reboot": "Reboot charger",
+      "not_available": "Charger not available",
+      "online": "Online",
+      "voltage": "Voltage",
+      "power": "Power",
+      "charger_current": "Charger Current",
+      "energy_per_hour": "Energy per Hour",
+      "lifetime_energy": "Lifetime Energy",
+      "circuit_current": "Circuit Energy",
+      "schedule": "Schedule"
+    }
   },
-  "substatus": {
-    "SUBSTATUS": "Substatus",
-    "not_requesting_current": "Not Requesting Current",
-    "ok": "Ok",
-    "pending_schedule": "Pending schedule",
-    "none": "None",
-    "max_circuit_current_too_low": "Max circuit current too low",
-    "max_dynamic_circuit_current_too_low": "Max dynamic circuit current too low",
-    "max_dynamic_offline_fallback_circuit_current_too_low": "Max dynamic offline circuit current too low",
-    "circuit_fuse_too_low": "Circuit fuse too low",
-    "waiting_in_queue": "Waiting in queue",
-    "waiting_in_fully": "Waiting in fully",
-    "illegal_grid_type": "Illegal grid type",
-    "no_current_request": "No current request",
-    "not_requesting_current": "Not requesting current",
-    "max_charger_current_too_low": "Max charger current too low",
-    "max_dynamic_charger_current_too_low": "Max dynamic charger current too low",
-    "charger_disabled": "Charger Disabled",
-    "pending_schedule": "Pending Schedule",
-    "pending_authorization": "Pending Authorization",
-    "charger_in_error_state": "Charger in error state",
-    "undefined": "Undefined"
+
+
+
+  "test": {
+    "status" : {
+      "disconnected": "Disconnected",
+      "awaiting_start": "Paused or awaiting start",
+      "charging": "Charging",
+      "completed": "Completed or awaiting car",
+      "error": "Error",
+      "ready_to_charge": "Ready to charge"
+    },
+    "substatus" : {
+      "ok": "Ok",
+      "pending_schedule": "Pending schedule",
+      "none": "None",
+      "max_circuit_current_too_low": "Max circuit current too low",
+      "max_dynamic_circuit_current_too_low": "Max dynamic circuit current too low",
+      "max_dynamic_charger_current_too_low": "Max dynamic charger current too low",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Max dynamic offline circuit current too low",
+      "max_charger_current_too_low": "Max charger current too low",
+      "circuit_fuse_too_low": "Circuit fuse too low",
+      "waiting_in_queue": "Waiting in queue",
+      "waiting_in_fully": "Waiting in fully",
+      "illegal_grid_type": "Illegal grid type",
+      "no_current_request": "No current request",
+      "not_requesting_current": "Not requesting current",
+      "charger_disabled": "Charger Disabled",
+      "pending_authorization": "Pending Authorization",
+      "charger_in_error_state": "Charger in error state",
+      "undefined": "Undefined"
+    },
+    "common" : {
+      "start": "Start",
+      "continue": "Resume",
+      "pause": "Pause",
+      "stop": "Stop",
+      "override": "Override schedule",
+      "reboot": "Reboot charger",
+      "not_available": "Charger not available",
+      "online": "Online",
+      "voltage": "Voltage",
+      "power": "Power",
+      "charger_current": "Charger Current",
+      "energy_per_hour": "Energy per Hour",
+      "lifetime_energy": "Lifetime Energy",
+      "circuit_current": "Circuit Energy",
+      "schedule": "Schedule"
+    }
+
+
   }
+
 }

@@ -1,69 +1,153 @@
 {
-  "status": {
-    "disconnected": "Frakoblet",
-    "awaiting_start": "Pauset eller venter start",
-    "charging": "Lader",
-    "completed": "Fullført eller venter på bil",
-    "error": "Feil",
-    "ready_to_charge": "Klar til lading"
-  },
   "common": {
     "name": "Charger Card",
-    "description": "Charger card gir deg mulighet for å styre din laderobot.",
-    "start": "Start",
-    "continue": "Fortsett",
-    "pause": "Pause",
-    "stop": "Stopp",
-    "override": "Overstyr plan",
-    "reboot": "Reboot lader",
-    "not_available": "Lader utilgjengelig",
+    "description": "Charger card gir deg mulighet for å styre din elbil hjemmelader (eller noe annet).",
     "click_for_info": "Klikk for info",
     "click_for_config": "Klikk for konfigurasjon",
-    "click_for_limits": "Klikk for limiteringer",
-    "online": "Online",
-    "voltage": "Spenning",
-    "power": "Effekt",
-    "charger_current": "Ladestrøm",
-    "energy_per_hour": "Energi per time",
-    "lifetime_energy": "Energi totalt",
-    "circuit_current": "Kursstrøm"
+    "click_for_limits": "Klikk for limiteringer"
   },
   "error": {
-    "missing_entity": "Du må angi en entity!"
+    "missing_entity": "Du må angi en entity!",
+    "not_available": "Utilgjengelig",
+    "missing_config": "Feil i konfigurasjon!"
   },
   "editor": {
+    "instruction": "Velg din ladertype og tilhørende hovedsensor. Kortet vil automatisk forsøke å finne øvrige sensorer. Hvis du har ett merke som ikke er støttet kan du velge «Template» og gjøre mappingen manuelt selv. Hvis noe feiler, verifiser konfigurasjonen i YAML-editoren (trykk «Vis koderedigering».",
+    "brand": "Type/merke (Påkrevd)",
     "entity": "Entity (Påkrevd)",
-    "chargerImage": "Laderbilde og -farge",
+    "chargerImage": "Innebygde bilder og -farger",
     "customImage": "Eget bilde (opsjon - overstyrer laderbilde)",
-    "theme": "Fargemal",
+    "theme": "Tema",
     "compact_view": "Kompakt",
-    "compact_view_aria_label_on": "Toggle compact view on",
-    "compact_view_aria_label_off": "Toggle compact view off",
+    "compact_view_aria_label_on": "Slå på kompakt visning",
+    "compact_view_aria_label_off": "Slå av kompakt visning",
     "show_name": "Vis navn",
-    "show_name_aria_label_on": "Toggle display name on",
-    "show_name_aria_label_off": "Toggle display name off",
+    "show_name_aria_label_on": "Slå på visning av navn",
+    "show_name_aria_label_off": "Slå av visning av navn",
     "show_leds": "Vis led",
-    "show_leds_aria_label_on": "Toggle animated leds (overlay on image) on",
-    "show_leds_aria_label_off": "Toggle animated leds (overlay on image) off",
+    "show_leds_aria_label_on": "Slå på visning av led (over bilde)",
+    "show_leds_aria_label_off": "Slå av visning av led (over bilde)",
     "show_status": "Vis status",
-    "show_status_aria_label_on": "Toggle display status on",
-    "show_status_aria_label_off": "Toggle display status off",
-    "show_stats": "Vis Data Tabell (stats)",
-    "show_stats_aria_label_on": "Toggle display data table on",
-    "show_stats_aria_label_off": "Toggle display data table off",
+    "show_status_aria_label_on": "Slå på visning av status",
+    "show_status_aria_label_off": "Slå av visning av status",
+    "show_stats": "Vis datatabell (stats)",
+    "show_stats_aria_label_on": "Slå på visning av datatabell (stats)",
+    "show_stats_aria_label_off": "Slå av visning av datatabell (stats)",
     "show_collapsibles": "Vis sammenslåbare menyvalg",
-    "show_collapsibles_aria_label_on": "Toggle display collapsible menus on",
-    "show_collapsibles_aria_label_off": "Toggle display collapsible menus off",
+    "show_collapsibles_aria_label_on": "Slå på visning av sammenslåbare menyer",
+    "show_collapsibles_aria_label_off": "Slå av visning av sammenslåbare menyer",
     "show_toolbar": "Vis verktøylinje",
-    "show_toolbar_aria_label_on": "Toggle display toolbar on",
-    "show_toolbar_aria_label_off": "Toggle display toolbar off",
+    "show_toolbar_aria_label_on": "Slå på visning av verktøylinje",
+    "show_toolbar_aria_label_off": "Slå av visning av verktøylinje",
     "code_only_note": "Merk: Egendefinerte actions og data tabell (stats) er kun tilgjengelig ved å benytte Code Editor manuelt."
   },
-  "charger_status": {
-    "sessionEnergy": "Energi ladeøkt"
+
+  "easee": {
+    "status" : {
+      "disconnected": "Frakoblet",
+      "awaiting_start": "Pause (avventer start)",
+      "charging": "Lader",
+      "completed": "Fullført eller venter på bil",
+      "error": "Feil",
+      "ready_to_charge": "Klar til lading"
+      },
+    "substatus" : {
+      "ok": "Ok",
+      "none": "Ingen",
+      "max_circuit_current_too_low": "Maks kursstrøm for lav",
+      "max_dynamic_circuit_current_too_low": "Maks dynamisk kursstrøm for lav",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Maks dynamisk offline kursstrøm for lav",
+      "max_charger_current_too_low": "Maks laderstrøm for lav",
+      "max_dynamic_charger_current_too_low": "Maks dynamisk laderstrøm for lav",
+      "circuit_fuse_too_low": "Kurssikring for lav",
+      "waiting_in_queue": "Venter i kø",
+      "waiting_in_fully": "Venter i full kø",
+      "illegal_grid_type": "Ugyldig type nett",
+      "no_current_request": "Ingen forespørsel om strøm",
+      "not_requesting_current": "Ingen forespørsel om strøm",
+      "charger_disabled": "Lader er deaktivert",
+      "pending_schedule": "Avventer tidsplan",
+      "pending_authorization": "Avventer autorisasjon",
+      "charger_in_error_state": "Feil i lader",
+      "undefined": "Udefinert"
+    },
+    "common" : {
+      "start": "Start",
+      "continue": "Fortsett",
+      "pause": "Pause",
+      "stop": "Stopp",
+      "override": "Overstyr tidsplan",
+      "reboot": "Reboot lader",
+      "not_available": "Lader utilgjengelig",
+      "online": "Online",
+      "voltage": "Spenning",
+      "power": "Effekt",
+      "charger_current": "Laderstrøm",
+      "circuit_current": "Kursstrøm",
+      "energy_per_hour": "Energi per time",
+      "lifetime_energy": "Total energi",
+      "schedule": "Tidsplan"
+    }
   },
-  "charger_substatus": {
-    "not_requesting_current": "Bilen ber ikke om strøm",
-    "ok": "Ok"
+
+
+
+  "test": {
+    "status" : {
+      "disconnected": "Frakoblet",
+      "awaiting_start": "Pause (avventer start)",
+      "charging": "Lader",
+      "completed": "Fullført eller venter på bil",
+      "error": "Feil",
+      "ready_to_charge": "Klar til lading"
+      },
+    "substatus" : {
+      "ok": "Ok",
+      "none": "Ingen",
+      "max_circuit_current_too_low": "Maks kursstrøm for lav",
+      "max_dynamic_circuit_current_too_low": "Maks dynamisk kursstrøm for lav",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Maks dynamisk offline kursstrøm for lav",
+      "max_charger_current_too_low": "Maks laderstrøm for lav",
+      "max_dynamic_charger_current_too_low": "Maks dynamisk laderstrøm for lav",
+      "circuit_fuse_too_low": "Kurssikring for lav",
+      "waiting_in_queue": "Venter i kø",
+      "waiting_in_fully": "Venter i full kø",
+      "illegal_grid_type": "Ugyldig type nett",
+      "no_current_request": "Ingen forespørsel om strøm",
+      "not_requesting_current": "Ingen forespørsel om strøm",
+      "charger_disabled": "Lader er deaktivert",
+      "pending_schedule": "Avventer tidsplan",
+      "pending_authorization": "Avventer autorisasjon",
+      "charger_in_error_state": "Feil i lader",
+      "undefined": "Udefinert"
+    },
+    "common" : {
+      "start": "Start",
+      "continue": "Fortsett",
+      "pause": "Pause",
+      "stop": "Stopp",
+      "override": "Overstyr tidsplan",
+      "reboot": "Reboot lader",
+      "not_available": "Lader utilgjengelig",
+      "online": "Online",
+      "voltage": "Spenning",
+      "power": "Effekt",
+      "charger_current": "Laderstrøm",
+      "circuit_current": "Kursstrøm",
+      "energy_per_hour": "Energi per time",
+      "lifetime_energy": "Total energi",
+      "schedule": "Tidsplan"
+    }
   }
+
 }
+
+
+
+
+
+
+
+
+
+
