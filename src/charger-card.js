@@ -35,6 +35,10 @@ class ChargerCard extends LitElement {
     return styles;
   }
 
+  get brand() {
+    return this.config.brand;
+  }
+
   get entity() {
     return this.hass.states[this.config.entity];
   }
@@ -242,6 +246,16 @@ class ChargerCard extends LitElement {
     return data;
   }
 
+  loc(string, group = '', brand = null, search = '', replace = '') {
+    if (this.config.localize === undefined || this.config.localize == true) {
+      group = group != '' ? group + "." : group;
+      let debug = true;
+      return localize(group +string, brand, search, replace, debug);
+    } else {
+      return string;
+    }
+  }
+
   getEntityCalcVal(calcfunc, entities) {
     var calc;
     var calc_array = [];
@@ -395,8 +409,8 @@ class ChargerCard extends LitElement {
   }
 
   callService(service, isRequest = true, service_data = {}) {
-    console.log(service);
-    console.log(service_data);
+    // console.log(service);
+    // console.log(service_data);
 
     if (service === undefined || service === null) {
       console.error("Trying to call an empty service - please check your card configuration.");
@@ -529,13 +543,15 @@ class ChargerCard extends LitElement {
     } else {
       status = this.entity.state;
     }
+
+    // console.log(carddata_substatus.useval)
     if (carddata_substatus !== null && carddata_substatus !== undefined) {
       substatus = typeof carddata_substatus == 'object' ? carddata_substatus.useval : carddata_substatus;
     }
 
     //Localize and choose
-    status = status !== null ? this.statetext[status] || localize("status." + status) || status : '';
-    substatus = substatus !== null ? localize("substatus." + substatus) || substatus :'';
+    status = status !== null ? this.statetext[status] || this.loc(status, "status", this.brand) || status : '';
+    substatus = substatus !== null ? this.loc(substatus, "substatus", this.brand) || substatus : '';
 
     return html`
       <div class="status${compactview}" @click="${() => this.handleMore(carddata_status.entity || null)}"?more-info="true">
@@ -561,7 +577,7 @@ class ChargerCard extends LitElement {
         <label for="collapsible${style}" class="lbl-toggle${style}">
           <div class="tooltip-right">
             <ha-icon icon="${icon}"></ha-icon>
-            <span class="tooltiptext-right">${localize(tooltip)}</span>
+            <span class="tooltiptext-right">${this.loc(tooltip)}</span>
           </div>
         </label>
         <div class="collapsible-content${style}">
@@ -586,7 +602,7 @@ class ChargerCard extends LitElement {
           <div class="tooltip">
             <ha-icon icon="${carddata.icon}"></ha-icon>
             <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
-            <span class="tooltiptext">${carddata.text} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
+            <span class="tooltiptext">${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
           </div>
         </div>
       `;
@@ -599,7 +615,7 @@ class ChargerCard extends LitElement {
             <div class="tooltip">
               <ha-icon icon="${carddata.icon}"></ha-icon>
               <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
-              <span class="tooltiptext">${carddata.text} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
+              <span class="tooltiptext">${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
             </div>
           </div>
         `;
@@ -613,7 +629,7 @@ class ChargerCard extends LitElement {
               <div class="tooltip">
                 <ha-icon icon="${carddata.icon}"></ha-icon>
                 <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
-                <span class="tooltiptext">${carddata.text} ${carddata.unit_showontext ? "(" +carddata.unit +")" : ''}</span>
+                <span class="tooltiptext">${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? "(" +carddata.unit +")" : ''}</span>
               </div>
             </paper-button>
             <paper-listbox slot="dropdown-content" selected=${selected} @click="${(event) => this.createServiceData(carddata.service, true, carddata.service_data, event)}">
@@ -646,7 +662,7 @@ class ChargerCard extends LitElement {
           <ha-icon icon=${data == 'info_left' ? carddata.icon :''}></ha-icon>
           ${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
           <ha-icon icon=${data == 'info_right' ? carddata.icon :''}></ha-icon>
-          <span class='tooltiptext${tooltip}'>${carddata.text} ${carddata.unit_showontext ? '(' +carddata.unit +')' : ''}</span>
+          <span class='tooltiptext${tooltip}'>${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? '(' +carddata.unit +')' : ''}</span>
         </div>
       </div>
       `
@@ -684,15 +700,15 @@ class ChargerCard extends LitElement {
   }
 
   renderToolbarButton(service, icon, text, service_data = {},isRequest = true) {
-    var usetext = localize(text) || text;
+    var usetext = this.loc(text, this.brand) || text;
     return html`
       <div class="tooltip">
         <ha-icon-button
-          title="${usetext}"
+          title="${this.loc(usetext,"common", this.brand)}"
           @click="${() => this.callService(service, isRequest, service_data)}"
           ><ha-icon icon="${icon}"></ha-icon
         ></ha-icon-button>
-        <span class="tooltiptext">${usetext}</span>
+        <span class="tooltiptext">${this.loc(usetext,"common",  this.brand)}</span>
       </div>
     `;
   }
@@ -803,7 +819,7 @@ class ChargerCard extends LitElement {
           <div class="preview not-available">
             <div class="metadata">
               <div class="not-available">
-                ${localize('common.not_available')}
+                ${localize('error.not_available')}
               </div>
             <div>
           </div>
