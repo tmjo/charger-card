@@ -25,21 +25,21 @@ export default function localize(string, brand=null, search = '', replace = '', 
   try {
     // Try to translate, add brand if valid
     translated = brandstr.split('.').reduce((o, i) => o[i], languages[lang]);
-    if(debug) console.log("Translating 1: " + string + " --> " + brandstr + " --> " + translated);
+    if(debug) console.log("Translating 1 -> " +lang +": " + string + " --> " + brandstr + " --> " + translated);
 
     if (translated === undefined) {
       translated = brandstr.toLowerCase().split('.').reduce((o, i) => o[i], languages[lang]);
-      if(debug) console.log("Translating 2: " +string +" --> " +brandstr +" --> " +translated);
+      if(debug) console.log("Translating 2 -> " +lang +" lowercase: " +string +" --> " +brandstr +" --> " +translated);
     }
 
     if (translated === undefined) {
       translated = brandstr.split('.').reduce((o, i) => o[i], languages['en']);
-      if(debug) console.log("Translating 3: " +string +" --> " +brandstr +" --> " +translated);
+      if(debug) console.log("Translating 3 -> en  : " +string +" --> " +brandstr +" --> " +translated);
     }
 
     if (translated === undefined) {
       translated = brandstr.toLowerCase().split('.').reduce((o, i) => o[i], languages['en']);
-      if(debug) console.log("Translating 4: " +string +" --> " +brandstr +" --> " +translated);
+      if(debug) console.log("Translating 4 -> en lowercase: " +string +" --> " +brandstr +" --> " +translated);
     }
   }catch (e) {
     // Give up, do nothing
@@ -48,9 +48,9 @@ export default function localize(string, brand=null, search = '', replace = '', 
 
   if (translated === undefined) {
     // If translation failed, return last item of array
-    var temp = string.split(".");
-    translated = temp.length > 0 ? temp[temp.length-1] : temp;
-    if(debug) console.log("Gave up translating: " +string +" --> " +temp +" --> " +translated);
+    var strArray = string.split(".");
+    translated = strArray.length > 0 ? strArray[strArray.length-1] : strArray;
+    if(debug) console.log("Gave up translating: " +string +" --> " +strArray +" --> " +translated);
   }
 
   //Search and replace

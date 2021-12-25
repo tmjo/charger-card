@@ -249,7 +249,7 @@ class ChargerCard extends LitElement {
   loc(string, group = '', brand = null, search = '', replace = '') {
     if (this.config.localize === undefined || this.config.localize == true) {
       group = group != '' ? group + "." : group;
-      let debug = true;
+      let debug = this.debug;
       return localize(group +string, brand, search, replace, debug);
     } else {
       return string;
