@@ -119,6 +119,7 @@ class ChargerCard extends LitElement {
     if (this.config.currentlimits !== undefined && Array.isArray(this.config.currentlimits)) {
       return this.config.currentlimits;
     }
+    console.log(Array.isArray(this.config.currentlimits))
     return cconst.DEFAULT_CURRENTLIMITS;
   }
 
@@ -550,7 +551,7 @@ class ChargerCard extends LitElement {
     }
 
     //Localize and choose
-    status = status !== null ? this.statetext[status] || this.loc(status, "status", this.brand) || status : '';
+    status = status !== null ? this.loc(status, "status", this.brand) || this.statetext[status] || status : '';
     substatus = substatus !== null ? this.loc(substatus, "substatus", this.brand) || substatus : '';
 
     return html`
@@ -621,7 +622,7 @@ class ChargerCard extends LitElement {
         `;
 
     } else if (itemtype === 'dropdown') {
-        const sources = cconst.DEFAULT_CURRENTLIMITS;
+        const sources = this.currentlimits;
         var selected = sources.indexOf(carddata.useval);
         return html`
           <paper-menu-button slot="dropdown-trigger" .noAnimations=${true} @click="${(e) => e.stopPropagation()}">
