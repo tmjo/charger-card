@@ -4,26 +4,6 @@
 
 export const MAIN_ENTITY_BASE = '_status';
 export const DEFAULT_CONFIG = {
-    // TEMPLATE
-
-    // template: [{
-    //     entity_id: '',                  // entity id
-    //     attribute: '',                  // attribute is used as value if specified
-    //     unit: '',                       // unit if you want to override entity unit
-    //     unit_show: true,                // show unit next to value
-    //     unit_showontext: true,          // show unit next to value in tooltip text
-    //     text: '',                       // text to be used instead of entity friendly-name
-    //     service: '',                    // service on format 'domain.service'
-    //     service_data: {'test','test'},  // service data for the service call
-    //     icon: '',                       // icon to be used instead of entity icon
-    //     round: 0,                       // round to specified number of decimals (integer)
-    //     type: '',                       // type
-    //     calc_function: ''               // define entity_id as 'calculated' and specify min,max,mean,sum here to calculate
-    //     calc_entities: ''               // entities to calculate from above feature
-    //     conditional_entity: ''          // if you want the entity_id to be shown conditionally, specify a on/off or true/false sensor here
-    //     conditional_attribute: ''       // if you prefer the conditional showing of entity to be based on an attribute, define it here
-    //     conditional_invert: ''          // if you prefer to invert the conditional showing of an entity to show when false, invert by true
-    //   }],
 
     //NAME, LOCATION, STATUS ETC
     name: {

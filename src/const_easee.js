@@ -12,7 +12,7 @@ export const DEFAULT_CONFIG = {
     //     unit: '',                       // unit if you want to override entity unit
     //     unit_show: true,                // show unit next to value
     //     unit_showontext: true,          // show unit next to value in tooltip text
-    //     text: '',                       // text to be used instead of entity friendly-name
+    //     text: '',                       // text to be used instead of entity friendly-name (do not use dots '.' and apply translation key to achieve translation)
     //     service: '',                    // service on format 'domain.service'
     //     service_data: {'test','test'},  // service data for the service call
     //     icon: '',                       // icon to be used instead of entity icon
