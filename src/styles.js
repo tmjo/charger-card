@@ -644,6 +644,33 @@ export default css`
     vertical-align: middle;
   }
 
+  paper-listbox {
+    width: auto;
+    min-width: 75px;
+    // margin: 0px 0px 0px 0px;
+    // padding: 0px 0px 0px 0px;
+    padding: 0px;
+    border: 1px dotted var(--custom-text-color);
+    background: var(--custom-card-background-color);
+    color: var(--custom-text-color);
+    overflow-y: auto; /* vertical scrollbar */
+    overflow-x: hidden; /* horizontal scrollbar */
+  }
+
+  paper-item {
+    margin: 0px 0px 0px 5px;
+    padding: 0px 0px 0px 5px;
+    width: auto;
+    color: var(--custom-text-color);
+    cursor: pointer;
+    background: transparent;
+    font-size: 14px;
+
+    border-bottom: 1px dotted var(--custom-text-color);
+
+  }
+
+
   /* collapsible info */
 
   .lbl-toggle-info {

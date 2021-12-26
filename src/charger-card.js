@@ -625,18 +625,20 @@ class ChargerCard extends LitElement {
         const sources = this.currentlimits;
         var selected = sources.indexOf(carddata.useval);
         return html`
-          <paper-menu-button slot="dropdown-trigger" .noAnimations=${true} @click="${(e) => e.stopPropagation()}">
-            <paper-button slot="dropdown-trigger">
-              <div class="tooltip">
-                <ha-icon icon="${carddata.icon}"></ha-icon>
-                <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
-                <span class="tooltiptext">${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? "(" +carddata.unit +")" : ''}</span>
-              </div>
-            </paper-button>
-            <paper-listbox slot="dropdown-content" selected=${selected} @click="${(event) => this.createServiceData(carddata.service, true, carddata.service_data, event)}">
-              ${sources.map((item) => html`<paper-item value=${item}>${item}</paper-item>`)}
-            </paper-listbox>
-          </paper-menu-button>
+          <div class="collapsible-item">
+            <paper-menu-button slot="dropdown-trigger" .noAnimations=${true} @click="${(e) => e.stopPropagation()}">
+              <paper-button slot="dropdown-trigger">
+                <div class="tooltip">
+                  <ha-icon icon="${carddata.icon}"></ha-icon>
+                  <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
+                  <span class="tooltiptext">${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? "(" +carddata.unit +")" : ''}</span>
+                </div>
+              </paper-button>
+              <paper-listbox slot="dropdown-content" selected=${selected} @click="${(event) => this.createServiceData(carddata.service, true, carddata.service_data, event)}">
+                ${sources.map((item) => html`<paper-item value=${item}>${item}</paper-item>`)}
+              </paper-listbox>
+            </paper-menu-button>
+          </div>
         `;
     } else {
       return html``;
