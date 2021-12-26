@@ -307,7 +307,7 @@ class ChargerCard extends LitElement {
   getCollapsibleButton(button, deftext, deficon) {
     var btns = this.config.collapsiblebuttons;
     try {
-      return { text: btns[button].text, icon: btns[button].icon };
+      return { text: this.loc(btns[button].text, 'common', this.brand), icon: btns[button].icon };
     } catch (err) {
       return { text: deftext, icon: deficon };
     }
@@ -484,7 +484,7 @@ class ChargerCard extends LitElement {
             >
               <span class="stats-value">${stat.useval}</span>
               ${stat.unit}
-              <div class="stats-subtitle">${stat.text}</div>
+              <div class="stats-subtitle">${this.loc(stat.text, 'common', this.brand)}</div>
             </div>
           `;
         })
@@ -735,9 +735,9 @@ class ChargerCard extends LitElement {
 
   renderFull() {
     var { state } = this.entity;
-    var btn1 = this.getCollapsibleButton('group1', 'common.click_for_limits', 'mdi:speedometer');
-    var btn2 = this.getCollapsibleButton('group2', 'common.click_for_info', 'mdi:information');
-    var btn3 = this.getCollapsibleButton('group3', 'common.click_for_config', 'mdi:cog');
+    var btn1 = this.getCollapsibleButton('group1', 'click_for_group1', 'mdi:speedometer');
+    var btn2 = this.getCollapsibleButton('group2', 'click_for_group2', 'mdi:information');
+    var btn3 = this.getCollapsibleButton('group3', 'click_for_group3', 'mdi:cog');
     return html`
       <ha-card>
         <div class="preview">
