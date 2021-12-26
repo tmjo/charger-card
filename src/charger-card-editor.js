@@ -142,19 +142,18 @@ export class ChargerCardEditor extends LitElement {
       ${localize('editor.instruction')}
       </strong>
 
+        <paper-dropdown-menu label="${localize('editor.entity')}" @value-changed=${this._valueChanged} .configValue=${'entity'}>
+          <paper-listbox slot="dropdown-content" .selected=${allEntities.indexOf(this.get_config("entity"))}>
+            ${allEntities.map(entity => {
+              return html` <paper-item>${entity}</paper-item> `;
+            })}
+          </paper-listbox>
+        </paper-dropdown-menu>
 
         <paper-dropdown-menu label="${localize('editor.brand')}" @value-changed=${this.setCardConfigType} .configValue=${'brand'}>
           <paper-listbox slot="dropdown-content" .selected=${cconst.CARDCONFIGTYPES.indexOf(this.get_config("brand"))}>
             ${Object.values(cconst.CARDCONFIGTYPES).map(brand => {
               return html` <paper-item>${brand}</paper-item> `;
-            })}
-          </paper-listbox>
-        </paper-dropdown-menu>
-
-        <paper-dropdown-menu label="${localize('editor.entity')}" @value-changed=${this._valueChanged} .configValue=${'entity'}>
-          <paper-listbox slot="dropdown-content" .selected=${allEntities.indexOf(this.get_config("entity"))}>
-            ${allEntities.map(entity => {
-              return html` <paper-item>${entity}</paper-item> `;
             })}
           </paper-listbox>
         </paper-dropdown-menu>
@@ -290,19 +289,19 @@ export class ChargerCardEditor extends LitElement {
   }
 
 
-  setEntityPrefix(domainbase) {
-    try {
-        this._config = {
-          ...this._config,
-          ["prefix"]:
-            this._config.entity
-              .split('.')[1]
-              .replace(domainbase, ''),
-        };
-      }catch (err) {
-        this.log('Error setting entity prefix.')
-      }
-    }
+  // setEntityPrefix(domainbase) {
+  //   try {
+  //       this._config = {
+  //         ...this._config,
+  //         ["prefix"]:
+  //           this._config.entity
+  //             .split('.')[1]
+  //             .replace(domainbase, ''),
+  //       };
+  //     }catch (err) {
+  //       this.log('Error setting entity prefix.')
+  //     }
+  //   }
 
   // getEntityId(entitybasename) {
   //   try {
@@ -320,41 +319,49 @@ export class ChargerCardEditor extends LitElement {
 
 
   setCardConfigType(ev) {
-    if (this._config["brand"] == ev.target.value || ev.target.value == '') {
-      // console.log("SETCARDCONFIGTYPE EQUAL");
-      return;
-    }
+    // SKIP EQUAL OR EMPTY BRAND CONFIG
+    if (this._config["brand"] == ev.target.value || ev.target.value == '') return;
+
+    // SKIP EMPTY ENTITY, MUST BE SELECTED FIRST
+    if (this._config["entity"] === undefined || this._config["entity"] == '') return;
+
     this._valueChanged(ev);
     let domain = ev.target.value;
-    let domainconfig;
-    let domainbase;
+    let domainconfig, domainbase, entityprefix, serviceid;
 
     // Switch statement, UPDATE FOR NEW TEMPLATES
     switch (domain) {
       case 'easee':
         domainconfig = easee.DEFAULT_CONFIG;
         domainbase = easee.MAIN_ENTITY_BASE;
+        serviceid = this.hass.states[this._config.entity].attributes['id']
         break;
       case 'test':
         domainconfig = template.DEFAULT_CONFIG;
         domainbase = template.MAIN_ENTITY_BASE;
+        serviceid = "TEST123456";
         break;
       case 'template':
         domainconfig = template.DEFAULT_CONFIG;
         domainbase = template.MAIN_ENTITY_BASE;
+        serviceid = "TEST123456";
         break;
     }
 
     // Set prefix by domain
-    this.setEntityPrefix(domainbase);
+    entityprefix = this._config.entity.split('.')[1].replace(domainbase, '');
 
-    // Replace template with actual sensors
+
+    // Replace template with actual data
     try {
-      domainconfig = JSON.parse(this.replaceAll(JSON.stringify(domainconfig), 'CHARGERNAME', this.get_config('prefix')));
+      var domainconfig_str = JSON.stringify(domainconfig);
+      domainconfig_str = this.replaceAll(domainconfig_str, 'ENTITYPREFIX', entityprefix);
+      domainconfig_str = this.replaceAll(domainconfig_str, 'SERVICEID', serviceid);
+      domainconfig = JSON.parse(domainconfig_str);
     } catch (err) {
       console.error("Something went wrong with the default setup, please check your YAML configuration or enable debugging to see details.")
     }
-    this.log("domain: " + domain);
+    this.log("domain: " + domain +", entityprefix: " +entityprefix +", serviceid: " +serviceid);
     this.log(domainconfig);
 
     // Set config

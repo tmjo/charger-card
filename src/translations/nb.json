@@ -4,14 +4,14 @@
     "description": "Charger card gir deg mulighet for å styre din elbil hjemmelader (eller noe annet)."
   },
   "error": {
-    "missing_entity": "Du må angi en entity!",
+    "missing_entity": "Du må angi en hovedentitet!",
     "not_available": "Utilgjengelig",
     "missing_config": "Feil i konfigurasjon!"
   },
   "editor": {
-    "instruction": "Velg din ladertype og tilhørende hovedsensor. Kortet vil automatisk forsøke å finne øvrige sensorer. Hvis du har ett merke som ikke er støttet kan du velge «Template» og gjøre mappingen manuelt selv. Hvis noe feiler, verifiser konfigurasjonen i YAML-editoren (trykk «Vis koderedigering».",
+    "instruction": "Velg din hovedentitet og ladertype/merke. Kortet vil automatisk forsøke å finne øvrige sensorer. Hvis du har ett merke som ikke er støttet kan du velge «Template» og gjøre mappingen manuelt selv. Hvis noe feiler, verifiser konfigurasjonen i YAML-editoren (trykk «Vis koderedigering»).",
     "brand": "Type/merke (Påkrevd)",
-    "entity": "Entity (Påkrevd)",
+    "entity": "Hovedentitet (Påkrevd)",
     "chargerImage": "Innebygde bilder og -farger",
     "customImage": "Eget bilde (opsjon - overstyrer laderbilde)",
     "theme": "Tema",
