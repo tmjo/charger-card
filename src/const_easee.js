@@ -40,6 +40,7 @@ export const DEFAULT_CONFIG = {
         entity_id: 'sensor.CHARGERNAME_reason_for_no_current',
     },
     smartcharging: {
+        //controls white or blue leds
         entity_id: 'switch.CHARGERNAME_smart_charging',
     },
 
@@ -48,26 +49,20 @@ export const DEFAULT_CONFIG = {
 
     // OVERRIDE STATE TEXT - also overrides translation
     statetext: {
-        disconnected: 'Disconnected',
-        awaiting_start: 'Paused or awaiting start',
-        charging: 'Charging',
-        completed: 'Completed or awaiting car',
-        error: 'Error',
-        ready_to_charge: 'Ready to charge',
+        disconnected: 'disconnected',
+        awaiting_start: 'awaiting_start',
+        charging: 'charging',
+        completed: 'completed',
+        error: 'error',
+        ready_to_charge: 'ready_to_charge',
     },
 
     // OVERRIDE COLLAPSIBLE BUTTON ICONS AND TOOLTIP TEXT
-    collapsiblebuttons: [
-        {
-            group1: { text: 'Click for limits', icon: 'mdi:speedometer' }
+    collapsiblebuttons: {
+            group1: { text: 'click_for_group1', icon: 'mdi:speedometer' },
+            group2: { text: 'click_for_group2', icon: 'mdi:information' },
+            group3: { text: 'click_for_group3', icon: 'mdi:cog' },
         },
-        {
-            group2: { text: 'Click for info', icon: 'mdi:information' }
-        },
-        {
-            group3: { text: 'Click for config', icon: 'mdi:cog' }
-        },
-    ],
 
     //ICONS LEFT AND RIGHT
     info_left: [
@@ -90,20 +85,20 @@ export const DEFAULT_CONFIG = {
     group1: [
         {
             entity_id: 'sensor.CHARGERNAME_dynamic_charger_limit',
-            text: 'Dyn charger limit'
+            text: 'dyn_charger_limit'
         },
         {
             entity_id: 'sensor.CHARGERNAME_dynamic_circuit_limit',
-            text: 'Dyn circuit limit'
+            text: 'dyn_circuit_limit'
         },{
             entity_id: 'sensor.CHARGERNAME_max_charger_limit',
-            text: 'Charger max limit'
+            text: 'max_charger_limit'
         },{
             entity_id: 'sensor.CHARGERNAME_max_circuit_limit',
-            text: 'Circuit max limit'
+            text: 'max_circuit_limit'
         },{
             entity_id: 'sensor.CHARGERNAME_offline_circuit_limit',
-            text: 'Offline circuit limit'
+            text: 'offline_circuit_limit'
         },
     ],
 
@@ -111,35 +106,35 @@ export const DEFAULT_CONFIG = {
     group2: [
         {
             entity_id: 'binary_sensor.CHARGERNAME_online',
-            text: 'Online'
+            text: 'online'
         },
         {
             entity_id: 'sensor.CHARGERNAME_voltage',
-            text: 'Voltage'
+            text: 'voltage'
         },
         {
             entity_id: 'sensor.CHARGERNAME_power',
-            text: 'Power'
+            text: 'power'
         },
         {
             entity_id: 'sensor.CHARGERNAME_current',
-            text: 'Current'
+            text: 'charger_current'
         },
         {
             entity_id: 'sensor.CHARGERNAME_circuit_current',
-            text: 'Circuit Current'
+            text: 'circuit_current'
         },
         {
             entity_id: 'sensor.CHARGERNAME_energy_per_hour',
-            text: 'Energy per hour'
+            text: 'energy_per_hour'
         },
         {
             entity_id: 'sensor.CHARGERNAME_session_energy',
-            text: 'Session energy'
+            text: 'session_energy'
         },
         {
             entity_id: 'sensor.CHARGERNAME_lifetime_energy',
-            text: 'Lifetime energy'
+            text: 'lifetime_energy'
         },
     ],
 
@@ -147,35 +142,35 @@ export const DEFAULT_CONFIG = {
     group3: [
         {
             entity_id: 'switch.CHARGERNAME_is_enabled',
-            text: 'Enabled'
+            text: 'enabled'
         },
         {
             entity_id: 'switch.CHARGERNAME_enable_idle_current',
-            text: 'Idle Current'
+            text: 'idle_current'
         },
         {
             entity_id: 'binary_sensor.CHARGERNAME_cable_locked',
-            text: 'Cable locked'
+            text: 'cable_locked'
         },
         {
             entity_id: 'switch.CHARGERNAME_cable_locked_permanently',
-            text: 'Permanently locked'
+            text: 'perm_cable_locked'
         },
         {
             entity_id: 'switch.CHARGERNAME_smart_charging',
-            text: 'Smart charging'
+            text: 'smart_charging'
         },
         {
             entity_id: 'sensor.CHARGERNAME_cost_per_kwh',
-            text: 'Cost per kWh'
+            text: 'cost_per_kwh'
         },
         {
             entity_id: 'binary_sensor.CHARGERNAME_update_available',
-            text: 'Update available'
+            text: 'update_available'
         },
         {
             entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
-            text: 'Schedule'
+            text: 'schedule'
         }
     ],
 
@@ -185,30 +180,30 @@ export const DEFAULT_CONFIG = {
         default: [
             {
                 entity_id: 'sensor.CHARGERNAME_session_energy',
-                text: 'Energy'
+                text: 'session_energy'
             },
             {
                 entity_id: 'switch.CHARGERNAME_cable_locked_permanently',
-                text: 'CableLocked'
+                text: 'cable_locked'
             },
             {
                 entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
-                text: 'Schedule'
+                text: 'schedule'
             }
         ],
 
         disconnected: [
             {
                 entity_id: 'sensor.CHARGERNAME_session_energy',
-                text: 'Energy'
+                text: 'session_energy'
             },
             {
                 entity_id: 'switch.CHARGERNAME_cable_locked_permanently',
-                text: 'CableLocked'
+                text: 'cable_locked'
             },
             {
                 entity_id: 'calculated',
-                text: 'Min. Limit',
+                text: 'used_limit',
                 unit: 'A',
                 calc_function: 'min',
                 calc_entities: [
@@ -234,19 +229,19 @@ export const DEFAULT_CONFIG = {
         awaiting_start: [
             {
                 entity_id: 'sensor.CHARGERNAME_session_energy',
-                text: 'Energy'
+                text: 'session_energy'
             },
             {
                 entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
-                text: 'Schedule'
+                text: 'schedule'
             },
             {
                 entity_id: 'switch.CHARGERNAME_smart_charging',
-                text: 'SmartCharging'
+                text: 'smart_charging'
             },
             {
                 entity_id: 'calculated',
-                text: 'Min. Limit',
+                text: 'used_limit',
                 unit: 'A',
                 calc_function: 'min',
                 calc_entities: [
@@ -272,15 +267,15 @@ export const DEFAULT_CONFIG = {
         charging: [
             {
                 entity_id: 'sensor.CHARGERNAME_session_energy',
-                text: 'Energy'
+                text: 'session_energy'
             },
             {
                 entity_id: 'sensor.CHARGERNAME_energy_per_hour',
-                text: 'Rate'
+                text: 'energy_per_hour'
             },
             {
                 entity_id: 'sensor.CHARGERNAME_circuit_current',
-                text: 'Circuit'
+                text: 'circuit_current'
             },
             {
                 entity_id: 'sensor.CHARGERNAME_output_limit',
@@ -288,26 +283,26 @@ export const DEFAULT_CONFIG = {
             },
             {
                 entity_id: 'sensor.CHARGERNAME_current',
-                text: 'Actual'
+                text: 'current'
             },
             {
                 entity_id: 'sensor.CHARGERNAME_power',
-                text: 'Power'
+                text: 'power'
             }
         ],
 
         completed: [
             {
                 entity_id: 'sensor.CHARGERNAME_session_energy',
-                text: 'Energy'
+                text: 'session_energy'
             },
             {
                 entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
-                text: 'Schedule'
+                text: 'schedule'
             },
             {
                 entity_id: 'calculated',
-                text: 'Min. Limit',
+                text: 'used_limit',
                 unit: 'A',
                 calc_function: 'min',
                 calc_entities: [
@@ -333,25 +328,25 @@ export const DEFAULT_CONFIG = {
         error: [
             {
                 entity_id: 'sensor.CHARGERNAME_session_energy',
-                text: 'Energy'
+                text: 'session_energy'
             },
             {
                 entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
-                text: 'Schedule'
+                text: 'schedule'
             }
         ],
         ready_to_charge: [
             {
                 entity_id: 'sensor.CHARGERNAME_session_energy',
-                text: 'Energy'
+                text: 'session_energy'
             },
             {
                 entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
-                text: 'Schedule'
+                text: 'schedule'
             },
             {
                 entity_id: 'calculated',
-                text: 'Min. Limit',
+                text: 'used_limit',
                 unit: 'A',
                 calc_function: 'min',
                 calc_entities: [
@@ -389,19 +384,19 @@ export const DEFAULT_CONFIG = {
             {
                 service: 'easee.stop',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Stop',
+                text: 'stop',
                 icon: 'hass:stop',
             },
             {
                 service: 'easee.resume',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Resume',
+                text: 'resume',
                 icon: 'hass:play',
             },
             {
                 service: 'easee.override_schedule',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Override schedule',
+                text: 'override',
                 icon: 'hass:motion-play',
             },
 
@@ -411,13 +406,13 @@ export const DEFAULT_CONFIG = {
             {
                 service: 'easee.stop',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Stop',
+                text: 'stop',
                 icon: 'hass:stop',
             },
             {
                 service: 'easee.pause',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Pause',
+                text: 'pause',
                 icon: 'hass:pause',
             },
         ],
@@ -426,13 +421,13 @@ export const DEFAULT_CONFIG = {
             {
                 service: 'easee.stop',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Stop',
+                text: 'stop',
                 icon: 'hass:stop',
             },
             {
                 service: 'easee.override_schedule',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Override schedule',
+                text: 'override',
                 icon: 'hass:motion-play',
             },
         ],
@@ -441,7 +436,7 @@ export const DEFAULT_CONFIG = {
             {
                 service: 'easee.reboot',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Reboot',
+                text: 'reboot',
                 icon: 'hass:restart',
             },
         ],
@@ -449,13 +444,13 @@ export const DEFAULT_CONFIG = {
             {
                 service: 'easee.stop',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Stop',
+                text: 'stop',
                 icon: 'hass:stop',
             },
             {
                 service: 'easee.override_schedule',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Override schedule',
+                text: 'override',
                 icon: 'hass:motion-play',
             },
         ],
@@ -465,7 +460,7 @@ export const DEFAULT_CONFIG = {
             {
                 service: 'persistent_notification.create',
                 service_data: {message: 'Firmware update is available, but only possible when disconnected!', title: 'Update'},
-                text: 'Update firmware',
+                text: 'update',
                 icon: 'mdi:file-download',
                 conditional_entity: 'binary_sensor.CHARGERNAME_update_available',
             },
@@ -475,7 +470,7 @@ export const DEFAULT_CONFIG = {
             {
                 service: 'easee.update_firmware',
                 service_data: {charger_id: 'EH123456'},
-                text: 'Update firmware',
+                text: 'update',
                 icon: 'mdi:file-download',
                 conditional_entity: 'binary_sensor.CHARGERNAME_update_available',
             },

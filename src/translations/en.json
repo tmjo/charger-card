@@ -1,10 +1,7 @@
 {
   "common": {
     "name": "Charger Card",
-    "description": "Charger card allows you to control your EV homecharger (or something else).",
-    "click_for_info": "Click for Info",
-    "click_for_config": "Click for Config",
-    "click_for_limits": "Click for Limits"
+    "description": "Charger card allows you to control your EV homecharger (or something else)."
   },
   "error": {
     "missing_entity": "Specifying entity is required!",
@@ -72,21 +69,42 @@
       "undefined": "Undefined"
     },
     "common" : {
+      "click_for_group1": "Click for Limits",
+      "click_for_group2": "Click for Info",
+      "click_for_group3": "Click for Config",
       "start": "Start",
       "continue": "Resume",
       "pause": "Pause",
       "stop": "Stop",
+      "resume": "Resume",
       "override": "Override schedule",
+      "update": "Update firmware",
       "reboot": "Reboot charger",
       "not_available": "Charger not available",
       "online": "Online",
       "voltage": "Voltage",
       "power": "Power",
+      "current": "Current",
       "charger_current": "Charger Current",
       "energy_per_hour": "Energy per Hour",
+      "session_energy": "Session energy",
       "lifetime_energy": "Lifetime Energy",
       "circuit_current": "Circuit Energy",
+      "dyn_charger_limit" : "Dyn Charger Limit",
+      "dyn_circuit_limit" : "Dyn Circuit Limit",
+      "max_charger_limit" : "Max Charger Limit",
+      "max_circuit_limit" : "Max Circuit Limit",
+      "used_limit": "Used limit",
+      "offline_circuit_limit" : "Max offline Circuit Limit",
+      "enabled" : "Enabled",
+      "idle_current" : "Idle current",
+      "cable_locked" : "Cable locked",
+      "perm_cable_locked" : "Cable locked permanently",
+      "smart_charging" : "Smart charging",
+      "cost_per_kwh" : "Cost per kWh",
+      "update_available" : "Update available",
       "schedule": "Schedule"
+
     }
   },
 

@@ -1,10 +1,7 @@
 {
   "common": {
     "name": "Charger Card",
-    "description": "Charger card gir deg mulighet for å styre din elbil hjemmelader (eller noe annet).",
-    "click_for_info": "Klikk for info",
-    "click_for_config": "Klikk for konfigurasjon",
-    "click_for_limits": "Klikk for limiteringer"
+    "description": "Charger card gir deg mulighet for å styre din elbil hjemmelader (eller noe annet)."
   },
   "error": {
     "missing_entity": "Du må angi en entity!",
@@ -72,20 +69,40 @@
       "undefined": "Udefinert"
     },
     "common" : {
+      "click_for_group1": "Klikk for limiteringer",
+      "click_for_group2": "Klikk for info",
+      "click_for_group3": "Klikk for konfigurasjoner",
       "start": "Start",
       "continue": "Fortsett",
       "pause": "Pause",
       "stop": "Stopp",
+      "resume": "Fortsett",
       "override": "Overstyr tidsplan",
+      "update": "Oppdater firmware",
       "reboot": "Reboot lader",
       "not_available": "Lader utilgjengelig",
       "online": "Online",
       "voltage": "Spenning",
       "power": "Effekt",
+      "current": "Strøm",
       "charger_current": "Laderstrøm",
       "circuit_current": "Kursstrøm",
       "energy_per_hour": "Energi per time",
+      "session_energy": "Ladeøkt energi",
       "lifetime_energy": "Total energi",
+      "dyn_charger_limit" : "Dyn laderstrøm",
+      "dyn_circuit_limit" : "Dyn kursstrøm",
+      "max_charger_limit" : "Maks laderstrøm",
+      "max_circuit_limit" : "Maks kursstrøm",
+      "offline_circuit_limit" : "Maks offline kursstrøm",
+      "used_limit": "Brukt limitering",
+      "enabled" : "Aktivert",
+      "idle_current" : "Tomgangsstrøm",
+      "cable_locked" : "Kabel låst",
+      "perm_cable_locked" : "Kabel låst permanent",
+      "smart_charging" : "Smart lading",
+      "cost_per_kwh" : "Kostnad per kWh",
+      "update_available" : "Oppdatering tilgjengelig",
       "schedule": "Tidsplan"
     }
   },
