@@ -2935,45 +2935,20 @@ var fecha = {
 
 (function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeError"===e.name}return !1})()?function(e,t){return e.toLocaleDateString(t.language,{year:"numeric",month:"long",day:"numeric"})}:function(t){return fecha.format(t,"mediumDate")};(function(){try{(new Date).toLocaleString("i");}catch(e){return "RangeError"===e.name}return !1})()?function(e,t){return e.toLocaleString(t.language,{year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"haDateTime")};(function(){try{(new Date).toLocaleTimeString("i");}catch(e){return "RangeError"===e.name}return !1})()?function(e,t){return e.toLocaleTimeString(t.language,{hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"shortTime")};var m,f;!function(e){e.language="language",e.system="system",e.comma_decimal="comma_decimal",e.decimal_comma="decimal_comma",e.space_comma="space_comma",e.none="none";}(m||(m={})),function(e){e.language="language",e.system="system",e.am_pm="12",e.twenty_four="24";}(f||(f={}));var A=function(e,t,a,r){r=r||{},a=null==a?{}:a;var n=new Event(t,{bubbles:void 0===r.bubbles||r.bubbles,cancelable:Boolean(r.cancelable),composed:void 0===r.composed||r.composed});return n.detail=a,e.dispatchEvent(n),n};function X(e,t,a){if(t.has("config")||a)return !0;if(e.config.entity){var r=t.get("hass");return !r||r.states[e.config.entity]!==e.hass.states[e.config.entity]}return !1}
 
-var status$5 = {
-	disconnected: "Disconnected",
-	awaiting_start: "Paused or awaiting start",
-	charging: "Charging",
-	completed: "Completed or awaiting car",
-	error: "Error",
-	ready_to_charge: "Ready to charge"
-};
 var common$5 = {
 	name: "Charger Card",
-	description: "Charger card allows you to control your charging robot.",
-	start: "Start",
-	"continue": "Resume",
-	pause: "Pause",
-	stop: "Stop",
-	override: "Override schedule",
-	reboot: "Reboot charger",
-	not_available: "Charger not available",
-	click_for_info: "Click for Info",
-	click_for_config: "Click for Config",
-	click_for_limits: "Click for Limits",
-	online: "Online",
-	voltage: "Voltage",
-	power: "Power",
-	charger_current: "Changer Current",
-	energy_per_hour: "Energy per Hour",
-	lifetime_energy: "Lifetime Energy",
-	circuit_current: "Circuit Energy"
+	description: "Charger card allows you to control your EV homecharger (or something else)."
 };
 var error$5 = {
 	missing_entity: "Specifying entity is required!",
-	missing_config: "Error in config!",
-	missing_group: "No entities defined in group!"
+	not_available: "Not available",
+	missing_config: "Error in config!"
 };
 var editor$5 = {
-	instruction: "Select your charger brand and it's main sensor. The card will automatically detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+	instruction: "Select your charger brand and it's main sensor. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
 	brand: "Brand (Required)",
 	entity: "Main Entity (Required)",
-	chargerImage: "Charger image and color",
+	chargerImage: "Built-in images and color",
 	customImage: "Custom image (Optional - overrides charger image)",
 	theme: "Color theme",
 	compact_view: "Compact View",
@@ -2997,136 +2972,308 @@ var editor$5 = {
 	show_toolbar: "Show Toolbar",
 	show_toolbar_aria_label_on: "Toggle display toolbar on",
 	show_toolbar_aria_label_off: "Toggle display toolbar off",
-	code_only_note: "Note: Custom actions and data table (stats) options are available exclusively using Code Editor manually."
+	code_only_note: "Note: Advanced config such as toolbar and datatable (stats) are only in YAML-mode."
 };
-var charger_status$5 = {
-	sessionEnergy: "Session Energy"
+var easee$1 = {
+	status: {
+		disconnected: "Disconnected",
+		awaiting_start: "Paused or awaiting start",
+		charging: "Charging",
+		completed: "Completed or awaiting car",
+		error: "Error",
+		ready_to_charge: "Ready to charge"
+	},
+	substatus: {
+		ok: "Ok",
+		pending_schedule: "Pending schedule",
+		none: "None",
+		max_circuit_current_too_low: "Max circuit current too low",
+		max_dynamic_circuit_current_too_low: "Max dynamic circuit current too low",
+		max_dynamic_charger_current_too_low: "Max dynamic charger current too low",
+		max_dynamic_offline_fallback_circuit_current_too_low: "Max dynamic offline circuit current too low",
+		max_charger_current_too_low: "Max charger current too low",
+		circuit_fuse_too_low: "Circuit fuse too low",
+		waiting_in_queue: "Waiting in queue",
+		waiting_in_fully: "Waiting in fully",
+		illegal_grid_type: "Illegal grid type",
+		no_current_request: "No current request",
+		not_requesting_current: "Not requesting current",
+		charger_disabled: "Charger Disabled",
+		pending_authorization: "Pending Authorization",
+		charger_in_error_state: "Charger in error state",
+		"undefined": "Undefined"
+	},
+	common: {
+		click_for_group1: "Click for Limits",
+		click_for_group2: "Click for Info",
+		click_for_group3: "Click for Config",
+		start: "Start",
+		"continue": "Resume",
+		pause: "Pause",
+		stop: "Stop",
+		resume: "Resume",
+		override: "Override schedule",
+		update: "Update firmware",
+		reboot: "Reboot charger",
+		not_available: "Charger not available",
+		online: "Online",
+		voltage: "Voltage",
+		power: "Power",
+		current: "Current",
+		charger_current: "Charger Current",
+		energy_per_hour: "Energy per Hour",
+		session_energy: "Session energy",
+		lifetime_energy: "Lifetime Energy",
+		circuit_current: "Circuit Energy",
+		dyn_charger_limit: "Dyn Charger Limit",
+		dyn_circuit_limit: "Dyn Circuit Limit",
+		max_charger_limit: "Max Charger Limit",
+		max_circuit_limit: "Max Circuit Limit",
+		used_limit: "Used limit",
+		offline_circuit_limit: "Max offline Circuit Limit",
+		enabled: "Enabled",
+		idle_current: "Idle current",
+		cable_locked: "Cable locked",
+		perm_cable_locked: "Cable locked permanently",
+		smart_charging: "Smart charging",
+		cost_per_kwh: "Cost per kWh",
+		update_available: "Update available",
+		schedule: "Schedule"
+	}
 };
-var substatus = {
-	SUBSTATUS: "Substatus",
-	not_requesting_current: "Not requesting current",
-	ok: "Ok",
-	pending_schedule: "Pending Schedule",
-	none: "None",
-	max_circuit_current_too_low: "Max circuit current too low",
-	max_dynamic_circuit_current_too_low: "Max dynamic circuit current too low",
-	max_dynamic_offline_fallback_circuit_current_too_low: "Max dynamic offline circuit current too low",
-	circuit_fuse_too_low: "Circuit fuse too low",
-	waiting_in_queue: "Waiting in queue",
-	waiting_in_fully: "Waiting in fully",
-	illegal_grid_type: "Illegal grid type",
-	no_current_request: "No current request",
-	max_charger_current_too_low: "Max charger current too low",
-	max_dynamic_charger_current_too_low: "Max dynamic charger current too low",
-	charger_disabled: "Charger Disabled",
-	pending_authorization: "Pending Authorization",
-	charger_in_error_state: "Charger in error state",
-	"undefined": "Undefined"
+var test$1 = {
+	status: {
+		disconnected: "Disconnected",
+		awaiting_start: "Paused or awaiting start",
+		charging: "Charging",
+		completed: "Completed or awaiting car",
+		error: "Error",
+		ready_to_charge: "Ready to charge"
+	},
+	substatus: {
+		ok: "Ok",
+		pending_schedule: "Pending schedule",
+		none: "None",
+		max_circuit_current_too_low: "Max circuit current too low",
+		max_dynamic_circuit_current_too_low: "Max dynamic circuit current too low",
+		max_dynamic_charger_current_too_low: "Max dynamic charger current too low",
+		max_dynamic_offline_fallback_circuit_current_too_low: "Max dynamic offline circuit current too low",
+		max_charger_current_too_low: "Max charger current too low",
+		circuit_fuse_too_low: "Circuit fuse too low",
+		waiting_in_queue: "Waiting in queue",
+		waiting_in_fully: "Waiting in fully",
+		illegal_grid_type: "Illegal grid type",
+		no_current_request: "No current request",
+		not_requesting_current: "Not requesting current",
+		charger_disabled: "Charger Disabled",
+		pending_authorization: "Pending Authorization",
+		charger_in_error_state: "Charger in error state",
+		"undefined": "Undefined"
+	},
+	common: {
+		start: "Start",
+		"continue": "Resume",
+		pause: "Pause",
+		stop: "Stop",
+		override: "Override schedule",
+		reboot: "Reboot charger",
+		not_available: "Charger not available",
+		online: "Online",
+		voltage: "Voltage",
+		power: "Power",
+		charger_current: "Charger Current",
+		energy_per_hour: "Energy per Hour",
+		lifetime_energy: "Lifetime Energy",
+		circuit_current: "Circuit Energy",
+		schedule: "Schedule"
+	}
 };
 var en = {
-	status: status$5,
 	common: common$5,
 	error: error$5,
 	editor: editor$5,
-	charger_status: charger_status$5,
-	substatus: substatus
+	easee: easee$1,
+	test: test$1
 };
 
 var en$1 = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    status: status$5,
     common: common$5,
     error: error$5,
     editor: editor$5,
-    charger_status: charger_status$5,
-    substatus: substatus,
+    easee: easee$1,
+    test: test$1,
     'default': en
 });
 
-var status$4 = {
-	disconnected: "Frakoblet",
-	awaiting_start: "Pauset eller venter start",
-	charging: "Lader",
-	completed: "Fullført eller venter på bil",
-	error: "Feil",
-	ready_to_charge: "Klar til lading"
-};
 var common$4 = {
 	name: "Charger Card",
-	description: "Charger card gir deg mulighet for å styre din laderobot.",
-	start: "Start",
-	"continue": "Fortsett",
-	pause: "Pause",
-	stop: "Stopp",
-	override: "Overstyr plan",
-	reboot: "Reboot lader",
-	not_available: "Lader utilgjengelig",
-	click_for_info: "Klikk for info",
-	click_for_config: "Klikk for konfigurasjon",
-	click_for_limits: "Klikk for limiteringer",
-	online: "Online",
-	voltage: "Spenning",
-	power: "Effekt",
-	charger_current: "Ladestrøm",
-	energy_per_hour: "Energi per time",
-	lifetime_energy: "Energi totalt",
-	circuit_current: "Kursstrøm"
+	description: "Charger card gir deg mulighet for å styre din elbil hjemmelader (eller noe annet)."
 };
 var error$4 = {
-	missing_entity: "Du må angi en entity!"
+	missing_entity: "Du må angi en entity!",
+	not_available: "Utilgjengelig",
+	missing_config: "Feil i konfigurasjon!"
 };
 var editor$4 = {
+	instruction: "Velg din ladertype og tilhørende hovedsensor. Kortet vil automatisk forsøke å finne øvrige sensorer. Hvis du har ett merke som ikke er støttet kan du velge «Template» og gjøre mappingen manuelt selv. Hvis noe feiler, verifiser konfigurasjonen i YAML-editoren (trykk «Vis koderedigering».",
+	brand: "Type/merke (Påkrevd)",
 	entity: "Entity (Påkrevd)",
-	chargerImage: "Laderbilde og -farge",
+	chargerImage: "Innebygde bilder og -farger",
 	customImage: "Eget bilde (opsjon - overstyrer laderbilde)",
-	theme: "Fargemal",
+	theme: "Tema",
 	compact_view: "Kompakt",
-	compact_view_aria_label_on: "Toggle compact view on",
-	compact_view_aria_label_off: "Toggle compact view off",
+	compact_view_aria_label_on: "Slå på kompakt visning",
+	compact_view_aria_label_off: "Slå av kompakt visning",
 	show_name: "Vis navn",
-	show_name_aria_label_on: "Toggle display name on",
-	show_name_aria_label_off: "Toggle display name off",
+	show_name_aria_label_on: "Slå på visning av navn",
+	show_name_aria_label_off: "Slå av visning av navn",
 	show_leds: "Vis led",
-	show_leds_aria_label_on: "Toggle animated leds (overlay on image) on",
-	show_leds_aria_label_off: "Toggle animated leds (overlay on image) off",
+	show_leds_aria_label_on: "Slå på visning av led (over bilde)",
+	show_leds_aria_label_off: "Slå av visning av led (over bilde)",
 	show_status: "Vis status",
-	show_status_aria_label_on: "Toggle display status on",
-	show_status_aria_label_off: "Toggle display status off",
-	show_stats: "Vis Data Tabell (stats)",
-	show_stats_aria_label_on: "Toggle display data table on",
-	show_stats_aria_label_off: "Toggle display data table off",
+	show_status_aria_label_on: "Slå på visning av status",
+	show_status_aria_label_off: "Slå av visning av status",
+	show_stats: "Vis datatabell (stats)",
+	show_stats_aria_label_on: "Slå på visning av datatabell (stats)",
+	show_stats_aria_label_off: "Slå av visning av datatabell (stats)",
 	show_collapsibles: "Vis sammenslåbare menyvalg",
-	show_collapsibles_aria_label_on: "Toggle display collapsible menus on",
-	show_collapsibles_aria_label_off: "Toggle display collapsible menus off",
+	show_collapsibles_aria_label_on: "Slå på visning av sammenslåbare menyer",
+	show_collapsibles_aria_label_off: "Slå av visning av sammenslåbare menyer",
 	show_toolbar: "Vis verktøylinje",
-	show_toolbar_aria_label_on: "Toggle display toolbar on",
-	show_toolbar_aria_label_off: "Toggle display toolbar off",
+	show_toolbar_aria_label_on: "Slå på visning av verktøylinje",
+	show_toolbar_aria_label_off: "Slå av visning av verktøylinje",
 	code_only_note: "Merk: Egendefinerte actions og data tabell (stats) er kun tilgjengelig ved å benytte Code Editor manuelt."
 };
-var charger_status$4 = {
-	sessionEnergy: "Energi ladeøkt"
+var easee = {
+	status: {
+		disconnected: "Frakoblet",
+		awaiting_start: "Pause (avventer start)",
+		charging: "Lader",
+		completed: "Fullført eller venter på bil",
+		error: "Feil",
+		ready_to_charge: "Klar til lading"
+	},
+	substatus: {
+		ok: "Ok",
+		none: "Ingen",
+		max_circuit_current_too_low: "Maks kursstrøm for lav",
+		max_dynamic_circuit_current_too_low: "Maks dynamisk kursstrøm for lav",
+		max_dynamic_offline_fallback_circuit_current_too_low: "Maks dynamisk offline kursstrøm for lav",
+		max_charger_current_too_low: "Maks laderstrøm for lav",
+		max_dynamic_charger_current_too_low: "Maks dynamisk laderstrøm for lav",
+		circuit_fuse_too_low: "Kurssikring for lav",
+		waiting_in_queue: "Venter i kø",
+		waiting_in_fully: "Venter i full kø",
+		illegal_grid_type: "Ugyldig type nett",
+		no_current_request: "Ingen forespørsel om strøm",
+		not_requesting_current: "Ingen forespørsel om strøm",
+		charger_disabled: "Lader er deaktivert",
+		pending_schedule: "Avventer tidsplan",
+		pending_authorization: "Avventer autorisasjon",
+		charger_in_error_state: "Feil i lader",
+		"undefined": "Udefinert"
+	},
+	common: {
+		click_for_group1: "Klikk for limiteringer",
+		click_for_group2: "Klikk for info",
+		click_for_group3: "Klikk for konfigurasjoner",
+		start: "Start",
+		"continue": "Fortsett",
+		pause: "Pause",
+		stop: "Stopp",
+		resume: "Fortsett",
+		override: "Overstyr tidsplan",
+		update: "Oppdater firmware",
+		reboot: "Reboot lader",
+		not_available: "Lader utilgjengelig",
+		online: "Online",
+		voltage: "Spenning",
+		power: "Effekt",
+		current: "Strøm",
+		charger_current: "Laderstrøm",
+		circuit_current: "Kursstrøm",
+		energy_per_hour: "Energi per time",
+		session_energy: "Ladeøkt energi",
+		lifetime_energy: "Total energi",
+		dyn_charger_limit: "Dyn laderstrøm",
+		dyn_circuit_limit: "Dyn kursstrøm",
+		max_charger_limit: "Maks laderstrøm",
+		max_circuit_limit: "Maks kursstrøm",
+		offline_circuit_limit: "Maks offline kursstrøm",
+		used_limit: "Brukt limitering",
+		enabled: "Aktivert",
+		idle_current: "Tomgangsstrøm",
+		cable_locked: "Kabel låst",
+		perm_cable_locked: "Kabel låst permanent",
+		smart_charging: "Smart lading",
+		cost_per_kwh: "Kostnad per kWh",
+		update_available: "Oppdatering tilgjengelig",
+		schedule: "Tidsplan"
+	}
 };
-var charger_substatus$4 = {
-	not_requesting_current: "Bilen ber ikke om strøm",
-	ok: "Ok"
+var test = {
+	status: {
+		disconnected: "Frakoblet",
+		awaiting_start: "Pause (avventer start)",
+		charging: "Lader",
+		completed: "Fullført eller venter på bil",
+		error: "Feil",
+		ready_to_charge: "Klar til lading"
+	},
+	substatus: {
+		ok: "Ok",
+		none: "Ingen",
+		max_circuit_current_too_low: "Maks kursstrøm for lav",
+		max_dynamic_circuit_current_too_low: "Maks dynamisk kursstrøm for lav",
+		max_dynamic_offline_fallback_circuit_current_too_low: "Maks dynamisk offline kursstrøm for lav",
+		max_charger_current_too_low: "Maks laderstrøm for lav",
+		max_dynamic_charger_current_too_low: "Maks dynamisk laderstrøm for lav",
+		circuit_fuse_too_low: "Kurssikring for lav",
+		waiting_in_queue: "Venter i kø",
+		waiting_in_fully: "Venter i full kø",
+		illegal_grid_type: "Ugyldig type nett",
+		no_current_request: "Ingen forespørsel om strøm",
+		not_requesting_current: "Ingen forespørsel om strøm",
+		charger_disabled: "Lader er deaktivert",
+		pending_schedule: "Avventer tidsplan",
+		pending_authorization: "Avventer autorisasjon",
+		charger_in_error_state: "Feil i lader",
+		"undefined": "Udefinert"
+	},
+	common: {
+		start: "Start",
+		"continue": "Fortsett",
+		pause: "Pause",
+		stop: "Stopp",
+		override: "Overstyr tidsplan",
+		reboot: "Reboot lader",
+		not_available: "Lader utilgjengelig",
+		online: "Online",
+		voltage: "Spenning",
+		power: "Effekt",
+		charger_current: "Laderstrøm",
+		circuit_current: "Kursstrøm",
+		energy_per_hour: "Energi per time",
+		lifetime_energy: "Total energi",
+		schedule: "Tidsplan"
+	}
 };
 var nb = {
-	status: status$4,
 	common: common$4,
 	error: error$4,
 	editor: editor$4,
-	charger_status: charger_status$4,
-	charger_substatus: charger_substatus$4
+	easee: easee,
+	test: test
 };
 
 var nb$1 = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    status: status$4,
     common: common$4,
     error: error$4,
     editor: editor$4,
-    charger_status: charger_status$4,
-    charger_substatus: charger_substatus$4,
+    easee: easee,
+    test: test,
     'default': nb
 });
 
@@ -3519,27 +3666,47 @@ var languages = {
   da: da$1,
   ca: ca$1
 };
-function localize(string, search = '', replace = '') {
+function localize(string, brand = null, search = '', replace = '', debug = false) {
   const lang = (localStorage.getItem('selectedLanguage') || 'en').replace(/['"]+/g, '').replace('-', '_');
   let translated;
+  let brandstr = brand === undefined || brand === null ? string : brand + "." + string;
 
   try {
-    translated = string.split('.').reduce((o, i) => o[i], languages[lang]);
-  } catch (e) {
-    try {
-      translated = string.split('.').reduce((o, i) => o[i], languages['en']);
-    } catch (ee) {
-      translated = string.split('.')[2];
+    // Try to translate, add brand if valid
+    translated = brandstr.split('.').reduce((o, i) => o[i], languages[lang]);
+    if (debug) console.log("Translating 1 -> " + lang + ": " + string + " --> " + brandstr + " --> " + translated);
+
+    if (translated === undefined) {
+      translated = brandstr.toLowerCase().split('.').reduce((o, i) => o[i], languages[lang]);
+      if (debug) console.log("Translating 2 -> " + lang + " lowercase: " + string + " --> " + brandstr + " --> " + translated);
     }
+
+    if (translated === undefined) {
+      translated = brandstr.split('.').reduce((o, i) => o[i], languages['en']);
+      if (debug) console.log("Translating 3 -> en  : " + string + " --> " + brandstr + " --> " + translated);
+    }
+
+    if (translated === undefined) {
+      translated = brandstr.toLowerCase().split('.').reduce((o, i) => o[i], languages['en']);
+      if (debug) console.log("Translating 4 -> en lowercase: " + string + " --> " + brandstr + " --> " + translated);
+    }
+  } catch (e) {// Give up, do nothing
   }
 
-  if (translated === undefined) translated = string.split('.').reduce((o, i) => o[i], languages['en']); // if (translated === undefined) translated = string;
+  if (translated === undefined) {
+    // If translation failed, return last item of array
+    var strArray = string.split(".");
+    translated = strArray.length > 0 ? strArray[strArray.length - 1] : strArray;
+    if (debug) console.log("Gave up translating: " + string + " --> " + strArray + " --> " + translated);
+  } //Search and replace
+
 
   if (search !== '' && replace !== '') {
     translated = translated.replace(search, replace);
-  }
+  } //Return
 
-  return translated || string.split('.')[1];
+
+  return translated || string;
 }
 
 var img$d = "data:image/png;base64,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";
@@ -3571,7 +3738,7 @@ var img$1 = "data:image/gif;base64,R0lGODlhAwBIAIAAAAAAAAAm/yH/C05FVFNDQVBFMi4wA
 var img = "data:image/gif;base64,R0lGODlhAwBIAIEAAAAAAGBgYP8AAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hZDcmVhdGVkIHdpdGggUGFpbnQuTkVUACH5BAkZAAAALAAAAAADAEgAAAINjI+py+0Po5y02otVAQAh+QQJGQAAACwAAAEAAwBGAAACF5SPecCtn5qDVDJaLYYW7Nd9SigiZGkUADs=";
 
 const VERSION = '0.0.14';
-const CARDCONFIGTYPES = ['easee', 'test', 'template']; // TODO: Find a way to read device_class icons instead of this
+const CARDCONFIGTYPES = ['easee', 'vw_egolf', 'test', 'template']; // TODO: Find a way to read device_class icons instead of this
 
 const DEVICECLASS_ICONS = {
   voltage: 'mdi:sine-wave',
@@ -3580,8 +3747,7 @@ const DEVICECLASS_ICONS = {
   current: 'mdi:sine-wave',
   energy: 'mdi:flash',
   power: 'mdi:flash',
-  plug: 'mdi:power-plug',
-  lock: 'mdi:lock'
+  plug: 'mdi:power-plug'
 };
 const DEFAULT_ICON = 'mdi:crosshairs-question';
 const DEFAULT_IMAGE = 'Generic';
@@ -3658,7 +3824,7 @@ const DEFAULT_CONFIG$1 = {
   //     unit: '',                       // unit if you want to override entity unit
   //     unit_show: true,                // show unit next to value
   //     unit_showontext: true,          // show unit next to value in tooltip text
-  //     text: '',                       // text to be used instead of entity friendly-name
+  //     text: '',                       // text to be used instead of entity friendly-name (do not use dots '.' and apply translation key to achieve translation)
   //     service: '',                    // service on format 'domain.service'
   //     service_data: {'test','test'},  // service data for the service call
   //     icon: '',                       // icon to be used instead of entity icon
@@ -3671,338 +3837,363 @@ const DEFAULT_CONFIG$1 = {
   //     conditional_invert: ''          // if you prefer to invert the conditional showing of an entity to show when false, invert by true
   //NAME, LOCATION, STATUS ETC
   name: {
-    entity_id: 'sensor.easee_1_status',
+    entity_id: 'sensor.CHARGERNAME_status',
     attribute: 'name'
   },
   location: {
-    entity_id: 'sensor.easee_1_status',
+    entity_id: 'sensor.CHARGERNAME_status',
     attribute: 'site_name'
   },
   status: {
-    entity_id: 'sensor.easee_1_status'
+    entity_id: 'sensor.CHARGERNAME_status'
   },
   substatus: {
-    entity_id: 'sensor.easee_1_reason_for_no_current'
+    entity_id: 'sensor.CHARGERNAME_reason_for_no_current'
   },
   smartcharging: {
-    entity_id: 'switch.easee_1_smart_charging'
+    //controls white or blue leds
+    entity_id: 'switch.CHARGERNAME_smart_charging'
   },
   // OVERRIDE CURRENTLIMITS
-  currentlimits: [10, 16, 20, 25, 32],
+  currentlimits: [0, 6, 10, 16, 20, 25, 32],
   // OVERRIDE STATE TEXT - also overrides translation
   statetext: {
-    disconnected: 'Disconnected',
-    awaiting_start: 'Paused or awaiting start',
-    charging: 'Charging',
-    completed: 'Completed or awaiting car',
-    error: 'Error',
-    ready_to_charge: 'Ready to charge'
+    disconnected: 'disconnected',
+    awaiting_start: 'awaiting_start',
+    charging: 'charging',
+    completed: 'completed',
+    error: 'error',
+    ready_to_charge: 'ready_to_charge'
   },
   // OVERRIDE COLLAPSIBLE BUTTON ICONS AND TOOLTIP TEXT
-  collapsiblebuttons: [{
+  collapsiblebuttons: {
     group1: {
-      text: 'Click for limits',
+      text: 'click_for_group1',
       icon: 'mdi:speedometer'
-    }
-  }, {
+    },
     group2: {
-      text: 'Click for info',
+      text: 'click_for_group2',
       icon: 'mdi:information'
-    }
-  }, {
+    },
     group3: {
-      text: 'Click for config',
+      text: 'click_for_group3',
       icon: 'mdi:cog'
     }
-  }],
+  },
   //ICONS LEFT AND RIGHT
   info_left: [{
-    entity_id: 'binary_sensor.easee_1_online',
+    entity_id: 'binary_sensor.CHARGERNAME_online',
     text: 'Online'
   }],
   info_right: [{
-    entity_id: 'sensor.easee_1_voltage',
+    entity_id: 'sensor.CHARGERNAME_voltage',
     text: 'Voltage'
   }, {
-    entity_id: 'sensor.easee_1_power',
+    entity_id: 'sensor.CHARGERNAME_power',
     text: 'Power'
   }],
   //LIMITS
   group1: [{
-    entity_id: 'sensor.easee_1_dynamic_charger_limit',
-    text: 'Dyn. charger limit'
+    entity_id: 'sensor.CHARGERNAME_dynamic_charger_limit',
+    text: 'dyn_charger_limit'
   }, {
-    entity_id: 'sensor.easee_1_dynamic_circuit_limit',
-    text: 'Dyn. circuit limit'
+    entity_id: 'sensor.CHARGERNAME_dynamic_circuit_limit',
+    text: 'dyn_circuit_limit'
   }, {
-    entity_id: 'sensor.easee_1_max_charger_limit',
-    text: 'Charger limit'
+    entity_id: 'sensor.CHARGERNAME_max_charger_limit',
+    text: 'max_charger_limit'
   }, {
-    entity_id: 'sensor.easee_1_max_circuit_limit',
-    text: 'Circuit limit'
+    entity_id: 'sensor.CHARGERNAME_max_circuit_limit',
+    text: 'max_circuit_limit'
   }, {
-    entity_id: 'sensor.easee_1_offline_circuit_limit',
-    text: 'Offline circuit limit'
-  }, {
-    entity_id: 'sensor.easee_1_output_limit',
-    text: 'Output limit'
+    entity_id: 'sensor.CHARGERNAME_offline_circuit_limit',
+    text: 'offline_circuit_limit'
   }],
   //INFO
   group2: [{
-    entity_id: 'binary_sensor.easee_1_online',
-    text: 'Online'
+    entity_id: 'binary_sensor.CHARGERNAME_online',
+    text: 'online'
   }, {
-    entity_id: 'sensor.easee_1_voltage',
-    text: 'Voltage'
+    entity_id: 'sensor.CHARGERNAME_voltage',
+    text: 'voltage'
   }, {
-    entity_id: 'sensor.easee_1_power',
-    text: 'Power'
+    entity_id: 'sensor.CHARGERNAME_power',
+    text: 'power'
   }, {
-    entity_id: 'sensor.easee_1_current',
-    text: 'Current'
+    entity_id: 'sensor.CHARGERNAME_current',
+    text: 'charger_current'
   }, {
-    entity_id: 'sensor.easee_1_circuit_current',
-    text: 'Circuit Current'
+    entity_id: 'sensor.CHARGERNAME_circuit_current',
+    text: 'circuit_current'
   }, {
-    entity_id: 'sensor.easee_1_energy_per_hour',
-    text: 'Energy per hour'
+    entity_id: 'sensor.CHARGERNAME_energy_per_hour',
+    text: 'energy_per_hour'
   }, {
-    entity_id: 'sensor.easee_1_lifetime_energy',
-    text: 'Total energy'
+    entity_id: 'sensor.CHARGERNAME_session_energy',
+    text: 'session_energy'
   }, {
-    entity_id: 'sensor.easee_1_session_energy',
-    text: 'Total energy'
+    entity_id: 'sensor.CHARGERNAME_lifetime_energy',
+    text: 'lifetime_energy'
   }],
   //CONFIG
   group3: [{
-    entity_id: 'switch.easee_1_is_enabled',
-    text: 'Enabled'
+    entity_id: 'switch.CHARGERNAME_is_enabled',
+    text: 'enabled'
   }, {
-    entity_id: 'switch.easee_1_enable_idle_current',
-    text: 'Idle Current'
+    entity_id: 'switch.CHARGERNAME_enable_idle_current',
+    text: 'idle_current'
   }, {
-    entity_id: 'binary_sensor.easee_1_cable_locked',
-    text: 'Cable locked'
+    entity_id: 'binary_sensor.CHARGERNAME_cable_locked',
+    text: 'cable_locked'
   }, {
-    entity_id: 'switch.easee_1_cable_locked_permanently',
-    text: 'Perm. locked'
+    entity_id: 'switch.CHARGERNAME_cable_locked_permanently',
+    text: 'perm_cable_locked'
   }, {
-    entity_id: 'switch.easee_1_smart_charging',
-    text: 'Smart charging'
+    entity_id: 'switch.CHARGERNAME_smart_charging',
+    text: 'smart_charging'
   }, {
-    entity_id: 'sensor.easee_1_cost_per_kwh',
-    text: 'Cost per kWh'
+    entity_id: 'sensor.CHARGERNAME_cost_per_kwh',
+    text: 'cost_per_kwh'
   }, {
-    entity_id: 'binary_sensor.easee_1_update_available',
-    text: 'Update available'
+    entity_id: 'binary_sensor.CHARGERNAME_update_available',
+    text: 'update_available'
   }, {
-    entity_id: 'binary_sensor.easee_1_basic_schedule',
-    text: 'Schedule'
+    entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
+    text: 'schedule'
   }],
   //STATS - based on state of main entity, default if state not found
   stats: {
     default: [{
-      entity_id: 'binary_sensor.easee_1_basic_schedule',
-      text: 'Schedule'
+      entity_id: 'sensor.CHARGERNAME_session_energy',
+      text: 'session_energy'
     }, {
-      entity_id: 'binary_sensor.easee_1_basic_schedule',
-      text: 'Schedule'
+      entity_id: 'switch.CHARGERNAME_cable_locked_permanently',
+      text: 'cable_locked'
+    }, {
+      entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
+      text: 'schedule'
     }],
     disconnected: [{
-      entity_id: 'sensor.easee_1_session_energy',
-      text: 'Energy'
+      entity_id: 'sensor.CHARGERNAME_session_energy',
+      text: 'session_energy'
     }, {
-      entity_id: 'switch.easee_1_cable_locked_permanently',
-      text: 'CableLocked'
+      entity_id: 'switch.CHARGERNAME_cable_locked_permanently',
+      text: 'cable_locked'
     }, {
       entity_id: 'calculated',
-      text: 'Used Limit',
+      text: 'used_limit',
       unit: 'A',
       calc_function: 'min',
       calc_entities: [{
-        entity_id: 'sensor.easee_1_dynamic_charger_limit' // attribute: '',
-
+        entity_id: 'sensor.CHARGERNAME_dynamic_charger_limit'
       }, {
-        entity_id: 'sensor.easee_1_dynamic_circuit_limit' // attribute: '',
-
+        entity_id: 'sensor.CHARGERNAME_dynamic_circuit_limit'
       }, {
-        entity_id: 'sensor.easee_1_max_charger_limit' // attribute: '',
-
+        entity_id: 'sensor.CHARGERNAME_max_charger_limit'
       }, {
-        entity_id: 'sensor.easee_1_max_circuit_limit' // attribute: '',
-
+        entity_id: 'sensor.CHARGERNAME_max_circuit_limit'
       }, {
-        entity_id: 'sensor.easee_1_offline_circuit_limit' // attribute: '',
-
+        entity_id: 'sensor.CHARGERNAME_offline_circuit_limit'
       }]
     }],
     awaiting_start: [{
-      entity_id: 'sensor.easee_1_session_energy',
-      text: 'Energy'
+      entity_id: 'sensor.CHARGERNAME_session_energy',
+      text: 'session_energy'
     }, {
-      entity_id: 'binary_sensor.easee_1_basic_schedule',
-      text: 'Schedule'
+      entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
+      text: 'schedule'
     }, {
-      entity_id: 'switch.easee_1_smart_charging',
-      text: 'SmartCharging'
-    } // {
-    // entity_id: 'sensor.usedCurrentLimit',
-    // text: 'Schedule'
-    // }
-    ],
+      entity_id: 'switch.CHARGERNAME_smart_charging',
+      text: 'smart_charging'
+    }, {
+      entity_id: 'calculated',
+      text: 'used_limit',
+      unit: 'A',
+      calc_function: 'min',
+      calc_entities: [{
+        entity_id: 'sensor.CHARGERNAME_dynamic_charger_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_dynamic_circuit_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_max_charger_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_max_circuit_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_offline_circuit_limit'
+      }]
+    }],
     charging: [{
-      entity_id: 'sensor.easee_1_session_energy',
-      text: 'Energy'
+      entity_id: 'sensor.CHARGERNAME_session_energy',
+      text: 'session_energy'
     }, {
-      entity_id: 'sensor.easee_1_energy_per_hour',
-      text: 'Rate'
+      entity_id: 'sensor.CHARGERNAME_energy_per_hour',
+      text: 'energy_per_hour'
     }, {
-      entity_id: 'sensor.easee_1_circuit_current',
-      text: 'Circuit'
+      entity_id: 'sensor.CHARGERNAME_circuit_current',
+      text: 'circuit_current'
     }, {
-      entity_id: 'sensor.easee_1_output_limit',
+      entity_id: 'sensor.CHARGERNAME_output_limit',
       text: 'Allowed'
     }, {
-      entity_id: 'sensor.easee_1_current',
-      text: 'Actual'
+      entity_id: 'sensor.CHARGERNAME_current',
+      text: 'current'
     }, {
-      entity_id: 'sensor.easee_1_power',
-      text: 'Power'
+      entity_id: 'sensor.CHARGERNAME_power',
+      text: 'power'
     }],
     completed: [{
-      entity_id: 'sensor.easee_1_session_energy',
-      text: 'Energy'
+      entity_id: 'sensor.CHARGERNAME_session_energy',
+      text: 'session_energy'
     }, {
-      entity_id: 'binary_sensor.easee_1_basic_schedule',
-      text: 'Schedule'
+      entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
+      text: 'schedule'
+    }, {
+      entity_id: 'calculated',
+      text: 'used_limit',
+      unit: 'A',
+      calc_function: 'min',
+      calc_entities: [{
+        entity_id: 'sensor.CHARGERNAME_dynamic_charger_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_dynamic_circuit_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_max_charger_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_max_circuit_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_offline_circuit_limit'
+      }]
     }],
     error: [{
-      entity_id: 'sensor.easee_1_session_energy',
-      text: 'Energy'
+      entity_id: 'sensor.CHARGERNAME_session_energy',
+      text: 'session_energy'
     }, {
-      entity_id: 'binary_sensor.easee_1_basic_schedule',
-      text: 'Schedule'
+      entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
+      text: 'schedule'
     }],
     ready_to_charge: [{
-      entity_id: 'sensor.easee_1_session_energy',
-      text: 'Energy'
+      entity_id: 'sensor.CHARGERNAME_session_energy',
+      text: 'session_energy'
     }, {
-      entity_id: 'binary_sensor.easee_1_basic_schedule',
-      text: 'Schedule'
+      entity_id: 'binary_sensor.CHARGERNAME_basic_schedule',
+      text: 'schedule'
+    }, {
+      entity_id: 'calculated',
+      text: 'used_limit',
+      unit: 'A',
+      calc_function: 'min',
+      calc_entities: [{
+        entity_id: 'sensor.CHARGERNAME_dynamic_charger_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_dynamic_circuit_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_max_charger_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_max_circuit_limit'
+      }, {
+        entity_id: 'sensor.CHARGERNAME_offline_circuit_limit'
+      }]
     }]
   },
   // TOOLBAR
   toolbar_left: {
-    default: [{
-      service: 'persistent_notification.create',
-      service_data: {
-        message: 'test1',
-        title: 'test'
-      },
-      text: 'Schedule',
-      icon: 'hass:play-pause'
-    }, {
-      service: 'persistent_notification.create',
-      service_data: {
-        message: 'test1',
-        title: 'test'
-      },
-      text: 'Schedule',
-      icon: 'hass:motion-play'
-    }],
-    disconnected: [{
-      service: 'persistent_notification.create',
-      service_data: {
-        message: 'test1',
-        title: 'test'
-      },
-      text: 'Schedule',
-      icon: 'mdi:cancel'
-    }, {
-      service: 'persistent_notification.create',
-      service_data: {
-        message: 'test1',
-        title: 'test'
-      },
-      text: 'Schedule',
-      icon: 'mdi:cancel'
-    }],
+    default: [{}],
+    disconnected: [{}],
     awaiting_start: [{
-      service: 'persistent_notification.create',
+      service: 'easee.stop',
       service_data: {
-        message: 'test1',
-        title: 'test'
+        charger_id: 'EH123456'
       },
-      text: 'Schedule',
-      icon: 'hass:play-pause'
+      text: 'stop',
+      icon: 'hass:stop'
     }, {
-      service: 'persistent_notification.create',
+      service: 'easee.resume',
       service_data: {
-        message: 'test1',
-        title: 'test'
+        charger_id: 'EH123456'
       },
-      text: 'Schedule',
+      text: 'resume',
+      icon: 'hass:play'
+    }, {
+      service: 'easee.override_schedule',
+      service_data: {
+        charger_id: 'EH123456'
+      },
+      text: 'override',
       icon: 'hass:motion-play'
     }],
     charging: [{
-      service: 'persistent_notification.create',
+      service: 'easee.stop',
       service_data: {
-        message: 'test1',
-        title: 'test'
+        charger_id: 'EH123456'
       },
-      text: 'Schedule',
-      icon: 'hass:pause'
-    }, {
-      service: 'persistent_notification.create',
-      service_data: {
-        message: 'test1',
-        title: 'test'
-      },
-      text: 'Schedule',
+      text: 'stop',
       icon: 'hass:stop'
+    }, {
+      service: 'easee.pause',
+      service_data: {
+        charger_id: 'EH123456'
+      },
+      text: 'pause',
+      icon: 'hass:pause'
     }],
     completed: [{
-      service: 'persistent_notification.create',
+      service: 'easee.stop',
       service_data: {
-        message: 'test1',
-        title: 'test'
+        charger_id: 'EH123456'
       },
-      text: 'Schedule',
+      text: 'stop',
       icon: 'hass:stop'
     }, {
-      service: 'persistent_notification.create',
+      service: 'easee.override_schedule',
       service_data: {
-        message: 'test1',
-        title: 'test'
+        charger_id: 'EH123456'
       },
-      text: 'Schedule',
+      text: 'override',
       icon: 'hass:motion-play'
     }],
     error: [{
-      service: 'persistent_notification.create',
+      service: 'easee.reboot',
       service_data: {
-        message: 'test1',
-        title: 'test'
+        charger_id: 'EH123456'
       },
-      text: 'Schedule',
+      text: 'reboot',
       icon: 'hass:restart'
     }],
     ready_to_charge: [{
-      service: 'persistent_notification.create',
+      service: 'easee.stop',
       service_data: {
-        message: 'test1',
-        title: 'test'
+        charger_id: 'EH123456'
       },
-      text: 'Schedule',
+      text: 'stop',
       icon: 'hass:stop'
     }, {
+      service: 'easee.override_schedule',
+      service_data: {
+        charger_id: 'EH123456'
+      },
+      text: 'override',
+      icon: 'hass:motion-play'
+    }]
+  },
+  toolbar_right: {
+    default: [{
       service: 'persistent_notification.create',
       service_data: {
-        message: 'test1',
-        title: 'test'
+        message: 'Firmware update is available, but only possible when disconnected!',
+        title: 'Update'
       },
-      text: 'Schedule',
-      icon: 'hass:motion-play'
+      text: 'update',
+      icon: 'mdi:file-download',
+      conditional_entity: 'binary_sensor.CHARGERNAME_update_available'
+    }],
+    disconnected: [{
+      service: 'easee.update_firmware',
+      service_data: {
+        charger_id: 'EH123456'
+      },
+      text: 'update',
+      icon: 'mdi:file-download',
+      conditional_entity: 'binary_sensor.CHARGERNAME_update_available'
     }]
   }
 };
@@ -4012,25 +4203,6 @@ const DEFAULT_CONFIG$1 = {
 // Update charger-card-editor.js setCardConfigType switch-statement
 const MAIN_ENTITY_BASE = '_status';
 const DEFAULT_CONFIG = {
-  // TEMPLATE
-  // template: [{
-  //     entity_id: '',                  // entity id
-  //     attribute: '',                  // attribute is used as value if specified
-  //     unit: '',                       // unit if you want to override entity unit
-  //     unit_show: true,                // show unit next to value
-  //     unit_showontext: true,          // show unit next to value in tooltip text
-  //     text: '',                       // text to be used instead of entity friendly-name
-  //     service: '',                    // service on format 'domain.service'
-  //     service_data: {'test','test'},  // service data for the service call
-  //     icon: '',                       // icon to be used instead of entity icon
-  //     round: 0,                       // round to specified number of decimals (integer)
-  //     type: '',                       // type
-  //     calc_function: ''               // define entity_id as 'calculated' and specify min,max,mean,sum here to calculate
-  //     calc_entities: ''               // entities to calculate from above feature
-  //     conditional_entity: ''          // if you want the entity_id to be shown conditionally, specify a on/off or true/false sensor here
-  //     conditional_attribute: ''       // if you prefer the conditional showing of entity to be based on an attribute, define it here
-  //     conditional_invert: ''          // if you prefer to invert the conditional showing of an entity to show when false, invert by true
-  //   }],
   //NAME, LOCATION, STATUS ETC
   name: {
     entity_id: 'sensor.CHARGERNAME_status',
@@ -4491,7 +4663,7 @@ class ChargerCardEditor extends LitElement {
     return '';
   }
 
-  getAllEntities(type) {
+  getAllEntities() {
     return Object.keys(this.hass.states);
   }
 
@@ -4636,7 +4808,9 @@ class ChargerCardEditor extends LitElement {
       this._config = { ...this._config,
         ["prefix"]: this._config.entity.split('.')[1].replace(domainbase, '')
       };
-    } catch (err) {}
+    } catch (err) {
+      this.log('Error setting entity prefix.');
+    }
   } // getEntityId(entitybasename) {
   //   try {
   //     return (
@@ -4783,8 +4957,10 @@ var styles = css`
       --custom-card-background-color
     ); //var(--custom-primary-color);
     cursor: pointer;
-    overflow: hidden;
+    // overflow: hidden;  // Removed to show tooltips outside of card
     position: relative;
+    // height: auto;
+    height: 100%;
 
     // border-color: yellow;
     // border-style: solid;
@@ -4799,92 +4975,37 @@ var styles = css`
     position: relative;
     height: 220px;
 
-    // border-color: yellow;
-    // border-style: solid;
+    // // border-color: yellow;
+    // // border-style: solid;
   }
 
   .preview.not-available {
     filter: grayscale(1);
   }
 
-  @keyframes cleaning {
-    0% {
-      transform: rotate(0) translate(0);
-    }
-    5% {
-      transform: rotate(0) translate(0, -10px);
-    }
-    10% {
-      transform: rotate(0) translate(0, 5px);
-    }
-    15% {
-      transform: rotate(0) translate(0);
-    }
-    /* Turn left */
-    20% {
-      transform: rotate(30deg) translate(0);
-    }
-    25% {
-      transform: rotate(30deg) translate(0, -10px);
-    }
-    30% {
-      transform: rotate(30deg) translate(0, 5px);
-    }
-    35% {
-      transform: rotate(30deg) translate(0);
-    }
-    40% {
-      transform: rotate(0) translate(0);
-    }
-    /* Turn right */
-    45% {
-      transform: rotate(-30deg) translate(0);
-    }
-    50% {
-      transform: rotate(-30deg) translate(0, -10px);
-    }
-    55% {
-      transform: rotate(-30deg) translate(0, 5px);
-    }
-    60% {
-      transform: rotate(-30deg) translate(0);
-    }
-    70% {
-      transform: rotate(0deg) translate(0);
-    }
-    /* Staying still */
-    100% {
-      transform: rotate(0deg);
-    }
-  }
+  .image{
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
-  @keyframes returning {
-    0% {
-      transform: rotate(0);
-    }
-    25% {
-      transform: rotate(10deg);
-    }
-    50% {
-      transform: rotate(0);
-    }
-    75% {
-      transform: rotate(-10deg);
-    }
-    100% {
-      transform: rotate(0);
-    }
+
+
+    // border-color: yellow;
+    // border-style: dashed;
+
+
   }
 
   .charger {
-    display: block;
+    // display: block;
     max-width: 90%;
     max-height: 200px;
     image-rendering: crisp-edges;
     margin: 30px auto 20px auto;
 
-    // border-color: red;
-    // border-style: dashed;
+    // // border-color: red;
+    // // border-style: dashed;
   }
 
   .charger-compact {
@@ -4901,21 +5022,39 @@ var styles = css`
     left: 10px;
     top: 0px;
 
-    // border-color: red;
-    // border-style: dashed;
+    // // border-color: red;
+    // // border-style: dashed;
   }
 
   .charger.led {
+    visibility: visible;
+    display: block;
+    width: 2px;
+    position: relative;
+    top: -200px;
+
+    // display: block;
+    // position: relative;
+    // top: -175px;
+    // position: absolute;
+    // // top: 95px;
+    // // left: 245px;
+    // width: 2px;
+
+    // // border-color: red;
+    // // border-style: dashed;
+
+  }
+
+  .charger.led-hidden {
+    visibility: hidden;
+    display: block;
+    width: 2px;
     position: relative;
     top: -175px;
-    // position: absolute;
-    // top: 95px;
-    // left: 245px;
-    width: 2px;
 
-    // border-color: red;
-    // border-style: dashed;
   }
+
 
   .charger.led-compact {
     // position: relative;
@@ -4928,8 +5067,8 @@ var styles = css`
     top: 22px;
     width: 1.4px;
 
-    // border-color: red;
-    // border-style: dashed;
+    // // border-color: red;
+    // // border-style: dashed;
   }
 
   .charger.charging,
@@ -4954,7 +5093,7 @@ var styles = css`
   }
 
   .header {
-    height: 0px;
+    height: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -4973,7 +5112,7 @@ var styles = css`
     // transform: translate(-10px, 50%);
     color: var(--custom-text-color);
     top: 30px;
-    right: 20px;
+    right: 10px;
     position: absolute;
 
     // border-color: darkblue;
@@ -4981,30 +5120,58 @@ var styles = css`
   }
 
   .infoitems-left {
-    text-align: center;
-    color: var(--custom-text-color);
-
+    // display: flex;
     height: 250px;
     text-align: right;
+    // font-weight: bold;
     // transform: translate(10px, 50%);
+    color: var(--custom-text-color);
     top: 30px;
-    left: 20px;
+    left: 10px;
     position: absolute;
 
     // border-color: darkgreen;
     // border-style: dashed;
   }
 
-  .infoitems-item {
-    // display: flex;
+  .infoitems-item-info_right {
+    display: flex;
     // spacing: 0px 0 40
     // text-align: right;
+    justify-content: right;
     padding: 5px;
     font-weight: bold;
     color: var(--custom-text-color);
 
-    // border: 1px;
+    border: 1px;
     // border-style: dotted;
+  }
+
+  .infoitems-item-info_left {
+    display: flex;
+    // spacing: 0px 0 40
+    // text-align: right;
+    justify-content: left;
+    padding: 5px;
+    font-weight: bold;
+    color: var(--custom-text-color);
+
+    border: 1px;
+    // border-style: dotted;
+  }
+
+  .metadata {
+    display: block;
+    // margin: 20px auto;
+    // position: relative;
+    // top: -50px;
+    position: absolute;
+    justify-content: centre;
+    top: 270px;
+    width: 100%;
+
+    // border-color: pink;
+    // border-style: dashed;
   }
 
   .status {
@@ -5012,9 +5179,11 @@ var styles = css`
     align-items: center;
     justify-content: center;
     text-align: center;
+    // position: absolute;
 
-    // border-color: pink;
-    // border-style: dashed;
+
+    // // border-color: pink;
+    // // border-style: dashed;
   }
 
   .status-compact {
@@ -5037,8 +5206,8 @@ var styles = css`
     left: 160px;
     top: 65px;
 
-    // border-color: pink;
-    // border-style: dashed;
+    // // border-color: pink;
+    // // border-style: dashed;
   }
 
   .status-text {
@@ -5097,8 +5266,8 @@ var styles = css`
     color: var(--custom-text-color);
     font-size: 16px;
 
-    // border-color: grey;
-    // border-style: dashed;
+    // // border-color: grey;
+    // // border-style: dashed;
   }
 
   .charger-name-compact {
@@ -5113,8 +5282,8 @@ var styles = css`
     position: absolute;
     left: 160px;
     top: 55px;
-    // border-color: grey;
-    // border-style: dashed;
+    // // border-color: grey;
+    // // border-style: dashed;
   }
 
   .not-available {
@@ -5123,22 +5292,20 @@ var styles = css`
     font-size: 16px;
   }
 
-  .metadata {
-    display: block;
-    margin: 20px auto;
-    position: relative;
-    top: -50px;
-
-    // border-color: pink;
-    // border-style: dashed;
-  }
-
   .stats {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     color: var(--custom-text-color);
+    width: 100%;
+
+
+    // position: relative;
+    // top: 100px;
+    // top: 450px;
+    // top: 450px;
+
 
     // border-color: black;
     // border-style: dashed;
@@ -5156,8 +5323,8 @@ var styles = css`
     left: 0px;
     top: 160px;
 
-    // border-color: black;
-    // border-style: dashed;
+    // // border-color: black;
+    // // border-style: dashed;
   }
 
   .stats-block {
@@ -5165,8 +5332,8 @@ var styles = css`
     text-align: center;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     flex-grow: 1;
-    // border-color: black;
-    // border-style: dashed;
+    // // border-color: black;
+    // // border-style: dashed;
   }
 
   .stats-block:last-child {
@@ -5191,8 +5358,8 @@ var styles = css`
     flex-direction: row;
     justify-content: space-evenly;
 
-    // border-color: black;
-    // border-style: dashed;
+    // // border-color: black;
+    // // border-style: dashed;
   }
 
   .toolbar ha-icon-button {
@@ -5203,8 +5370,8 @@ var styles = css`
     --mdc-icon-button-size: 44px;
     margin: 5px 0;
 
-    // border-color: red;
-    // border-style: dashed;
+    // // border-color: red;
+    // // border-style: dashed;
   }
 
   .toolbar ha-icon-button:first-child {
@@ -5222,8 +5389,8 @@ var styles = css`
     padding: 10px;
     cursor: pointer;
 
-    // border-color: blue;
-    // border-style: dashed;
+    // // border-color: blue;
+    // // border-style: dashed;
   }
 
   .toolbar ha-icon-button:active,
@@ -5251,11 +5418,23 @@ var styles = css`
   }
 
   /* Tooltip text */
-  .tooltip {
-    position: relative;
-    display: inline-block;
+  .tooltip .tooltiptext-right {
+    visibility: hidden;
+    width: 160px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 1px 0;
+    position: absolute;
+    top: 110%;
+    right: -60px;
+    z-index: 1;
+    margin-left: -80px;
   }
 
+
+  /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 160px;
@@ -5265,22 +5444,23 @@ var styles = css`
     border-radius: 6px;
     padding: 1px 0;
     position: absolute;
-    z-index: 1;
     top: 110%;
-    left: 50%;
+    left: 20px;
+    z-index: 1;
     margin-left: -80px;
   }
 
-  .tooltip .tooltiptext::after {
+  .tooltip .tooltiptext::after, .tooltip-right .tooltiptext-right::after, .tooltip .tooltiptext-right::after {
     content: '';
     position: absolute;
     bottom: 100%;
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent black transparent;
+    // border-style: solid;
+    // border-color: transparent transparent black transparent;
   }
+
 
   .tooltip-right .tooltiptext-right {
     visibility: hidden;
@@ -5297,22 +5477,8 @@ var styles = css`
     right: 105%;
   }
 
-  .tooltip-right .tooltiptext-right::after {
-    content: ' ';
-    position: absolute;
-    top: 50%;
-    left: 100%; /* To the right of the tooltip */
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent transparent black;
-  }
 
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-  }
-
-  .tooltip-right:hover .tooltiptext-right {
+  .tooltip:hover .tooltiptext, .tooltip-right:hover .tooltiptext-right, .tooltip:hover .tooltiptext-right {
     visibility: visible;
   }
 
@@ -5375,8 +5541,8 @@ var styles = css`
     justify-content: space-evenly;
     color: var(--custom-text-color);
 
-    // border-style: solid;
-    // border-color: red;
+    // // border-style: solid;
+    // // border-color: red;
   }
 
   .collapsible-content .content-inner {
@@ -5395,8 +5561,8 @@ var styles = css`
     margin-left: auto;
     margin-right: auto;
 
-    // border-style: dashed;
-    // border-color: white;
+    // // border-style: dashed;
+    // // border-color: white;
   }
 
   .collapsible-item {
@@ -5406,7 +5572,7 @@ var styles = css`
     padding: 5px;
     // font-weight: bold;
     // border: 1px;
-    // border-style: dotted;
+    // // border-style: dotted;
     justify-content: center;
     vertical-align: middle;
   }
@@ -5427,8 +5593,8 @@ var styles = css`
     height: 30px;
     z-index: 1;
 
-    // border-style: dotted;
-    // border-color: darkblue;
+    // // border-style: dotted;
+    // // border-color: darkblue;
   }
 
   .toggle-info:checked + .lbl-toggle-info + .collapsible-content-info {
@@ -5450,8 +5616,8 @@ var styles = css`
     justify-content: space-evenly;
     color: var(--custom-text-color);
 
-    // border-style: solid;
-    // border-color: red;
+    // // border-style: solid;
+    // // border-color: red;
   }
 
   .collapsible-content-info .content-inner-info {
@@ -5470,14 +5636,14 @@ var styles = css`
     margin-left: auto;
     margin-right: auto;
 
-    // border-style: dashed;
-    // border-color: white;
+    // // border-style: dashed;
+    // // border-color: white;
   }
 
   // .wrap-collabsible-info {
   //   // display: flex;
   //   // margin-bottom: 1.2rem 0;
-  //   // border-style: solid;
+  //   // // border-style: solid;
   //   // min-height:0px;
   //   // max-height:300px;
   //   height: 50px;
@@ -5497,15 +5663,15 @@ var styles = css`
   //   // color: var(--custom-text-color);
   //   margin: auto;
 
-  //   border-color: black;
-  //   border-style: solid;
+  //   // border-color: black;
+  //   // border-style: solid;
 
   // }
 
   // .wrap-collabsible {
   //   // display: flex;
   //   // margin-bottom: 1.2rem 0;
-  //   // border-style: solid;
+  //   // // border-style: solid;
   //   // min-height:0px;
   //   // max-height:300px;
   //   height: 50px;
@@ -5525,8 +5691,8 @@ var styles = css`
   //   // color: var(--custom-text-color);
   //   margin: auto;
 
-  //   border-color: red;
-  //   border-style: solid;
+  //   // border-color: red;
+  //   // border-style: solid;
 
   // }
 
@@ -5576,8 +5742,8 @@ var styles = css`
     justify-content: space-evenly;
     color: var(--custom-text-color);
 
-    // border-style: solid;
-    // border-color: red;
+    // // border-style: solid;
+    // // border-color: red;
   }
 
   .collapsible-content-lim .content-inner-lim {
@@ -5597,14 +5763,14 @@ var styles = css`
     margin-right: auto;
     padding-bottom: 15px;
 
-    // border-style: dashed;
-    // border-color: white;
+    // // border-style: dashed;
+    // // border-color: white;
   }
 
   // .wrap-collabsible-lim {
   //   // display: flex;
   //   // margin-bottom: 1.2rem 0;
-  //   // border-style: solid;
+  //   // // border-style: solid;
   //   // min-height:0px;
   //   // max-height:300px;
   //   height: 50px;
@@ -5624,8 +5790,8 @@ var styles = css`
   //   // color: var(--custom-text-color);
   //   margin: auto;
 
-  //   border-color: black;
-  //   border-style: solid;
+  //   // border-color: black;
+  //   // border-style: solid;
 
   // }
 
@@ -5636,6 +5802,8 @@ var styles = css`
     // transition: max-height .25s ease-in-out;
   }
 `;
+
+// import * as template from './const_template.js';
 
 class ChargerCard extends LitElement {
   static get properties() {
@@ -5660,6 +5828,10 @@ class ChargerCard extends LitElement {
 
   static get styles() {
     return styles;
+  }
+
+  get brand() {
+    return this.config.brand;
   }
 
   get entity() {
@@ -5755,6 +5927,7 @@ class ChargerCard extends LitElement {
       return this.config.currentlimits;
     }
 
+    console.log(Array.isArray(this.config.currentlimits));
     return DEFAULT_CURRENTLIMITS;
   }
 
@@ -5884,11 +6057,21 @@ class ChargerCard extends LitElement {
     return data;
   }
 
+  loc(string, group = '', brand = null, search = '', replace = '') {
+    if (this.config.localize === undefined || this.config.localize == true) {
+      group = group != '' ? group + "." : group;
+      let debug = this.debug;
+      return localize(group + string, brand, search, replace, debug);
+    } else {
+      return string;
+    }
+  }
+
   getEntityCalcVal(calcfunc, entities) {
     var calc;
     var calc_array = [];
 
-    for (let [key, val] of Object.entries(entities)) {
+    for (let [val] of Object.entries(entities)) {
       let useval = val.attribute !== undefined ? this.getEntityAttr(val.entity_id, val.attribute) : this.getEntityState(val.entity_id);
       calc_array.push(Number(useval));
     }
@@ -5940,7 +6123,7 @@ class ChargerCard extends LitElement {
 
     try {
       return {
-        text: btns[button].text,
+        text: this.loc(btns[button].text, 'common', this.brand),
         icon: btns[button].icon
       };
     } catch (err) {
@@ -5959,7 +6142,7 @@ class ChargerCard extends LitElement {
     }
   }
 
-  math_sum = function (array) {
+  math_sum(array) {
     var total = 0;
 
     for (var i = 0; i < array.length; i++) {
@@ -5967,10 +6150,11 @@ class ChargerCard extends LitElement {
     }
 
     return total;
-  };
-  math_mean = function (array) {
+  }
+
+  math_mean(array) {
     return this.math_sum(array) / array.length;
-  };
+  }
 
   getEntity(entity_id) {
     try {
@@ -6042,10 +6226,9 @@ class ChargerCard extends LitElement {
     return this.callService(service, isRequest, service_data_mod);
   }
 
-  callService(service, isRequest = true, service_data = {}, domain = null) {
-    console.log(service);
-    console.log(service_data);
-
+  callService(service, isRequest = true, service_data = {}) {
+    // console.log(service);
+    // console.log(service_data);
     if (service === undefined || service === null) {
       console.error("Trying to call an empty service - please check your card configuration.");
       this.hass.callService("persistent_notification", "create", {
@@ -6074,19 +6257,20 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    return html` <img
+    return html`<div class='image'> <img
         class="charger${compactview}"
         src="${this.image}"
         @click="${() => this.handleMore()}"
         ?more-info="true"
-      />${this.renderLeds(state)}`;
+      />${this.renderLeds(state)}
+      </div>`;
   }
 
   renderLeds(state) {
-    if (!this.showLeds) {
-      return html``;
-    }
-
+    // if (!this.showLeds) {
+    //   return html``;
+    // }
+    var hide = this.showLeds === true ? '' : '-hidden';
     var carddatas = this.getCardData(this.config["smartcharging"]);
     var chargingmode = 'normal';
 
@@ -6096,16 +6280,16 @@ class ChargerCard extends LitElement {
 
     var imageled = LEDIMAGES[chargingmode][state] || LEDIMAGES[chargingmode]['DEFAULT'];
     var compactview = this.compactView ? '-compact' : '';
-    return html`<img class="charger led${compactview}" src="${imageled}" @click="${() => this.handleMore(carddatas.entity)}"?more-info="true"/> `;
+    return html`<img class="charger led${hide}${compactview}" src="${imageled}" @click="${() => this.handleMore(carddatas.entity)}"?more-info="true"/> `;
   }
 
   renderStats(state) {
     /* SHOW DATATABLE */
     if (!this.showStats) {
       return html``;
-    }
+    } // var compactview = this.compactView ? '-compact' : '';
 
-    var compactview = this.compactView ? '-compact' : '';
+
     var stats;
 
     if (this.config['stats'] !== undefined && this.config['stats'] !== null) {
@@ -6116,7 +6300,7 @@ class ChargerCard extends LitElement {
       stats = {};
     }
 
-    return html`<div class="stats${compactview}">
+    return html`
       ${Object.values(stats).map(stat => {
       return html`
             <div
@@ -6126,11 +6310,11 @@ class ChargerCard extends LitElement {
             >
               <span class="stats-value">${stat.useval}</span>
               ${stat.unit}
-              <div class="stats-subtitle">${stat.text}</div>
+              <div class="stats-subtitle">${this.loc(stat.text, 'common', this.brand)}</div>
             </div>
           `;
     })}
-      </div>`;
+      `;
   }
 
   renderName() {
@@ -6186,15 +6370,16 @@ class ChargerCard extends LitElement {
       status = typeof carddata_status == 'object' ? carddata_status.useval : carddata_status;
     } else {
       status = this.entity.state;
-    }
+    } // console.log(carddata_substatus.useval)
+
 
     if (carddata_substatus !== null && carddata_substatus !== undefined) {
       substatus = typeof carddata_substatus == 'object' ? carddata_substatus.useval : carddata_substatus;
     } //Localize and choose
 
 
-    status = status !== null ? this.statetext[status] || localize("status." + status) || status : '';
-    substatus = substatus !== null ? localize("substatus." + substatus) || substatus : '';
+    status = status !== null ? this.loc(status, "status", this.brand) || this.statetext[status] || status : '';
+    substatus = substatus !== null ? this.loc(substatus, "substatus", this.brand) || substatus : '';
     return html`
       <div class="status${compactview}" @click="${() => this.handleMore(carddata_status.entity || null)}"?more-info="true">
         <span class="status-text${compactview}" alt=${status}>${status}</span>
@@ -6219,7 +6404,7 @@ class ChargerCard extends LitElement {
         <label for="collapsible${style}" class="lbl-toggle${style}">
           <div class="tooltip-right">
             <ha-icon icon="${icon}"></ha-icon>
-            <span class="tooltiptext-right">${localize(tooltip)}</span>
+            <span class="tooltiptext-right">${this.loc(tooltip)}</span>
           </div>
         </label>
         <div class="collapsible-content${style}">
@@ -6247,7 +6432,7 @@ class ChargerCard extends LitElement {
           <div class="tooltip">
             <ha-icon icon="${carddata.icon}"></ha-icon>
             <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
-            <span class="tooltiptext">${carddata.text} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
+            <span class="tooltiptext">${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
           </div>
         </div>
       `;
@@ -6260,12 +6445,12 @@ class ChargerCard extends LitElement {
             <div class="tooltip">
               <ha-icon icon="${carddata.icon}"></ha-icon>
               <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
-              <span class="tooltiptext">${carddata.text} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
+              <span class="tooltiptext">${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
             </div>
           </div>
         `;
     } else if (itemtype === 'dropdown') {
-      const sources = DEFAULT_CURRENTLIMITS;
+      const sources = this.currentlimits;
       var selected = sources.indexOf(carddata.useval);
       return html`
           <paper-menu-button slot="dropdown-trigger" .noAnimations=${true} @click="${e => e.stopPropagation()}">
@@ -6273,7 +6458,7 @@ class ChargerCard extends LitElement {
               <div class="tooltip">
                 <ha-icon icon="${carddata.icon}"></ha-icon>
                 <br />${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
-                <span class="tooltiptext">${carddata.text} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
+                <span class="tooltiptext">${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? "(" + carddata.unit + ")" : ''}</span>
               </div>
             </paper-button>
             <paper-listbox slot="dropdown-content" selected=${selected} @click="${event => this.createServiceData(carddata.service, true, carddata.service_data, event)}">
@@ -6293,18 +6478,20 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
+    var tooltip = data == 'info_right' ? '-right' : '';
     return html`
       ${carddatas !== null ? Object.values(carddatas).map(carddata => {
       return html`
         <div
-        class='infoitems-item'
+        class='infoitems-item-${data}'
         @click='${() => this.handleMore(carddata.entity)}'
         ?more-info='true'
       >
         <div class='tooltip'>
-          <ha-icon icon='${carddata.icon}'></ha-icon>
+          <ha-icon icon=${data == 'info_left' ? carddata.icon : ''}></ha-icon>
           ${carddata.useval} ${carddata.unit_show ? carddata.unit : ''}
-          <span class='tooltiptext'>${carddata.text} ${carddata.unit_showontext ? '(' + carddata.unit + ')' : ''}</span>
+          <ha-icon icon=${data == 'info_right' ? carddata.icon : ''}></ha-icon>
+          <span class='tooltiptext${tooltip}'>${this.loc(carddata.text, "common", this.brand)} ${carddata.unit_showontext ? '(' + carddata.unit + ')' : ''}</span>
         </div>
       </div>
       `;
@@ -6323,10 +6510,10 @@ class ChargerCard extends LitElement {
     toolbardata_left = toolbardata_left !== null ? toolbardata_left[state] || toolbardata_left.default || [] : [];
     toolbardata_right = toolbardata_right !== null ? toolbardata_right[state] || toolbardata_right.default || [] : [];
     var toolbar_left = Object.values(toolbardata_left).map(btn => {
-      return this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data);
+      return btn.hide !== true ? this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data) : '';
     });
     var toolbar_right = Object.values(toolbardata_right).map(btn => {
-      return this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data);
+      return btn.hide !== true ? this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data) : '';
     });
     return html`
       <div class="toolbar">
@@ -6338,15 +6525,15 @@ class ChargerCard extends LitElement {
   }
 
   renderToolbarButton(service, icon, text, service_data = {}, isRequest = true) {
-    var usetext = localize(text) || text;
+    var usetext = this.loc(text, this.brand) || text;
     return html`
       <div class="tooltip">
         <ha-icon-button
-          title="${usetext}"
+          title="${this.loc(usetext, "common", this.brand)}"
           @click="${() => this.callService(service, isRequest, service_data)}"
           ><ha-icon icon="${icon}"></ha-icon
         ></ha-icon-button>
-        <span class="tooltiptext">${usetext}</span>
+        <span class="tooltiptext">${this.loc(usetext, "common", this.brand)}</span>
       </div>
     `;
   }
@@ -6363,7 +6550,9 @@ class ChargerCard extends LitElement {
             ${this.renderName()} ${this.renderStatus()}
           </div>
           <div class="infoitems">${this.renderMainInfoLeftRight('info_right')}</div>
-          ${this.renderStats(state)}
+          <div class="stats-compact">
+            ${this.renderStats(state)}
+          </div>
         </div>
         ${this.renderToolbar(state)}
       </ha-card>
@@ -6374,9 +6563,9 @@ class ChargerCard extends LitElement {
     var {
       state
     } = this.entity;
-    var btn1 = this.getCollapsibleButton('group1', 'common.click_for_limits', 'mdi:speedometer');
-    var btn2 = this.getCollapsibleButton('group2', 'common.click_for_info', 'mdi:information');
-    var btn3 = this.getCollapsibleButton('group3', 'common.click_for_config', 'mdi:cog');
+    var btn1 = this.getCollapsibleButton('group1', 'click_for_group1', 'mdi:speedometer');
+    var btn2 = this.getCollapsibleButton('group2', 'click_for_group2', 'mdi:information');
+    var btn3 = this.getCollapsibleButton('group3', 'click_for_group3', 'mdi:cog');
     return html`
       <ha-card>
         <div class="preview">
@@ -6391,7 +6580,9 @@ class ChargerCard extends LitElement {
             ${this.renderCollapsible('group1', btn1.icon, btn1.text, '-lim', 'dropdown')}
             ${this.renderCollapsible('group2', btn2.icon, btn2.text, '-info', 'info')}
             ${this.renderCollapsible('group3', btn3.icon, btn3.text, '', 'info')}
-            ${this.renderStats(state)}
+            <div class="stats">
+              ${this.renderStats(state)}
+            </div>
         </div>
         ${this.renderToolbar(state)}
       </ha-card>
@@ -6470,7 +6661,7 @@ class ChargerCard extends LitElement {
           <div class="preview not-available">
             <div class="metadata">
               <div class="not-available">
-                ${localize('common.not_available')}
+                ${localize('error.not_available')}
               </div>
             <div>
           </div>
