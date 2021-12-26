@@ -683,11 +683,11 @@ class ChargerCard extends LitElement {
     toolbardata_right = toolbardata_right !== null ? toolbardata_right[state] || toolbardata_right.default || [] : [];
 
     var toolbar_left = Object.values(toolbardata_left).map(btn => {
-      return this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data)
+      return btn.hide !== true ? this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data) : '';
     })
 
     var toolbar_right = Object.values(toolbardata_right).map(btn => {
-      return this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data)
+      return btn.hide !== true ? this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data) : '';
     })
 
     return html`
