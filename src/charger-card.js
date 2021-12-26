@@ -400,11 +400,17 @@ class ChargerCard extends LitElement {
   }
 
   createServiceData(service, isRequest, service_data, event) {
+    if (service === undefined || service === null || service_data === undefined || service_data === null) {
+      console.error("Trying to call an empty service or without service data - please check your card configuration.");
+      this.hass.callService("persistent_notification", "create", { title: "No service", message: "No service defined for this action or no service data given." });
+      return;
+    }
+
     var event_val = event.target.getAttribute('value');
     // event_val = Number.isNaN(Number(event_val)) ? event_val : Number(event_val); //TODO is this neccessary?
     var service_data_mod = {};
     for (let [key, val] of Object.entries(service_data)) {
-      service_data_mod[key] = val.replace('_val_', event_val);
+      service_data_mod[key] = val.replace(cconst.SERVICEVAL, event_val);
     }
     return this.callService(service, isRequest, service_data_mod)
   }

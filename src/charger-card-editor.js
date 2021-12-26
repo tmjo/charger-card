@@ -355,8 +355,8 @@ export class ChargerCardEditor extends LitElement {
     // Replace template with actual data
     try {
       var domainconfig_str = JSON.stringify(domainconfig);
-      domainconfig_str = this.replaceAll(domainconfig_str, 'ENTITYPREFIX', entityprefix);
-      domainconfig_str = this.replaceAll(domainconfig_str, 'SERVICEID', serviceid);
+      domainconfig_str = this.replaceAll(domainconfig_str, cconst.ENTITYPREFIX, entityprefix);
+      domainconfig_str = this.replaceAll(domainconfig_str, cconst.SERVICEID, serviceid);
       domainconfig = JSON.parse(domainconfig_str);
     } catch (err) {
       console.error("Something went wrong with the default setup, please check your YAML configuration or enable debugging to see details.")

@@ -6,6 +6,11 @@ export const CARDCONFIGTYPES = [
   'template',
 ];
 
+//Replacement tags
+export const ENTITYPREFIX = '#ENTITYPREFIX#';
+export const SERVICEID = '#SERVICEID#';
+export const SERVICEVAL = '#SERVICEVAL#';
+
 // TODO: Find a way to read device_class icons instead of this
 export const DEVICECLASS_ICONS = {
   voltage : 'mdi:sine-wave',

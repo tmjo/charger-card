@@ -29,22 +29,22 @@ export const DEFAULT_CONFIG = {
 
     //NAME, LOCATION, STATUS ETC
     name: {
-        entity_id: 'sensor.ENTITYPREFIX_status',
+        entity_id: 'sensor.#ENTITYPREFIX#_status',
         attribute: 'name',
     },
     location: {
-        entity_id: 'sensor.ENTITYPREFIX_status',
+        entity_id: 'sensor.#ENTITYPREFIX#_status',
         attribute: 'site_name',
     },
     status: {
-        entity_id: 'sensor.ENTITYPREFIX_status',
+        entity_id: 'sensor.#ENTITYPREFIX#_status',
     },
     substatus: {
-        entity_id: 'sensor.ENTITYPREFIX_reason_for_no_current',
+        entity_id: 'sensor.#ENTITYPREFIX#_reason_for_no_current',
     },
     smartcharging: {
         //controls white or blue leds
-        entity_id: 'switch.ENTITYPREFIX_smart_charging',
+        entity_id: 'switch.#ENTITYPREFIX#_smart_charging',
     },
 
     // OVERRIDE CURRENTLIMITS
@@ -70,16 +70,16 @@ export const DEFAULT_CONFIG = {
     //ICONS LEFT AND RIGHT
     info_left: [
         {
-        entity_id: 'binary_sensor.ENTITYPREFIX_online',
+        entity_id: 'binary_sensor.#ENTITYPREFIX#_online',
         text: 'online'
         }
     ],
     info_right: [
         {
-        entity_id: 'sensor.ENTITYPREFIX_voltage',
+        entity_id: 'sensor.#ENTITYPREFIX#_voltage',
         text: 'voltage'
         },{
-        entity_id: 'sensor.ENTITYPREFIX_power',
+        entity_id: 'sensor.#ENTITYPREFIX#_power',
         text: 'power'
         }
     ],
@@ -87,20 +87,22 @@ export const DEFAULT_CONFIG = {
     //LIMITS
     group1: [
         {
-            entity_id: 'sensor.ENTITYPREFIX_dynamic_charger_limit',
-            text: 'dyn_charger_limit'
+            entity_id: 'sensor.#ENTITYPREFIX#_dynamic_charger_limit',
+            text: 'dyn_charger_limit',
+            service: 'persistent_notification.create',
+            service_data: {message: 'Trying to set current limit: #SERVICEVAL#A!', title: 'Limit'},
         },
         {
-            entity_id: 'sensor.ENTITYPREFIX_dynamic_circuit_limit',
+            entity_id: 'sensor.#ENTITYPREFIX#_dynamic_circuit_limit',
             text: 'dyn_circuit_limit'
         },{
-            entity_id: 'sensor.ENTITYPREFIX_max_charger_limit',
+            entity_id: 'sensor.#ENTITYPREFIX#_max_charger_limit',
             text: 'max_charger_limit'
         },{
-            entity_id: 'sensor.ENTITYPREFIX_max_circuit_limit',
+            entity_id: 'sensor.#ENTITYPREFIX#_max_circuit_limit',
             text: 'max_circuit_limit'
         },{
-            entity_id: 'sensor.ENTITYPREFIX_offline_circuit_limit',
+            entity_id: 'sensor.#ENTITYPREFIX#_offline_circuit_limit',
             text: 'offline_circuit_limit'
         },
     ],
@@ -108,35 +110,35 @@ export const DEFAULT_CONFIG = {
     //INFO
     group2: [
         {
-            entity_id: 'binary_sensor.ENTITYPREFIX_online',
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_online',
             text: 'online'
         },
         {
-            entity_id: 'sensor.ENTITYPREFIX_voltage',
+            entity_id: 'sensor.#ENTITYPREFIX#_voltage',
             text: 'voltage'
         },
         {
-            entity_id: 'sensor.ENTITYPREFIX_power',
+            entity_id: 'sensor.#ENTITYPREFIX#_power',
             text: 'power'
         },
         {
-            entity_id: 'sensor.ENTITYPREFIX_current',
+            entity_id: 'sensor.#ENTITYPREFIX#_current',
             text: 'charger_current'
         },
         {
-            entity_id: 'sensor.ENTITYPREFIX_circuit_current',
+            entity_id: 'sensor.#ENTITYPREFIX#_circuit_current',
             text: 'circuit_current'
         },
         {
-            entity_id: 'sensor.ENTITYPREFIX_energy_per_hour',
+            entity_id: 'sensor.#ENTITYPREFIX#_energy_per_hour',
             text: 'energy_per_hour'
         },
         {
-            entity_id: 'sensor.ENTITYPREFIX_session_energy',
+            entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
             text: 'session_energy'
         },
         {
-            entity_id: 'sensor.ENTITYPREFIX_lifetime_energy',
+            entity_id: 'sensor.#ENTITYPREFIX#_lifetime_energy',
             text: 'lifetime_energy'
         },
     ],
@@ -144,35 +146,35 @@ export const DEFAULT_CONFIG = {
     //CONFIG
     group3: [
         {
-            entity_id: 'switch.ENTITYPREFIX_is_enabled',
+            entity_id: 'switch.#ENTITYPREFIX#_is_enabled',
             text: 'enabled'
         },
         {
-            entity_id: 'switch.ENTITYPREFIX_enable_idle_current',
+            entity_id: 'switch.#ENTITYPREFIX#_enable_idle_current',
             text: 'idle_current'
         },
         {
-            entity_id: 'binary_sensor.ENTITYPREFIX_cable_locked',
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_cable_locked',
             text: 'cable_locked'
         },
         {
-            entity_id: 'switch.ENTITYPREFIX_cable_locked_permanently',
+            entity_id: 'switch.#ENTITYPREFIX#_cable_locked_permanently',
             text: 'perm_cable_locked'
         },
         {
-            entity_id: 'switch.ENTITYPREFIX_smart_charging',
+            entity_id: 'switch.#ENTITYPREFIX#_smart_charging',
             text: 'smart_charging'
         },
         {
-            entity_id: 'sensor.ENTITYPREFIX_cost_per_kwh',
+            entity_id: 'sensor.#ENTITYPREFIX#_cost_per_kwh',
             text: 'cost_per_kwh'
         },
         {
-            entity_id: 'binary_sensor.ENTITYPREFIX_update_available',
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_update_available',
             text: 'update_available'
         },
         {
-            entity_id: 'binary_sensor.ENTITYPREFIX_basic_schedule',
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
             text: 'schedule'
         }
     ],
@@ -182,26 +184,26 @@ export const DEFAULT_CONFIG = {
 
         default: [
             {
-                entity_id: 'sensor.ENTITYPREFIX_session_energy',
+                entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
                 text: 'session_energy'
             },
             {
-                entity_id: 'switch.ENTITYPREFIX_cable_locked_permanently',
+                entity_id: 'switch.#ENTITYPREFIX#_cable_locked_permanently',
                 text: 'cable_locked'
             },
             {
-                entity_id: 'binary_sensor.ENTITYPREFIX_basic_schedule',
+                entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
                 text: 'schedule'
             }
         ],
 
         disconnected: [
             {
-                entity_id: 'sensor.ENTITYPREFIX_session_energy',
+                entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
                 text: 'session_energy'
             },
             {
-                entity_id: 'switch.ENTITYPREFIX_cable_locked_permanently',
+                entity_id: 'switch.#ENTITYPREFIX#_cable_locked_permanently',
                 text: 'cable_locked'
             },
             {
@@ -211,19 +213,19 @@ export const DEFAULT_CONFIG = {
                 calc_function: 'min',
                 calc_entities: [
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_dynamic_charger_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_dynamic_charger_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_dynamic_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_dynamic_circuit_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_max_charger_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_max_charger_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_max_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_max_circuit_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_offline_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_offline_circuit_limit',
                     },
                 ]
             }
@@ -231,15 +233,15 @@ export const DEFAULT_CONFIG = {
 
         awaiting_start: [
             {
-                entity_id: 'sensor.ENTITYPREFIX_session_energy',
+                entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
                 text: 'session_energy'
             },
             {
-                entity_id: 'binary_sensor.ENTITYPREFIX_basic_schedule',
+                entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
                 text: 'schedule'
             },
             {
-                entity_id: 'switch.ENTITYPREFIX_smart_charging',
+                entity_id: 'switch.#ENTITYPREFIX#_smart_charging',
                 text: 'smart_charging'
             },
             {
@@ -249,19 +251,19 @@ export const DEFAULT_CONFIG = {
                 calc_function: 'min',
                 calc_entities: [
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_dynamic_charger_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_dynamic_charger_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_dynamic_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_dynamic_circuit_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_max_charger_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_max_charger_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_max_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_max_circuit_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_offline_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_offline_circuit_limit',
                     },
                 ]
             }
@@ -269,38 +271,38 @@ export const DEFAULT_CONFIG = {
 
         charging: [
             {
-                entity_id: 'sensor.ENTITYPREFIX_session_energy',
+                entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
                 text: 'session_energy'
             },
             {
-                entity_id: 'sensor.ENTITYPREFIX_energy_per_hour',
+                entity_id: 'sensor.#ENTITYPREFIX#_energy_per_hour',
                 text: 'energy_per_hour'
             },
             {
-                entity_id: 'sensor.ENTITYPREFIX_circuit_current',
+                entity_id: 'sensor.#ENTITYPREFIX#_circuit_current',
                 text: 'circuit_current'
             },
             {
-                entity_id: 'sensor.ENTITYPREFIX_output_limit',
+                entity_id: 'sensor.#ENTITYPREFIX#_output_limit',
                 text: 'output_limit'
             },
             {
-                entity_id: 'sensor.ENTITYPREFIX_current',
+                entity_id: 'sensor.#ENTITYPREFIX#_current',
                 text: 'current'
             },
             {
-                entity_id: 'sensor.ENTITYPREFIX_power',
+                entity_id: 'sensor.#ENTITYPREFIX#_power',
                 text: 'power'
             }
         ],
 
         completed: [
             {
-                entity_id: 'sensor.ENTITYPREFIX_session_energy',
+                entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
                 text: 'session_energy'
             },
             {
-                entity_id: 'binary_sensor.ENTITYPREFIX_basic_schedule',
+                entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
                 text: 'schedule'
             },
             {
@@ -310,19 +312,19 @@ export const DEFAULT_CONFIG = {
                 calc_function: 'min',
                 calc_entities: [
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_dynamic_charger_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_dynamic_charger_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_dynamic_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_dynamic_circuit_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_max_charger_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_max_charger_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_max_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_max_circuit_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_offline_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_offline_circuit_limit',
                     },
                 ]
             }
@@ -330,21 +332,21 @@ export const DEFAULT_CONFIG = {
 
         error: [
             {
-                entity_id: 'sensor.ENTITYPREFIX_session_energy',
+                entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
                 text: 'session_energy'
             },
             {
-                entity_id: 'binary_sensor.ENTITYPREFIX_basic_schedule',
+                entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
                 text: 'schedule'
             }
         ],
         ready_to_charge: [
             {
-                entity_id: 'sensor.ENTITYPREFIX_session_energy',
+                entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
                 text: 'session_energy'
             },
             {
-                entity_id: 'binary_sensor.ENTITYPREFIX_basic_schedule',
+                entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
                 text: 'schedule'
             },
             {
@@ -354,19 +356,19 @@ export const DEFAULT_CONFIG = {
                 calc_function: 'min',
                 calc_entities: [
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_dynamic_charger_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_dynamic_charger_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_dynamic_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_dynamic_circuit_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_max_charger_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_max_charger_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_max_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_max_circuit_limit',
                     },
                     {
-                        entity_id: 'sensor.ENTITYPREFIX_offline_circuit_limit',
+                        entity_id: 'sensor.#ENTITYPREFIX#_offline_circuit_limit',
                     },
                 ]
             }
@@ -386,19 +388,19 @@ export const DEFAULT_CONFIG = {
         awaiting_start: [
             {
                 service: 'easee.stop',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'stop',
                 icon: 'hass:stop',
             },
             {
                 service: 'easee.resume',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'resume',
                 icon: 'hass:play',
             },
             {
                 service: 'easee.override_schedule',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'override',
                 icon: 'hass:motion-play',
             },
@@ -408,13 +410,13 @@ export const DEFAULT_CONFIG = {
         charging: [
             {
                 service: 'easee.stop',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'stop',
                 icon: 'hass:stop',
             },
             {
                 service: 'easee.pause',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'pause',
                 icon: 'hass:pause',
             },
@@ -423,13 +425,13 @@ export const DEFAULT_CONFIG = {
         completed: [
             {
                 service: 'easee.stop',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'stop',
                 icon: 'hass:stop',
             },
             {
                 service: 'easee.override_schedule',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'override',
                 icon: 'hass:motion-play',
             },
@@ -438,7 +440,7 @@ export const DEFAULT_CONFIG = {
         error: [
             {
                 service: 'easee.reboot',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'reboot',
                 icon: 'hass:restart',
             },
@@ -446,13 +448,13 @@ export const DEFAULT_CONFIG = {
         ready_to_charge: [
             {
                 service: 'easee.stop',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'stop',
                 icon: 'hass:stop',
             },
             {
                 service: 'easee.override_schedule',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'override',
                 icon: 'hass:motion-play',
             },
@@ -465,17 +467,17 @@ export const DEFAULT_CONFIG = {
                 service_data: {message: 'Firmware update is available, but only possible when disconnected!', title: 'Update'},
                 text: 'update',
                 icon: 'mdi:file-download',
-                conditional_entity: 'binary_sensor.ENTITYPREFIX_update_available',
+                conditional_entity: 'binary_sensor.#ENTITYPREFIX#_update_available',
             },
             ],
 
         disconnected: [
             {
                 service: 'easee.update_firmware',
-                service_data: {charger_id: 'SERVICEID'},
+                service_data: {charger_id: '#SERVICEID#'},
                 text: 'update',
                 icon: 'mdi:file-download',
-                conditional_entity: 'binary_sensor.ENTITYPREFIX_update_available',
+                conditional_entity: 'binary_sensor.#ENTITYPREFIX#_update_available',
             },
         ],
     },
