@@ -94,6 +94,7 @@
       "dyn_circuit_limit" : "Dyn kursstrøm",
       "max_charger_limit" : "Maks laderstrøm",
       "max_circuit_limit" : "Maks kursstrøm",
+      "output_limit" : "Tillatt strøm",
       "offline_circuit_limit" : "Maks offline kursstrøm",
       "used_limit": "Brukt limitering",
       "enabled" : "Aktivert",

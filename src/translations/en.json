@@ -94,6 +94,7 @@
       "dyn_circuit_limit" : "Dyn Circuit Limit",
       "max_charger_limit" : "Max Charger Limit",
       "max_circuit_limit" : "Max Circuit Limit",
+      "output_limit" : "Allowed current",
       "used_limit": "Used limit",
       "offline_circuit_limit" : "Max offline Circuit Limit",
       "enabled" : "Enabled",

@@ -68,16 +68,16 @@ export const DEFAULT_CONFIG = {
     info_left: [
         {
         entity_id: 'binary_sensor.CHARGERNAME_online',
-        text: 'Online'
+        text: 'online'
         }
     ],
     info_right: [
         {
         entity_id: 'sensor.CHARGERNAME_voltage',
-        text: 'Voltage'
+        text: 'voltage'
         },{
         entity_id: 'sensor.CHARGERNAME_power',
-        text: 'Power'
+        text: 'power'
         }
     ],
 
@@ -279,7 +279,7 @@ export const DEFAULT_CONFIG = {
             },
             {
                 entity_id: 'sensor.CHARGERNAME_output_limit',
-                text: 'Allowed'
+                text: 'output_limit'
             },
             {
                 entity_id: 'sensor.CHARGERNAME_current',
