@@ -150,7 +150,7 @@ export class ChargerCardEditor extends LitElement {
           </paper-listbox>
         </paper-dropdown-menu>
 
-        <paper-dropdown-menu label="${localize('editor.brand')}" @value-changed=${this.setCardConfigType} .configValue=${'brand'}>
+        <paper-dropdown-menu label="${localize('editor.brand')}" @value-changed=${this.setConfigDetails} .configValue=${'brand'}>
           <paper-listbox slot="dropdown-content" .selected=${cconst.CARDCONFIGTYPES.findIndex(brand => brand.domain === this.get_config("brand"))}>
             ${Object.values(cconst.CARDCONFIGTYPES).map(brand => {
               return html` <paper-item>${brand.domain}</paper-item> `;
@@ -289,7 +289,7 @@ export class ChargerCardEditor extends LitElement {
   }
 
 
-  setCardConfigType(ev) {
+  setConfigDetails(ev) {
     // SKIP EQUAL OR EMPTY BRAND CONFIG
     if (this._config["brand"] == ev.target.value || ev.target.value == '') return;
 
@@ -336,14 +336,24 @@ export class ChargerCardEditor extends LitElement {
     this.log("domain: " + brand +", entityprefix: " +entityprefix +", serviceid: " +serviceid);
     this.log(domainconfig);
 
+
     // Set config
+    let details = {};
     for (let data in domainconfig) {
-      this._config = {
-        ...this._config,
-        [`${data}`]:
-          domainconfig[data],
-      };
+      details[`${data}`] = domainconfig[data];
     }
+
+    this._config = { ...this._config, details};
+
+
+    // // Set config
+    // for (let data in domainconfig) {
+    //   this._config = {
+    //     ...this._config,
+    //     [`${data}`]:
+    //       domainconfig[data],
+    //   };
+    // }
 
 
 

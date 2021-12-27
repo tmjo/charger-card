@@ -113,16 +113,16 @@ class ChargerCard extends LitElement {
   }
 
   get currentlimits() {
-    if (this.config.currentlimits !== undefined && Array.isArray(this.config.currentlimits)) {
-      return this.config.currentlimits;
+    if (this.config.currentlimits !== undefined && Array.isArray(this.config.details.currentlimits)) {
+      return this.config.details.currentlimits;
     }
-    console.log(Array.isArray(this.config.currentlimits))
+    console.log(Array.isArray(this.config.details.currentlimits))
     return cconst.DEFAULT_CURRENTLIMITS;
   }
 
   get statetext() {
-    if (this.config.statetext !== undefined && typeof this.config.statetext == 'object') {
-      return this.config.statetext;
+    if (this.config.details.statetext !== undefined && typeof this.config.details.statetext == 'object') {
+      return this.config.details.statetext;
     }
     return [{}];
   }
@@ -302,7 +302,7 @@ class ChargerCard extends LitElement {
   }
 
   getCollapsibleButton(button, deftext, deficon) {
-    var btns = this.config.collapsiblebuttons;
+    var btns = this.config.details.collapsiblebuttons;
     try {
       return { text: this.loc(btns[button].text, 'common', this.brand), icon: btns[button].icon };
     } catch (err) {
@@ -453,7 +453,7 @@ class ChargerCard extends LitElement {
     // }
     var hide = this.showLeds === true ? '' : '-hidden';
 
-    var carddatas = this.getCardData(this.config["smartcharging"]);
+    var carddatas = this.getCardData(this.config.details["smartcharging"]);
     var chargingmode = 'normal';
     if (carddatas !== null && carddatas !== undefined && typeof carddatas === 'object' && carddatas.entity !== null) {
       chargingmode = carddatas.entity.state == 'on' ? 'smart' : 'normal';
@@ -501,8 +501,8 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    var carddata_name = this.getCardData(this.config["name"]);
-    var carddata_location = this.getCardData(this.config["location"]);
+    var carddata_name = this.getCardData(this.config.details["name"]);
+    var carddata_location = this.getCardData(this.config.details["location"]);
     var name;
     var location;
     var moreEntity = null;
@@ -537,8 +537,8 @@ class ChargerCard extends LitElement {
     if (!this.showStatus) {
       return html``;
     }
-    var carddata_status = this.getCardData(this.config["status"]);
-    var carddata_substatus = this.getCardData(this.config["substatus"]);
+    var carddata_status = this.getCardData(this.config.details["status"]);
+    var carddata_substatus = this.getCardData(this.config.details["substatus"]);
     var status =null, substatus=null;
     var compactview = this.compactView ? '-compact' : '';
 
@@ -574,7 +574,7 @@ class ChargerCard extends LitElement {
     if (!this.showCollapsibles) {
       return html``;
     }
-    var carddatas = this.getCardData(this.config[group]);
+    var carddatas = this.getCardData(this.config.details[group]);
     return html`
       <div class="wrap-collabsible${style}">
         <input id="collapsible${style}" class="toggle${style}" type="checkbox" />
@@ -649,7 +649,7 @@ class ChargerCard extends LitElement {
   }
 
   renderMainInfoLeftRight(data) {
-    var carddatas = this.getCardData(this.config[data]);
+    var carddatas = this.getCardData(this.config.details[data]);
     if (carddatas === null || carddatas === undefined || typeof carddatas !== 'object') {
       return html``;
     }
@@ -683,8 +683,8 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    var toolbardata_left = this.getCardData(this.config.toolbar_left);
-    var toolbardata_right = this.getCardData(this.config.toolbar_right);
+    var toolbardata_left = this.getCardData(this.config.details.toolbar_left);
+    var toolbardata_right = this.getCardData(this.config.details.toolbar_right);
     toolbardata_left = toolbardata_left !== null ? toolbardata_left[state] || toolbardata_left.default || [] : [];
     toolbardata_right = toolbardata_right !== null ? toolbardata_right[state] || toolbardata_right.default || [] : [];
 
