@@ -43,9 +43,9 @@
   "easee": {
     "status" : {
       "disconnected": "Disconnected",
-      "awaiting_start": "Paused or awaiting start",
+      "awaiting_start": "Paused/awaiting start",
       "charging": "Charging",
-      "completed": "Completed or awaiting car",
+      "completed": "Completed/awaiting car",
       "error": "Error",
       "ready_to_charge": "Ready to charge"
     },
@@ -90,14 +90,14 @@
       "energy_per_hour": "Energy per Hour",
       "session_energy": "Session energy",
       "lifetime_energy": "Lifetime Energy",
-      "circuit_current": "Circuit Energy",
+      "circuit_current": "Circuit Current",
       "dyn_charger_limit" : "Dyn Charger Limit",
       "dyn_circuit_limit" : "Dyn Circuit Limit",
       "max_charger_limit" : "Max Charger Limit",
       "max_circuit_limit" : "Max Circuit Limit",
       "output_limit" : "Allowed current",
       "used_limit": "Used limit",
-      "offline_circuit_limit" : "Max offline Circuit Limit",
+      "offline_circuit_limit" : "Offline Circuit Limit",
       "enabled" : "Enabled",
       "idle_current" : "Idle current",
       "cable_locked" : "Cable locked",
