@@ -1,15 +1,52 @@
+import * as easee from './const_easee.js';
+import * as template from './const_template.js';
+
+
 export const VERSION = '0.0.14';
-export const CARDCONFIGTYPES = [
-  'easee',
-  'vw_egolf',
-  'test',
-  'template',
-];
 
 //Replacement tags
 export const ENTITYPREFIX = '#ENTITYPREFIX#';
 export const SERVICEID = '#SERVICEID#';
+export const SERVICEID_ENTITY = '#SERVICEID_MAIN_ENTITY#';
+export const SERVICEID_STATE = '#SERVICEID_MAIN_STATE#';
+export const SERVICEID_ATTR = '#SERVICEID_MAIN_ATTR#';
 export const SERVICEVAL = '#SERVICEVAL#';
+
+
+export const CARDCONFIGTYPES = [
+  {
+    'domain': 'easee',
+    'name': 'Easee charger',
+    'domainconfig': easee.DEFAULT_CONFIG,
+    'domainbase': easee.MAIN_ENTITY_BASE,
+    'serviceid': SERVICEID_ATTR,
+    'serviceid_data': {entity: null, attr: 'id' },
+  },
+  {
+    'domain': 'vw_egolf',
+    'name': 'VW e-golf',
+    'domainconfig': template.DEFAULT_CONFIG,
+    'domainbase': template.MAIN_ENTITY_BASE,
+    'serviceid': SERVICEID_ATTR,
+    'serviceid_data': {entity: null, attr: 'id' },
+  },
+  {
+    'domain': 'test',
+    'name': 'Test',
+    'domainconfig': easee.DEFAULT_CONFIG,
+    'domainbase': easee.MAIN_ENTITY_BASE,
+    'serviceid': SERVICEID_STATE,
+    'serviceid_data': {entity: null, attr: null },
+  },
+  {
+    'domain': 'template',
+    'name': 'Template',
+    'domainconfig': template.DEFAULT_CONFIG,
+    'domainbase': template.MAIN_ENTITY_BASE,
+    'serviceid': SERVICEID_STATE,
+    'serviceid_data': {entity: null, attr: 'id' },
+  },
+];
 
 // TODO: Find a way to read device_class icons instead of this
 export const DEVICECLASS_ICONS = {
