@@ -2,7 +2,7 @@
 
 export const MAIN_ENTITY_BASE = '_status';  //Defines what should be replaced from main entity name to use as template for other entities
 export const DEFAULT_CONFIG = {             //To override card config when template selected
-    show_leds: true,
+    show_leds: false,
 }
 
 export const DEFAULT_DETAILS = {

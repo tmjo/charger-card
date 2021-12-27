@@ -17,14 +17,16 @@ export const CARDCONFIGTYPES = [
   {
     'domain': 'easee',
     'name': 'Easee charger',
+    'defaults': easee.DEFAULT_CONFIG,
     'domainconfig': easee.DEFAULT_DETAILS,
     'domainbase': easee.MAIN_ENTITY_BASE,
     'serviceid': SERVICEID_ATTR,
     'serviceid_data': {entity: null, attr: 'id' },
   },
   {
-    'domain': 'vw_egolf',
+    'domain': 'vwegolf',
     'name': 'VW e-golf',
+    'defaults': template.DEFAULT_CONFIG,
     'domainconfig': template.DEFAULT_DETAILS,
     'domainbase': template.MAIN_ENTITY_BASE,
     'serviceid': SERVICEID_ATTR,
@@ -33,6 +35,7 @@ export const CARDCONFIGTYPES = [
   {
     'domain': 'test',
     'name': 'Test',
+    'defaults': easee.DEFAULT_CONFIG,
     'domainconfig': easee.DEFAULT_DETAILS,
     'domainbase': easee.MAIN_ENTITY_BASE,
     'serviceid': SERVICEID_STATE,
@@ -41,6 +44,7 @@ export const CARDCONFIGTYPES = [
   {
     'domain': 'template',
     'name': 'Template',
+    'defaults': template.DEFAULT_CONFIG,
     'domainconfig': template.DEFAULT_DETAILS,
     'domainbase': template.MAIN_ENTITY_BASE,
     'serviceid': SERVICEID_STATE,
