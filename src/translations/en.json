@@ -110,6 +110,21 @@
     }
   },
 
+  "vwegolf": {
+    "status" : {
+      "home": "Home",
+      "away": "Away"
+    },
+    "substatus" : {
+      "ok": "Ok"
+    },
+    "common" : {
+      "click_for_group1": "Click for Locks",
+      "click_for_group2": "Click for Info",
+      "click_for_group3": "Click for Config",
+      "soc": "%SOC"
+    }
+  },
 
 
   "test": {
