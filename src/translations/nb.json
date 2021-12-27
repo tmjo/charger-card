@@ -6,7 +6,8 @@
   "error": {
     "missing_entity": "Du må angi en hovedentitet!",
     "not_available": "Utilgjengelig",
-    "missing_config": "Feil i konfigurasjon!"
+    "missing_config": "Feil i konfigurasjon!",
+    "missing_group": "No entities defined in grou.!"
   },
   "editor": {
     "instruction": "Velg din hovedentitet og ladertype/merke. Kortet vil automatisk forsøke å finne øvrige sensorer. Hvis du har ett merke som ikke er støttet kan du velge «Template» og gjøre mappingen manuelt selv. Hvis noe feiler, verifiser konfigurasjonen i YAML-editoren (trykk «Vis koderedigering»).",
