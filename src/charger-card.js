@@ -4,9 +4,6 @@ import './charger-card-editor';
 import localize from './localize';
 import styles from './styles';
 import * as cconst from './const';
-// import * as easee from './const_easee.js';
-// import * as template from './const_template.js';
-
 
 class ChargerCard extends LitElement {
   static get properties() {
