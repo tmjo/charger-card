@@ -487,7 +487,7 @@ class ChargerCard extends LitElement {
               ?more-info="true"
             >
               <span class="stats-value">${stat.useval}</span>
-              ${stat.unit}
+              ${stat.unit_show ? stat.unit : ''}
               <div class="stats-subtitle">${this.loc(stat.text, 'common', this.brand)}</div>
             </div>
           `;
@@ -528,7 +528,7 @@ class ChargerCard extends LitElement {
         @click="${() => this.handleMore(moreEntity)}"
         ?more-info="true"
       >
-        ${name}${combinator}${location}
+        ${name}${carddata_name.unit_show ? carddata_name.unit : ''}${combinator}${location}${carddata_location.unit_show ? carddata_location.unit : ''}
       </div>
     `;
   }
@@ -560,10 +560,10 @@ class ChargerCard extends LitElement {
 
     return html`
       <div class="status${compactview}" @click="${() => this.handleMore(carddata_status.entity || null)}"?more-info="true">
-        <span class="status-text${compactview}" alt=${status}>${status}</span>
+        <span class="status-text${compactview}" alt=${status}>${status}${carddata_status.unit_show ? carddata_status.unit : ''}</span>
         <ha-circular-progress .active=${this.requestInProgress} size="small"></ha-circular-progress>
         <div class="status-detail-text${compactview}" alt=${substatus} @click="${() => this.handleMore(carddata_substatus.entity || null)}"?more-info="true">
-          ${substatus}
+          ${substatus}${carddata_substatus.unit_show ? carddata_substatus.unit : ''}
         </div>
       </div>
     `;
