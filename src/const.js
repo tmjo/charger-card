@@ -1,5 +1,6 @@
 import * as easee from './const_easee.js';
 import * as template from './const_template.js';
+import * as vwegolf from './const_vwegolf.js';
 
 
 export const VERSION = '0.0.14';
@@ -26,11 +27,11 @@ export const CARDCONFIGTYPES = [
   {
     'domain': 'vwegolf',
     'name': 'VW e-golf',
-    'defaults': template.DEFAULT_CONFIG,
-    'domainconfig': template.DEFAULT_DETAILS,
-    'domainbase': template.MAIN_ENTITY_BASE,
+    'defaults': vwegolf.DEFAULT_CONFIG,
+    'domainconfig': vwegolf.DEFAULT_DETAILS,
+    'domainbase': vwegolf.MAIN_ENTITY_BASE,
     'serviceid': SERVICEID_ATTR,
-    'serviceid_data': {entity: null, attr: 'id' },
+    'serviceid_data': {entity: null, attr: null },
   },
   {
     'domain': 'test',

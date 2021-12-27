@@ -1,13 +1,13 @@
 /** VOLKSWAGEN e-GOLF */
 
-export const MAIN_ENTITY_BASE = '_status';  //Defines what should be replaced from main entity name to use as template for other entities
+export const MAIN_ENTITY_BASE = '_position';  //Defines what should be replaced from main entity name to use as template for other entities
 export const DEFAULT_CONFIG = {
     show_leds: false,
 }
 
 export const DEFAULT_DETAILS = {
     //NAME, LOCATION, STATUS ETC
-    name: 'e-Golf'
+    name: 'e-Golf',
     status: {
         entity_id: 'device_tracker.#ENTITYPREFIX#_position',
     },
@@ -20,12 +20,8 @@ export const DEFAULT_DETAILS = {
 
     // OVERRIDE STATE TEXT - also overrides translation
     statetext: {
-        disconnected: 'disconnected',
-        awaiting_start: 'awaiting_start',
-        charging: 'charging',
-        completed: 'completed',
-        error: 'error',
-        ready_to_charge: 'ready_to_charge',
+        home: 'home',
+        away: 'away',
     },
 
     // OVERRIDE COLLAPSIBLE BUTTON ICONS AND TOOLTIP TEXT
@@ -49,7 +45,7 @@ export const DEFAULT_DETAILS = {
         },{
             entity_id: 'switch.#ENTITYPREFIX#_charging',
             text: 'charging',
-            icon: mdi:ev-station,
+            icon: 'mdi:ev-station',
         },{
             entity_id: 'sensor.#ENTITYPREFIX#_charging_time_left',
             text: 'time_left',
