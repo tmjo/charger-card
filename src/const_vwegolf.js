@@ -40,8 +40,9 @@ export const DEFAULT_DETAILS = {
     ],
     info_right: [
         {
-            entity_id: 'sensor.#ENTITYPREFIX#_battery_levele',
-            text: 'soc'
+            entity_id: 'sensor.#ENTITYPREFIX#_battery_level',
+            text: 'soc',
+            unit_show: true,
         },{
             entity_id: 'switch.#ENTITYPREFIX#_charging',
             text: 'charging',
@@ -49,6 +50,7 @@ export const DEFAULT_DETAILS = {
         },{
             entity_id: 'sensor.#ENTITYPREFIX#_charging_time_left',
             text: 'time_left',
+            unit_show: true,
         }
     ],
 
