@@ -11,12 +11,13 @@ export const DEFAULT_DETAILS = {
     status: {
         entity_id: 'device_tracker.#ENTITYPREFIX#_position',
     },
-    substatus: {
-        entity_id: 'binary_sensor.#ENTITYPREFIX#_request_in_progress',
+    location: {
+        entity_id: 'sensor.#ENTITYPREFIX#_electric_range',
+        unit_show: true,
     },
-
-    // OVERRIDE CURRENTLIMITS
-    currentlimits: [0, 6, 10, 16, 20, 25, 32],
+    substatus: {
+        entity_id: 'sensor.#ENTITYPREFIX#_last_connected',
+    },
 
     // OVERRIDE STATE TEXT - also overrides translation
     statetext: {
@@ -26,7 +27,7 @@ export const DEFAULT_DETAILS = {
 
     // OVERRIDE COLLAPSIBLE BUTTON ICONS AND TOOLTIP TEXT
     collapsiblebuttons: {
-            group1: { text: 'click_for_group1', icon: 'mdi:speedometer' },
+            group1: { text: 'click_for_group1', icon: 'mdi:lock' },
             group2: { text: 'click_for_group2', icon: 'mdi:information' },
             group3: { text: 'click_for_group3', icon: 'mdi:cog' },
         },
@@ -49,13 +50,39 @@ export const DEFAULT_DETAILS = {
             icon: 'mdi:ev-station',
         },{
             entity_id: 'sensor.#ENTITYPREFIX#_charging_time_left',
-            text: 'time_left',
+            text: 'charging_time_left',
             unit_show: true,
         }
     ],
 
     //LIMITS
     group1: [
+        {
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_charging_cable_locked',
+            text: 'cable_locked',
+            type: 'info',
+        },
+        {
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_doors_locked',
+            text: 'doors_locked',
+            type: 'info',
+        },
+        {
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_hood_closed',
+            text: 'hood_closed',
+            type: 'info',
+        },
+        {
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_trunk_closed',
+            text: 'trunk_closed',
+            type: 'info',
+        },
+        {
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_windows_closed',
+            text: 'windows_closed',
+            type: 'info',
+        },
+
     ],
 
     //INFO
@@ -67,10 +94,6 @@ export const DEFAULT_DETAILS = {
         {
             entity_id: 'binary_sensor.#ENTITYPREFIX#_charging_cable_connected',
             text: 'connected'
-        },
-        {
-            entity_id: 'binary_sensor.#ENTITYPREFIX#_charging_cable_locked',
-            text: 'cable_locked'
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_electric_range',
@@ -89,16 +112,20 @@ export const DEFAULT_DETAILS = {
             text: 'avg_consumption'
         },
         {
+            entity_id: 'sensor.#ENTITYPREFIX#_last_trip_average_speed',
+            text: 'avg_speed'
+        },
+        {
             entity_id: 'sensor.#ENTITYPREFIX#_outside_temperature',
             text: 'outside_temperature'
         },
         {
-            entity_id: 'sensor.#ENTITYPREFIX#_odometer',
-            text: 'odometer'
-        },
-        {
             entity_id: 'sensor.#ENTITYPREFIX#_climatisation_target_temperature',
             text: 'climate_target_temp'
+        },
+        {
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_parking_light',
+            text: 'parking_light'
         },
     ],
 
@@ -167,13 +194,17 @@ export const DEFAULT_DETAILS = {
                 text: 'avg_consumption'
             },
             {
-                entity_id: 'binary_sensor.#ENTITYPREFIX#_charging_cable_connected',
-                text: 'connected'
+                entity_id: 'sensor.#ENTITYPREFIX#_charging_time_left',
+                text: 'charging_time_left'
             },
 
         ],
 
         away: [
+            {
+                entity_id: 'sensor.#ENTITYPREFIX#_odometer',
+                text: 'odometer'
+            },
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_last_connected',
                 text: 'last_connected'
@@ -183,8 +214,8 @@ export const DEFAULT_DETAILS = {
                 text: 'range'
             },
             {
-                entity_id: 'sensor.#ENTITYPREFIX#_electric_range',
-                text: 'range'
+                entity_id: 'sensor.#ENTITYPREFIX#_last_trip_average_electric_engine_consumption',
+                text: 'avg_consumption'
             },
         ],
 
@@ -196,105 +227,49 @@ export const DEFAULT_DETAILS = {
             {},
             ],
 
-        disconnected: [
-            {},
-        ],
-
-        awaiting_start: [
+        home: [
             {
-                service: 'easee.stop',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'stop',
-                icon: 'hass:stop',
-            },
-            {
-                service: 'easee.resume',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'resume',
-                icon: 'hass:play',
-            },
-            {
-                service: 'easee.override_schedule',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'override',
-                icon: 'hass:motion-play',
+                service: 'switch.toggle',
+                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_charging'},
+                text: 'toggle_charging',
+                icon: 'mdi:ev-station',
             },
 
         ],
 
-        charging: [
+        away: [
             {
-                service: 'easee.stop',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'stop',
-                icon: 'hass:stop',
+                service: 'switch.toggle',
+                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_charging'},
+                text: 'toggle_charging',
+                icon: 'mdi:ev-station',
             },
             {
-                service: 'easee.pause',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'pause',
-                icon: 'hass:pause',
+                service: 'switch.toggle',
+                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_electric_climatisation'},
+                text: 'toggle_clima',
+                icon: 'mdi:radiator',
             },
+            {
+                service: 'switch.toggle',
+                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_window_heater'},
+                text: 'toggle_window_heater',
+                icon: 'mdi:car-defrost-rear',
+            },
+
         ],
 
-        completed: [
-            {
-                service: 'easee.stop',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'stop',
-                icon: 'hass:stop',
-            },
-            {
-                service: 'easee.override_schedule',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'override',
-                icon: 'hass:motion-play',
-            },
-        ],
-
-        error: [
-            {
-                service: 'easee.reboot',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'reboot',
-                icon: 'hass:restart',
-            },
-        ],
-        ready_to_charge: [
-            {
-                service: 'easee.stop',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'stop',
-                icon: 'hass:stop',
-            },
-            {
-                service: 'easee.override_schedule',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'override',
-                icon: 'hass:motion-play',
-            },
-        ],
     },
     toolbar_right: {
         default: [
             {
-                service: 'persistent_notification.create',
-                service_data: {message: 'Firmware update is available, but only possible when disconnected!', title: 'Update'},
-                text: 'update',
-                icon: 'mdi:file-download',
-                conditional_entity: 'binary_sensor.#ENTITYPREFIX#_update_available',
+                service: 'switch.toggle',
+                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_force_data_refresh'},
+                text: 'force_refresh',
+                icon: 'mdi:car-connected',
             },
             ],
 
-        disconnected: [
-            {
-                service: 'easee.update_firmware',
-                service_data: {charger_id: '#SERVICEID#'},
-                text: 'update',
-                icon: 'mdi:file-download',
-                conditional_entity: 'binary_sensor.#ENTITYPREFIX#_update_available',
-            },
-        ],
     },
 
 };
