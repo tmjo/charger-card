@@ -69,17 +69,19 @@ export const DEFAULT_DETAILS = {
     //ICONS LEFT AND RIGHT
     info_left: [
         {
-        entity_id: 'binary_sensor.#ENTITYPREFIX#_online',
-        text: 'online'
+            entity_id: 'binary_sensor.#ENTITYPREFIX#_online',
+            text: 'online',
         }
     ],
     info_right: [
         {
-        entity_id: 'sensor.#ENTITYPREFIX#_voltage',
-        text: 'voltage'
+            entity_id: 'sensor.#ENTITYPREFIX#_voltage',
+            text: 'voltage',
+            unit_show: true,
         },{
-        entity_id: 'sensor.#ENTITYPREFIX#_power',
-        text: 'power'
+            entity_id: 'sensor.#ENTITYPREFIX#_power',
+            text: 'power',
+            unit_show: true,
         }
     ],
 
@@ -88,21 +90,29 @@ export const DEFAULT_DETAILS = {
         {
             entity_id: 'sensor.#ENTITYPREFIX#_dynamic_charger_limit',
             text: 'dyn_charger_limit',
-            service: 'persistent_notification.create',
-            service_data: {message: 'Trying to set current limit: #SERVICEVAL#A!', title: 'Limit'},
+            service: 'easee.set_charger_dynamic_limit',
+            service_data: {charger_id: '#SERVICEID#', current: '#SERVICEVAL#'},
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_dynamic_circuit_limit',
-            text: 'dyn_circuit_limit'
+            text: 'dyn_circuit_limit',
+            service: 'easee.set_charger_circuit_dynamic_limit',
+            service_data: {charger_id: '#SERVICEID#', currentP1: '#SERVICEVAL#'},
         },{
             entity_id: 'sensor.#ENTITYPREFIX#_max_charger_limit',
-            text: 'max_charger_limit'
+            text: 'max_charger_limit',
+            service: 'easee.set_charger_max_limit',
+            service_data: {charger_id: '#SERVICEID#', current: '#SERVICEVAL#'},
         },{
             entity_id: 'sensor.#ENTITYPREFIX#_max_circuit_limit',
-            text: 'max_circuit_limit'
+            text: 'max_circuit_limit',
+            service: 'easee.set_circuit_max_limit',
+            service_data: {charger_id: '#SERVICEID#', currentP1: '#SERVICEVAL#'},
         },{
             entity_id: 'sensor.#ENTITYPREFIX#_offline_circuit_limit',
-            text: 'offline_circuit_limit'
+            text: 'offline_circuit_limit',
+            service: 'easee.set_charger_circuit_offline_limit',
+            service_data: {charger_id: '#SERVICEID#', currentP1: '#SERVICEVAL#'},
         },
     ],
 
@@ -110,35 +120,42 @@ export const DEFAULT_DETAILS = {
     group2: [
         {
             entity_id: 'binary_sensor.#ENTITYPREFIX#_online',
-            text: 'online'
+            text: 'online',
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_voltage',
-            text: 'voltage'
+            text: 'voltage',
+            unit_show: true,
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_power',
-            text: 'power'
+            text: 'power',
+            unit_show: true,
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_current',
-            text: 'charger_current'
+            text: 'charger_current',
+            unit_show: true,
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_circuit_current',
-            text: 'circuit_current'
+            text: 'circuit_current',
+            unit_show: true,
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_energy_per_hour',
-            text: 'energy_per_hour'
+            text: 'energy_per_hour',
+            unit_show: true,
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
-            text: 'session_energy'
+            text: 'session_energy',
+            unit_show: true,
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_lifetime_energy',
-            text: 'lifetime_energy'
+            text: 'lifetime_energy',
+            unit_show: true,
         },
     ],
 
@@ -146,35 +163,35 @@ export const DEFAULT_DETAILS = {
     group3: [
         {
             entity_id: 'switch.#ENTITYPREFIX#_is_enabled',
-            text: 'enabled'
+            text: 'enabled',
         },
         {
             entity_id: 'switch.#ENTITYPREFIX#_enable_idle_current',
-            text: 'idle_current'
+            text: 'idle_current',
         },
         {
             entity_id: 'binary_sensor.#ENTITYPREFIX#_cable_locked',
-            text: 'cable_locked'
+            text: 'cable_locked',
         },
         {
             entity_id: 'switch.#ENTITYPREFIX#_cable_locked_permanently',
-            text: 'perm_cable_locked'
+            text: 'perm_cable_locked',
         },
         {
             entity_id: 'switch.#ENTITYPREFIX#_smart_charging',
-            text: 'smart_charging'
+            text: 'smart_charging',
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_cost_per_kwh',
-            text: 'cost_per_kwh'
+            text: 'cost_per_kwh',
         },
         {
             entity_id: 'binary_sensor.#ENTITYPREFIX#_update_available',
-            text: 'update_available'
+            text: 'update_available',
         },
         {
             entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
-            text: 'schedule'
+            text: 'schedule',
         }
     ],
 
@@ -184,31 +201,34 @@ export const DEFAULT_DETAILS = {
         default: [
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
-                text: 'session_energy'
+                text: 'session_energy',
+                unit_show: true,
             },
             {
                 entity_id: 'switch.#ENTITYPREFIX#_cable_locked_permanently',
-                text: 'cable_locked'
+                text: 'cable_locked',
             },
             {
                 entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
-                text: 'schedule'
+                text: 'schedule',
             }
         ],
 
         disconnected: [
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
-                text: 'session_energy'
+                text: 'session_energy',
+                unit_show: true,
             },
             {
                 entity_id: 'switch.#ENTITYPREFIX#_cable_locked_permanently',
-                text: 'cable_locked'
+                text: 'cable_locked',
             },
             {
                 entity_id: 'calculated',
                 text: 'used_limit',
                 unit: 'A',
+                unit_show: true,
                 calc_function: 'min',
                 calc_entities: [
                     {
@@ -233,20 +253,22 @@ export const DEFAULT_DETAILS = {
         awaiting_start: [
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
-                text: 'session_energy'
+                text: 'session_energy',
+                unit_show: true,
             },
             {
                 entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
-                text: 'schedule'
+                text: 'schedule',
             },
             {
                 entity_id: 'switch.#ENTITYPREFIX#_smart_charging',
-                text: 'smart_charging'
+                text: 'smart_charging',
             },
             {
                 entity_id: 'calculated',
                 text: 'used_limit',
                 unit: 'A',
+                unit_show: true,
                 calc_function: 'min',
                 calc_entities: [
                     {
@@ -271,43 +293,51 @@ export const DEFAULT_DETAILS = {
         charging: [
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
-                text: 'session_energy'
+                text: 'session_energy',
+                unit_show: true,
             },
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_energy_per_hour',
-                text: 'energy_per_hour'
+                text: 'energy_per_hour',
+                unit_show: true,
             },
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_circuit_current',
-                text: 'circuit_current'
+                text: 'circuit_current',
+                unit_show: true,
             },
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_output_limit',
-                text: 'output_limit'
+                text: 'output_limit',
+                unit_show: true,
             },
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_current',
-                text: 'current'
+                text: 'current',
+                unit_show: true,
             },
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_power',
-                text: 'power'
+                text: 'power',
+                unit_show: true,
             }
         ],
 
         completed: [
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
-                text: 'session_energy'
+                text: 'session_energy',
+                unit_show: true,
             },
             {
                 entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
-                text: 'schedule'
+                text: 'schedule',
             },
             {
                 entity_id: 'calculated',
                 text: 'used_limit',
                 unit: 'A',
+                unit_show: true,
                 calc_function: 'min',
                 calc_entities: [
                     {
@@ -332,26 +362,29 @@ export const DEFAULT_DETAILS = {
         error: [
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
-                text: 'session_energy'
+                text: 'session_energy',
+                unit_show: true,
             },
             {
                 entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
-                text: 'schedule'
+                text: 'schedule',
             }
         ],
         ready_to_charge: [
             {
                 entity_id: 'sensor.#ENTITYPREFIX#_session_energy',
-                text: 'session_energy'
+                text: 'session_energy',
+                unit_show: true,
             },
             {
                 entity_id: 'binary_sensor.#ENTITYPREFIX#_basic_schedule',
-                text: 'schedule'
+                text: 'schedule',
             },
             {
                 entity_id: 'calculated',
                 text: 'used_limit',
                 unit: 'A',
+                unit_show: true,
                 calc_function: 'min',
                 calc_entities: [
                     {
