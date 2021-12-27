@@ -116,7 +116,7 @@ class ChargerCard extends LitElement {
     if (this.config.currentlimits !== undefined && Array.isArray(this.config.details.currentlimits)) {
       return this.config.details.currentlimits;
     }
-    console.log(Array.isArray(this.config.details.currentlimits))
+    // console.log(Array.isArray(this.config.details.currentlimits))
     return cconst.DEFAULT_CURRENTLIMITS;
   }
 
@@ -302,8 +302,8 @@ class ChargerCard extends LitElement {
   }
 
   getCollapsibleButton(button, deftext, deficon) {
-    var btns = this.config.details.collapsiblebuttons;
     try {
+      var btns = this.config.details.collapsiblebuttons;
       return { text: this.loc(btns[button].text, 'common', this.brand), icon: btns[button].icon };
     } catch (err) {
       return { text: deftext, icon: deficon };
@@ -470,8 +470,8 @@ class ChargerCard extends LitElement {
     }
     // var compactview = this.compactView ? '-compact' : '';
     var stats;
-    if (this.config['stats'] !== undefined && this.config['stats'] !== null) {
-      stats = this.getCardData(this.config['stats']);
+    if (this.config.details['stats'] !== undefined && this.config.details['stats'] !== null) {
+      stats = this.getCardData(this.config.details['stats']);
       stats = stats !== undefined && stats !== null ? stats[state] || stats['default'] : [];
     } else {
       console.info("Stats is turned on but no stats given in config.")

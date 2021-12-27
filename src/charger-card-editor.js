@@ -298,25 +298,26 @@ export class ChargerCardEditor extends LitElement {
 
     this._valueChanged(ev);
     let brand = ev.target.value;
-    let domainconfig, domainbase, entityprefix, serviceid;
+    let domainconfig, domainbase, entityprefix, serviceid, defaults;
 
-    let cardconfig = cconst.CARDCONFIGTYPES[cconst.CARDCONFIGTYPES.findIndex(brandObj => brandObj.domain === brand)];
-    domainconfig = cardconfig.domainconfig;
-    domainbase = cardconfig.domainbase;
+    let carddetails = cconst.CARDCONFIGTYPES[cconst.CARDCONFIGTYPES.findIndex(brandObj => brandObj.domain === brand)];
+    domainconfig = carddetails.domainconfig;
+    domainbase = carddetails.domainbase;
+    defaults = carddetails.defaults;
 
     // Use main entity as default unless given otherwise in template
-    if (cardconfig.serviceid_data.entity === null) cardconfig.serviceid_data.entity = this._config.entity;
+    if (carddetails.serviceid_data.entity === null) carddetails.serviceid_data.entity = this._config.entity;
 
     // Get which data to use for service calls
-    switch (cardconfig.serviceid) {
+    switch (carddetails.serviceid) {
       case cconst.SERVICEID_ENTITY:
-        serviceid = cardconfig.serviceid_data.entity;
+        serviceid = carddetails.serviceid_data.entity;
         break;
       case cconst.SERVICEID_STATE:
-        serviceid = this.hass.states[cardconfig.serviceid_data.entity].state;
+        serviceid = this.hass.states[carddetails.serviceid_data.entity].state;
         break;
       case cconst.SERVICEID_ATTR:
-        serviceid = this.hass.states[cardconfig.serviceid_data.entity].attributes[cardconfig.serviceid_data.attr];
+        serviceid = this.hass.states[carddetails.serviceid_data.entity].attributes[carddetails.serviceid_data.attr];
         break;
     }
 
@@ -343,19 +344,8 @@ export class ChargerCardEditor extends LitElement {
       details[`${data}`] = domainconfig[data];
     }
 
-    this._config = { ...this._config, details};
-
-
-    // // Set config
-    // for (let data in domainconfig) {
-    //   this._config = {
-    //     ...this._config,
-    //     [`${data}`]:
-    //       domainconfig[data],
-    //   };
-    // }
-
-
+    this._config = { ...this._config, ...defaults};
+    this._config = { ...this._config, details };
 
     fireEvent(this, 'config-changed', { config: this._config });
     return;
