@@ -413,8 +413,9 @@ class ChargerCard extends LitElement {
   }
 
   callService(service, isRequest = true, service_data = {}) {
-    // console.log(service);
-    // console.log(service_data);
+    this.log("CALLING SERVICE");
+    this.log(service);
+    this.log(service_data);
 
     if (service === undefined || service === null) {
       console.error("Trying to call an empty service - please check your card configuration.");

@@ -68,21 +68,29 @@ export const DEFAULT_DETAILS = {
         {
             entity_id: 'sensor.#ENTITYPREFIX#_dynamic_charger_limit',
             text: 'dyn_charger_limit',
-            service: 'persistent_notification.create',
-            service_data: {message: 'Trying to set current limit: #SERVICEVAL#A!', title: 'Limit'},
+            service: 'easee.set_charger_dynamic_limit',
+            service_data: {charger_id: '#SERVICEID#', current: '#SERVICEVAL#'},
         },
         {
             entity_id: 'sensor.#ENTITYPREFIX#_dynamic_circuit_limit',
-            text: 'dyn_circuit_limit'
+            text: 'dyn_circuit_limit',
+            service: 'easee.set_charger_circuit_dynamic_limit',
+            service_data: {charger_id: '#SERVICEID#', currentP1: '#SERVICEVAL#'},
         },{
             entity_id: 'sensor.#ENTITYPREFIX#_max_charger_limit',
-            text: 'max_charger_limit'
+            text: 'max_charger_limit',
+            service: 'easee.set_charger_max_limit',
+            service_data: {charger_id: '#SERVICEID#', current: '#SERVICEVAL#'},
         },{
             entity_id: 'sensor.#ENTITYPREFIX#_max_circuit_limit',
-            text: 'max_circuit_limit'
+            text: 'max_circuit_limit',
+            service: 'easee.set_circuit_max_limit',
+            service_data: {charger_id: '#SERVICEID#', currentP1: '#SERVICEVAL#'},
         },{
             entity_id: 'sensor.#ENTITYPREFIX#_offline_circuit_limit',
-            text: 'offline_circuit_limit'
+            text: 'offline_circuit_limit',
+            service: 'easee.set_charger_circuit_offline_limit',
+            service_data: {charger_id: '#SERVICEID#', currentP1: '#SERVICEVAL#'},
         },
     ],
 

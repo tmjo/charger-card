@@ -230,7 +230,7 @@ export const DEFAULT_DETAILS = {
         home: [
             {
                 service: 'switch.toggle',
-                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_charging'},
+                service_data: {entity_id: 'entity_id: switch.#ENTITYPREFIX#_charging'},
                 text: 'toggle_charging',
                 icon: 'mdi:ev-station',
             },
@@ -240,19 +240,19 @@ export const DEFAULT_DETAILS = {
         away: [
             {
                 service: 'switch.toggle',
-                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_charging'},
+                service_data: {entity_id: 'switch.#ENTITYPREFIX#_charging'},
                 text: 'toggle_charging',
                 icon: 'mdi:ev-station',
             },
             {
                 service: 'switch.toggle',
-                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_electric_climatisation'},
+                service_data: {entity_id: 'switch.#ENTITYPREFIX#_electric_climatisation' },
                 text: 'toggle_clima',
                 icon: 'mdi:radiator',
             },
             {
                 service: 'switch.toggle',
-                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_window_heater'},
+                service_data: {entity_id: 'switch.#ENTITYPREFIX#_window_heater'},
                 text: 'toggle_window_heater',
                 icon: 'mdi:car-defrost-rear',
             },
@@ -264,7 +264,7 @@ export const DEFAULT_DETAILS = {
         default: [
             {
                 service: 'switch.toggle',
-                service_data: {target: 'entity_id: switch.#ENTITYPREFIX#_force_data_refresh'},
+                service_data: { entity_id: 'switch.#ENTITYPREFIX#_force_data_refresh'  },
                 text: 'force_refresh',
                 icon: 'mdi:car-connected',
             },
