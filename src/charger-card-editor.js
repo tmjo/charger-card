@@ -111,12 +111,12 @@ export class ChargerCardEditor extends LitElement {
     }
   }
 
-  get_sensors(sensor) {
-    if (this._config) {
-      return this._config[`${sensor}`] || '';
-    }
-    return '';
-  }
+  // get_sensors(sensor) {
+  //   if (this._config) {
+  //     return this._config[`${sensor}`] || '';
+  //   }
+  //   return '';
+  // }
 
   getAllEntities() {
     return Object.keys(this.hass.states)
@@ -151,9 +151,9 @@ export class ChargerCardEditor extends LitElement {
         </paper-dropdown-menu>
 
         <paper-dropdown-menu label="${localize('editor.brand')}" @value-changed=${this.setCardConfigType} .configValue=${'brand'}>
-          <paper-listbox slot="dropdown-content" .selected=${cconst.CARDCONFIGTYPES.indexOf(this.get_config("brand"))}>
+          <paper-listbox slot="dropdown-content" .selected=${cconst.CARDCONFIGTYPES.findIndex(brand => brand.domain === this.get_config("brand"))}>
             ${Object.values(cconst.CARDCONFIGTYPES).map(brand => {
-              return html` <paper-item>${brand}</paper-item> `;
+              return html` <paper-item>${brand.domain}</paper-item> `;
             })}
           </paper-listbox>
         </paper-dropdown-menu>
@@ -289,35 +289,6 @@ export class ChargerCardEditor extends LitElement {
   }
 
 
-  // setEntityPrefix(domainbase) {
-  //   try {
-  //       this._config = {
-  //         ...this._config,
-  //         ["prefix"]:
-  //           this._config.entity
-  //             .split('.')[1]
-  //             .replace(domainbase, ''),
-  //       };
-  //     }catch (err) {
-  //       this.log('Error setting entity prefix.')
-  //     }
-  //   }
-
-  // getEntityId(entitybasename) {
-  //   try {
-  //     return (
-  //       entitybasename.split('.')[0] +
-  //       '.' +
-  //       this._config["prefix"] +
-  //       '_' +
-  //       entitybasename.split('.')[1]
-  //     );
-  //   } catch (err) {
-  //     return null;
-  //   }
-  // }
-
-
   setCardConfigType(ev) {
     // SKIP EQUAL OR EMPTY BRAND CONFIG
     if (this._config["brand"] == ev.target.value || ev.target.value == '') return;
@@ -326,25 +297,26 @@ export class ChargerCardEditor extends LitElement {
     if (this._config["entity"] === undefined || this._config["entity"] == '') return;
 
     this._valueChanged(ev);
-    let domain = ev.target.value;
+    let brand = ev.target.value;
     let domainconfig, domainbase, entityprefix, serviceid;
 
-    // Switch statement, UPDATE FOR NEW TEMPLATES
-    switch (domain) {
-      case 'easee':
-        domainconfig = easee.DEFAULT_CONFIG;
-        domainbase = easee.MAIN_ENTITY_BASE;
-        serviceid = this.hass.states[this._config.entity].attributes['id']
+    let cardconfig = cconst.CARDCONFIGTYPES[cconst.CARDCONFIGTYPES.findIndex(brandObj => brandObj.domain === brand)];
+    domainconfig = cardconfig.domainconfig;
+    domainbase = cardconfig.domainbase;
+
+    // Use main entity as default unless given otherwise in template
+    if (cardconfig.serviceid_data.entity === null) cardconfig.serviceid_data.entity = this._config.entity;
+
+    // Get which data to use for service calls
+    switch (cardconfig.serviceid) {
+      case cconst.SERVICEID_ENTITY:
+        serviceid = cardconfig.serviceid_data.entity;
         break;
-      case 'test':
-        domainconfig = template.DEFAULT_CONFIG;
-        domainbase = template.MAIN_ENTITY_BASE;
-        serviceid = "TEST123456";
+      case cconst.SERVICEID_STATE:
+        serviceid = this.hass.states[cardconfig.serviceid_data.entity].state;
         break;
-      case 'template':
-        domainconfig = template.DEFAULT_CONFIG;
-        domainbase = template.MAIN_ENTITY_BASE;
-        serviceid = "TEST123456";
+      case cconst.SERVICEID_ATTR:
+        serviceid = this.hass.states[cardconfig.serviceid_data.entity].attributes[cardconfig.serviceid_data.attr];
         break;
     }
 
@@ -361,7 +333,7 @@ export class ChargerCardEditor extends LitElement {
     } catch (err) {
       console.error("Something went wrong with the default setup, please check your YAML configuration or enable debugging to see details.")
     }
-    this.log("domain: " + domain +", entityprefix: " +entityprefix +", serviceid: " +serviceid);
+    this.log("domain: " + brand +", entityprefix: " +entityprefix +", serviceid: " +serviceid);
     this.log(domainconfig);
 
     // Set config
