@@ -3,9 +3,6 @@ import { fireEvent } from 'custom-card-helpers';
 import localize from './localize';
 import * as cconst from './const';
 
-// import * as easee from './const_easee.js';
-// import * as template from './const_template.js';
-
 export class ChargerCardEditor extends LitElement {
   static get properties() {
     return {
