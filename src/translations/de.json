@@ -1,37 +1,17 @@
 {
-  "status": {
-    "disconnected": "Getrennt",
-    "awaiting_start": "Pausiert oder warte auf Start",
-    "charging": "Laden",
-    "completed": "Fertig oder warte auf Auto",
-    "error": "Fehler",
-    "ready_to_charge": "Bereit zum Laden"
-  },
   "common": {
     "name": "Charger Card",
-    "description": "Charger card ermöglicht es dir, deinen Laderoboter zu steuern.",
-    "start": "Start",
-    "continue": "Weiter",
-    "pause": "Pause",
-    "stop": "Stopp",
-    "override": "Zeitplan überschreiben",
-    "reboot": "Ladegerät neu starten",
-    "not_available": "Ladegerät nicht verfügbar",
-    "click_for_info": "Klicken für Infos",
-    "click_for_config": "Klicken für Konfiguration",
-    "click_for_limits": "Klicken für Limits",
-    "online": "Online",
-    "voltage": "Spannung",
-    "power": "Leistung",
-    "charger_current": "Ladestrom",
-    "energy_per_hour": "Energie pro Stunde",
-    "lifetime_energy": "Energie gesamt",
-    "circuit_current": "Aktueller Strom"
+    "description": "Charger card ermöglicht es dir, deinen Laderoboter zu steuern."
   },
   "error": {
-    "missing_entity": "Die Angabe der Entität ist erforderlich!"
+    "missing_entity": "Die Angabe der Entität ist erforderlich!",
+    "not_available": "Not available",
+    "missing_config": "Error in config!",
+    "missing_group": "No entities defined in group!"
   },
   "editor": {
+    "instruction": "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+    "brand": "Brand (Required)",
     "entity": "Entity (Erforderlich)",
     "chargerImage": "Bild und Farbe des Ladegeräts",
     "customImage": "Benutzerdefiniertes Bild (Optional - überschreibt das Bild des Ladegeräts)",
@@ -59,29 +39,76 @@
     "show_toolbar_aria_label_off": "Symbolleiste ausschalten",
     "code_only_note": "Hinweis: Die Optionen für benutzerdefinierte Aktionen und Datentabellen (Statistiken) sind ausschließlich über den manuellen Code-Editor verfügbar."
   },
-  "charger_status": {
-    "sessionEnergy": "Energieaufladung"
-  },
-  "charger_substatus": {
-    "not_requesting_current": "Fordert keinen Strom an",
-    "ok": "Ok",
-    "pending_schedule": "Ausstehender Zeitplan",
-    "none": "None",
-    "max_circuit_current_too_low": "Maximalstrom zu niedrig",
-    "max_dynamic_circuit_current_too_low": "Dynamischer Maximalstrom zu niedrig",
-    "max_dynamic_offline_fallback_circuit_current_too_low": "Dynamischer offline Maximalstrom zu niedrig",
-    "circuit_fuse_too_low": "Stromkreissicherung zu niedrig",
-    "waiting_in_queue": "Warten in der Warteschlange",
-    "waiting_in_fully": "Warten in vollem Umfang",
-    "illegal_grid_type": "Unzulässiger Grid Typ",
-    "no_current_request": "Keine aktuelle Anfrage",
-    "not_requesting_current": "Keine Nachfrage nach Strom",
-    "max_charger_current_too_low": "Maximaler Ladestrom zu niedrig",
-    "max_dynamic_charger_current_too_low": "Maximaler dynamischer Ladestrom zu niedrig",
-    "charger_disabled": "Ladegerät Deaktiviert",
-    "pending_schedule": "Ausstehender Zeitplan",
-    "pending_authorization": "Ausstehende Autorisierung",
-    "charger_in_error_state": "Ladegerät im Fehlerzustand",
-    "undefined": "Undefiniert"
+
+  "easee": {
+    "status" : {
+      "disconnected": "Getrennt",
+      "awaiting_start": "Pausiert oder warte auf Start",
+      "charging": "Laden",
+      "completed": "Fertig oder warte auf Auto",
+      "error": "Fehler",
+      "ready_to_charge": "Bereit zum Laden"
+    },
+    "substatus" : {
+      "not_requesting_current": "Fordert keinen Strom an",
+      "ok": "Ok",
+      "pending_schedule": "Ausstehender Zeitplan",
+      "none": "None",
+      "max_circuit_current_too_low": "Maximalstrom zu niedrig",
+      "max_dynamic_circuit_current_too_low": "Dynamischer Maximalstrom zu niedrig",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Dynamischer offline Maximalstrom zu niedrig",
+      "circuit_fuse_too_low": "Stromkreissicherung zu niedrig",
+      "waiting_in_queue": "Warten in der Warteschlange",
+      "waiting_in_fully": "Warten in vollem Umfang",
+      "illegal_grid_type": "Unzulässiger Grid Typ",
+      "no_current_request": "Keine aktuelle Anfrage",
+      "not_requesting_current": "Keine Nachfrage nach Strom",
+      "max_charger_current_too_low": "Maximaler Ladestrom zu niedrig",
+      "max_dynamic_charger_current_too_low": "Maximaler dynamischer Ladestrom zu niedrig",
+      "charger_disabled": "Ladegerät Deaktiviert",
+      "pending_schedule": "Ausstehender Zeitplan",
+      "pending_authorization": "Ausstehende Autorisierung",
+      "charger_in_error_state": "Ladegerät im Fehlerzustand",
+      "undefined": "Undefiniert"
+      },
+    "common" : {
+      "click_for_group1": "Klicken für Limits",
+      "click_for_group2": "Klicken für Infos",
+      "click_for_group3": "Klicken für Konfiguration",
+      "start": "Start",
+      "continue": "Weiter",
+      "pause": "Pause",
+      "stop": "Stopp",
+      "resume": "Resume",
+      "override": "Zeitplan überschreiben",
+      "update": "Update firmware",
+      "reboot": "Ladegerät neu starten",
+      "not_available": "Ladegerät nicht verfügbar",
+      "online": "Online",
+      "voltage": "Spannung",
+      "power": "Leistung",
+      "current": "Strom",
+      "charger_current": "Ladestrom",
+      "energy_per_hour": "Energie pro Stunde",
+      "session_energy": "Session energy",
+      "lifetime_energy": "Energie gesamt",
+      "circuit_current": "Aktueller Strom",
+      "dyn_charger_limit" : "Dyn Charger Limit",
+      "dyn_circuit_limit" : "Dyn Circuit Limit",
+      "max_charger_limit" : "Max Charger Limit",
+      "max_circuit_limit" : "Max Circuit Limit",
+      "output_limit" : "Allowed current",
+      "used_limit": "Used limit",
+      "offline_circuit_limit" : "Offline Circuit Limit",
+      "enabled" : "Enabled",
+      "idle_current" : "Idle current",
+      "cable_locked" : "Cable locked",
+      "perm_cable_locked" : "Cable locked permanently",
+      "smart_charging" : "Smart charging",
+      "cost_per_kwh" : "Cost per kWh",
+      "update_available" : "Update available",
+      "schedule": "Schedule"
+
+    }
   }
 }
