@@ -7,7 +7,7 @@
     "missing_entity": "Specifying entity is required!",
     "not_available": "Not available",
     "missing_config": "Error in config!",
-    "missing_group": "No entities defined in grou.!"
+    "missing_group": "No entities defined in group!"
   },
   "editor": {
     "instruction": "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
