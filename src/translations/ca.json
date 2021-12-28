@@ -1,37 +1,17 @@
 {
-  "status": {
-    "disconnected": "Desconnectat",
-    "awaiting_start": "Esperant per començar",
-    "charging": "Carregant",
-    "completed": "Completat",
-    "error": "Error",
-    "ready_to_charge": "A punt per carregar"
-  },
   "common": {
     "name": "Charger Card",
-    "description": "La Charger Card et permet controlar el teu robot de càrrega.",
-    "start": "Començar",
-    "continue": "Continuar",
-    "pause": "Pausar",
-    "stop": "Parar",
-    "override": "Sobrreescriure la programació",
-    "reboot": "Reiniciar el carregador",
-    "not_available": "Carregador no disponible",
-    "click_for_info": "Fes click per més informació",
-    "click_for_config": "Fes click per configurar",
-    "click_for_limits": "Fes click per els límits",
-    "online": "Disponible",
-    "voltage": "Voltatge",
-    "power": "Potència",
-    "charger_current": "Corrent del carregador",
-    "energy_per_hour": "Energia per hora",
-    "lifetime_energy": "Energia de per vida",
-    "circuit_current": "Circuit d'energia"
+    "description": "La Charger Card et permet controlar el teu robot de càrrega."
   },
   "error": {
-    "missing_entity": "És necessari especificar una entitat!"
+    "missing_entity": "És necessari especificar una entitat!",
+    "not_available": "Not available",
+    "missing_config": "Error in config!",
+    "missing_group": "No entities defined in group!"
   },
   "editor": {
+    "instruction": "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+    "brand": "Brand (Required)",
     "entity": "Entitat (Obligatori)",
     "chargerImage": "Imatge del carregador",
     "customImage": "Imatge personalitzada (Opcional - sobreesciu la imatge del carregador)",
@@ -59,29 +39,77 @@
     "show_toolbar_aria_label_off": "Ocultar la barra d'eines",
     "code_only_note": "Nota: Les opcions per les acciones personalitzades i els estats només estan disponibles manualment utilitzant la vista d'Edició de Codi."
   },
-  "charger_status": {
-    "sessionEnergy": "Energia de la sessió"
-  },
-  "charger_substatus": {
-    "not_requesting_current": "No hi ha demanda de Corrent",
-    "ok": "Ok",
-    "pending_schedule": "Esperant programa",
-    "none": "Cap",
-    "max_circuit_current_too_low": "Corrent màxima del circuit insuficient",
-    "max_dynamic_circuit_current_too_low": "Corrent dinàmica màxima del circuit insuficient",
-    "max_dynamic_offline_fallback_circuit_current_too_low": "Corrent dinàmica màxima de reserva insuficient",
-    "circuit_fuse_too_low": "Circuit de fusible insuficient",
-    "waiting_in_queue": "En cua esperant",
-    "waiting_in_fully": "Esperant completat",
-    "illegal_grid_type": "Xarxa il·legal",
-    "no_current_request": "No hi ha demanda de corrent",
-    "not_requesting_current": "No s'està consumint corrent",
-    "max_charger_current_too_low": "Corrent màxima del carregador insuficient",
-    "max_dynamic_charger_current_too_low": "Corrent dinàmica màxima del carregador insuficient",
-    "charger_disabled": "Carregador deshabilitat",
-    "pending_schedule": "Esperant programa",
-    "pending_authorization": "Esperant Autorització",
-    "charger_in_error_state": "Error del carregador",
-    "undefined": "No definit"
+
+  "easee": {
+    "status" : {
+      "disconnected": "Desconnectat",
+      "awaiting_start": "Esperant per començar",
+      "charging": "Carregant",
+      "completed": "Completat",
+      "error": "Error",
+      "ready_to_charge": "A punt per carregar"
+    },
+    "substatus" : {
+      "not_requesting_current": "No hi ha demanda de Corrent",
+      "ok": "Ok",
+      "pending_schedule": "Esperant programa",
+      "none": "Cap",
+      "max_circuit_current_too_low": "Corrent màxima del circuit insuficient",
+      "max_dynamic_circuit_current_too_low": "Corrent dinàmica màxima del circuit insuficient",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Corrent dinàmica màxima de reserva insuficient",
+      "circuit_fuse_too_low": "Circuit de fusible insuficient",
+      "waiting_in_queue": "En cua esperant",
+      "waiting_in_fully": "Esperant completat",
+      "illegal_grid_type": "Xarxa il·legal",
+      "no_current_request": "No hi ha demanda de corrent",
+      "not_requesting_current": "No s'està consumint corrent",
+      "max_charger_current_too_low": "Corrent màxima del carregador insuficient",
+      "max_dynamic_charger_current_too_low": "Corrent dinàmica màxima del carregador insuficient",
+      "charger_disabled": "Carregador deshabilitat",
+      "pending_schedule": "Esperant programa",
+      "pending_authorization": "Esperant Autorització",
+      "charger_in_error_state": "Error del carregador",
+      "undefined": "No definit"
+      },
+    "common" : {
+      "click_for_group1": "Fes click per els límits",
+      "click_for_group2": "Fes click per més informació",
+      "click_for_group3": "Fes click per configurar",
+      "start": "Començar",
+      "continue": "Continuar",
+      "pause": "Pausar",
+      "stop": "Parar",
+      "resume": "Continuar",
+      "override": "Sobrreescriure la programació",
+      "update": "Update firmware",
+      "reboot": "Reiniciar el carregador",
+      "not_available": "Carregador no disponible",
+      "online": "Disponible",
+      "voltage": "Voltatge",
+      "power": "Potència",
+      "current": "Current",
+      "charger_current": "Corrent del carregador",
+      "energy_per_hour": "Energia per hora",
+      "session_energy": "Session energy",
+      "lifetime_energy": "Energia de per vida",
+      "circuit_current": "Corrent del circuit",
+      "dyn_charger_limit" : "Dyn Charger Limit",
+      "dyn_circuit_limit" : "Dyn Circuit Limit",
+      "max_charger_limit" : "Max Charger Limit",
+      "max_circuit_limit" : "Max Circuit Limit",
+      "output_limit" : "Allowed current",
+      "used_limit": "Used limit",
+      "offline_circuit_limit" : "Offline Circuit Limit",
+      "enabled" : "Enabled",
+      "idle_current" : "Idle current",
+      "cable_locked" : "Cable locked",
+      "perm_cable_locked" : "Cable locked permanently",
+      "smart_charging" : "Smart charging",
+      "cost_per_kwh" : "Cost per kWh",
+      "update_available" : "Update available",
+      "schedule": "Schedule"
+    }
+
   }
+
 }
