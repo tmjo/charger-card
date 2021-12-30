@@ -1,7 +1,7 @@
   # EV Charger Card
 
 [![hacs][hacs-badge]][hacs-url]
-[![Buy Me A Coffee][buymeacoffee-image]][buymeacoffee-url]
+[![Buy me a coffee](https://img.shields.io/static/v1.svg?label=Buy%20me%20a%20coffee&message=🥨&color=black&logo=buy%20me%20a%20coffee&logoColor=white&labelColor=6f4e37)](https://www.buymeacoffee.com/tmjo)
 
 > EV Charger card for [Home Assistant][home-assistant] Lovelace UI
 
@@ -14,6 +14,11 @@ By default, Home Assistant does not provide any card for controlling chargers fo
 <a href="https://www.buymeacoffee.com/tmjo" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" width="150px">
 </a>
+
+<br>
+<br>
+<br>
+
 
 # Installation
 
@@ -491,9 +496,12 @@ This project is heavily inspired by <a href="https://github.com/denysdovhan" tar
 [npm-url]: https://npmjs.org/package/charger-card
 [hacs-url]: https://github.com/custom-components/hacs
 [hacs-image]: https://img.shields.io/badge/HACS-Custom-orange.svg
-[hacs-badge]: https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge(https://github.com/hacs/integration)
+[hacs-badge]: https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge
 [buymeacoffee-url]: https://www.buymeacoffee.com/tmjo
-[buymeacoffee-image]: https://img.shields.io/badge/support-buymeacoffee-222222.svg?style=flat-square
+[buymeacoffee-image]: https://img.shields.io/static/v1.svg?label=Buy%20me%20a%20coffee&message=🥨&color=black&logo=buy%20me%20a%20coffee&logoColor=white&labelColor=6f4e37)
+
+
+
 
 <!-- References -->
 
