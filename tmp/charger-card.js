@@ -2943,7 +2943,7 @@ var error$5 = {
 	missing_entity: "Specifying entity is required!",
 	not_available: "Not available",
 	missing_config: "Error in config!",
-	missing_group: "No entities defined in grou.!"
+	missing_group: "No entities defined in group!"
 };
 var editor$5 = {
 	instruction: "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
@@ -2975,7 +2975,7 @@ var editor$5 = {
 	show_toolbar_aria_label_off: "Toggle display toolbar off",
 	code_only_note: "Note: Advanced config such as toolbar and datatable (stats) are only in YAML-mode."
 };
-var easee$1 = {
+var easee$5 = {
 	status: {
 		disconnected: "Disconnected",
 		awaiting_start: "Paused/awaiting start",
@@ -3109,7 +3109,7 @@ var en = {
 	common: common$5,
 	error: error$5,
 	editor: editor$5,
-	easee: easee$1,
+	easee: easee$5,
 	vwegolf: vwegolf,
 	test: test$1
 };
@@ -3119,7 +3119,7 @@ var en$1 = /*#__PURE__*/Object.freeze({
     common: common$5,
     error: error$5,
     editor: editor$5,
-    easee: easee$1,
+    easee: easee$5,
     vwegolf: vwegolf,
     test: test$1,
     'default': en
@@ -3165,7 +3165,7 @@ var editor$4 = {
 	show_toolbar_aria_label_off: "Slå av visning av verktøylinje",
 	code_only_note: "Merk: Egendefinerte actions og data tabell (stats) er kun tilgjengelig ved å benytte Code Editor manuelt."
 };
-var easee = {
+var easee$4 = {
 	status: {
 		disconnected: "Frakoblet",
 		awaiting_start: "Pause (avventer start)",
@@ -3284,7 +3284,7 @@ var nb = {
 	common: common$4,
 	error: error$4,
 	editor: editor$4,
-	easee: easee,
+	easee: easee$4,
 	test: test
 };
 
@@ -3293,39 +3293,14 @@ var nb$1 = /*#__PURE__*/Object.freeze({
     common: common$4,
     error: error$4,
     editor: editor$4,
-    easee: easee,
+    easee: easee$4,
     test: test,
     'default': nb
 });
 
-var status$3 = {
-	disconnected: "Frånkopplad",
-	awaiting_start: "Pausad eller inväntar start",
-	charging: "Laddar",
-	completed: "Färdig eller inväntar bil",
-	error: "Error",
-	ready_to_charge: "Klar att ladda"
-};
 var common$3 = {
 	name: "Charger Card",
-	description: "Charger card ger dig möjlighet att styra din laddningsrobot.",
-	start: "Starta",
-	"continue": "Återuppta",
-	pause: "Pausa",
-	stop: "Stopp",
-	override: "Åsidosätt schema",
-	reboot: "Starta om laddared",
-	not_available: "Laddaren inte tillgänglig",
-	click_for_info: "Klicka för info",
-	click_for_config: "Klicka för konfigurering",
-	click_for_limits: "Klicka för begränsningar",
-	online: "Uppkopplad",
-	voltage: "Spänning",
-	power: "Kraft",
-	charger_current: "Laddningsenergi",
-	energy_per_hour: "Energi per timme",
-	lifetime_energy: "Livstids energi",
-	circuit_current: "Kretsenergi"
+	description: "Charger card ger dig möjlighet att styra din laddningsrobot."
 };
 var error$3 = {
 	missing_entity: "Entiteten måsta anges!"
@@ -3358,66 +3333,103 @@ var editor$3 = {
 	show_toolbar_aria_label_off: "Toggle display toolbar off",
 	code_only_note: "Notera: Egendefinierade Custom actions och data tabell (stats) är bara tillgängligt när Code Editorn används manuellt."
 };
-var charger_status$3 = {
-	sessionEnergy: "Sessionsenergi"
-};
-var charger_substatus$3 = {
-	not_requesting_current: "Ingen bil ansluten",
-	ok: "Klar"
+var easee$3 = {
+	status: {
+		disconnected: "Frånkopplad",
+		awaiting_start: "Pausad eller inväntar start",
+		charging: "Laddar",
+		completed: "Färdig eller inväntar bil",
+		error: "Error",
+		ready_to_charge: "Klar att ladda"
+	},
+	substatus: {
+		ok: "Klar",
+		pending_schedule: "Pending schedule",
+		none: "None",
+		max_circuit_current_too_low: "Max circuit current too low",
+		max_dynamic_circuit_current_too_low: "Max dynamic circuit current too low",
+		max_dynamic_charger_current_too_low: "Max dynamic charger current too low",
+		max_dynamic_offline_fallback_circuit_current_too_low: "Max dynamic offline circuit current too low",
+		max_charger_current_too_low: "Max charger current too low",
+		circuit_fuse_too_low: "Circuit fuse too low",
+		waiting_in_queue: "Waiting in queue",
+		waiting_in_fully: "Waiting in fully",
+		illegal_grid_type: "Illegal grid type",
+		no_current_request: "No current request",
+		not_requesting_current: "Ingen bil ansluten",
+		charger_disabled: "Charger Disabled",
+		pending_authorization: "Pending Authorization",
+		charger_in_error_state: "Charger in error state",
+		"undefined": "Undefined"
+	},
+	common: {
+		click_for_group1: "Klicka för begränsningar",
+		click_for_group2: "Klicka för info",
+		click_for_group3: "Klicka för konfigurering",
+		start: "Starta",
+		"continue": "Återuppta",
+		pause: "Pausa",
+		stop: "Stopp",
+		resume: "Resume",
+		override: "Åsidosätt schema",
+		update: "Update firmware",
+		reboot: "Starta om laddared",
+		not_available: "Laddaren inte tillgänglig",
+		online: "Uppkopplad",
+		voltage: "Spänning",
+		power: "Kraft",
+		current: "Current",
+		charger_current: "Charger Current",
+		energy_per_hour: "Energi per timme",
+		session_energy: "Session energy",
+		lifetime_energy: "Livstids energi",
+		circuit_current: "Circuit Current",
+		dyn_charger_limit: "Dyn Charger Limit",
+		dyn_circuit_limit: "Dyn Circuit Limit",
+		max_charger_limit: "Max Charger Limit",
+		max_circuit_limit: "Max Circuit Limit",
+		output_limit: "Allowed current",
+		used_limit: "Used limit",
+		offline_circuit_limit: "Offline Circuit Limit",
+		enabled: "Enabled",
+		idle_current: "Idle current",
+		cable_locked: "Cable locked",
+		perm_cable_locked: "Cable locked permanently",
+		smart_charging: "Smart charging",
+		cost_per_kwh: "Cost per kWh",
+		update_available: "Update available",
+		schedule: "Schedule"
+	}
 };
 var sv = {
-	status: status$3,
 	common: common$3,
 	error: error$3,
 	editor: editor$3,
-	charger_status: charger_status$3,
-	charger_substatus: charger_substatus$3
+	easee: easee$3
 };
 
 var sv$1 = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    status: status$3,
     common: common$3,
     error: error$3,
     editor: editor$3,
-    charger_status: charger_status$3,
-    charger_substatus: charger_substatus$3,
+    easee: easee$3,
     'default': sv
 });
 
-var status$2 = {
-	disconnected: "Getrennt",
-	awaiting_start: "Pausiert oder warte auf Start",
-	charging: "Laden",
-	completed: "Fertig oder warte auf Auto",
-	error: "Fehler",
-	ready_to_charge: "Bereit zum Laden"
-};
 var common$2 = {
 	name: "Charger Card",
-	description: "Charger card ermöglicht es dir, deinen Laderoboter zu steuern.",
-	start: "Start",
-	"continue": "Weiter",
-	pause: "Pause",
-	stop: "Stopp",
-	override: "Zeitplan überschreiben",
-	reboot: "Ladegerät neu starten",
-	not_available: "Ladegerät nicht verfügbar",
-	click_for_info: "Klicken für Infos",
-	click_for_config: "Klicken für Konfiguration",
-	click_for_limits: "Klicken für Limits",
-	online: "Online",
-	voltage: "Spannung",
-	power: "Leistung",
-	charger_current: "Ladestrom",
-	energy_per_hour: "Energie pro Stunde",
-	lifetime_energy: "Energie gesamt",
-	circuit_current: "Aktueller Strom"
+	description: "Charger card ermöglicht es dir, deinen Laderoboter zu steuern."
 };
 var error$2 = {
-	missing_entity: "Die Angabe der Entität ist erforderlich!"
+	missing_entity: "Die Angabe der Entität ist erforderlich!",
+	not_available: "Not available",
+	missing_config: "Error in config!",
+	missing_group: "No entities defined in group!"
 };
 var editor$2 = {
+	instruction: "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+	brand: "Brand (Required)",
 	entity: "Entity (Erforderlich)",
 	chargerImage: "Bild und Farbe des Ladegeräts",
 	customImage: "Benutzerdefiniertes Bild (Optional - überschreibt das Bild des Ladegeräts)",
@@ -3445,82 +3457,103 @@ var editor$2 = {
 	show_toolbar_aria_label_off: "Symbolleiste ausschalten",
 	code_only_note: "Hinweis: Die Optionen für benutzerdefinierte Aktionen und Datentabellen (Statistiken) sind ausschließlich über den manuellen Code-Editor verfügbar."
 };
-var charger_status$2 = {
-	sessionEnergy: "Energieaufladung"
-};
-var charger_substatus$2 = {
-	not_requesting_current: "Keine Nachfrage nach Strom",
-	ok: "Ok",
-	pending_schedule: "Ausstehender Zeitplan",
-	none: "None",
-	max_circuit_current_too_low: "Maximalstrom zu niedrig",
-	max_dynamic_circuit_current_too_low: "Dynamischer Maximalstrom zu niedrig",
-	max_dynamic_offline_fallback_circuit_current_too_low: "Dynamischer offline Maximalstrom zu niedrig",
-	circuit_fuse_too_low: "Stromkreissicherung zu niedrig",
-	waiting_in_queue: "Warten in der Warteschlange",
-	waiting_in_fully: "Warten in vollem Umfang",
-	illegal_grid_type: "Unzulässiger Grid Typ",
-	no_current_request: "Keine aktuelle Anfrage",
-	max_charger_current_too_low: "Maximaler Ladestrom zu niedrig",
-	max_dynamic_charger_current_too_low: "Maximaler dynamischer Ladestrom zu niedrig",
-	charger_disabled: "Ladegerät Deaktiviert",
-	pending_authorization: "Ausstehende Autorisierung",
-	charger_in_error_state: "Ladegerät im Fehlerzustand",
-	"undefined": "Undefiniert"
+var easee$2 = {
+	status: {
+		disconnected: "Getrennt",
+		awaiting_start: "Pausiert oder warte auf Start",
+		charging: "Laden",
+		completed: "Fertig oder warte auf Auto",
+		error: "Fehler",
+		ready_to_charge: "Bereit zum Laden"
+	},
+	substatus: {
+		not_requesting_current: "Keine Nachfrage nach Strom",
+		ok: "Ok",
+		pending_schedule: "Ausstehender Zeitplan",
+		none: "None",
+		max_circuit_current_too_low: "Maximalstrom zu niedrig",
+		max_dynamic_circuit_current_too_low: "Dynamischer Maximalstrom zu niedrig",
+		max_dynamic_offline_fallback_circuit_current_too_low: "Dynamischer offline Maximalstrom zu niedrig",
+		circuit_fuse_too_low: "Stromkreissicherung zu niedrig",
+		waiting_in_queue: "Warten in der Warteschlange",
+		waiting_in_fully: "Warten in vollem Umfang",
+		illegal_grid_type: "Unzulässiger Grid Typ",
+		no_current_request: "Keine aktuelle Anfrage",
+		max_charger_current_too_low: "Maximaler Ladestrom zu niedrig",
+		max_dynamic_charger_current_too_low: "Maximaler dynamischer Ladestrom zu niedrig",
+		charger_disabled: "Ladegerät Deaktiviert",
+		pending_authorization: "Ausstehende Autorisierung",
+		charger_in_error_state: "Ladegerät im Fehlerzustand",
+		"undefined": "Undefiniert"
+	},
+	common: {
+		click_for_group1: "Klicken für Limits",
+		click_for_group2: "Klicken für Infos",
+		click_for_group3: "Klicken für Konfiguration",
+		start: "Start",
+		"continue": "Weiter",
+		pause: "Pause",
+		stop: "Stopp",
+		resume: "Resume",
+		override: "Zeitplan überschreiben",
+		update: "Update firmware",
+		reboot: "Ladegerät neu starten",
+		not_available: "Ladegerät nicht verfügbar",
+		online: "Online",
+		voltage: "Spannung",
+		power: "Leistung",
+		current: "Strom",
+		charger_current: "Ladestrom",
+		energy_per_hour: "Energie pro Stunde",
+		session_energy: "Session energy",
+		lifetime_energy: "Energie gesamt",
+		circuit_current: "Aktueller Strom",
+		dyn_charger_limit: "Dyn Charger Limit",
+		dyn_circuit_limit: "Dyn Circuit Limit",
+		max_charger_limit: "Max Charger Limit",
+		max_circuit_limit: "Max Circuit Limit",
+		output_limit: "Allowed current",
+		used_limit: "Used limit",
+		offline_circuit_limit: "Offline Circuit Limit",
+		enabled: "Enabled",
+		idle_current: "Idle current",
+		cable_locked: "Cable locked",
+		perm_cable_locked: "Cable locked permanently",
+		smart_charging: "Smart charging",
+		cost_per_kwh: "Cost per kWh",
+		update_available: "Update available",
+		schedule: "Schedule"
+	}
 };
 var de = {
-	status: status$2,
 	common: common$2,
 	error: error$2,
 	editor: editor$2,
-	charger_status: charger_status$2,
-	charger_substatus: charger_substatus$2
+	easee: easee$2
 };
 
 var de$1 = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    status: status$2,
     common: common$2,
     error: error$2,
     editor: editor$2,
-    charger_status: charger_status$2,
-    charger_substatus: charger_substatus$2,
+    easee: easee$2,
     'default': de
 });
 
-var status$1 = {
-	disconnected: "Frakoblet",
-	awaiting_start: "Afventer start",
-	charging: "Oplader",
-	completed: "Gennemført",
-	error: "Fejl",
-	ready_to_charge: "Klar til opladning"
-};
 var common$1 = {
 	name: "Charger Card",
-	description: "Charger card gir dig mulighed for at styre din ladeboks.",
-	start: "Start",
-	"continue": "Fortsæt",
-	pause: "Pause",
-	stop: "Stop",
-	override: "Overstyr plan",
-	reboot: "Genstart ladeboks",
-	not_available: "Lader utilgængelig",
-	click_for_info: "Klik for info",
-	click_for_config: "Klik for konfiguration",
-	click_for_limits: "Klik for limiteringer",
-	online: "Online",
-	voltage: "Spænding",
-	power: "Effekt",
-	charger_current: "Ladestrøm",
-	energy_per_hour: "Energi per time",
-	lifetime_energy: "Energi totalt",
-	circuit_current: "Kredsløbstrøm"
+	description: "Charger card gir dig mulighed for at styre din ladeboks."
 };
 var error$1 = {
-	missing_entity: "Du skal angive en entitet!"
+	missing_entity: "Du skal angive en entitet!",
+	not_available: "Not available",
+	missing_config: "Error in config!",
+	missing_group: "No entities defined in group!"
 };
 var editor$1 = {
+	instruction: "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+	brand: "Brand (Required)",
 	entity: "Entitet (obligatorisk)",
 	chargerImage: "Billede og -farvevalg",
 	customImage: "Valgfrit billede (erstatter billede af laderobot)",
@@ -3548,66 +3581,103 @@ var editor$1 = {
 	show_toolbar_aria_label_off: "Vis ikke værktøjslinje",
 	code_only_note: "Bemærk: Brugerdefinerede actions og data tabel (statistik) funktioner kan kun benyttes ved manuelt at redigere via Code Editor."
 };
-var charger_status$1 = {
-	sessionEnergy: "Energi session"
-};
-var charger_substatus$1 = {
-	not_requesting_current: "Bilen anmoder ikke om strøm",
-	ok: "Ok"
+var easee$1 = {
+	status: {
+		disconnected: "Frakoblet",
+		awaiting_start: "Afventer start",
+		charging: "Oplader",
+		completed: "Gennemført",
+		error: "Fejl",
+		ready_to_charge: "Klar til opladning"
+	},
+	substatus: {
+		ok: "Ok",
+		pending_schedule: "Pending schedule",
+		none: "None",
+		max_circuit_current_too_low: "Max circuit current too low",
+		max_dynamic_circuit_current_too_low: "Max dynamic circuit current too low",
+		max_dynamic_charger_current_too_low: "Max dynamic charger current too low",
+		max_dynamic_offline_fallback_circuit_current_too_low: "Max dynamic offline circuit current too low",
+		max_charger_current_too_low: "Max charger current too low",
+		circuit_fuse_too_low: "Circuit fuse too low",
+		waiting_in_queue: "Waiting in queue",
+		waiting_in_fully: "Waiting in fully",
+		illegal_grid_type: "Illegal grid type",
+		no_current_request: "No current request",
+		not_requesting_current: "Bilen anmoder ikke om strøm",
+		charger_disabled: "Charger Disabled",
+		pending_authorization: "Pending Authorization",
+		charger_in_error_state: "Charger in error state",
+		"undefined": "Undefined"
+	},
+	common: {
+		click_for_group1: "Klik for limiteringer",
+		click_for_group2: "Klik for info",
+		click_for_group3: "Klik for konfiguration",
+		start: "Start",
+		"continue": "Fortsæt",
+		pause: "Pause",
+		stop: "Stop",
+		resume: "Resume",
+		override: "Overstyr plan",
+		update: "Update firmware",
+		reboot: "Genstart ladeboks",
+		not_available: "Lader utilgængelig",
+		online: "Online",
+		voltage: "Spænding",
+		power: "Effekt",
+		current: "Current",
+		charger_current: "Ladestrøm",
+		energy_per_hour: "Energi per time",
+		session_energy: "Session energy",
+		lifetime_energy: "Energi totalt",
+		circuit_current: "Kredsløbstrøm",
+		dyn_charger_limit: "Dyn Charger Limit",
+		dyn_circuit_limit: "Dyn Circuit Limit",
+		max_charger_limit: "Max Charger Limit",
+		max_circuit_limit: "Max Circuit Limit",
+		output_limit: "Allowed current",
+		used_limit: "Used limit",
+		offline_circuit_limit: "Offline Circuit Limit",
+		enabled: "Enabled",
+		idle_current: "Idle current",
+		cable_locked: "Cable locked",
+		perm_cable_locked: "Cable locked permanently",
+		smart_charging: "Smart charging",
+		cost_per_kwh: "Cost per kWh",
+		update_available: "Update available",
+		schedule: "Schedule"
+	}
 };
 var da = {
-	status: status$1,
 	common: common$1,
 	error: error$1,
 	editor: editor$1,
-	charger_status: charger_status$1,
-	charger_substatus: charger_substatus$1
+	easee: easee$1
 };
 
 var da$1 = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    status: status$1,
     common: common$1,
     error: error$1,
     editor: editor$1,
-    charger_status: charger_status$1,
-    charger_substatus: charger_substatus$1,
+    easee: easee$1,
     'default': da
 });
 
-var status = {
-	disconnected: "Desconnectat",
-	awaiting_start: "Esperant per començar",
-	charging: "Carregant",
-	completed: "Completat",
-	error: "Error",
-	ready_to_charge: "A punt per carregar"
-};
 var common = {
 	name: "Charger Card",
-	description: "La Charger Card et permet controlar el teu robot de càrrega.",
-	start: "Començar",
-	"continue": "Continuar",
-	pause: "Pausar",
-	stop: "Parar",
-	override: "Sobrreescriure la programació",
-	reboot: "Reiniciar el carregador",
-	not_available: "Carregador no disponible",
-	click_for_info: "Fes click per més informació",
-	click_for_config: "Fes click per configurar",
-	click_for_limits: "Fes click per els límits",
-	online: "Disponible",
-	voltage: "Voltatge",
-	power: "Potència",
-	charger_current: "Corrent del carregador",
-	energy_per_hour: "Energia per hora",
-	lifetime_energy: "Energia de per vida",
-	circuit_current: "Circuit d'energia"
+	description: "La Charger Card et permet controlar el teu robot de càrrega."
 };
 var error = {
-	missing_entity: "És necessari especificar una entitat!"
+	missing_entity: "És necessari especificar una entitat!",
+	not_available: "Not available",
+	missing_config: "Error in config!",
+	missing_group: "No entities defined in group!"
 };
 var editor = {
+	instruction: "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+	brand: "Brand (Required)",
 	entity: "Entitat (Obligatori)",
 	chargerImage: "Imatge del carregador",
 	customImage: "Imatge personalitzada (Opcional - sobreesciu la imatge del carregador)",
@@ -3635,46 +3705,87 @@ var editor = {
 	show_toolbar_aria_label_off: "Ocultar la barra d'eines",
 	code_only_note: "Nota: Les opcions per les acciones personalitzades i els estats només estan disponibles manualment utilitzant la vista d'Edició de Codi."
 };
-var charger_status = {
-	sessionEnergy: "Energia de la sessió"
-};
-var charger_substatus = {
-	not_requesting_current: "No s'està consumint corrent",
-	ok: "Ok",
-	pending_schedule: "Esperant programa",
-	none: "Cap",
-	max_circuit_current_too_low: "Corrent màxima del circuit insuficient",
-	max_dynamic_circuit_current_too_low: "Corrent dinàmica màxima del circuit insuficient",
-	max_dynamic_offline_fallback_circuit_current_too_low: "Corrent dinàmica màxima de reserva insuficient",
-	circuit_fuse_too_low: "Circuit de fusible insuficient",
-	waiting_in_queue: "En cua esperant",
-	waiting_in_fully: "Esperant completat",
-	illegal_grid_type: "Xarxa il·legal",
-	no_current_request: "No hi ha demanda de corrent",
-	max_charger_current_too_low: "Corrent màxima del carregador insuficient",
-	max_dynamic_charger_current_too_low: "Corrent dinàmica màxima del carregador insuficient",
-	charger_disabled: "Carregador deshabilitat",
-	pending_authorization: "Esperant Autorització",
-	charger_in_error_state: "Error del carregador",
-	"undefined": "No definit"
+var easee = {
+	status: {
+		disconnected: "Desconnectat",
+		awaiting_start: "Esperant per començar",
+		charging: "Carregant",
+		completed: "Completat",
+		error: "Error",
+		ready_to_charge: "A punt per carregar"
+	},
+	substatus: {
+		not_requesting_current: "No s'està consumint corrent",
+		ok: "Ok",
+		pending_schedule: "Esperant programa",
+		none: "Cap",
+		max_circuit_current_too_low: "Corrent màxima del circuit insuficient",
+		max_dynamic_circuit_current_too_low: "Corrent dinàmica màxima del circuit insuficient",
+		max_dynamic_offline_fallback_circuit_current_too_low: "Corrent dinàmica màxima de reserva insuficient",
+		circuit_fuse_too_low: "Circuit de fusible insuficient",
+		waiting_in_queue: "En cua esperant",
+		waiting_in_fully: "Esperant completat",
+		illegal_grid_type: "Xarxa il·legal",
+		no_current_request: "No hi ha demanda de corrent",
+		max_charger_current_too_low: "Corrent màxima del carregador insuficient",
+		max_dynamic_charger_current_too_low: "Corrent dinàmica màxima del carregador insuficient",
+		charger_disabled: "Carregador deshabilitat",
+		pending_authorization: "Esperant Autorització",
+		charger_in_error_state: "Error del carregador",
+		"undefined": "No definit"
+	},
+	common: {
+		click_for_group1: "Fes click per els límits",
+		click_for_group2: "Fes click per més informació",
+		click_for_group3: "Fes click per configurar",
+		start: "Començar",
+		"continue": "Continuar",
+		pause: "Pausar",
+		stop: "Parar",
+		resume: "Continuar",
+		override: "Sobrreescriure la programació",
+		update: "Update firmware",
+		reboot: "Reiniciar el carregador",
+		not_available: "Carregador no disponible",
+		online: "Disponible",
+		voltage: "Voltatge",
+		power: "Potència",
+		current: "Current",
+		charger_current: "Corrent del carregador",
+		energy_per_hour: "Energia per hora",
+		session_energy: "Session energy",
+		lifetime_energy: "Energia de per vida",
+		circuit_current: "Corrent del circuit",
+		dyn_charger_limit: "Dyn Charger Limit",
+		dyn_circuit_limit: "Dyn Circuit Limit",
+		max_charger_limit: "Max Charger Limit",
+		max_circuit_limit: "Max Circuit Limit",
+		output_limit: "Allowed current",
+		used_limit: "Used limit",
+		offline_circuit_limit: "Offline Circuit Limit",
+		enabled: "Enabled",
+		idle_current: "Idle current",
+		cable_locked: "Cable locked",
+		perm_cable_locked: "Cable locked permanently",
+		smart_charging: "Smart charging",
+		cost_per_kwh: "Cost per kWh",
+		update_available: "Update available",
+		schedule: "Schedule"
+	}
 };
 var ca = {
-	status: status,
 	common: common,
 	error: error,
 	editor: editor,
-	charger_status: charger_status,
-	charger_substatus: charger_substatus
+	easee: easee
 };
 
 var ca$1 = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    status: status,
     common: common,
     error: error,
     editor: editor,
-    charger_status: charger_status,
-    charger_substatus: charger_substatus,
+    easee: easee,
     'default': ca
 });
 
@@ -4961,8 +5072,6 @@ const LEDIMAGES = {
     ready_to_charge: img$2
   }
 };
-
-// import * as template from './const_template.js';
 
 class ChargerCardEditor extends LitElement {
   static get properties() {
@@ -6771,14 +6880,17 @@ class ChargerCard extends LitElement {
     var location;
     var moreEntity = null;
     var compactview = this.compactView ? '-compact' : '';
+    var nameunit, locationunit;
 
     if (carddata_name !== null && carddata_name !== undefined) {
       name = typeof carddata_name == 'object' ? carddata_name.useval : carddata_name;
       moreEntity = typeof carddata_name == 'object' ? carddata_name.entity : null;
+      nameunit = carddata_name.unit_show ? carddata_name.unit : '';
     }
 
     if (carddata_location !== null && carddata_location !== undefined) {
       location = typeof carddata_location == 'object' ? carddata_location.useval : carddata_location;
+      locationunit = carddata_location.unit_show ? carddata_location.unit : '';
     }
 
     var combinator = "";
@@ -6793,7 +6905,7 @@ class ChargerCard extends LitElement {
         @click="${() => this.handleMore(moreEntity)}"
         ?more-info="true"
       >
-        ${name}${carddata_name.unit_show ? carddata_name.unit : ''}${combinator}${location}${carddata_location.unit_show ? carddata_location.unit : ''}
+        ${name}${nameunit}${combinator}${location}${locationunit}
       </div>
     `;
   }
