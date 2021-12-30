@@ -6465,7 +6465,7 @@ class ChargerCard extends LitElement {
   }
 
   get currentlimits() {
-    if (this.config.currentlimits !== undefined && Array.isArray(this.config.details.currentlimits)) {
+    if (this.config.details !== undefined && this.config.details.currentlimits !== undefined && Array.isArray(this.config.details.currentlimits)) {
       return this.config.details.currentlimits;
     } // console.log(Array.isArray(this.config.details.currentlimits))
 
@@ -6474,7 +6474,7 @@ class ChargerCard extends LitElement {
   }
 
   get statetext() {
-    if (this.config.details.statetext !== undefined && typeof this.config.details.statetext == 'object') {
+    if (this.config.details !== undefined && this.config.details.statetext !== undefined && typeof this.config.details.statetext == 'object') {
       return this.config.details.statetext;
     }
 
@@ -6662,7 +6662,7 @@ class ChargerCard extends LitElement {
 
   getCollapsibleButton(button, deftext, deficon) {
     try {
-      var btns = this.config.details.collapsiblebuttons;
+      var btns = this.getConfig("details.collapsiblebuttons");
       return {
         text: this.loc(btns[button].text, 'common', this.brand),
         icon: btns[button].icon
@@ -6719,6 +6719,24 @@ class ChargerCard extends LitElement {
     try {
       var attr = attribute === null ? this.hass.states[entity_id].attributes : this.hass.states[entity_id].attributes[attribute];
       return attr !== undefined ? attr : null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  getConfig(cvar) {
+    try {
+      var cvararray = cvar.split(".");
+      var val;
+
+      if (cvararray.length > 1 && cvararray[0] == "details") {
+        val = this.config.details[cvararray[1]];
+      } else {
+        val = this.config[cvar];
+      }
+
+      this.log(cvar + " --> " + val);
+      return val;
     } catch (err) {
       return null;
     }
@@ -6823,7 +6841,7 @@ class ChargerCard extends LitElement {
     //   return html``;
     // }
     var hide = this.showLeds === true ? '' : '-hidden';
-    var carddatas = this.getCardData(this.config.details["smartcharging"]);
+    var carddatas = this.getCardData(this.getConfig("details.smartcharging"));
     var chargingmode = 'normal';
 
     if (carddatas !== null && carddatas !== undefined && typeof carddatas === 'object' && carddatas.entity !== null) {
@@ -6844,8 +6862,8 @@ class ChargerCard extends LitElement {
 
     var stats;
 
-    if (this.config.details['stats'] !== undefined && this.config.details['stats'] !== null) {
-      stats = this.getCardData(this.config.details['stats']);
+    if (this.getConfig("details.stats") !== null) {
+      stats = this.getCardData(this.getConfig("details.stats"));
       stats = stats !== undefined && stats !== null ? stats[state] || stats['default'] : [];
     } else {
       console.info("Stats is turned on but no stats given in config.");
@@ -6874,8 +6892,8 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    var carddata_name = this.getCardData(this.config.details["name"]);
-    var carddata_location = this.getCardData(this.config.details["location"]);
+    var carddata_name = this.getCardData(this.getConfig("details.name"));
+    var carddata_location = this.getCardData(this.getConfig("details.location"));
     var name;
     var location;
     var moreEntity = null;
@@ -6915,14 +6933,16 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    var carddata_status = this.getCardData(this.config.details["status"]);
-    var carddata_substatus = this.getCardData(this.config.details["substatus"]);
+    var carddata_status = this.getCardData(this.getConfig("details.status"));
+    var carddata_substatus = this.getCardData(this.getConfig("details.substatus"));
     var status = null,
         substatus = null;
     var compactview = this.compactView ? '-compact' : '';
+    var statusunit, substatusunit;
 
     if (carddata_status !== null && carddata_status !== undefined) {
       status = typeof carddata_status == 'object' ? carddata_status.useval : carddata_status;
+      statusunit = carddata_status.unit_show ? carddata_status.unit : '';
     } else {
       status = this.entity.state;
     } // console.log(carddata_substatus.useval)
@@ -6930,6 +6950,7 @@ class ChargerCard extends LitElement {
 
     if (carddata_substatus !== null && carddata_substatus !== undefined) {
       substatus = typeof carddata_substatus == 'object' ? carddata_substatus.useval : carddata_substatus;
+      substatusunit = carddata_substatus.unit_show ? carddata_substatus.unit : '';
     } //Localize and choose
 
 
@@ -6937,10 +6958,10 @@ class ChargerCard extends LitElement {
     substatus = substatus !== null ? this.loc(substatus, "substatus", this.brand) || substatus : '';
     return html`
       <div class="status${compactview}" @click="${() => this.handleMore(carddata_status.entity || null)}"?more-info="true">
-        <span class="status-text${compactview}" alt=${status}>${status}${carddata_status.unit_show ? carddata_status.unit : ''}</span>
+        <span class="status-text${compactview}" alt=${status}>${status}${statusunit}</span>
         <ha-circular-progress .active=${this.requestInProgress} size="small"></ha-circular-progress>
         <div class="status-detail-text${compactview}" alt=${substatus} @click="${() => this.handleMore(carddata_substatus.entity || null)}"?more-info="true">
-          ${substatus}${carddata_substatus.unit_show ? carddata_substatus.unit : ''}
+          ${substatus}${substatusunit}
         </div>
       </div>
     `;
@@ -6952,7 +6973,7 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    var carddatas = this.getCardData(this.config.details[group]);
+    var carddatas = this.getCardData(this.getConfig("details." + group));
     return html`
       <div class="wrap-collabsible${style}">
         <input id="collapsible${style}" class="toggle${style}" type="checkbox" />
@@ -7029,7 +7050,7 @@ class ChargerCard extends LitElement {
   }
 
   renderMainInfoLeftRight(data) {
-    var carddatas = this.getCardData(this.config.details[data]);
+    var carddatas = this.getCardData(this.getConfig("details." + data));
 
     if (carddatas === null || carddatas === undefined || typeof carddatas !== 'object') {
       return html``;
@@ -7062,8 +7083,8 @@ class ChargerCard extends LitElement {
       return html``;
     }
 
-    var toolbardata_left = this.getCardData(this.config.details.toolbar_left);
-    var toolbardata_right = this.getCardData(this.config.details.toolbar_right);
+    var toolbardata_left = this.getCardData(this.getConfig("details.toolbar_left"));
+    var toolbardata_right = this.getCardData(this.getConfig("details.toolbar_right"));
     toolbardata_left = toolbardata_left !== null ? toolbardata_left[state] || toolbardata_left.default || [] : [];
     toolbardata_right = toolbardata_right !== null ? toolbardata_right[state] || toolbardata_right.default || [] : [];
     var toolbar_left = Object.values(toolbardata_left).map(btn => {
