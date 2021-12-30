@@ -1,11 +1,11 @@
-# EV Charger Card
+  # EV Charger Card
 
 [![hacs][hacs-badge]][hacs-url]
 [![Buy Me A Coffee][buymeacoffee-image]][buymeacoffee-url]
 
 > EV Charger card for [Home Assistant][home-assistant] Lovelace UI
 
-By default, Home Assistant does not provide any card for controlling chargers for electrical vehicles (EVs). This card displays the state and allows to control your charger.
+By default, Home Assistant does not provide any card for controlling chargers for electrical vehicles (EVs). This card displays the state and allows to control your charger - and it is now made fully customizable so you could also use it for «anything» else as well, for instance your electric car.
 
 ![Preview of charger-card][preview-image]
 
@@ -33,11 +33,11 @@ Installation with [HACS][hacs] (Home Assistant Community Store) is highly reccom
         - url: /local/charger-card.js
           type: module
       ```
-4. Add `custom:charger-card` to Lovelace UI as any other card (using either editor or YAML configuration).
+4. Add `custom:charger-card` to Lovelace UI as any other card (using either UI-editor or YAML-configuration).
 
 # Configuring and using the card
 
-This card can be configured using Lovelace UI editor.
+After installation, the card can be configured either using Lovelace UI editor or YAML-code.
 
 1. In Lovelace UI, click 3 dots in top left corner.
 2. Click _Configure UI_.
@@ -48,16 +48,15 @@ This card can be configured using Lovelace UI editor.
 7. Now you should see the preview of the card!
 8. Do your customizations in UI editor or manually in the YAML code editor.
 
-_Sorry, there is no support for `toolbar` and `stats` in visual UI editor yet._
-
 A minimum example of using this card in YAML config would look like this:
 
 ```yaml
 type: 'custom:charger-card'
+brand: easee
 entity: sensor.easee_status
 ```
 
-Here is a list of the basic options. See _advanced configuration_ further down for more details.
+Here is a list of the basic options. See [_advanced configuration_](#advanced-configuration) further down for more details.
 
 | Name                               |   Type    | Default      | Description                                                                                                                                                                                                                                                                                                                            |
 | ---------------------------------- | :-------: | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -66,33 +65,27 @@ Here is a list of the basic options. See _advanced configuration_ further down f
 | `entity`                           | `string`  | **Required** | The main status sensor for your charger (for Easee, look for the one named `status`).                                                                                                                                                                                                                                                  |
 | `customCardTheme`                  | `string`  | Optional     | Select a built-in theme of colors, or use `theme_custom` to apply the theme you have applied in HA.                                                                                                                                                                                                                                    |
 | `chargerImage`                     | `string`  | Anthracite   | Select a charger image from the built-in default images                                                                                                                                                                                                                                                                                |
-| `customImage`                      | `string`  | Optional     | Path to custom image of your charger (`png` or `svg`). This will override the chargerImage selection. (For images in www folder of HA, try path `\local\image.png`                                                                                                                                                                     |
+| `customImage`                      | `string`  | Optional     | Path to custom image of your charger (`png` or `svg`). This will override the chargerImage selection. (For images in the www-folder of HA, try path `\local\image.png`                                                                                                                                                                     |
 | `compact_view`                     | `boolean` | `false`      | Show a compact view of the card.                                                                                                                                                                                                                                                                                                       |
 | `show_name`                        | `boolean` | `true`       | Show a friendly name of the charger and the location (if provided)                                                                                                                                                                                                                                                                     |
 | `show_leds`                        | `boolean` | `true`       | Show status leds for the charger, fits best with Easee chargers and when using built-in images.                                                                                                                                                                                                                                        |
 | `show_status`                      | `boolean` | `true`       | Show status of the charger.                                                                                                                                                                                                                                                                                                            |
 | `show_collapsibles`                | `boolean` | `true`       | Show the collapsible menu buttons which will open detailed sensors when clicked.                                                                                                                                                                                                                                                       |
 | `show_toolbar`                     | `boolean` | `true`       | Show a toolbar with buttons that can call a service or do stuff.                                                                                                                                                                                                                                                                       |
-| `show_stats`                       | `boolean` | `true`       | Show data table (stats).                                                                                                                                                                                                                                                                                                               |
-| `stats`                            | `object`  | Optional     | Custom data table (stats) depending on charger state. This option must be configured in YAML-editor, no UI-support for configuration. See advanced configuration for details.                                                                                                                                                          |
-| `toolbar_left` and `toolbar_right` | `object`  | Optional     | Custom toolbar buttons, left or right aligned, at the bottom of card. This option must be configured in YAML-editor, no UI-support for configuration. See advanced configuration for details.                                                                                                                                          |
+| `show_stats`                       | `boolean` | `true`       | Show data table (stats).  |
+| `details`                       | `details` | Optional        | Details for customization if the default brand template doesn't do what you want it to. This mus be done manually with YAML-code. See [_advanced configuration_](#advanced-configuration)  |
 
-### `stats` object
 
-In addition to the charger info, you can use any sensor or sensor attribute of your choosing to be shown in the stats data table section. It can depend on charger status or you can use `default` to select one that shows for all charger states. See advanced configuration for examples.
 
-### `toolbar_left` and `toolbar_right` objects
-
-You can define custom services to be run when clicking a button on the toolbar (right or left) as you prefer. It can depend on charger status or you can use `default` to select one that shows for all charger states. See advanced configuration for examples.
 
 ## Features
 
-- Fully customizable for your needs, the card may work for different chargers and other entities if you read the Advanced configuration section and customize it to your needs. For chargers that are supported by default, the setup is very easy (select brand and main entity and you should be done).
+- Fully customizable for your needs, the card works for different chargers and other entities if you read the [_advanced configuration_](#advanced-configuration) section and customize it to your needs. For chargers that are supported by default templates, the setup is very easy: select brand and main entity and you should be done.
 - Animations: If choosing the default images of Easee chargers in any color, you can also choose to show leds which will behave according to charger status. This is identical to how the charger looks physically and similar to the Easee app and web site. Two leds for standby, all leds when connected, flashing while charging and so on. If SmartCharging is enabled, leds will be blue.
-- Collapsible menu buttons: Click on one of the menu buttons (if you have enabled them) to get more info, config or limit settings.
-- Possibility to set current limits from UI
-- Customizable data table (stats) items that can depend on charger status and show most relevant information.
-- Customizable toolbar with buttons to call services or do something which. The toolbar can depend on charger status and show most relevant actions.
+- Collapsible menu buttons: Click on one of the menu buttons (if you have enabled them) to get more info, config or limit settings. Can also be customized.
+- Possibility to set current limits from UI. Current limits can also be customized.
+- Customizable data table (stats) items that can depend on charger status and show relevant information.
+- Customizable toolbar with buttons to call services or do something which. The toolbar can depend on charger status and show relevant actions.
 
 ## Supported languages
 
@@ -108,319 +101,390 @@ This card supports translations. Please, help to add more translations and impro
 
 ## Supported models
 
-This card was originally made to support charging robots from <a href='https://easee-international.com/'>Easee</a>, but has been further developed to be fully configurable and customizable. It can even be used for other things than EV-chargers. Some brands added with built-in support to make the configuration really easy:
+This card was originally made to support charging robots from [Easee](https://easee-international.com/), but has been further developed to be fully configurable and customizable and can be used with any kind of charger. It can even be used for other things than EV-chargers, for instance your electric car or something completely different. Some `brand`s are added with built-in support to make the configuration really easy:
 
 - Easee
 - [_Your charger?_][edit-readme]
 
 # Advanced configuration
 
-If your brand is on the list of supported models, you should be able to get away by just selecting the brand from the UI editor of Home Assistant and easily configuring some basic options. However, if you want to customize it or use it for something else, an advanced YAML-configuration is shown below. It may seem overwhelming at first, so a trick can be applying a built-in brand and start modifying the YAML code from there. This will give you the basic structure.
+If your brand is on the list of supported models, you should be able to get away just by selecting the `brand` and `entity` main sensor from the UI editor of Home Assistant. However, if you want to fully customize it or use it for something else than supported by default `brand`s, you must do this yourself with YAML-code. It may seem overwhelming at first, so a trick can be applying a built-in `brand` as a template and start modifying the YAML code from there - this will give you the basic structure. Also see the examples further down.
 
-Most details can be overridden on most features by using the following keywords:
+| Name                               |   Type    | Default      | Description                                                                                                                                                                                                                                                                                                                            |
+| ---------------------------------- | :-------: | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `debug`                             | `boolean`  | `false` | Apply `true` to enable some debugging features which will appear in Developer Tools of your browser (Ctrl+Shift+I in Chrome). Useful if something doesn't work.
+| `localize`                             | `boolean`  | `true` | Apply `false` to disable all translations, for instance if you want to fully customize texts and the translation feature for some reason messes up you stuff. Normally not necessary.
+| `details`                       | `details` |        | Details for customization if the default brand template doesn't do what you want it to. See [`details`-items](#details-items)  |
 
-## Entity config table
+
+
+## Details items
+
+| Config             | Text         |
+| ------------------ | ------------------------------------------------- |
+| name               | Single entity with configuration details as shown in [`entity`-items](#entity-items). |
+| location           | Single entity with configuration details as shown in [`entity`-items](#entity-items). |
+| status             | Single entity with configuration details as shown in [`entity`-items](#entity-items). |
+| substatus          | Single entity with configuration details as shown in [`entity`-items](#entity-items). |
+| smartcharging      | Single entity with configuration details as shown in [`entity`-items](#entity-items). Controls white or blue leds for easee chargers.|
+| info_left          | List of entities with configuration details as shown in [`entity`-items](#entity-items). Defines static icons shown top-left of the card.|
+| info_right         | Same as `info_left`, but for static icons shown top-right of the card.|
+| group1             | List of entities with configuration details as shown in [`entity`-items](#entity-items). Defines the content of first collapsible-button (default: limits).|
+| group2             | List of entities with configuration details as shown in [`entity`-items](#entity-items). Defines the content of second collapsible-button (default: info).|
+| group3             | List of entities with configuration details as shown in [`entity`-items](#entity-items). Defines the content of third collapsible-button (default: config).|
+| stats              | Provide the states of `entity` defined as main status sensor, then a list of entities with configuration details as shown in [`entity`-items](#entity-items). Defines the datatable statistics (stats) in lower part of card. It may change depending on status of charger, or it is possible to define `default` as a state. See example. |
+| toolbar_left       | Provide the states of `entity` defined as main status sensor, then a list of entities with configuration details as shown in [`entity`-items](#entity-items). Defines the left aligned command buttons on the toolbar at the bottom of the card. It may change depending on status of charger, or it is possible to define `default` as a state. See example.                                                     |
+| toolbar_right      | Same as `toolbar_left` but right aligned command buttons on the toolbar.                                           |
+| currentlimits      | Override the card default current limits by specifying a list of numbers. Used for current limit features of the card (if configured).|
+| statetext          | Override or custom-translate the status sensor state by providing better or cleaner text. See example.|
+| collapsiblebuttons | Specify `text` and/or `icon` to customize the collapsible-buttons `group1`,`group2` and `group3` respectively. See example.|
+
+
+## Entity items
 
 | Config                | Text                                                                                                                                                                                                                                                                                                                                                        |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| entity_id             | Specify an entity id that you want to use for the specific feature. Enter `calculated` to perform mathematical functions instead, see below.                                                                                                                                                                                                                |
-| attribute             | You can specify an attribute of the entity to use this instead of entity state as value.                                                                                                                                                                                                                                                                    |
-| unit                  | Card will use the entity `unit_of_measurement` as default, but you can override it here.                                                                                                                                                                                                                                                                    |
-| unit_show:            | Define if the unit should be shown next to the value or not.                                                                                                                                                                                                                                                                                                |
-| unit_showontext       | Define if the value and unit should be shown next to the tooltip text                                                                                                                                                                                                                                                                                       |
-| text                  | Card will use the entity `friendly_name` as default, but you can override it here. Used as tooltip text for icons and as information on stats.                                                                                                                                                                                                              |
-| service               | You can specify a service that you wish to link to the entity, check available services in HA Developer Tools. Use full format like `domain.servicename`                                                                                                                                                                                                    |
-| service_data          | Specify the service data corresponding to the service you defined. See advanced configuration for example.                                                                                                                                                                                                                                                  |
-| icon                  | Card will use the entity icon as default, and will try to detect device class icons as well. If you want to override it, do it here.                                                                                                                                                                                                                        |
-| round                 | If you would like to round down the number, specify an integer to define the number of digits.                                                                                                                                                                                                                                                              |
-| type                  | Choose between `info`, `service` and `dropdown`. Info-items will appear as icons with tooltip, clicking them opens the specified entity. Service-items will do the same, but call a service when clicked (if it is provided). Dropdown-items will show a dropdown list to select from a list and call a specified service with this number as service data. |
-| calc_function         | Choose between `min`, `max`, `mean`, `sum` to define a mathematical function to be performed on a specified list of entities or attributes. The result will be used on the sensor provided you specify `calculated` as the main `entity_id`.                                                                                                                |
-| calc_entities         | A list of entites or entity attributes that are used for the mathematical function. Specify a list of `entity_id`s and add `attribute`s if you prefer to use that.                                                                                                                                                                                          |
-| conditional_entity    | Specify a boolean entity (returning on/off or true/false) to define if the entity should be shown based on state condition.                                                                                                                                                                                                                                 |
-| conditional_attribute | Specify a boolean entity and its attribute (returning on/off or true/false) to define if the entity should be shown based on state attribute condition.                                                                                                                                                                                                     |
-| conditional_invert    | Invert the conditional rule, so that true/on means hide and false/off means show                                                                                                                                                                                                                                                                            |
-
-## Main items
-
-| Config             | Text                                                                                                                                                                                                                                                       |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name               | Single entity with configuration details as shown in table above.                                                                                                                                                                                          |
-| location           | Single entity with configuration details as shown in table above.                                                                                                                                                                                          |
-| status             | Single entity with configuration details as shown in table above.                                                                                                                                                                                          |
-| substatus          | Single entity with configuration details as shown in table above.                                                                                                                                                                                          |
-| smartcharging      | Single entity with configuration details as shown in table above. Controls white or blue leds for easee chargers.                                                                                                                                          |
-| info_right         | List of entities with configuration details as shown in table above. Defines static icons shown top-left of the card.                                                                                                                                      |
-| info_right         | List of entities with configuration details as shown in table above. Defines static icons shown top-right of the card.                                                                                                                                     |
-| group1             | List of entities with configuration details as shown in table above. Defines the content of first collapsible-button (default limits).                                                                                                                     |
-| group2             | List of entities with configuration details as shown in table above. Defines the content of second collapsible-button (default info).                                                                                                                      |
-| group3             | List of entities with configuration details as shown in table above. Defines the content of third collapsible-button (default config).                                                                                                                     |
-| stats              | Provide the state of entity defined as status-sensor, then a list of entities with configuration details as shown in table above. Defines the datatable statistics (stats) in lower part of card, will change depending on status of charger. See example. |
-| toolbar_left       | Provide the state of entity defined as status-sensor, the a list of entities with configuration details as shown in table above. Defines the left aligned command buttons of the toolbar. See example.                                                     |
-| toolbar_right      | Provide the state of entity defined as status-sensor, the a list of entities with configuration details as shown in table above. Defines the right aligned command buttons of the toolbar.                                                                 |
-| currentlimits      | Override the card default current limits by specifying a list of numbers. Used for current limit features of the card (if configured).                                                                                                                     |
-| statetext          | Override or custom-translate the status sensor state by providing better or cleaner text. See example.                                                                                                                                                     |
-| collapsiblebuttons | Specify `text` and/or `icon` to customize the collapsible-buttons `group1`,`group2` and `group3` respectively. See example.          |
-| debug              | Set this to true if you want debugging info, this is important if something doesn't work out right for you and you want to report it.                                                              |
-|translate|Set this to false if you want to disable all (well, most....) translations.|
+| entity_id             | Specify an entity id that you want to use for the specific feature. Enter `calculated` to perform mathematical functions instead, see further down how.|
+| attribute             | You can specify an attribute of the entity to use instead of entity state as value. |
+| unit                  | Card will use the entity `unit_of_measurement` as default, but you can override it here by entering the unit you want.|
+| unit_show             | Define if the unit should be shown next to the value or not.|
+| unit_showontext       | Define if the value and unit should be shown next to the tooltip text|
+| text                  | Card will use the entity `friendly_name` as default, but you can override it here by entering the text you want. Used as tooltip text for icons and as information on stats.|
+| service               | You can specify a service that you wish to link to the entity, check available services in HA Developer Tools. Use full format like `domain.servicename`|
+| service_data          | Specify the service data corresponding to the service you want to call. If it is not a static call, but for instance a call with a value selected from a dropdown menu, enter `#SERVICEVAL#` as a special token which will be replaced by the card when called. See advanced configuration for example. |
+| icon                  | Card will use the entity icon as default, and will try to detect device class icons as well. If you want to override it, do it here by specifying a valid icon.|
+| round                 | If you would like to round down the number, specify an integer to define the number of digits.|
+| type                  | Choose between `info`, `service` and `dropdown`. Info-items will appear as icons with tooltip, clicking them opens the more-info popup for the entity. Service-items will do the same, but call a service when clicked (if it is provided). Dropdown-items will show a dropdown list to select from a list and call a specified service with this number as service data. |
+| calc_function         | Choose between `min`, `max`, `mean`, `sum` to define a mathematical function to be performed on a specified list of entities or attributes. The result will be used on the sensor provided you specify `calculated` instead of a real `entity_id`. Then add a list of entities to be calculated in `calc_entities`.|
+| calc_entities         | A list of entites or entity attributes that are used for the mathematical function. Specify a list of `entity_id`s and add `attribute`s if you prefer to use that.|
+| conditional_entity    | Specify a boolean entity (returning on/off or true/false) to define if the entity should be shown based on state condition.|
+| conditional_attribute | Specify a boolean entity and its attribute (returning on/off or true/false) to define if the entity should be shown based on state attribute condition.|
+| conditional_invert    | Invert the conditional rule, so that true/on means hide and false/off means show |
 
 ## Advanced example (Easee charger)
 
 ```yaml
 type: custom:charger-card
 entity: sensor.CHARGERNAME_status
-prefix: CHARGERNAME
 customCardTheme: theme_custom
 chargerImage: Red
-name:
-  entity_id: sensor.CHARGERNAME_status
-  attribute: name
-location:
-  entity_id: sensor.CHARGERNAME_status
-  attribute: site_name
-status:
-  entity_id: sensor.CHARGERNAME_status
-substatus:
-  entity_id: sensor.CHARGERNAME_reason_for_no_current
-smartcharging:
-  entity_id: switch.CHARGERNAME_smart_charging
-info_left:
-  - entity_id: binary_sensor.CHARGERNAME_online
-    text: Online
-info_right:
-  - entity_id: sensor.CHARGERNAME_voltage
-    text: Voltage
-  - entity_id: sensor.CHARGERNAME_power
-    text: Power
-group1:
-  - entity_id: sensor.CHARGERNAME_dynamic_charger_limit
-    text: Dyn. charger limit
-  - entity_id: sensor.CHARGERNAME_dynamic_circuit_limit
-    text: Dyn. circuit limit
-  - entity_id: sensor.CHARGERNAME_max_charger_limit
-    text: Charger limit
-  - entity_id: sensor.CHARGERNAME_max_circuit_limit
-    text: Circuit limit
-  - entity_id: sensor.CHARGERNAME_offline_circuit_limit
-    text: Offline circuit limit
-  - entity_id: sensor.CHARGERNAME_output_limit
-    text: Output limit
-group2:
-  - entity_id: binary_sensor.CHARGERNAME_online
-    text: Online
-  - entity_id: sensor.CHARGERNAME_voltage
-    text: Voltage
-  - entity_id: sensor.CHARGERNAME_power
-    text: Power
-  - entity_id: sensor.CHARGERNAME_current
-    text: Current
-  - entity_id: sensor.CHARGERNAME_circuit_current
-    text: Circuit Current
-  - entity_id: sensor.CHARGERNAME_energy_per_hour
-    text: Energy per hour
-  - entity_id: sensor.CHARGERNAME_lifetime_energy
-    text: Total energy
-  - entity_id: sensor.CHARGERNAME_session_energy
-    text: Total energy
-group3:
-  - entity_id: switch.CHARGERNAME_is_enabled
-    text: Enabled
-  - entity_id: switch.CHARGERNAME_enable_idle_current
-    text: Idle Current
-  - entity_id: binary_sensor.CHARGERNAME_cable_locked
-    text: Cable locked
-  - entity_id: switch.CHARGERNAME_cable_locked_permanently
-    text: Perm. locked
-  - entity_id: switch.CHARGERNAME_smart_charging
-    text: Smart charging
-  - entity_id: sensor.CHARGERNAME_cost_per_kwh
-    text: Cost per kWh
-  - entity_id: binary_sensor.CHARGERNAME_update_available
-    text: Update available
-  - entity_id: binary_sensor.CHARGERNAME_basic_schedule
-    text: Schedule
-stats:
-  default:
-    - entity_id: binary_sensor.CHARGERNAME_basic_schedule
-      text: Schedule
-    - entity_id: binary_sensor.CHARGERNAME_basic_schedule
-      text: Schedule
-  disconnected:
-    - entity_id: sensor.CHARGERNAME_session_energy
-      text: Energy
-    - entity_id: switch.CHARGERNAME_cable_locked_permanently
-      text: CableLocked
-    - entity_id: calculated
-      text: Used Limit
-      unit: A
-      calc_function: min
-      calc_entities:
-        - entity_id: sensor.CHARGERNAME_dynamic_charger_limit
-        - entity_id: sensor.CHARGERNAME_dynamic_circuit_limit
-        - entity_id: sensor.CHARGERNAME_max_charger_limit
-        - entity_id: sensor.CHARGERNAME_max_circuit_limit
-        - entity_id: sensor.CHARGERNAME_offline_circuit_limit
-  awaiting_start:
-    - entity_id: sensor.CHARGERNAME_session_energy
-      text: Energy
-    - entity_id: binary_sensor.CHARGERNAME_basic_schedule
-      text: Schedule
-    - entity_id: switch.CHARGERNAME_smart_charging
-      text: SmartCharging
-  charging:
-    - entity_id: sensor.CHARGERNAME_session_energy
-      text: Energy
-    - entity_id: sensor.CHARGERNAME_energy_per_hour
-      text: Rate
-    - entity_id: sensor.CHARGERNAME_circuit_current
-      text: Circuit
-    - entity_id: sensor.CHARGERNAME_output_limit
-      text: Allowed
-    - entity_id: sensor.CHARGERNAME_current
-      text: Actual
-    - entity_id: sensor.CHARGERNAME_power
-      text: Power
-  completed:
-    - entity_id: sensor.CHARGERNAME_session_energy
-      text: Energy
-    - entity_id: binary_sensor.CHARGERNAME_basic_schedule
-      text: Schedule
-  error:
-    - entity_id: sensor.CHARGERNAME_session_energy
-      text: Energy
-    - entity_id: binary_sensor.CHARGERNAME_basic_schedule
-      text: Schedule
-  ready_to_charge:
-    - entity_id: sensor.CHARGERNAME_session_energy
-      text: Energy
-    - entity_id: binary_sensor.CHARGERNAME_basic_schedule
-      text: Schedule
-toolbar_left:
-  default:
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:play-pause
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:motion-play
-  disconnected:
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: mdi:cancel
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: mdi:cancel
-  awaiting_start:
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:play-pause
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:motion-play
-  charging:
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:pause
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:stop
-  completed:
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:stop
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:motion-play
-  error:
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:restart
-  ready_to_charge:
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:stop
-    - service: persistent_notification.create
-      service_data:
-        message: test1
-        title: test
-      text: Schedule
-      icon: hass:motion-play
-currentlimits:
-  - 10
-  - 16
-  - 20
-  - 25
-  - 32
-statetext:
-  disconnected: Disconnected
-  awaiting_start: Paused or awaiting start
-  charging: Charging
-  completed: Completed or awaiting car
-  error: Error
-  ready_to_charge: Ready to charge
-collapsiblebuttons:
-  - group1:
-      text: Click for limits
+brand: easee
+show_leds: true
+details:
+  name:
+    entity_id: sensor.CHARGERNAME_status
+    attribute: name
+  location:
+    entity_id: sensor.CHARGERNAME_status
+    attribute: site_name
+  status:
+    entity_id: sensor.CHARGERNAME_status
+  substatus:
+    entity_id: sensor.CHARGERNAME_reason_for_no_current
+  smartcharging:
+    entity_id: switch.CHARGERNAME_smart_charging
+  currentlimits:
+    - 0
+    - 6
+    - 10
+    - 16
+    - 20
+    - 25
+    - 32
+  statetext:
+    disconnected: disconnected
+    awaiting_start: awaiting_start
+    charging: charging
+    completed: completed
+    error: error
+    ready_to_charge: ready_to_charge
+  collapsiblebuttons:
+    group1:
+      text: click_for_group1
       icon: mdi:speedometer
-  - group2:
-      text: Click for info
+    group2:
+      text: click_for_group2
       icon: mdi:information
-  - group3:
-      text: Click for config
+    group3:
+      text: click_for_group3
       icon: mdi:cog
-brand: Test
+  info_left:
+    - entity_id: binary_sensor.CHARGERNAME_online
+      text: online
+  info_right:
+    - entity_id: sensor.CHARGERNAME_voltage
+      text: voltage
+      unit_show: true
+    - entity_id: sensor.CHARGERNAME_power
+      text: power
+      unit_show: true
+  group1:
+    - entity_id: sensor.CHARGERNAME_dynamic_charger_limit
+      text: dyn_charger_limit
+      service: easee.set_charger_dynamic_limit
+      service_data:
+        charger_id: CHARGERID
+        current: '#SERVICEVAL#'
+    - entity_id: sensor.CHARGERNAME_dynamic_circuit_limit
+      text: dyn_circuit_limit
+      service: easee.set_charger_circuit_dynamic_limit
+      service_data:
+        charger_id: CHARGERID
+        currentP1: '#SERVICEVAL#'
+    - entity_id: sensor.CHARGERNAME_max_charger_limit
+      text: max_charger_limit
+      service: easee.set_charger_max_limit
+      service_data:
+        charger_id: CHARGERID
+        current: '#SERVICEVAL#'
+    - entity_id: sensor.CHARGERNAME_max_circuit_limit
+      text: max_circuit_limit
+      service: easee.set_circuit_max_limit
+      service_data:
+        charger_id: CHARGERID
+        currentP1: '#SERVICEVAL#'
+    - entity_id: sensor.CHARGERNAME_offline_circuit_limit
+      text: offline_circuit_limit
+      service: easee.set_charger_circuit_offline_limit
+      service_data:
+        charger_id: CHARGERID
+        currentP1: '#SERVICEVAL#'
+  group2:
+    - entity_id: binary_sensor.CHARGERNAME_online
+      text: online
+    - entity_id: sensor.CHARGERNAME_voltage
+      text: voltage
+      unit_show: true
+    - entity_id: sensor.CHARGERNAME_power
+      text: power
+      unit_show: true
+    - entity_id: sensor.CHARGERNAME_current
+      text: charger_current
+      unit_show: true
+    - entity_id: sensor.CHARGERNAME_circuit_current
+      text: circuit_current
+      unit_show: true
+    - entity_id: sensor.CHARGERNAME_energy_per_hour
+      text: energy_per_hour
+      unit_show: true
+    - entity_id: sensor.CHARGERNAME_session_energy
+      text: session_energy
+      unit_show: true
+    - entity_id: sensor.CHARGERNAME_lifetime_energy
+      text: lifetime_energy
+      unit_show: true
+  group3:
+    - entity_id: switch.CHARGERNAME_is_enabled
+      text: enabled
+    - entity_id: switch.CHARGERNAME_enable_idle_current
+      text: idle_current
+    - entity_id: binary_sensor.CHARGERNAME_cable_locked
+      text: cable_locked
+    - entity_id: switch.CHARGERNAME_cable_locked_permanently
+      text: perm_cable_locked
+    - entity_id: switch.CHARGERNAME_smart_charging
+      text: smart_charging
+    - entity_id: sensor.CHARGERNAME_cost_per_kwh
+      text: cost_per_kwh
+    - entity_id: binary_sensor.CHARGERNAME_update_available
+      text: update_available
+    - entity_id: binary_sensor.CHARGERNAME_basic_schedule
+      text: schedule
+  stats:
+    default:
+      - entity_id: sensor.CHARGERNAME_session_energy
+        text: session_energy
+        unit_show: true
+      - entity_id: switch.CHARGERNAME_cable_locked_permanently
+        text: cable_locked
+      - entity_id: binary_sensor.CHARGERNAME_basic_schedule
+        text: schedule
+    disconnected:
+      - entity_id: sensor.CHARGERNAME_session_energy
+        text: session_energy
+        unit_show: true
+      - entity_id: switch.CHARGERNAME_cable_locked_permanently
+        text: cable_locked
+      - entity_id: calculated
+        text: used_limit
+        unit: A
+        unit_show: true
+        calc_function: min
+        calc_entities:
+          - entity_id: sensor.CHARGERNAME_dynamic_charger_limit
+          - entity_id: sensor.CHARGERNAME_dynamic_circuit_limit
+          - entity_id: sensor.CHARGERNAME_max_charger_limit
+          - entity_id: sensor.CHARGERNAME_max_circuit_limit
+          - entity_id: sensor.CHARGERNAME_offline_circuit_limit
+    awaiting_start:
+      - entity_id: sensor.CHARGERNAME_session_energy
+        text: session_energy
+        unit_show: true
+      - entity_id: binary_sensor.CHARGERNAME_basic_schedule
+        text: schedule
+      - entity_id: switch.CHARGERNAME_smart_charging
+        text: smart_charging
+      - entity_id: calculated
+        text: used_limit
+        unit: A
+        unit_show: true
+        calc_function: min
+        calc_entities:
+          - entity_id: sensor.CHARGERNAME_dynamic_charger_limit
+          - entity_id: sensor.CHARGERNAME_dynamic_circuit_limit
+          - entity_id: sensor.CHARGERNAME_max_charger_limit
+          - entity_id: sensor.CHARGERNAME_max_circuit_limit
+          - entity_id: sensor.CHARGERNAME_offline_circuit_limit
+    charging:
+      - entity_id: sensor.CHARGERNAME_session_energy
+        text: session_energy
+        unit_show: true
+      - entity_id: sensor.CHARGERNAME_energy_per_hour
+        text: energy_per_hour
+        unit_show: true
+      - entity_id: sensor.CHARGERNAME_circuit_current
+        text: circuit_current
+        unit_show: true
+      - entity_id: sensor.CHARGERNAME_output_limit
+        text: output_limit
+        unit_show: true
+      - entity_id: sensor.CHARGERNAME_current
+        text: current
+        unit_show: true
+      - entity_id: sensor.CHARGERNAME_power
+        text: power
+        unit_show: true
+    completed:
+      - entity_id: sensor.CHARGERNAME_session_energy
+        text: session_energy
+        unit_show: true
+      - entity_id: binary_sensor.CHARGERNAME_basic_schedule
+        text: schedule
+      - entity_id: calculated
+        text: used_limit
+        unit: A
+        unit_show: true
+        calc_function: min
+        calc_entities:
+          - entity_id: sensor.CHARGERNAME_dynamic_charger_limit
+          - entity_id: sensor.CHARGERNAME_dynamic_circuit_limit
+          - entity_id: sensor.CHARGERNAME_max_charger_limit
+          - entity_id: sensor.CHARGERNAME_max_circuit_limit
+          - entity_id: sensor.CHARGERNAME_offline_circuit_limit
+    error:
+      - entity_id: sensor.CHARGERNAME_session_energy
+        text: session_energy
+        unit_show: true
+      - entity_id: binary_sensor.CHARGERNAME_basic_schedule
+        text: schedule
+    ready_to_charge:
+      - entity_id: sensor.CHARGERNAME_session_energy
+        text: session_energy
+        unit_show: true
+      - entity_id: binary_sensor.CHARGERNAME_basic_schedule
+        text: schedule
+      - entity_id: calculated
+        text: used_limit
+        unit: A
+        unit_show: true
+        calc_function: min
+        calc_entities:
+          - entity_id: sensor.CHARGERNAME_dynamic_charger_limit
+          - entity_id: sensor.CHARGERNAME_dynamic_circuit_limit
+          - entity_id: sensor.CHARGERNAME_max_charger_limit
+          - entity_id: sensor.CHARGERNAME_max_circuit_limit
+          - entity_id: sensor.CHARGERNAME_offline_circuit_limit
+  toolbar_left:
+    default:
+      - {}
+    disconnected:
+      - {}
+    awaiting_start:
+      - service: easee.stop
+        service_data:
+          charger_id: CHARGERID
+        text: stop
+        icon: hass:stop
+      - service: easee.resume
+        service_data:
+          charger_id: CHARGERID
+        text: resume
+        icon: hass:play
+      - service: easee.override_schedule
+        service_data:
+          charger_id: CHARGERID
+        text: override
+        icon: hass:motion-play
+    charging:
+      - service: easee.stop
+        service_data:
+          charger_id: CHARGERID
+        text: stop
+        icon: hass:stop
+      - service: easee.pause
+        service_data:
+          charger_id: CHARGERID
+        text: pause
+        icon: hass:pause
+    completed:
+      - service: easee.stop
+        service_data:
+          charger_id: CHARGERID
+        text: stop
+        icon: hass:stop
+      - service: easee.override_schedule
+        service_data:
+          charger_id: CHARGERID
+        text: override
+        icon: hass:motion-play
+    error:
+      - service: easee.reboot
+        service_data:
+          charger_id: CHARGERID
+        text: reboot
+        icon: hass:restart
+    ready_to_charge:
+      - service: easee.stop
+        service_data:
+          charger_id: CHARGERID
+        text: stop
+        icon: hass:stop
+      - service: easee.override_schedule
+        service_data:
+          charger_id: CHARGERID
+        text: override
+        icon: hass:motion-play
+  toolbar_right:
+    default:
+      - service: persistent_notification.create
+        service_data:
+          message: Firmware update is available, but only possible when disconnected!
+          title: Update
+        text: update
+        icon: mdi:file-download
+        conditional_entity: binary_sensor.CHARGERNAME_update_available
+    disconnected:
+      - service: easee.update_firmware
+        service_data:
+          charger_id: CHARGERID
+        text: update
+        icon: mdi:file-download
+        conditional_entity: binary_sensor.CHARGERNAME_update_available
 ```
 
-# Other stuff
-
 ## Development
-
-Want to contribute to the project? Translations? Adding your brand?
+Want to contribute to the project? Translations? Adding your `brand` as a pre-defined template?
 
 First of all, thanks! Check [contributing guideline](./CONTRIBUTING.md) for more information.
 
-## Inspiration
 
-This project is heavily inspired by <a href="https://github.com/denysdovhan" target="_blank">denysdovhan</a>, the ideas are taken from his <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a>. Make sure to <a href="https://www.buymeacoffee.com/denysdovhan" target="_blank">buy him a coffee</a> too!
+
+
 
 ## License
-
 MIT © [Tor Magne Johannessen][tmjo]
+
+This project is heavily inspired by <a href="https://github.com/denysdovhan" target="_blank">denysdovhan</a>, and his <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a>. Thanks!
 
 <!-- Badges -->
 
