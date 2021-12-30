@@ -508,13 +508,16 @@ class ChargerCard extends LitElement {
     var location;
     var moreEntity = null;
     var compactview = this.compactView ? '-compact' : '';
+    var nameunit, locationunit;
 
     if (carddata_name !== null && carddata_name !== undefined) {
       name = typeof carddata_name == 'object' ? carddata_name.useval : carddata_name;
       moreEntity = typeof carddata_name == 'object' ? carddata_name.entity : null;
+      nameunit = carddata_name.unit_show ? carddata_name.unit : ''
     }
     if (carddata_location !== null && carddata_location !== undefined) {
       location = typeof carddata_location == 'object' ? carddata_location.useval : carddata_location;
+      locationunit = carddata_location.unit_show ? carddata_location.unit : ''
     }
 
     var combinator = "";
@@ -528,7 +531,7 @@ class ChargerCard extends LitElement {
         @click="${() => this.handleMore(moreEntity)}"
         ?more-info="true"
       >
-        ${name}${carddata_name.unit_show ? carddata_name.unit : ''}${combinator}${location}${carddata_location.unit_show ? carddata_location.unit : ''}
+        ${name}${nameunit}${combinator}${location}${locationunit}
       </div>
     `;
   }
