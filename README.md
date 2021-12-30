@@ -492,19 +492,14 @@ MIT © [Tor Magne Johannessen][tmjo]
 This project is heavily inspired by <a href="https://github.com/denysdovhan" target="_blank">denysdovhan</a>, and his <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a>. Thanks!
 
 <!-- Badges -->
-
 [npm-url]: https://npmjs.org/package/charger-card
 [hacs-url]: https://github.com/custom-components/hacs
 [hacs-image]: https://img.shields.io/badge/HACS-Custom-orange.svg
 [hacs-badge]: https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge
 [buymeacoffee-url]: https://www.buymeacoffee.com/tmjo
-[buymeacoffee-image]: https://img.shields.io/static/v1.svg?label=Buy%20me%20a%20coffee&message=🥨&color=black&logo=buy%20me%20a%20coffee&logoColor=white&labelColor=6f4e37)
-
-
 
 
 <!-- References -->
-
 [home-assistant]: https://www.home-assistant.io/
 [hacs]: https://hacs.xyz
 [preview-image]: https://user-images.githubusercontent.com/54450177/97765425-56874900-1b12-11eb-9c0c-87721e0b5748.png
