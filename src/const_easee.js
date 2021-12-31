@@ -1,10 +1,14 @@
 /** EASEE CHARGING ROBOT */
 
-export const MAIN_ENTITY_BASE = '_status';  //Defines what should be replaced from main entity name to use as template for other entities
+//Defines what should be replaced from main entity name to use as template for other entities
+export const MAIN_ENTITY_BASE = '_status';
+
+//OVERRIDE CARD CONFIG WHEN BRAND TEMPLATE SELECTED (for instance turn off leds if they don't make any sense)
 export const DEFAULT_CONFIG = {
     show_leds: true,
 }
 
+// CONFIG DETAILS
 export const DEFAULT_DETAILS = {
     //NAME, LOCATION, STATUS ETC
     name: {
