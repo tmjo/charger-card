@@ -230,7 +230,7 @@ export const DEFAULT_DETAILS = {
         home: [
             {
                 service: 'switch.toggle',
-                service_data: {entity_id: 'entity_id: switch.#ENTITYPREFIX#_charging'},
+                service_data: {entity_id: 'switch.#ENTITYPREFIX#_charging'},
                 text: 'toggle_charging',
                 icon: 'mdi:ev-station',
             },
