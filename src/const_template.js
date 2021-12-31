@@ -1,30 +1,56 @@
-/** TEMPLATE */
+/** TEMPLATE - replace with your brand name */
 
-export const MAIN_ENTITY_BASE = '_status';  //Defines what should be replaced from main entity name to use as template for other entities
-export const DEFAULT_CONFIG = {             //To override card config when template selected
+//Defines what should be replaced from main entity name to use as template for other entities
+export const MAIN_ENTITY_BASE = '_status';
+
+//OVERRIDE CARD CONFIG WHEN BRAND TEMPLATE SELECTED (for instance turn off leds if they don't make any sense)
+export const DEFAULT_CONFIG = {
     show_leds: false,
 }
 
+// CONFIG DETAILS
 export const DEFAULT_DETAILS = {
-    // TEMPLATE
+    // DETAILS ITEMS (APPLY THE ONES YOU NEED)
+        // name                             // A plain text or an entity item
+        // location                         // A plain text or an entity item
+        // status                           // A plain text or an entity item
+        // substatus                        // A plain text or an entity item
+        // smartcharging                    // An entity item (bool) defining smart charging (used for blue leds)
+        // currentlimits                    // A list of allowed values for current limits, for instance used in dropdowns
+        // statetext                        // Mapping states to custom statetexts, for instance {charging: 'Charging fine'} and so on
+        // collapsiblebuttons               // Replaces default text and icon for collapsible buttons, for instance group1: { text: 'click_for_group1', icon: 'mdi:speedometer' }
+        // info_left                        // A list of entity items used on top left of the card
+        // info_right                       // A list of entity items used on top right of the card
+        // group1                           // A list of entity items used on on the collapsible group1 (limits)
+        // group2                           // A list of entity items used on on the collapsible group2 (info)
+        // group3                           // A list of entity items used on on the collapsible group3 (config)
+        // stats                            // Mapping of states where each state has a list of entity items which will appear for corresponding state above toolbar (datatable/stats)
+        // toolbar_left                     // Mapping of states where each state has a list of entity items which will appear for corresponding state at left side of toolbar at bottom of card
+        // toolbar_right                    // Mapping of states where each state has a list of entity items which will appear for corresponding state at right side of toolbar at bottom of card
 
-    // template: [{
-    //     entity_id: '',                  // entity id
-    //     attribute: '',                  // attribute is used as value if specified
-    //     unit: '',                       // unit if you want to override entity unit
-    //     unit_show: true,                // show unit next to value
-    //     unit_showontext: true,          // show unit next to value in tooltip text
-    //     text: '',                       // text to be used instead of entity friendly-name (do not use dots '.' and apply translation key to achieve translation)
-    //     service: '',                    // service on format 'domain.service'
-    //     service_data: {'test','test'},  // service data for the service call
-    //     icon: '',                       // icon to be used instead of entity icon
-    //     round: 0,                       // round to specified number of decimals (integer)
-    //     type: '',                       // type
-    //     calc_function: ''               // define entity_id as 'calculated' and specify min,max,mean,sum here to calculate
-    //     calc_entities: ''               // entities to calculate from above feature
-    //     conditional_entity: ''          // if you want the entity_id to be shown conditionally, specify a on/off or true/false sensor here
-    //     conditional_attribute: ''       // if you prefer the conditional showing of entity to be based on an attribute, define it here
-    //     conditional_invert: ''          // if you prefer to invert the conditional showing of an entity to show when false, invert by true
+    // ENTITY ITEMS (APPLY THE ONES YOU NEED)
+        //     entity_id: '',                  // entity id
+        //     attribute: '',                  // attribute is used as value if specified
+        //     unit: '',                       // unit if you want to override entity unit
+        //     unit_show: true,                // show unit next to value
+        //     unit_showontext: true,          // show unit next to value in tooltip text
+        //     text: '',                       // text to be used instead of entity friendly-name (do not use dots '.' and apply translation key to achieve translation)
+        //     service: '',                    // service on format 'domain.service'
+        //     service_data: {'test','test'},  // service data for the service call
+        //     icon: '',                       // icon to be used instead of entity icon
+        //     round: 0,                       // round to specified number of decimals (integer)
+        //     type: '',                       // type
+        //     calc_function: ''               // define entity_id as 'calculated' and specify min,max,mean,sum here to calculate
+        //     calc_entities: ''               // entities to calculate from above feature
+        //     conditional_entity: ''          // if you want the entity_id to be shown conditionally, specify a on/off or true/false sensor here
+        //     conditional_attribute: ''       // if you prefer the conditional showing of entity to be based on an attribute, define it here
+        //     conditional_invert: ''          // if you prefer to invert the conditional showing of an entity to show when false, invert by true
+
+    // SPECIAL TOKENS
+        // #ENTITYPREFIX#                      // This will be replaced with what is found from main sensor entity after removing MAIN_ENTITY_BASE
+        // #SERVICEID#                         // A replacement used in the service call, typically for a chargerid or something that must be part of the data when calling service of a specific charger.
+        // #SERVICEVAL#                        // A replacement used in the service call, typically for the value from a dropdown or similar. Use this in the template where for instance a current limit is supposed to be sent to a charger.
+
 
     //NAME, LOCATION, STATUS ETC
     name: {
