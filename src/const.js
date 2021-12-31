@@ -1,6 +1,7 @@
 import * as easee from './const_easee.js';
 import * as template from './const_template.js';
 import * as vwegolf from './const_vwegolf.js';
+import * as openevse from './const_openevse.js';
 
 
 export const VERSION = '0.0.14';
@@ -51,6 +52,16 @@ export const CARDCONFIGTYPES = [
     'serviceid': SERVICEID_STATE,
     'serviceid_data': {entity: null, attr: 'id' },
   },
+  {
+    'domain': 'openevse',
+    'name': 'OpenEVSE',
+    'defaults': openevse.DEFAULT_CONFIG,
+    'domainconfig': openevse.DEFAULT_DETAILS,
+    'domainbase': openevse.MAIN_ENTITY_BASE,
+    'serviceid': SERVICEID_STATE,
+    'serviceid_data': {entity: null, attr: 'id' },
+  },
+
 ];
 
 // TODO: Find a way to read device_class icons instead of this
