@@ -119,7 +119,7 @@ export const ICONS = {
   'sensor.voltage': 'mdi:sine-wave',
 };
 
-export const CURRENTLIMITS = [8.0, 10.0, 16.0, 20.0, 25.0, 32.0];
+export const CURRENTLIMITS = [6.0, 8.0, 10.0, 12.0, 16.0, 20.0, 25.0, 32.0];
 
 export const DEFAULT_CUSTOMCARDTHEME = 'theme_default';
 export const CUSTOM_CARD_THEMES = [
