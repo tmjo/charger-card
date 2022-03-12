@@ -5,6 +5,10 @@
 
 > EV Charger card for [Home Assistant][home-assistant] Lovelace UI
 
+OBS! This readme reflects the latest release candidate for testing which brings a lot of breaking changes since the card is made generic. See [here](https://github.com/tmjo/charger-card/blob/a324cd30b7139c70c37d2d8973e4f64b2f511280/README.md) for an older version which is currently the latest official release.
+
+
+
 By default, Home Assistant does not provide any card for controlling chargers for electrical vehicles (EVs). This card displays the state and allows to control your charger - and it is now made fully customizable so you could also use it for «anything» else as well, for instance your electric car.
 
 ![Preview of charger-card][preview-image]
