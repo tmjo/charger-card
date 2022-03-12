@@ -672,7 +672,7 @@ export default css`
     // min-height: 75px;
     height: auto;
     width: auto;
-    color: var(--custom-text-color);
+    // color: var(--custom-text-color);
     cursor: pointer;
     background: transparent;
     font-size: 14px;
