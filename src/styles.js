@@ -367,13 +367,12 @@ export default css`
     color: var(--custom-text-color);
     width: 100%;
 
-
     // position: relative;
     // top: 100px;
     // top: 450px;
     // top: 450px;
 
-
+    z-index: 1;
     // border-color: black;
     // border-style: dashed;
   }
@@ -399,8 +398,8 @@ export default css`
     text-align: center;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     flex-grow: 1;
-    // // border-color: black;
-    // // border-style: dashed;
+    // border-color: black;
+    // border-style: dashed;
   }
 
   .stats-block:last-child {
@@ -449,7 +448,7 @@ export default css`
     margin-right: 5px;
   }
 
-  .toolbar paper-button {
+  .toolbar mmp-icon-button {
     color: var(--custom-primary-color);
     flex-direction: column;
     margin-right: 10px;
@@ -461,12 +460,12 @@ export default css`
   }
 
   .toolbar ha-icon-button:active,
-  .toolbar paper-button:active {
+  .toolbar mmp-icon-button:active {
     opacity: 0.4;
     background: rgba(0, 0, 0, 0.1);
   }
 
-  .toolbar paper-button {
+  .toolbar mmp-icon-button {
     color: var(--custom-primary-color);
     flex-direction: row;
   }
@@ -630,6 +629,7 @@ export default css`
 
     // // border-style: dashed;
     // // border-color: white;
+    z-index: 999;
   }
 
   .collapsible-item {
@@ -642,9 +642,15 @@ export default css`
     // // border-style: dotted;
     justify-content: center;
     vertical-align: middle;
+    z-index: 999;
   }
 
-  paper-listbox {
+  mmp-dropdown{
+    padding: 0;
+    display: block;
+  }
+
+  mwc-list {
     width: auto;
     min-width: 75px;
     // margin: 0px 0px 0px 0px;
@@ -653,13 +659,18 @@ export default css`
     border: 1px dotted var(--custom-text-color);
     background: var(--custom-card-background-color);
     color: var(--custom-text-color);
-    overflow-y: auto; /* vertical scrollbar */
-    overflow-x: hidden; /* horizontal scrollbar */
+    // overflow-y: auto; /* vertical scrollbar */
+    // overflow-x: hidden; /* horizontal scrollbar */
+    // position: absolute;
+    bottom: 100%;
+    z-index: 999;
   }
 
-  paper-item {
+  mwc-list-item {
     margin: 0px 0px 0px 5px;
     padding: 0px 0px 0px 5px;
+    // min-height: 75px;
+    height: auto;
     width: auto;
     color: var(--custom-text-color);
     cursor: pointer;
@@ -667,9 +678,13 @@ export default css`
     font-size: 14px;
 
     border-bottom: 1px dotted var(--custom-text-color);
+    z-index: 999;
 
   }
 
+  mwc-list-item:hover {
+    font-size: 18px;
+  }
 
   /* collapsible info */
 
@@ -838,6 +853,8 @@ export default css`
 
     // // border-style: solid;
     // // border-color: red;
+    z-index: 999;
+
   }
 
   .collapsible-content-lim .content-inner-lim {
@@ -857,8 +874,10 @@ export default css`
     margin-right: auto;
     padding-bottom: 15px;
 
-    // // border-style: dashed;
-    // // border-color: white;
+    // border-style: dashed;
+    // border-color: white;
+    z-index: 999;
+
   }
 
   // .wrap-collabsible-lim {
@@ -883,6 +902,7 @@ export default css`
   //   // justify-content: space-evenly;
   //   // color: var(--custom-text-color);
   //   margin: auto;
+  //   // z-index: 999;
 
   //   // border-color: black;
   //   // border-style: solid;
@@ -892,6 +912,7 @@ export default css`
   .collapsible-content-lim {
     max-height: 0px;
     overflow: hidden;
+    z-index: 999;
 
     // transition: max-height .25s ease-in-out;
   }
