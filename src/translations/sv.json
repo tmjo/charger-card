@@ -1,32 +1,7 @@
 {
-  "status": {
-    "disconnected": "Frånkopplad",
-    "awaiting_start": "Pausad eller inväntar start",
-    "charging": "Laddar",
-    "completed": "Färdig eller inväntar bil",
-    "error": "Error",
-    "ready_to_charge": "Klar att ladda"
-  },
   "common": {
     "name": "Charger Card",
-    "description": "Charger card ger dig möjlighet att styra din laddningsrobot.",
-    "start": "Starta",
-    "continue": "Återuppta",
-    "pause": "Pausa",
-    "stop": "Stopp",
-    "override": "Åsidosätt schema",
-    "reboot": "Starta om laddared",
-    "not_available": "Laddaren inte tillgänglig",
-    "click_for_info": "Klicka för info",
-    "click_for_config": "Klicka för konfigurering",
-    "click_for_limits": "Klicka för begränsningar",
-    "online": "Uppkopplad",
-    "voltage": "Spänning",
-    "power": "Kraft",
-    "charger_current": "Laddningsenergi",
-    "energy_per_hour": "Energi per timme",
-    "lifetime_energy": "Livstids energi",
-    "circuit_current": "Kretsenergi"
+    "description": "Charger card ger dig möjlighet att styra din laddningsrobot."
   },
   "error": {
     "missing_entity": "Entiteten måsta anges!"
@@ -59,11 +34,74 @@
     "show_toolbar_aria_label_off": "Toggle display toolbar off",
     "code_only_note": "Notera: Egendefinierade Custom actions och data tabell (stats) är bara tillgängligt när Code Editorn används manuellt."
   },
-  "charger_status": {
-    "sessionEnergy": "Sessionsenergi"
-  },
-  "charger_substatus": {
-    "not_requesting_current": "Ingen bil ansluten",
-    "ok": "Klar"
+
+  "easee": {
+    "status" : {
+      "disconnected": "Frånkopplad",
+      "awaiting_start": "Pausad eller inväntar start",
+      "charging": "Laddar",
+      "completed": "Färdig eller inväntar bil",
+      "error": "Error",
+      "ready_to_charge": "Klar att ladda"
+    },
+    "substatus" : {
+      "ok": "Klar",
+      "pending_schedule": "Pending schedule",
+      "none": "None",
+      "max_circuit_current_too_low": "Max circuit current too low",
+      "max_dynamic_circuit_current_too_low": "Max dynamic circuit current too low",
+      "max_dynamic_charger_current_too_low": "Max dynamic charger current too low",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Max dynamic offline circuit current too low",
+      "max_charger_current_too_low": "Max charger current too low",
+      "circuit_fuse_too_low": "Circuit fuse too low",
+      "waiting_in_queue": "Waiting in queue",
+      "waiting_in_fully": "Waiting in fully",
+      "illegal_grid_type": "Illegal grid type",
+      "no_current_request": "No current request",
+      "not_requesting_current": "Ingen bil ansluten",
+      "charger_disabled": "Charger Disabled",
+      "pending_authorization": "Pending Authorization",
+      "charger_in_error_state": "Charger in error state",
+      "undefined": "Undefined"
+    },
+    "common" : {
+      "click_for_group1": "Klicka för begränsningar",
+      "click_for_group2": "Klicka för info",
+      "click_for_group3": "Klicka för konfigurering",
+      "start": "Starta",
+      "continue": "Återuppta",
+      "pause": "Pausa",
+      "stop": "Stopp",
+      "resume": "Resume",
+      "override": "Åsidosätt schema",
+      "update": "Update firmware",
+      "reboot": "Starta om laddared",
+      "not_available": "Laddaren inte tillgänglig",
+      "online": "Uppkopplad",
+      "voltage": "Spänning",
+      "power": "Kraft",
+      "current": "Current",
+      "charger_current": "Charger Current",
+      "energy_per_hour": "Energi per timme",
+      "session_energy": "Session energy",
+      "lifetime_energy": "Livstids energi",
+      "circuit_current": "Circuit Current",
+      "dyn_charger_limit" : "Dyn Charger Limit",
+      "dyn_circuit_limit" : "Dyn Circuit Limit",
+      "max_charger_limit" : "Max Charger Limit",
+      "max_circuit_limit" : "Max Circuit Limit",
+      "output_limit" : "Allowed current",
+      "used_limit": "Used limit",
+      "offline_circuit_limit" : "Offline Circuit Limit",
+      "enabled" : "Enabled",
+      "idle_current" : "Idle current",
+      "cable_locked" : "Cable locked",
+      "perm_cable_locked" : "Cable locked permanently",
+      "smart_charging" : "Smart charging",
+      "cost_per_kwh" : "Cost per kWh",
+      "update_available" : "Update available",
+      "schedule": "Schedule"
+
+    }
   }
 }

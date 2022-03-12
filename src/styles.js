@@ -24,8 +24,10 @@ export default css`
       --custom-card-background-color
     ); //var(--custom-primary-color);
     cursor: pointer;
-    overflow: hidden;
+    // overflow: hidden;  // Removed to show tooltips outside of card
     position: relative;
+    // height: auto;
+    height: 100%;
 
     // border-color: yellow;
     // border-style: solid;
@@ -40,92 +42,37 @@ export default css`
     position: relative;
     height: 220px;
 
-    // border-color: yellow;
-    // border-style: solid;
+    // // border-color: yellow;
+    // // border-style: solid;
   }
 
   .preview.not-available {
     filter: grayscale(1);
   }
 
-  @keyframes cleaning {
-    0% {
-      transform: rotate(0) translate(0);
-    }
-    5% {
-      transform: rotate(0) translate(0, -10px);
-    }
-    10% {
-      transform: rotate(0) translate(0, 5px);
-    }
-    15% {
-      transform: rotate(0) translate(0);
-    }
-    /* Turn left */
-    20% {
-      transform: rotate(30deg) translate(0);
-    }
-    25% {
-      transform: rotate(30deg) translate(0, -10px);
-    }
-    30% {
-      transform: rotate(30deg) translate(0, 5px);
-    }
-    35% {
-      transform: rotate(30deg) translate(0);
-    }
-    40% {
-      transform: rotate(0) translate(0);
-    }
-    /* Turn right */
-    45% {
-      transform: rotate(-30deg) translate(0);
-    }
-    50% {
-      transform: rotate(-30deg) translate(0, -10px);
-    }
-    55% {
-      transform: rotate(-30deg) translate(0, 5px);
-    }
-    60% {
-      transform: rotate(-30deg) translate(0);
-    }
-    70% {
-      transform: rotate(0deg) translate(0);
-    }
-    /* Staying still */
-    100% {
-      transform: rotate(0deg);
-    }
-  }
+  .image{
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
-  @keyframes returning {
-    0% {
-      transform: rotate(0);
-    }
-    25% {
-      transform: rotate(10deg);
-    }
-    50% {
-      transform: rotate(0);
-    }
-    75% {
-      transform: rotate(-10deg);
-    }
-    100% {
-      transform: rotate(0);
-    }
+
+
+    // border-color: yellow;
+    // border-style: dashed;
+
+
   }
 
   .charger {
-    display: block;
+    // display: block;
     max-width: 90%;
     max-height: 200px;
     image-rendering: crisp-edges;
     margin: 30px auto 20px auto;
 
-    // border-color: red;
-    // border-style: dashed;
+    // // border-color: red;
+    // // border-style: dashed;
   }
 
   .charger-compact {
@@ -142,21 +89,39 @@ export default css`
     left: 10px;
     top: 0px;
 
-    // border-color: red;
-    // border-style: dashed;
+    // // border-color: red;
+    // // border-style: dashed;
   }
 
   .charger.led {
+    visibility: visible;
+    display: block;
+    width: 2px;
+    position: relative;
+    top: -200px;
+
+    // display: block;
+    // position: relative;
+    // top: -175px;
+    // position: absolute;
+    // // top: 95px;
+    // // left: 245px;
+    // width: 2px;
+
+    // // border-color: red;
+    // // border-style: dashed;
+
+  }
+
+  .charger.led-hidden {
+    visibility: hidden;
+    display: block;
+    width: 2px;
     position: relative;
     top: -175px;
-    // position: absolute;
-    // top: 95px;
-    // left: 245px;
-    width: 2px;
 
-    // border-color: red;
-    // border-style: dashed;
   }
+
 
   .charger.led-compact {
     // position: relative;
@@ -169,8 +134,8 @@ export default css`
     top: 22px;
     width: 1.4px;
 
-    // border-color: red;
-    // border-style: dashed;
+    // // border-color: red;
+    // // border-style: dashed;
   }
 
   .charger.charging,
@@ -195,7 +160,7 @@ export default css`
   }
 
   .header {
-    height: 0px;
+    height: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -214,7 +179,7 @@ export default css`
     // transform: translate(-10px, 50%);
     color: var(--custom-text-color);
     top: 30px;
-    right: 20px;
+    right: 10px;
     position: absolute;
 
     // border-color: darkblue;
@@ -222,30 +187,58 @@ export default css`
   }
 
   .infoitems-left {
-    text-align: center;
-    color: var(--custom-text-color);
-
+    // display: flex;
     height: 250px;
     text-align: right;
+    // font-weight: bold;
     // transform: translate(10px, 50%);
+    color: var(--custom-text-color);
     top: 30px;
-    left: 20px;
+    left: 10px;
     position: absolute;
 
     // border-color: darkgreen;
     // border-style: dashed;
   }
 
-  .infoitems-item {
-    // display: flex;
+  .infoitems-item-info_right {
+    display: flex;
     // spacing: 0px 0 40
     // text-align: right;
+    justify-content: right;
     padding: 5px;
     font-weight: bold;
     color: var(--custom-text-color);
 
-    // border: 1px;
+    border: 1px;
     // border-style: dotted;
+  }
+
+  .infoitems-item-info_left {
+    display: flex;
+    // spacing: 0px 0 40
+    // text-align: right;
+    justify-content: left;
+    padding: 5px;
+    font-weight: bold;
+    color: var(--custom-text-color);
+
+    border: 1px;
+    // border-style: dotted;
+  }
+
+  .metadata {
+    display: block;
+    // margin: 20px auto;
+    // position: relative;
+    // top: -50px;
+    position: absolute;
+    justify-content: centre;
+    top: 270px;
+    width: 100%;
+
+    // border-color: pink;
+    // border-style: dashed;
   }
 
   .status {
@@ -253,9 +246,11 @@ export default css`
     align-items: center;
     justify-content: center;
     text-align: center;
+    // position: absolute;
 
-    // border-color: pink;
-    // border-style: dashed;
+
+    // // border-color: pink;
+    // // border-style: dashed;
   }
 
   .status-compact {
@@ -278,8 +273,8 @@ export default css`
     left: 160px;
     top: 65px;
 
-    // border-color: pink;
-    // border-style: dashed;
+    // // border-color: pink;
+    // // border-style: dashed;
   }
 
   .status-text {
@@ -338,8 +333,8 @@ export default css`
     color: var(--custom-text-color);
     font-size: 16px;
 
-    // border-color: grey;
-    // border-style: dashed;
+    // // border-color: grey;
+    // // border-style: dashed;
   }
 
   .charger-name-compact {
@@ -354,8 +349,8 @@ export default css`
     position: absolute;
     left: 160px;
     top: 55px;
-    // border-color: grey;
-    // border-style: dashed;
+    // // border-color: grey;
+    // // border-style: dashed;
   }
 
   .not-available {
@@ -364,23 +359,20 @@ export default css`
     font-size: 16px;
   }
 
-  .metadata {
-    display: block;
-    margin: 20px auto;
-    position: relative;
-    top: -50px;
-
-    // border-color: pink;
-    // border-style: dashed;
-  }
-
   .stats {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     color: var(--custom-text-color);
+    width: 100%;
 
+    // position: relative;
+    // top: 100px;
+    // top: 450px;
+    // top: 450px;
+
+    z-index: 1;
     // border-color: black;
     // border-style: dashed;
   }
@@ -397,8 +389,8 @@ export default css`
     left: 0px;
     top: 160px;
 
-    // border-color: black;
-    // border-style: dashed;
+    // // border-color: black;
+    // // border-style: dashed;
   }
 
   .stats-block {
@@ -428,11 +420,12 @@ export default css`
     // background: var(--lovelace-background, var(--primary-background-color));
     min-height: 30px;
     display: flex;
+    margin: 0 20px 0 20px;
     flex-direction: row;
     justify-content: space-evenly;
 
-    // border-color: black;
-    // border-style: dashed;
+    // // border-color: black;
+    // // border-style: dashed;
   }
 
   .toolbar ha-icon-button {
@@ -443,8 +436,8 @@ export default css`
     --mdc-icon-button-size: 44px;
     margin: 5px 0;
 
-    // border-color: red;
-    // border-style: dashed;
+    // // border-color: red;
+    // // border-style: dashed;
   }
 
   .toolbar ha-icon-button:first-child {
@@ -455,24 +448,24 @@ export default css`
     margin-right: 5px;
   }
 
-  .toolbar paper-button {
+  .toolbar mmp-icon-button {
     color: var(--custom-primary-color);
     flex-direction: column;
     margin-right: 10px;
     padding: 10px;
     cursor: pointer;
 
-    // border-color: blue;
-    // border-style: dashed;
+    // // border-color: blue;
+    // // border-style: dashed;
   }
 
   .toolbar ha-icon-button:active,
-  .toolbar paper-button:active {
+  .toolbar mmp-icon-button:active {
     opacity: 0.4;
     background: rgba(0, 0, 0, 0.1);
   }
 
-  .toolbar paper-button {
+  .toolbar mmp-icon-button {
     color: var(--custom-primary-color);
     flex-direction: row;
   }
@@ -491,11 +484,23 @@ export default css`
   }
 
   /* Tooltip text */
-  .tooltip {
-    position: relative;
-    display: inline-block;
+  .tooltip .tooltiptext-right {
+    visibility: hidden;
+    width: 160px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 1px 0;
+    position: absolute;
+    top: 110%;
+    right: -60px;
+    z-index: 1;
+    margin-left: -80px;
   }
 
+
+  /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 160px;
@@ -505,22 +510,23 @@ export default css`
     border-radius: 6px;
     padding: 1px 0;
     position: absolute;
-    z-index: 1;
     top: 110%;
-    left: 50%;
+    left: 20px;
+    z-index: 1;
     margin-left: -80px;
   }
 
-  .tooltip .tooltiptext::after {
+  .tooltip .tooltiptext::after, .tooltip-right .tooltiptext-right::after, .tooltip .tooltiptext-right::after {
     content: '';
     position: absolute;
     bottom: 100%;
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent black transparent;
+    // border-style: solid;
+    // border-color: transparent transparent black transparent;
   }
+
 
   .tooltip-right .tooltiptext-right {
     visibility: hidden;
@@ -537,22 +543,8 @@ export default css`
     right: 105%;
   }
 
-  .tooltip-right .tooltiptext-right::after {
-    content: ' ';
-    position: absolute;
-    top: 50%;
-    left: 100%; /* To the right of the tooltip */
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent transparent black;
-  }
 
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-  }
-
-  .tooltip-right:hover .tooltiptext-right {
+  .tooltip:hover .tooltiptext, .tooltip-right:hover .tooltiptext-right, .tooltip:hover .tooltiptext-right {
     visibility: visible;
   }
 
@@ -615,8 +607,8 @@ export default css`
     justify-content: space-evenly;
     color: var(--custom-text-color);
 
-    // border-style: solid;
-    // border-color: red;
+    // // border-style: solid;
+    // // border-color: red;
   }
 
   .collapsible-content .content-inner {
@@ -635,8 +627,9 @@ export default css`
     margin-left: auto;
     margin-right: auto;
 
-    // border-style: dashed;
-    // border-color: white;
+    // // border-style: dashed;
+    // // border-color: white;
+    z-index: 999;
   }
 
   .collapsible-item {
@@ -646,9 +639,51 @@ export default css`
     padding: 5px;
     // font-weight: bold;
     // border: 1px;
-    // border-style: dotted;
+    // // border-style: dotted;
     justify-content: center;
     vertical-align: middle;
+    z-index: 999;
+  }
+
+  mmp-dropdown{
+    padding: 0;
+    display: block;
+  }
+
+  mwc-list {
+    width: auto;
+    min-width: 75px;
+    // margin: 0px 0px 0px 0px;
+    // padding: 0px 0px 0px 0px;
+    padding: 0px;
+    border: 1px dotted var(--custom-text-color);
+    background: var(--custom-card-background-color);
+    color: var(--custom-text-color);
+    // overflow-y: auto; /* vertical scrollbar */
+    // overflow-x: hidden; /* horizontal scrollbar */
+    // position: absolute;
+    bottom: 100%;
+    z-index: 999;
+  }
+
+  mwc-list-item {
+    margin: 0px 0px 0px 5px;
+    padding: 0px 0px 0px 5px;
+    // min-height: 75px;
+    height: auto;
+    width: auto;
+    color: var(--custom-text-color);
+    cursor: pointer;
+    background: transparent;
+    font-size: 14px;
+
+    border-bottom: 1px dotted var(--custom-text-color);
+    z-index: 999;
+
+  }
+
+  mwc-list-item:hover {
+    font-size: 18px;
   }
 
   /* collapsible info */
@@ -667,8 +702,8 @@ export default css`
     height: 30px;
     z-index: 1;
 
-    // border-style: dotted;
-    // border-color: darkblue;
+    // // border-style: dotted;
+    // // border-color: darkblue;
   }
 
   .toggle-info:checked + .lbl-toggle-info + .collapsible-content-info {
@@ -690,8 +725,8 @@ export default css`
     justify-content: space-evenly;
     color: var(--custom-text-color);
 
-    // border-style: solid;
-    // border-color: red;
+    // // border-style: solid;
+    // // border-color: red;
   }
 
   .collapsible-content-info .content-inner-info {
@@ -710,14 +745,14 @@ export default css`
     margin-left: auto;
     margin-right: auto;
 
-    // border-style: dashed;
-    // border-color: white;
+    // // border-style: dashed;
+    // // border-color: white;
   }
 
   // .wrap-collabsible-info {
   //   // display: flex;
   //   // margin-bottom: 1.2rem 0;
-  //   // border-style: solid;
+  //   // // border-style: solid;
   //   // min-height:0px;
   //   // max-height:300px;
   //   height: 50px;
@@ -737,15 +772,15 @@ export default css`
   //   // color: var(--custom-text-color);
   //   margin: auto;
 
-  //   border-color: black;
-  //   border-style: solid;
+  //   // border-color: black;
+  //   // border-style: solid;
 
   // }
 
   // .wrap-collabsible {
   //   // display: flex;
   //   // margin-bottom: 1.2rem 0;
-  //   // border-style: solid;
+  //   // // border-style: solid;
   //   // min-height:0px;
   //   // max-height:300px;
   //   height: 50px;
@@ -765,8 +800,8 @@ export default css`
   //   // color: var(--custom-text-color);
   //   margin: auto;
 
-  //   border-color: red;
-  //   border-style: solid;
+  //   // border-color: red;
+  //   // border-style: solid;
 
   // }
 
@@ -816,8 +851,10 @@ export default css`
     justify-content: space-evenly;
     color: var(--custom-text-color);
 
-    // border-style: solid;
-    // border-color: red;
+    // // border-style: solid;
+    // // border-color: red;
+    z-index: 999;
+
   }
 
   .collapsible-content-lim .content-inner-lim {
@@ -839,12 +876,14 @@ export default css`
 
     // border-style: dashed;
     // border-color: white;
+    z-index: 999;
+
   }
 
   // .wrap-collabsible-lim {
   //   // display: flex;
   //   // margin-bottom: 1.2rem 0;
-  //   // border-style: solid;
+  //   // // border-style: solid;
   //   // min-height:0px;
   //   // max-height:300px;
   //   height: 50px;
@@ -863,15 +902,17 @@ export default css`
   //   // justify-content: space-evenly;
   //   // color: var(--custom-text-color);
   //   margin: auto;
+  //   // z-index: 999;
 
-  //   border-color: black;
-  //   border-style: solid;
+  //   // border-color: black;
+  //   // border-style: solid;
 
   // }
 
   .collapsible-content-lim {
     max-height: 0px;
     overflow: hidden;
+    z-index: 999;
 
     // transition: max-height .25s ease-in-out;
   }

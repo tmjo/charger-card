@@ -17,42 +17,47 @@ var languages = {
   ca
 };
 
-const DEFAULT_LANG = 'en';
-
-export default function localize(string, search, replace) {
-  const [section, key] = string.split('.');
-
-  let langStored;
-
-  try {
-    langStored = JSON.parse(localStorage.getItem('selectedLanguage'));
-  } catch (e) {
-    langStored = localStorage.getItem('selectedLanguage');
-  }
-
-  const lang = (langStored || navigator.language.split('-')[0] || DEFAULT_LANG)
-    .replace(/['"]+/g, '')
-    .replace('-', '_');
-
+export default function localize(string, brand=null, search = '', replace = '', debug=false){
+  const lang = (localStorage.getItem('selectedLanguage') || 'en').replace(/['"]+/g, '').replace('-', '_');
   let translated;
+  let brandstr = brand === undefined || brand === null ? string : brand + "." + string;
 
   try {
-    translated = languages[lang][section][key];
-  } catch (e) {
-    translated = languages[DEFAULT_LANG][section][key];
+    // Try to translate, add brand if valid
+    translated = brandstr.split('.').reduce((o, i) => o[i], languages[lang]);
+    if(debug) console.log("Translating 1 -> " +lang +": " + string + " --> " + brandstr + " --> " + translated);
+
+    if (translated === undefined) {
+      translated = brandstr.toLowerCase().split('.').reduce((o, i) => o[i], languages[lang]);
+      if(debug) console.log("Translating 2 -> " +lang +" lowercase: " +string +" --> " +brandstr +" --> " +translated);
+    }
+
+    if (translated === undefined) {
+      translated = brandstr.split('.').reduce((o, i) => o[i], languages['en']);
+      if(debug) console.log("Translating 3 -> en  : " +string +" --> " +brandstr +" --> " +translated);
+    }
+
+    if (translated === undefined) {
+      translated = brandstr.toLowerCase().split('.').reduce((o, i) => o[i], languages['en']);
+      if(debug) console.log("Translating 4 -> en lowercase: " +string +" --> " +brandstr +" --> " +translated);
+    }
+  }catch (e) {
+    // Give up, do nothing
   }
+
 
   if (translated === undefined) {
-    translated = languages[DEFAULT_LANG][section][key];
+    // If translation failed, return last item of array
+    var strArray = string.split(".");
+    translated = strArray.length > 0 ? strArray[strArray.length-1] : strArray;
+    if(debug) console.log("Gave up translating: " +string +" --> " +strArray +" --> " +translated);
   }
 
-  if (translated === undefined) {
-    return;
-  }
-
+  //Search and replace
   if (search !== '' && replace !== '') {
     translated = translated.replace(search, replace);
   }
 
-  return translated;
+  //Return
+  return translated || string;
 }

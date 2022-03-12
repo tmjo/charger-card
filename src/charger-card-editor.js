@@ -12,36 +12,11 @@ export class ChargerCardEditor extends LitElement {
     };
   }
 
-  setConfig(config) {
-    this._config = config;
-
-    if (!this._config.entity) {
-      this._config.entity = this.getEntitiesByType('sensor')[0] || '';
-      fireEvent(this, 'config-changed', { config: this._config });
-    }
-  }
-
-  get _entity() {
-    if (this._config) {
-      return this._config.entity || '';
-    }
-
-    return '';
-  }
-
-  get _customImage() {
-    if (this._config) {
-      return this._config.customImage || '';
-    }
-
-    return '';
-  }
-
   get _chargerImage(){
     if (this._config) {
-      return this._config.chargerImage || cconst.DEFAULTIMAGE;
+      return this._config.chargerImage || cconst.DEFAULT_IMAGE;
     }
-    return cconst.DEFAULTIMAGE;
+    return cconst.DEFAULT_IMAGE;
   }
 
   get _customCardTheme(){
@@ -49,7 +24,7 @@ export class ChargerCardEditor extends LitElement {
       return this._config.customCardTheme || '';
     }
     return cconst.DEFAULT_CUSTOMCARDTHEME;
-  }  
+  }
 
   get _show_name() {
     if (this._config) {
@@ -57,18 +32,18 @@ export class ChargerCardEditor extends LitElement {
     }
     return true;
   }
-  
+
   get _show_leds() {
     if (this._config) {
       return this._config.show_leds !== undefined ? this._config.show_leds : true;
     }
     return true;
-  }  
+  }
 
   get _show_status() {
     if (this._config) {
       return this._config.show_status !== undefined ? this._config.show_status : true;
-      
+
     }
     return true;
   }
@@ -102,7 +77,49 @@ export class ChargerCardEditor extends LitElement {
     return false;
   }
 
-  getEntitiesByType(type) {
+  get debug() {
+    if (this._config) {
+      return this._config.debug !== undefined ? this._config.debug : false;
+    }
+    return false;
+
+  }
+
+  setConfig(config) {
+    this._config = config;
+
+    if (!this._config.entity) {
+      this._config.entity = this.getAllEntitiesByType('sensor')[0] || '';
+      fireEvent(this, 'config-changed', { config: this._config });
+    }
+  }
+
+  get_config(item) {
+    if (this._config) {
+      return this._config[`${item}`] || '';
+    }
+    return '';
+
+  }
+
+  log(debug) {
+    if (this.debug !== undefined && this.debug === true) {
+      console.log(debug);
+    }
+  }
+
+  // get_sensors(sensor) {
+  //   if (this._config) {
+  //     return this._config[`${sensor}`] || '';
+  //   }
+  //   return '';
+  // }
+
+  getAllEntities() {
+    return Object.keys(this.hass.states)
+  }
+
+  getAllEntitiesByType(type) {
     return Object.keys(this.hass.states).filter(
       (eid) => eid.substr(0, eid.indexOf('.')) === type
     );
@@ -113,27 +130,38 @@ export class ChargerCardEditor extends LitElement {
       return html``;
     }
 
-    const chargerEntities = this.getEntitiesByType('sensor');
+    const allEntities = this.getAllEntities();
 
     return html`
       <div class="card-config">
-      
+
+      <strong>
+      ${localize('editor.instruction')}
+      </strong>
+
         <paper-dropdown-menu label="${localize('editor.entity')}" @value-changed=${this._valueChanged} .configValue=${'entity'}>
-          <paper-listbox slot="dropdown-content" .selected=${chargerEntities.indexOf(this._entity)}>
-            ${chargerEntities.map(entity => {
+          <paper-listbox slot="dropdown-content" .selected=${allEntities.indexOf(this.get_config("entity"))}>
+            ${allEntities.map(entity => {
               return html` <paper-item>${entity}</paper-item> `;
+            })}
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+        <paper-dropdown-menu label="${localize('editor.brand')}" @value-changed=${this.setConfigDetails} .configValue=${'brand'}>
+          <paper-listbox slot="dropdown-content" .selected=${cconst.CARDCONFIGTYPES.findIndex(brand => brand.domain === this.get_config("brand"))}>
+            ${Object.values(cconst.CARDCONFIGTYPES).map(brand => {
+              return html` <paper-item>${brand.domain}</paper-item> `;
             })}
           </paper-listbox>
         </paper-dropdown-menu>
 
         <paper-dropdown-menu label="${localize('editor.theme')}" @value-changed=${this._valueChanged} .configValue=${'customCardTheme'}>
           <paper-listbox slot="dropdown-content" selected="${this._customCardTheme}" attr-for-selected="value">
-            ${cconst.CUSTOM_CARD_THEMES.map(customCardTheme => {
+            ${cconst.CARD_THEMES.map(customCardTheme => {
               return html` <paper-item value="${customCardTheme.name}">${customCardTheme.name}</paper-item> `;
             })}
           </paper-listbox>
         </paper-dropdown-menu>
-
 
         <paper-dropdown-menu label="${localize('editor.chargerImage')}" @value-changed=${this._valueChanged} .configValue=${'chargerImage'}>
           <paper-listbox slot="dropdown-content" selected="${this._chargerImage}" attr-for-selected="value">
@@ -143,9 +171,7 @@ export class ChargerCardEditor extends LitElement {
           </paper-listbox>
         </paper-dropdown-menu>
 
-
-        <paper-input label="${localize('editor.customImage')}" .value=${this._customImage} .configValue=${'customImage'} @value-changed=${this._valueChanged}"></paper-input>
-
+        <paper-input label="${localize('editor.customImage')}" .value=${this.get_config("customImage")} .configValue=${'customImage'} @value-changed=${this._valueChanged}"></paper-input>
         <p class="option">
           <ha-switch
             aria-label=${localize(
@@ -237,9 +263,6 @@ export class ChargerCardEditor extends LitElement {
           ${localize('editor.show_stats')}
         </p>
 
-
-
-
         <p class="option">
           <ha-switch
             aria-label=${localize(
@@ -262,6 +285,73 @@ export class ChargerCardEditor extends LitElement {
     `;
   }
 
+
+  setConfigDetails(ev) {
+    // SKIP EQUAL OR EMPTY BRAND CONFIG
+    if (this._config["brand"] == ev.target.value || ev.target.value == '') return;
+
+    // SKIP EMPTY ENTITY, MUST BE SELECTED FIRST
+    if (this._config["entity"] === undefined || this._config["entity"] == '') return;
+
+    this._valueChanged(ev);
+    let brand = ev.target.value;
+    let domainconfig, domainbase, entityprefix, serviceid, defaults;
+
+    let carddetails = cconst.CARDCONFIGTYPES[cconst.CARDCONFIGTYPES.findIndex(brandObj => brandObj.domain === brand)];
+    domainconfig = carddetails.domainconfig;
+    domainbase = carddetails.domainbase;
+    defaults = carddetails.defaults;
+
+    // Use main entity as default unless given otherwise in template
+    if (carddetails.serviceid_data.entity === null) carddetails.serviceid_data.entity = this._config.entity;
+
+    // Get which data to use for service calls
+    switch (carddetails.serviceid) {
+      case cconst.SERVICEID_ENTITY:
+        serviceid = carddetails.serviceid_data.entity;
+        break;
+      case cconst.SERVICEID_STATE:
+        serviceid = this.hass.states[carddetails.serviceid_data.entity].state;
+        break;
+      case cconst.SERVICEID_ATTR:
+        serviceid = this.hass.states[carddetails.serviceid_data.entity].attributes[carddetails.serviceid_data.attr];
+        break;
+    }
+
+    // Set prefix by domain
+    entityprefix = this._config.entity.split('.')[1].replace(domainbase, '');
+
+
+    // Replace template with actual data
+    try {
+      var domainconfig_str = JSON.stringify(domainconfig);
+      domainconfig_str = this.replaceAll(domainconfig_str, cconst.ENTITYPREFIX, entityprefix);
+      domainconfig_str = this.replaceAll(domainconfig_str, cconst.SERVICEID, serviceid);
+      domainconfig = JSON.parse(domainconfig_str);
+    } catch (err) {
+      console.error("Something went wrong with the default setup, please check your YAML configuration or enable debugging to see details.")
+    }
+    this.log("domain: " + brand +", entityprefix: " +entityprefix +", serviceid: " +serviceid);
+    this.log(domainconfig);
+
+
+    // Set config
+    let details = {};
+    for (let data in domainconfig) {
+      details[`${data}`] = domainconfig[data];
+    }
+
+    this._config = { ...this._config, ...defaults};
+    this._config = { ...this._config, details };
+
+    fireEvent(this, 'config-changed', { config: this._config });
+    return;
+  }
+
+  replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+  }
+
   _valueChanged(ev) {
     if (!this._config || !this.hass) {
       console.log("C: no config")
@@ -274,13 +364,13 @@ export class ChargerCardEditor extends LitElement {
     }
     if (target.configValue) {
       if (target.value === '') {
-        delete this._config[target.configValue];
+        const tmpConfig = { ...this._config };
+        delete tmpConfig[target.configValue];
+        this._config = tmpConfig;
       } else {
-        
         this._config = {
           ...this._config,
-          [target.configValue]:
-            target.checked !== undefined ? target.checked : target.value,
+          [target.configValue]: target.checked !== undefined ? target.checked : target.value,
         };
       }
     }
