@@ -497,7 +497,7 @@ This project is heavily inspired by <a href="https://github.com/denysdovhan" tar
 
 <!-- Badges -->
 [npm-url]: https://npmjs.org/package/charger-card
-[hacs-url]: https://github.com/custom-components/hacs
+[hacs-url]: https://github.com/hacs/integration
 [hacs-image]: https://img.shields.io/badge/HACS-Custom-orange.svg
 [hacs-badge]: https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge
 [buymeacoffee-url]: https://www.buymeacoffee.com/tmjo
