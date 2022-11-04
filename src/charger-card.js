@@ -159,11 +159,13 @@ class ChargerCard extends LitElement {
         var stateobj = {};
         for (let [statekey, stateval] of Object.entries(data)) {
           var stateentities = {};
-          for (let [key, val] of Object.entries(stateval)) {
-            if (typeof val == 'object') {
-              stateentities[key] = this.getCardCheckData(val);
+          if (stateval !== null || stateval != undefined) {
+            for (let [key, val] of Object.entries(stateval)) {
+              if (typeof val == 'object') {
+                stateentities[key] = this.getCardCheckData(val);
+              }
+              stateobj[statekey] = stateentities;
             }
-            stateobj[statekey] = stateentities;
           }
         }
         return stateobj;
@@ -741,16 +743,20 @@ class ChargerCard extends LitElement {
 
   renderToolbarButton(service, icon, text, service_data = {},isRequest = true) {
     var usetext = this.loc(text, this.brand) || text;
-    return html`
-      <div class="tooltip">
-        <ha-icon-button
-          title="${this.loc(usetext,"common", this.brand)}"
-          @click="${() => this.callService(service, isRequest, service_data)}"
-          ><ha-icon icon="${icon}"></ha-icon
-        ></ha-icon-button>
-        <span class="tooltiptext">${this.loc(usetext,"common",  this.brand)}</span>
-      </div>
-    `;
+    if (text !== null && text !== undefined) {
+      return html`
+        <div class="tooltip">
+          <ha-icon-button
+            title="${this.loc(usetext, "common", this.brand)}"
+            @click="${() => this.callService(service, isRequest, service_data)}"
+            ><ha-icon icon="${icon}"></ha-icon
+          ></ha-icon-button>
+          <span class="tooltiptext">${this.loc(usetext, "common", this.brand)}</span>
+        </div>
+      `;
+    } else {
+      return
+    }
   }
 
   renderCompact() {
