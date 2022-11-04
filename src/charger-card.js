@@ -256,7 +256,7 @@ class ChargerCard extends LitElement {
   getEntityCalcVal(calcfunc, entities) {
     var calc;
     var calc_array = [];
-    for (let [val] of Object.entries(entities)) {
+    for (let [key, val] of Object.entries(entities)) {
       let useval = val.attribute !== undefined ? this.getEntityAttr(val.entity_id, val.attribute) : this.getEntityState(val.entity_id);
       calc_array.push(Number(useval));
       }
