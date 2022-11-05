@@ -4,7 +4,7 @@ import * as vwegolf from './const_vwegolf.js';
 import * as openevse from './const_openevse.js';
 
 
-export const VERSION = '0.1.1';
+export const VERSION = '0.1.2';
 
 //Replacement tags
 export const ENTITYPREFIX = '#ENTITYPREFIX#';
