@@ -145,7 +145,7 @@ If your brand is on the list of supported models, you should be able to get away
 | toolbar_left       | Provide the states of `entity` defined as main status sensor, then a list of entities with configuration details as shown in [`entity`-items](#entity-items). Defines the left aligned command buttons on the toolbar at the bottom of the card. It may change depending on status of charger, or it is possible to define `default` as a state. See example.                                                     |
 | toolbar_right      | Same as `toolbar_left` but right aligned command buttons on the toolbar.                                           |
 | currentlimits      | Override the card default current limits by specifying a list of numbers. Used for current limit features of the card (if configured).|
-| statetext          | Override or custom-translate the status sensor state by providing better or cleaner text. See example.|
+| statetext          | Override or custom-translate the status sensor state by providing better or cleaner text. See example. You may force off translation by adding a leading '_' to your text, but it is usually not neccessary.|
 | collapsiblebuttons | Specify `text` and/or `icon` to customize the collapsible-buttons `group1`,`group2` and `group3` respectively. See example.|
 
 
