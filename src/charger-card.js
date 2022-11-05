@@ -578,7 +578,17 @@ class ChargerCard extends LitElement {
     }
 
     //Localize and choose
-    status = status !== null ? this.loc(status, "status", this.brand) || this.statetext[status] || status : '';
+    if (this.statetext !== null && this.statetext !== undefined && typeof this.statetext === 'object' && status in this.statetext) {
+      // console.info("status: " + status + " loc_status: " + (this.loc(status, "status", this.brand) || status) + " statetext: " + this.statetext[status] + " loc_statetext: " + (this.loc(this.statetext[status], "status", this.brand) || this.statetext[status]));
+      if (this.statetext[status].substring(0, 1) == "_") {  //Do not translate if leading _
+        status = this.statetext[status].substring(1);
+      } else {
+        status = this.loc(this.statetext[status], "status", this.brand) || this.statetext[status];
+      }
+    } else {
+      status = status !== null ? this.loc(status, "status", this.brand) || status : '';
+    }
+
     substatus = substatus !== null ? this.loc(substatus, "substatus", this.brand) || substatus : '';
 
     return html`
