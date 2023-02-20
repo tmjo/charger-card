@@ -256,6 +256,7 @@ export class ChargerCard extends LitElement {
       data['useval'] = this.getEntityState(data["entity_id"]);
       data['service'] = val.service !== undefined ? val.service : null;
       data['service_data'] = val.service_data !== undefined ? val.service_data : null;
+      data['dropdownitems'] = val.dropdownitems !== undefined ? val.dropdownitems : null;
       data['type'] = val.type !== undefined ? val.type : null;
       data['conditional_entity'] = val.conditional_entity !== undefined ? val.conditional_entity : null;
       data['conditional_attribute'] = val.conditional_attribute !== undefined ? val.conditional_attribute : null;
@@ -746,7 +747,7 @@ export class ChargerCard extends LitElement {
 
 
 } else if (itemtype === 'dropdown') {
-        const sources = this.currentlimits;
+        const sources = carddata.dropdownitems != null ? carddata.dropdownitems : this.currentlimits;
         const selected = sources.indexOf(Number(carddata.useval));
 
         return html`
