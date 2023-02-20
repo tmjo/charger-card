@@ -1,0 +1,189 @@
+{
+  "common": {
+    "name": "Charger Card",
+    "description": "Charger card allows you to control your EV homecharger (or something else).",
+    "version": "Version",
+    "invalid_configuration": "Invalid configuration",
+    "show_warning": "Show Warning",
+    "show_error": "Show Error"
+  },
+  "error": {
+    "missing_entity": "Specifying entity is required!",
+    "not_available": "Not available",
+    "missing_config": "Error in config!",
+    "missing_group": "No entities defined in grou.!"
+  },
+  "states": {
+    "on" : "on",
+    "off" : "off",
+    "unavailable" : "unavailable"
+  },
+  "editor": {
+    "instruction": "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+    "brand": "Brand/Template (Required)",
+    "entity": "Main Entity (Required)",
+    "chargerImage": "Built-in images and color",
+    "customImage": "Custom image (Optional - overrides charger image)",
+    "theme": "Color theme",
+    "compact_view": "Compact View",
+    "compact_view_aria_label_on": "Toggle compact view on",
+    "compact_view_aria_label_off": "Toggle compact view off",
+    "show_name": "Show Name",
+    "show_name_aria_label_on": "Toggle display name on",
+    "show_name_aria_label_off": "Toggle display name off",
+    "show_leds": "Show Leds",
+    "show_leds_aria_label_on": "Toggle animated leds (overlay on image) on",
+    "show_leds_aria_label_off": "Toggle animated leds (overlay on image) off",
+    "show_status": "Show Status",
+    "show_status_aria_label_on": "Toggle display status on",
+    "show_status_aria_label_off": "Toggle display status off",
+    "show_stats": "Show Data Table (stats)",
+    "show_stats_aria_label_on": "Toggle display data table on",
+    "show_stats_aria_label_off": "Toggle display data table off",
+    "show_collapsibles": "Show collapsible menu buttons",
+    "show_collapsibles_aria_label_on": "Toggle display collapsible menus on",
+    "show_collapsibles_aria_label_off": "Toggle display collapsible menus off",
+    "show_toolbar": "Show Toolbar",
+    "show_toolbar_aria_label_on": "Toggle display toolbar on",
+    "show_toolbar_aria_label_off": "Toggle display toolbar off",
+    "code_only_note": "Note: Advanced config such as toolbar and datatable (stats) are only in YAML-mode."
+  },
+
+  "easee": {
+    "status" : {
+      "disconnected": "Disconnected",
+      "awaiting_start": "Paused/awaiting start",
+      "charging": "Charging",
+      "completed": "Completed/awaiting car",
+      "error": "Error",
+      "ready_to_charge": "Ready to charge"
+    },
+    "substatus" : {
+      "ok": "Ok",
+      "pending_schedule": "Pending schedule",
+      "none": "None",
+      "max_circuit_current_too_low": "Max circuit current too low",
+      "max_dynamic_circuit_current_too_low": "Max dynamic circuit current too low",
+      "max_dynamic_charger_current_too_low": "Max dynamic charger current too low",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Max dynamic offline circuit current too low",
+      "max_charger_current_too_low": "Max charger current too low",
+      "circuit_fuse_too_low": "Circuit fuse too low",
+      "waiting_in_queue": "Waiting in queue",
+      "waiting_in_fully": "Waiting in fully",
+      "illegal_grid_type": "Illegal grid type",
+      "no_current_request": "No current request",
+      "not_requesting_current": "Not requesting current",
+      "charger_disabled": "Charger Disabled",
+      "pending_authorization": "Pending Authorization",
+      "charger_in_error_state": "Charger in error state",
+      "undefined": "Undefined"
+    },
+    "common" : {
+      "click_for_group1": "Click for Limits",
+      "click_for_group2": "Click for Info",
+      "click_for_group3": "Click for Config",
+      "start": "Start",
+      "continue": "Resume",
+      "pause": "Pause",
+      "stop": "Stop",
+      "resume": "Resume",
+      "override": "Override schedule",
+      "update": "Update firmware",
+      "reboot": "Reboot charger",
+      "not_available": "Charger not available",
+      "online": "Online",
+      "voltage": "Voltage",
+      "power": "Power",
+      "current": "Current",
+      "charger_current": "Charger Current",
+      "energy_per_hour": "Energy per Hour",
+      "session_energy": "Session energy",
+      "lifetime_energy": "Lifetime Energy",
+      "circuit_current": "Circuit Current",
+      "dyn_charger_limit" : "Dyn Charger Limit",
+      "dyn_circuit_limit" : "Dyn Circuit Limit",
+      "max_charger_limit" : "Max Charger Limit",
+      "max_circuit_limit" : "Max Circuit Limit",
+      "output_limit" : "Allowed current",
+      "used_limit": "Used limit",
+      "offline_circuit_limit" : "Offline Circuit Limit",
+      "enabled" : "Enabled",
+      "idle_current" : "Idle current",
+      "cable_locked" : "Cable locked",
+      "perm_cable_locked" : "Cable locked permanently",
+      "smart_charging" : "Smart charging",
+      "cost_per_kwh" : "Cost per kWh",
+      "update_available" : "Update available",
+      "schedule": "Schedule"
+
+    }
+  },
+
+  "vwegolf": {
+    "status" : {
+      "home": "Home",
+      "away": "Away"
+    },
+    "substatus" : {
+      "ok": "Ok"
+    },
+    "common" : {
+      "click_for_group1": "Click for Locks",
+      "click_for_group2": "Click for Info",
+      "click_for_group3": "Click for Config",
+      "soc": "%SOC"
+    }
+  },
+
+
+  "test": {
+    "status" : {
+      "disconnected": "Disconnected",
+      "awaiting_start": "Paused or awaiting start",
+      "charging": "Charging",
+      "completed": "Completed or awaiting car",
+      "error": "Error",
+      "ready_to_charge": "Ready to charge"
+    },
+    "substatus" : {
+      "ok": "Ok",
+      "pending_schedule": "Pending schedule",
+      "none": "None",
+      "max_circuit_current_too_low": "Max circuit current too low",
+      "max_dynamic_circuit_current_too_low": "Max dynamic circuit current too low",
+      "max_dynamic_charger_current_too_low": "Max dynamic charger current too low",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Max dynamic offline circuit current too low",
+      "max_charger_current_too_low": "Max charger current too low",
+      "circuit_fuse_too_low": "Circuit fuse too low",
+      "waiting_in_queue": "Waiting in queue",
+      "waiting_in_fully": "Waiting in fully",
+      "illegal_grid_type": "Illegal grid type",
+      "no_current_request": "No current request",
+      "not_requesting_current": "Not requesting current",
+      "charger_disabled": "Charger Disabled",
+      "pending_authorization": "Pending Authorization",
+      "charger_in_error_state": "Charger in error state",
+      "undefined": "Undefined"
+    },
+    "common" : {
+      "start": "Start",
+      "continue": "Resume",
+      "pause": "Pause",
+      "stop": "Stop",
+      "override": "Override schedule",
+      "reboot": "Reboot charger",
+      "not_available": "Charger not available",
+      "online": "Online",
+      "voltage": "Voltage",
+      "power": "Power",
+      "charger_current": "Charger Current",
+      "energy_per_hour": "Energy per Hour",
+      "lifetime_energy": "Lifetime Energy",
+      "circuit_current": "Circuit Energy",
+      "schedule": "Schedule"
+    }
+
+
+  }
+
+}
