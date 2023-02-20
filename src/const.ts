@@ -1,4 +1,4 @@
-export const VERSION = '0.1.2';
+export const VERSION = '0.2.0';
 
 //Replacement tags for card editor and templates
 export const TEMPLATE_EDITOR = {
