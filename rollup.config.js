@@ -1,17 +1,22 @@
-/*  eslint-env node */
-import commonjs from '@rollup/plugin-commonjs';
-import nodeResolve from '@rollup/plugin-node-resolve';
-import json from '@rollup/plugin-json';
-import babel from '@rollup/plugin-babel';
-import image from '@rollup/plugin-image';
+import typescript from 'rollup-plugin-typescript2';
+import commonjs from 'rollup-plugin-commonjs';
+import nodeResolve from 'rollup-plugin-node-resolve';
+import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import serve from 'rollup-plugin-serve';
+import json from '@rollup/plugin-json';
+import ignore from './rollup-plugins/ignore';
+import { ignoreTextfieldFiles } from './elements/ignore/textfield';
+import { ignoreSelectFiles } from './elements/ignore/select';
+import { ignoreSwitchFiles } from './elements/ignore/switch';
+import image from '@rollup/plugin-image'; //added
 
-const IS_DEV = process.env.ROLLUP_WATCH;
 
-const serverOptions = {
+const dev = process.env.ROLLUP_WATCH;
+
+const serveopts = {
   contentBase: ['./dist'],
-  host: 'localhost',
+  host: '0.0.0.0',
   port: 5000,
   allowCrossOrigin: true,
   headers: {
@@ -19,21 +24,31 @@ const serverOptions = {
   },
 };
 
-export default {
-  input: 'src/charger-card.js',
-  output: {
-    dir: 'dist',
-    format: 'es',
+const plugins = [
+  nodeResolve({}),
+  commonjs(),
+  typescript(),
+  json(),
+  babel({
+    exclude: 'node_modules/**',
+    // extensions: ['.js', '.svg', '.png'],
+  }),
+  image(),
+  dev && serve(serveopts),
+  !dev && terser(),
+  ignore({
+    files: [...ignoreTextfieldFiles, ...ignoreSelectFiles, ...ignoreSwitchFiles].map((file) => require.resolve(file)),
+  }),
+];
+
+export default [
+  {
+    input: 'src/charger-card.ts',
+    output: {
+      dir: 'dist',
+      format: 'es',
+      inlineDynamicImports: true,
+    },
+    plugins: [...plugins],
   },
-  plugins: [
-    nodeResolve(),
-    commonjs(),
-    json(),
-    babel({
-      exclude: 'node_modules/**',
-    }),
-    image(),
-    IS_DEV && serve(serverOptions),
-    !IS_DEV && terser(),
-  ],
-};
+];

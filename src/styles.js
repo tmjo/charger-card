@@ -1,4 +1,5 @@
-import { css } from 'lit-element';
+// import { css } from 'lit-element';   //https://lit.dev/docs/releases/upgrade/#update-packages-and-import-paths
+import { css } from 'lit';
 
 export default css`
   :host {
@@ -38,10 +39,9 @@ export default css`
       --custom-card-background-color
     ); //var(--custom-primary-color);
     cursor: pointer;
-    overflow: hidden;
+    // overflow: hidden;  // Removed to show tooltips outside of card
     position: relative;
     height: 220px;
-
     // // border-color: yellow;
     // // border-style: solid;
   }
@@ -55,13 +55,8 @@ export default css`
     align-items: center;
     justify-content: center;
     text-align: center;
-
-
-
-    // border-color: yellow;
-    // border-style: dashed;
-
-
+    /* border-color: yellow;
+    border-style: dashed; */
   }
 
   .charger {
@@ -70,9 +65,8 @@ export default css`
     max-height: 200px;
     image-rendering: crisp-edges;
     margin: 30px auto 20px auto;
-
-    // // border-color: red;
-    // // border-style: dashed;
+    /* border-color: red;
+    border-style: dashed; */
   }
 
   .charger-compact {
@@ -88,13 +82,12 @@ export default css`
     // top: -20px;
     left: 10px;
     top: 0px;
-
-    // // border-color: red;
-    // // border-style: dashed;
+    /* border-color: red;
+    border-style: dashed; */
   }
 
   .charger.led {
-    visibility: visible;
+    /* visibility: visible; */
     display: block;
     width: 2px;
     position: relative;
@@ -113,14 +106,15 @@ export default css`
 
   }
 
-  .charger.led-hidden {
+  /* .charger.led-hidden {
     visibility: hidden;
     display: block;
     width: 2px;
     position: relative;
-    top: -175px;
+    //top: -175px; 
+    top: -200px;
 
-  }
+  } */
 
 
   .charger.led-compact {
@@ -133,7 +127,6 @@ export default css`
     left: 77px;
     top: 22px;
     width: 1.4px;
-
     // // border-color: red;
     // // border-style: dashed;
   }
@@ -173,7 +166,7 @@ export default css`
 
   .infoitems {
     // display: flex;
-    height: 250px;
+    height: 200px;
     text-align: right;
     // font-weight: bold;
     // transform: translate(-10px, 50%);
@@ -188,7 +181,7 @@ export default css`
 
   .infoitems-left {
     // display: flex;
-    height: 250px;
+    height: 200px;
     text-align: right;
     // font-weight: bold;
     // transform: translate(10px, 50%);
@@ -229,16 +222,12 @@ export default css`
 
   .metadata {
     display: block;
-    // margin: 20px auto;
-    // position: relative;
-    // top: -50px;
     position: absolute;
     justify-content: centre;
-    top: 270px;
+    top:0;
     width: 100%;
-
-    // border-color: pink;
-    // border-style: dashed;
+    /* border-color: pink;
+    border-style: dashed; */
   }
 
   .status {
@@ -246,35 +235,20 @@ export default css`
     align-items: center;
     justify-content: center;
     text-align: center;
-    // position: absolute;
-
-
-    // // border-color: pink;
-    // // border-style: dashed;
+    position: relative;
+    top: 275px;
+    /* border-color: pink;
+    border-style: dashed; */
   }
 
   .status-compact {
-    // display: block;
-    // align-items: center;
-    // justify-content: center;
-    // text-align: center;
-    // position: relative;
-    // top: -250px;
-    // // left: 200px;
-    // // padding-left: 200px;
-
     display: block;
-    // align-items: center;
-    // justify-content: center;
-    // text-align: center;
-    // font-weight: bold;
     color: var(--custom-text-color);
-    position: absolute;
+    position: relative;
     left: 160px;
-    top: 65px;
-
-    // // border-color: pink;
-    // // border-style: dashed;
+    top: 30px;
+    /* border-color: pink;
+    border-style: dashed; */
   }
 
   .status-text {
@@ -283,7 +257,7 @@ export default css`
     font-weight: bold;
     text-overflow: ellipsis;
     overflow: hidden;
-    margin-left: calc(20px + 9px); /* size + margin of spinner */
+    //margin-left: calc(20px + 9px); /* size + margin of spinner */
     text-transform: uppercase;
     font-size: 22px;
   }
@@ -329,28 +303,22 @@ export default css`
 
   .charger-name {
     text-align: center;
-    // font-weight: bold;
     color: var(--custom-text-color);
     font-size: 16px;
-
-    // // border-color: grey;
-    // // border-style: dashed;
+    position: relative;
+    top: 270px;
+    /* border-color: grey;
+    border-style: dashed; */
   }
 
   .charger-name-compact {
-    // display: block;
-    // align-items: center;
-    // justify-content: center;
-    // text-align: center;
-    // font-weight: bold;
     color: var(--custom-text-color);
     font-size: 16px;
-    // position: relative;
-    position: absolute;
+    position: relative;
     left: 160px;
-    top: 55px;
-    // // border-color: grey;
-    // // border-style: dashed;
+    top: 25px;
+    /* border-color: grey;
+    border-style: dashed; */
   }
 
   .not-available {
@@ -383,11 +351,12 @@ export default css`
     flex-direction: row;
     justify-content: space-evenly;
     color: var(--custom-text-color);
-
-    width: 100%;
+    position: relative;
+    top: 160px;
+    /* width: 100%;
     position: absolute;
     left: 0px;
-    top: 160px;
+    top: 160px; */
 
     // // border-color: black;
     // // border-style: dashed;
@@ -548,88 +517,92 @@ export default css`
     visibility: visible;
   }
 
+
+
+
+
+
+
+
   /* CSS COLLAPSIBLE */
 
   input[type='checkbox'] {
     display: none;
   }
 
+  /* The button itself to open collapsible content */
   .lbl-toggle {
     display: block;
-    // text-align: right;
-    // padding: 1rem;
     padding: 5px;
-    // margin: auto;
     color: var(--custom-text-color);
     background: transparent;
-    // transition: all 0.25s ease-out;
     position: absolute;
-    // bottom: 70px;
-    top: 330px;
     right: 0px;
-    // left: 40%;
-
     width: 30px;
     height: 30px;
-    // align: right;
-    // float: right;
     z-index: 1;
-    // margin-left: auto;
-    // margin-right: auto;
-
-    // border-style: dotted;
-    // border-color: red;
+    /* border-style: solid
+    border-color: red; */
   }
 
-  .collapsible-content {
+  .lbl-toggle-cfg {
+    top: 310px;
+    /* border-style: dotted
+    border-color: green; */
+  }
+
+  .lbl-toggle-info {
+    top: 280px;
+    /* border-style: dotted;
+    border-color: darkblue; */
+  }
+
+  .lbl-toggle-lim {
+    top: 250px;
+    /* border-style: dotted;
+    border-color: yellow; */
+  }  
+
+  .collapsible-content, .collapsible-content-cfg, .collapsible-content-info, .collapsible-content-lim{
     max-height: 0px;
     overflow: hidden;
+    /* border-style: dotted;
+    border-color: red; */
 
-    // transition: max-height .25s ease-in-out;
   }
 
-  .toggle:checked + .lbl-toggle + .collapsible-content {
-    max-height: 200px;
-    // height: 200px;
-    position: relative;
-    top: 0px;
-    // margin-left: auto;
-    // margin-right: auto;
-    // width: 100%;
-    margin: auto;
-
-    text-align: center;
-    vertical-align: middle;
-    background: transparent;
-
-    display: block;
-    flex-direction: row;
-    justify-content: space-evenly;
-    color: var(--custom-text-color);
-
-    // // border-style: solid;
-    // // border-color: red;
-  }
-
-  .collapsible-content .content-inner {
+/* Content area for collapsible content (within full area) */    
+  .collapsible-content .content-inner, .collapsible-content-cfg .content-inner-cfg, .collapsible-content-info .content-inner-info, .collapsible-content-lim .content-inner-lim {
     color: var(--custom-text-color);
     background: transparent;
     text-align: center;
     max-height: 200px;
     height: 70px;
-    // vertical-align: middle;
-    // width: 100%;
-    // z-index: 3;
-    content: '';
     clear: both;
     display: table;
-
     margin-left: auto;
     margin-right: auto;
-
-    // // border-style: dashed;
-    // // border-color: white;
     z-index: 999;
+    /* border-style: dashed;
+    border-color: white; */
+  }
+
+  /* Full area for collapsible content */    
+  .toggle:checked + .lbl-toggle + .collapsible-content, .toggle-cfg:checked + .lbl-toggle-cfg + .collapsible-content-cfg, .toggle-info:checked + .lbl-toggle-info + .collapsible-content-info, .toggle-lim:checked + .lbl-toggle-lim + .collapsible-content-lim {
+    max-height: 200px;
+    position: relative;
+    top: 0px;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    background: transparent;
+    display: block;
+    flex-direction: row;
+    justify-content: space-evenly;
+    color: var(--custom-text-color);
+    overflow: visible;  /* Important to let dropwdown overflow the box */
+    /* border-style: solid;
+    border-color: red; */
   }
 
   .collapsible-item {
@@ -637,33 +610,22 @@ export default css`
     text-align: center;
     align-items: center;
     padding: 5px;
-    // font-weight: bold;
-    // border: 1px;
-    // // border-style: dotted;
     justify-content: center;
     vertical-align: middle;
-    z-index: 999;
-  }
-
-  mmp-dropdown{
-    padding: 0;
-    display: block;
   }
 
   mwc-list {
+    display: flex:
+    flex-grow: 1;
+    flex-wrap: wrap;
     width: auto;
-    min-width: 75px;
-    // margin: 0px 0px 0px 0px;
-    // padding: 0px 0px 0px 0px;
+    min-width: 50px;
     padding: 0px;
     border: 1px dotted var(--custom-text-color);
     background: var(--custom-card-background-color);
-    color: var(--custom-text-color);
-    // overflow-y: auto; /* vertical scrollbar */
-    // overflow-x: hidden; /* horizontal scrollbar */
-    // position: absolute;
-    bottom: 100%;
-    z-index: 999;
+    //color: var(--custom-text-color);
+    overflow-y: auto; /* vertical scrollbar */
+    overflow-x: hidden; /* horizontal scrollbar */
   }
 
   mwc-list-item {
@@ -672,248 +634,18 @@ export default css`
     // min-height: 75px;
     height: auto;
     width: auto;
-    // color: var(--custom-text-color);
+    color: var(--custom-text-color);
     cursor: pointer;
-    background: transparent;
+    background: var(--custom-card-background-color);
+    /* background: transparent; */
     font-size: 14px;
-
+    display: block;
     border-bottom: 1px dotted var(--custom-text-color);
-    z-index: 999;
-
   }
 
   mwc-list-item:hover {
     font-size: 18px;
+    font-weight: bold;
   }
 
-  /* collapsible info */
-
-  .lbl-toggle-info {
-    display: block;
-    padding: 5px;
-    color: var(--custom-text-color);
-    background: transparent;
-    // transition: all 0.25s ease-out;
-    position: absolute;
-    // bottom: 100px;
-    top: 300px;
-    right: 0px;
-    width: 30px;
-    height: 30px;
-    z-index: 1;
-
-    // // border-style: dotted;
-    // // border-color: darkblue;
-  }
-
-  .toggle-info:checked + .lbl-toggle-info + .collapsible-content-info {
-    max-height: 200px;
-    // height: 200px;
-    position: relative;
-    top: 0px;
-    // margin-left: auto;
-    // margin-right: auto;
-    // width: 100%;
-    margin: auto;
-
-    text-align: center;
-    vertical-align: middle;
-    background: transparent;
-
-    display: block;
-    flex-direction: row;
-    justify-content: space-evenly;
-    color: var(--custom-text-color);
-
-    // // border-style: solid;
-    // // border-color: red;
-  }
-
-  .collapsible-content-info .content-inner-info {
-    color: var(--custom-text-color);
-    background: transparent;
-    text-align: center;
-    max-height: 200px;
-    height: 70px;
-    // vertical-align: middle;
-    // width: 100%;
-    // z-index: 3;
-    content: '';
-    clear: both;
-    display: table;
-
-    margin-left: auto;
-    margin-right: auto;
-
-    // // border-style: dashed;
-    // // border-color: white;
-  }
-
-  // .wrap-collabsible-info {
-  //   // display: flex;
-  //   // margin-bottom: 1.2rem 0;
-  //   // // border-style: solid;
-  //   // min-height:0px;
-  //   // max-height:300px;
-  //   height: 50px;
-
-  //   // border-top: 1px solid rgba(255, 255, 255, 0.2);
-  //   // display: flex;
-  //   // flex-direction: row;
-  //   // justify-content: space-evenly;
-  //   // color: var(--custom-text-color);
-
-  //   text-align: left;
-  //   vertical-align: top;
-
-  //   display: block;
-  //   // flex-direction: row;
-  //   // justify-content: space-evenly;
-  //   // color: var(--custom-text-color);
-  //   margin: auto;
-
-  //   // border-color: black;
-  //   // border-style: solid;
-
-  // }
-
-  // .wrap-collabsible {
-  //   // display: flex;
-  //   // margin-bottom: 1.2rem 0;
-  //   // // border-style: solid;
-  //   // min-height:0px;
-  //   // max-height:300px;
-  //   height: 50px;
-
-  //   // border-top: 1px solid rgba(255, 255, 255, 0.2);
-  //   // display: flex;
-  //   // flex-direction: row;
-  //   // justify-content: space-evenly;
-  //   // color: var(--custom-text-color);
-
-  //   text-align: left;
-  //   vertical-align: top;
-
-  //   display: block;
-  //   // flex-direction: row;
-  //   // justify-content: space-evenly;
-  //   // color: var(--custom-text-color);
-  //   margin: auto;
-
-  //   // border-color: red;
-  //   // border-style: solid;
-
-  // }
-
-  .collapsible-content-info {
-    max-height: 0px;
-    overflow: hidden;
-
-    // transition: max-height .25s ease-in-out;
-  }
-
-  /* collapsible limits */
-
-  .lbl-toggle-lim {
-    display: block;
-    padding: 5px;
-    color: var(--custom-text-color);
-    background: transparent;
-    // transition: all 0.25s ease-out;
-    position: absolute;
-    // bottom: 100px;
-    top: 270px;
-    right: 0px;
-    width: 30px;
-    height: 30px;
-    z-index: 1;
-
-    // border-style: dotted;
-    // border-color: darkblue;
-  }
-
-  .toggle-lim:checked + .lbl-toggle-lim + .collapsible-content-lim {
-    max-height: 200px;
-    // height: 200px;
-    position: relative;
-    top: 0px;
-    // margin-left: auto;
-    // margin-right: auto;
-    // width: 100%;
-    margin: auto;
-
-    text-align: center;
-    vertical-align: middle;
-    background: transparent;
-
-    display: block;
-    flex-direction: row;
-    justify-content: space-evenly;
-    color: var(--custom-text-color);
-
-    // // border-style: solid;
-    // // border-color: red;
-    z-index: 999;
-
-  }
-
-  .collapsible-content-lim .content-inner-lim {
-    color: var(--custom-text-color);
-    background: transparent;
-    text-align: center;
-    max-height: 200px;
-    height: 70px;
-    // vertical-align: middle;
-    // width: 100%;
-    // z-index: 3;
-    content: '';
-    clear: both;
-    display: table;
-
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 15px;
-
-    // border-style: dashed;
-    // border-color: white;
-    z-index: 999;
-
-  }
-
-  // .wrap-collabsible-lim {
-  //   // display: flex;
-  //   // margin-bottom: 1.2rem 0;
-  //   // // border-style: solid;
-  //   // min-height:0px;
-  //   // max-height:300px;
-  //   height: 50px;
-
-  //   // border-top: 1px solid rgba(255, 255, 255, 0.2);
-  //   // display: flex;
-  //   // flex-direction: row;
-  //   // justify-content: space-evenly;
-  //   // color: var(--custom-text-color);
-
-  //   text-align: left;
-  //   vertical-align: top;
-
-  //   display: block;
-  //   // flex-direction: row;
-  //   // justify-content: space-evenly;
-  //   // color: var(--custom-text-color);
-  //   margin: auto;
-  //   // z-index: 999;
-
-  //   // border-color: black;
-  //   // border-style: solid;
-
-  // }
-
-  .collapsible-content-lim {
-    max-height: 0px;
-    overflow: hidden;
-    z-index: 999;
-
-    // transition: max-height .25s ease-in-out;
-  }
 `;

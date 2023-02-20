@@ -1,0 +1,123 @@
+{
+  "common": {
+    "name": "Charger Card",
+    "description": "Charger card gir dig mulighed for at styre din ladeboks.",
+    "version": "Version",
+    "invalid_configuration": "Invalid configuration",
+    "show_warning": "Show Warning",
+    "show_error": "Show Error"
+  },
+    "error": {
+      "missing_entity": "Du skal angive en entitet!",
+      "not_available": "Not available",
+      "missing_config": "Error in config!",
+      "missing_group": "No entities defined in group!"
+    },
+    "states": {
+      "on" : "on",
+      "off" : "off",
+      "unavailable" : "unavailable"
+    },
+    "editor": {
+      "instruction": "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+      "brand": "Brand/Template (Required)",
+      "entity": "Entitet (obligatorisk)",
+      "chargerImage": "Billede og -farvevalg",
+      "customImage": "Valgfrit billede (erstatter billede af laderobot)",
+      "theme": "Farvevalg",
+      "compact_view": "Kompakt",
+      "compact_view_aria_label_on": "Slå kompakt tilstand til",
+      "compact_view_aria_label_off": "Slå kompakt tilstand fra",
+      "show_name": "Vis navn",
+      "show_name_aria_label_on": "Vis navn",
+      "show_name_aria_label_off": "Vis ikke navn",
+      "show_leds": "Vis LED lys",
+      "show_leds_aria_label_on": "Slå animerede LED lys til",
+      "show_leds_aria_label_off": "Slå animerede LED lys fra",
+      "show_status": "Vis status",
+      "show_status_aria_label_on": "Vis status",
+      "show_status_aria_label_off": "Vis ikke status",
+      "show_stats": "Vis data tabel (statistik)",
+      "show_stats_aria_label_on": "Vis data tabel (statistik)",
+      "show_stats_aria_label_off": "Vis ikke data tabel (statistik)",
+      "show_collapsibles": "Vis foldbar menu",
+      "show_collapsibles_aria_label_on": "Vis foldbar menu",
+      "show_collapsibles_aria_label_off": "Vis ikke foldbar menu",
+      "show_toolbar": "Vis værktøjslinje",
+      "show_toolbar_aria_label_on": "Vis værktøjslinje",
+      "show_toolbar_aria_label_off": "Vis ikke værktøjslinje",
+      "code_only_note": "Bemærk: Brugerdefinerede actions og data tabel (statistik) funktioner kan kun benyttes ved manuelt at redigere via Code Editor."
+    },
+
+    "easee": {
+      "status" : {
+        "disconnected": "Frakoblet",
+        "awaiting_start": "Afventer start",
+        "charging": "Oplader",
+        "completed": "Gennemført",
+        "error": "Fejl",
+        "ready_to_charge": "Klar til opladning"
+        },
+      "substatus" : {
+        "ok": "Ok",
+        "pending_schedule": "Pending schedule",
+        "none": "None",
+        "max_circuit_current_too_low": "Max circuit current too low",
+        "max_dynamic_circuit_current_too_low": "Max dynamic circuit current too low",
+        "max_dynamic_charger_current_too_low": "Max dynamic charger current too low",
+        "max_dynamic_offline_fallback_circuit_current_too_low": "Max dynamic offline circuit current too low",
+        "max_charger_current_too_low": "Max charger current too low",
+        "circuit_fuse_too_low": "Circuit fuse too low",
+        "waiting_in_queue": "Waiting in queue",
+        "waiting_in_fully": "Waiting in fully",
+        "illegal_grid_type": "Illegal grid type",
+        "no_current_request": "No current request",
+        "not_requesting_current": "Bilen anmoder ikke om strøm",
+        "charger_disabled": "Charger Disabled",
+        "pending_authorization": "Pending Authorization",
+        "charger_in_error_state": "Charger in error state",
+        "undefined": "Undefined"
+      },
+      "common" : {
+        "click_for_group1": "Klik for limiteringer",
+        "click_for_group2": "Klik for info",
+        "click_for_group3": "Klik for konfiguration",
+        "start": "Start",
+        "continue": "Fortsæt",
+        "pause": "Pause",
+        "stop": "Stop",
+        "resume": "Resume",
+        "override": "Overstyr plan",
+        "update": "Update firmware",
+        "reboot": "Genstart ladeboks",
+        "not_available": "Lader utilgængelig",
+        "online": "Online",
+        "voltage": "Spænding",
+        "power": "Effekt",
+        "current": "Current",
+        "charger_current": "Ladestrøm",
+        "energy_per_hour": "Energi per time",
+        "session_energy": "Session energy",
+        "lifetime_energy": "Energi totalt",
+        "circuit_current": "Kredsløbstrøm",
+        "dyn_charger_limit" : "Dyn Charger Limit",
+        "dyn_circuit_limit" : "Dyn Circuit Limit",
+        "max_charger_limit" : "Max Charger Limit",
+        "max_circuit_limit" : "Max Circuit Limit",
+        "output_limit" : "Allowed current",
+        "used_limit": "Used limit",
+        "offline_circuit_limit" : "Offline Circuit Limit",
+        "enabled" : "Enabled",
+        "idle_current" : "Idle current",
+        "cable_locked" : "Cable locked",
+        "perm_cable_locked" : "Cable locked permanently",
+        "smart_charging" : "Smart charging",
+        "cost_per_kwh" : "Cost per kWh",
+        "update_available" : "Update available",
+        "schedule": "Schedule"
+
+      }
+
+    }
+
+  }
