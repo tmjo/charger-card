@@ -461,32 +461,49 @@ export class ChargerCard extends LitElement {
       this.hass.callService("persistent_notification", "create", { title: "No service", message: "No service defined for this action or no service data given." });
       return;
     }
-
     const event_val = event.target.getAttribute('value');
     // event_val = Number.isNaN(Number(event_val)) ? event_val : Number(event_val); //TODO is this neccessary?
-    const service_data_mod = {};
-    for (const [key, val] of Object.entries((service_data as {[index:string|number] :string}))) {
-      service_data_mod[key] = val.replace(cconst.TEMPLATE_EDITOR.SERVICEVAL, event_val);
-      service_data_mod[key] = val.replace(cconst.TEMPLATE_EDITOR.SERVICEVAL, event_val);
+    let service_data_mod = {};
+    let service_target = {};
+    for (var [key, val] of Object.entries((service_data as {[index:string|number] :string|Object}))) {
+      if(key == "target"){
+        service_target = val;
+      }else{
+
+        if(typeof val == "string"){
+          service_data_mod[key] = val.replace(cconst.TEMPLATE_EDITOR.SERVICEVAL, event_val);    
+        }else if(typeof val == "object"){
+          let valObj = {...val};
+          for(var [k2,v2] of Object.entries(valObj as {[index:string|number] :string})){
+              valObj[k2] = v2.replace(cconst.TEMPLATE_EDITOR.SERVICEVAL, event_val);
+          }
+          service_data_mod[key] = valObj;
+        }
+      }
     }
-    return this.callService(service, isRequest, service_data_mod)
+      return this.callService(service, isRequest, service_data_mod, service_target);
   }
 
-  callService(service, isRequest = true, service_data = {}) {
+  callService(service, isRequest = true, service_data = {}, service_target = {}) {
     this.log("CALLING SERVICE");
     this.log(service);
     this.log(service_data);
-
+    this.log(service_target);
 
     if (service === undefined || service === null) {
       console.error("Trying to call an empty service - please check your card configuration.");
       this.hass.callService("persistent_notification", "create", { title: "No service", message: "No service defined for this action." });
     } else {
       service = service.split(".");
-      this.hass.callService(service[0], service[1], service_data);
-      if (isRequest) {
-        // this.requestInProgress = true; //TODO: Removed, must be improved to check all sensors
-        this.requestUpdate();
+      try{
+        this.hass.callService(service[0], service[1], service_data, service_target);
+        if (isRequest) {
+          // this.requestInProgress = true; //TODO: Removed, must be improved to check all sensors
+          this.requestUpdate();
+        }
+      }catch(err){
+        console.error("Not able to call service.");
+        console.error(err);
       }
     }
   }
