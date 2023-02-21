@@ -558,7 +558,7 @@ export class ChargerCard extends LitElement {
       stats = this.getCardData(this.getConfig("details.stats"));
       stats = stats !== undefined && stats !== null ? stats[state] || stats['default'] : [];
     } else {
-      console.info("Stats is turned on but no stats given in config.")
+      this.log("Stats is turned on but no stats given in config.")
       stats = {};
     }
 
@@ -824,7 +824,7 @@ export class ChargerCard extends LitElement {
       toolbardata_left = this.getCardData(this.getConfig("details.toolbar_left"));
       toolbardata_left = (toolbardata_left !== undefined && toolbardata_left !== null) ? toolbardata_left[state] || toolbardata_left['default'] : [];
     } else {
-      console.info("Toolbar_left is turned on but not given in config.");
+      this.log("Toolbar_left is turned on but not given in config.");
       // toolbardata_left = {};
     }
 
@@ -833,7 +833,7 @@ export class ChargerCard extends LitElement {
       toolbardata_right = this.getCardData(this.getConfig("details.toolbar_right"));
       toolbardata_right = (toolbardata_right !== undefined && toolbardata_right !== null) ? toolbardata_right[state] || toolbardata_right['default'] : [];
     } else {
-      console.info("Toolbar_right is turned on but not given in config.");
+      this.log("Toolbar_right is turned on but not given in config.");
       // toolbardata_right = {};
     }
 
