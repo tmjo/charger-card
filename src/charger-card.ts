@@ -453,7 +453,11 @@ export class ChargerCard extends LitElement {
   }
 
   getEntityDeviceId(entity_id:string):string{
-    return this.hass["entities"][entity_id].device_id;
+    try{
+      return this.hass["entities"][entity_id].device_id;
+    }catch(err){
+      return '';
+    }      
   }
 
   createServiceData(service, isRequest, service_data, event) {

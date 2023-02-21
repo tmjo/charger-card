@@ -318,7 +318,6 @@ export class ChargerCardEditor extends ScopedRegistryHost(LitElement) implements
       let entityprefix, serviceid;      
 
       const cardtemplate = CARDTEMPLATES[CARDTEMPLATES.findIndex((cfg:template) => cfg.config.domain === brand)];
-      // let cardtemplate = "easee";
 
       // Use main entity as default unless given otherwise in template
       const service_entity = cardtemplate.config.serviceid_data["entity"] != null ? cardtemplate.config.serviceid_data["entity"] : this._config.entity;
@@ -337,7 +336,11 @@ export class ChargerCardEditor extends ScopedRegistryHost(LitElement) implements
           if(this != undefined && this.hass != undefined && cardtemplate.config.serviceid_data["attr"] != null) serviceid = this.hass.states[service_entity].attributes[cardtemplate.config.serviceid_data["attr"]]; 
           break;
         case cconst.TEMPLATE_EDITOR.SERVICEID_DEVICE:
-          if(this != undefined && this.hass != undefined) serviceid = this.hass["entities"][service_entity].device_id;
+          try{
+            if(this != undefined && this.hass != undefined) serviceid = this.hass["entities"][service_entity].device_id;
+          }catch(err){
+            console.error("Could not find device_id of " +service_entity +"!");
+          }
       }
 
       // Set prefix by domain
@@ -345,26 +348,20 @@ export class ChargerCardEditor extends ScopedRegistryHost(LitElement) implements
 
       // Replace template with actual data
       try {
-        let domainconfig_str = JSON.stringify(cardtemplate.details);
-        domainconfig_str = this.replaceAll(domainconfig_str, cconst.TEMPLATE_EDITOR.ENTITYPREFIX, entityprefix);
-        domainconfig_str = this.replaceAll(domainconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID, this._config.entity);
-        domainconfig_str = this.replaceAll(domainconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_DEVICE, serviceid);
-        domainconfig_str = this.replaceAll(domainconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_ENTITY, serviceid);
-        domainconfig_str = this.replaceAll(domainconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_STATE, serviceid);
-        domainconfig_str = this.replaceAll(domainconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_ATTR, serviceid);       
-
-        // domainconfig_str = this.replaceAll(domainconfig_str, cconst.SERVICEID_DEVICE, this.hass["entities"][service_entity].device_id);
-        // domainconfig_str = this.replaceAll(domainconfig_str, cconst.SERVICEID_ENTITY, this.hass["entities"][service_entity].entity_id);
-        // domainconfig_str = this.replaceAll(domainconfig_str, cconst.SERVICEID_STATE, this.hass.states[service_entity].state);
-        // domainconfig_str = this.replaceAll(domainconfig_str, cconst.SERVICEID_ATTR, this.hass.states[service_entity].attributes[cardtemplate.serviceid_data["attr"]]);       
-        cardtemplate.details = JSON.parse(domainconfig_str);
+        let templateconfig_str = JSON.stringify(cardtemplate.details);
+        templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.ENTITYPREFIX, entityprefix);
+        templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID, this._config.entity);
+        templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_DEVICE, serviceid);
+        templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_ENTITY, serviceid);
+        templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_STATE, serviceid);
+        templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_ATTR, serviceid);       
+        cardtemplate.details = JSON.parse(templateconfig_str);
       } catch (err) {
         console.error("Something went wrong with the default setup, please check your YAML configuration or enable debugging to see details.")
       }
       this.log("domain: " + brand +", entityprefix: " +entityprefix +", serviceid: " +serviceid);
       this.log(cardtemplate);
-
-
+    
       // Set config
       const details:cardDetails = {};
       for (const data in cardtemplate.details) {
@@ -378,6 +375,7 @@ export class ChargerCardEditor extends ScopedRegistryHost(LitElement) implements
       fireEvent(this, 'config-changed', { config: this._config });
       return;
     }
+    return;
   }
 
   replaceAll(str, find, replace) {
