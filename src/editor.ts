@@ -308,13 +308,21 @@ export class ChargerCardEditor extends ScopedRegistryHost(LitElement) implements
   private _setBrandTemplateDetails(ev): void {
     if (this != undefined && this._config != undefined && ev != null && ev.target !=null){
       // SKIP EQUAL OR EMPTY BRAND CONFIG  
-      if (this._config["brand"] == ev.target.value || ev.target.value == '') return;
+      if (this._config["brand"] == ev.target.value || ev.target.value == ''){
+        console.info("Not changing config since brand is equal or empty.");
+        return;
+      }
 
       // SKIP EMPTY ENTITY, MUST BE SELECTED FIRST
-      if (this._config["entity"] === undefined || this._config["entity"] == '') return;
+      if (this._config["entity"] === undefined || this._config["entity"] == ''){
+        console.info("Not changing config since entity is undefined or empty.");
+        return;
+      }
 
-      this._valueChanged(ev);
       const brand = ev.target.value;
+      console.info("Setting brand template for brand: " +brand +" entity_id: " +this._entity);
+      this._valueChanged(ev);
+      
       let entityprefix, serviceid;      
 
       const cardtemplate = CARDTEMPLATES[CARDTEMPLATES.findIndex((cfg:template) => cfg.config.domain === brand)];
@@ -346,32 +354,32 @@ export class ChargerCardEditor extends ScopedRegistryHost(LitElement) implements
       // Set prefix by domain
       entityprefix = this._config.entity.split('.')[1].replace(cardtemplate.config.domainbase, '');
 
+      //Make deepcopy to not overwrite actual template
+      let current_template = {...cardtemplate};
+
       // Replace template with actual data
       try {
-        let templateconfig_str = JSON.stringify(cardtemplate.details);
+        let templateconfig_str = JSON.stringify(current_template);
         templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.ENTITYPREFIX, entityprefix);
         templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID, this._config.entity);
         templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_DEVICE, serviceid);
         templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_ENTITY, serviceid);
         templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_STATE, serviceid);
         templateconfig_str = this.replaceAll(templateconfig_str, cconst.TEMPLATE_EDITOR.SERVICEID_ATTR, serviceid);       
-        cardtemplate.details = JSON.parse(templateconfig_str);
+        current_template = JSON.parse(templateconfig_str);
       } catch (err) {
         console.error("Something went wrong with the default setup, please check your YAML configuration or enable debugging to see details.")
       }
       this.log("domain: " + brand +", entityprefix: " +entityprefix +", serviceid: " +serviceid);
-      this.log(cardtemplate);
-    
-      // Set config
-      const details:cardDetails = {};
-      for (const data in cardtemplate.details) {
-        details[`${data}`] = cardtemplate.details[data];
-      }
-      this._config = { ...this._config, ...cardtemplate.defaults};
-      if(this._config !== undefined){
-        this._config["details"] = { ...this._config.details, ...details };
-      }
+      this.log(current_template);
 
+      // CONFIG
+      // Merge current config with template defaults 
+      this._config = { ...this._config, ...cardtemplate.defaults};
+
+      // Merge current config with replaced template details
+      // this._config["details"] = { ...this._config.details, ...current_template.details };
+      this._config["details"] = {...current_template.details };
       fireEvent(this, 'config-changed', { config: this._config });
       return;
     }
