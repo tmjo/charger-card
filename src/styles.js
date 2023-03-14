@@ -27,8 +27,8 @@ export default css`
     cursor: pointer;
     // overflow: hidden;  // Removed to show tooltips outside of card
     position: relative;
-    // height: auto;
-    height: 100%;
+    height: auto;
+    /* height: 100%; */
 
     // border-color: yellow;
     // border-style: solid;
