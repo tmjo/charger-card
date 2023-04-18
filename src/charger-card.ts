@@ -14,7 +14,7 @@ import {
 
 import type { ChargerCardConfig, cardEntity, cardServiceEntity} from './types';
 import { actionHandler } from './action-handler-directive';
-import { VERSION } from './const';
+import { DEFAULT_PRECISION, VERSION } from './const';
 import { localize } from './localize/localize';
 import styles from './styles';
 import {cconst} from './internals';
@@ -283,10 +283,16 @@ export class ChargerCard extends LitElement {
         }
       }
 
-      //Apply rounding of number if specified, round to zero decimals if other than integer given (for instance true)
-      if (data["round"]) {
-        const decimals = Number.isInteger(data["round"]) ? data["round"] : 0;
-        data["useval"] = this.round(data["useval"], decimals);
+      // If useval is a number, use the configured rounding if specified and otherwise default to fixed decimal (neccessary after HA returns full blown numbers)
+      var usenum:number = +data["useval"];    //cast to number
+      if(!isNaN(usenum)){
+        if (data["round"]) {
+          //Round to fixed decimals if other than integer given (for instance true)
+          const decimals = Number.isInteger(data["round"]) ? data["round"] : DEFAULT_PRECISION;
+          data["useval"] = this.round(usenum, decimals);
+        }else{
+          data["useval"] = this.round(usenum, DEFAULT_PRECISION);
+        }
       }
 
       // Conditional entities
@@ -406,8 +412,12 @@ export class ChargerCard extends LitElement {
     }
   }
 
-  round(value:number, decimals:number):string {
-    return value.toPrecision(decimals);
+  round(value:any, decimals:number):string {
+    try{
+      return value.toFixed(decimals);
+    }catch(err){
+      return value;
+    }
   }
 
   math_sum(array:number[]) {

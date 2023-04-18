@@ -82,3 +82,6 @@ export const LEDIMAGES = {
       ready_to_charge: ledBlueAll,
     },
   };
+
+  export const DEFAULT_PRECISION = 1;
+  
