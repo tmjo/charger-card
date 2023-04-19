@@ -5,9 +5,6 @@
 
 > EV Charger card for [Home Assistant][home-assistant] Lovelace UI
 
-OBS! This readme reflects the latest release candidate for testing which brings a lot of breaking changes since the card is made generic. See [here](https://github.com/tmjo/charger-card/blob/a324cd30b7139c70c37d2d8973e4f64b2f511280/README.md) for an older version which is currently the latest official release.
-
-
 
 By default, Home Assistant does not provide any card for controlling chargers for electrical vehicles (EVs). This card displays the state and allows to control your charger - and it is now made fully customizable so you could also use it for «anything» else as well, for instance your electric car.
 
@@ -48,24 +45,17 @@ Installation with [HACS][hacs] (Home Assistant Community Store) is highly reccom
 
 After installation, the card can be configured either using Lovelace UI editor or YAML-code.
 
-1. In Lovelace UI, click 3 dots in top left corner.
-2. Click _Configure UI_.
-3. Click Plus button to add a new card.
-4. Find _Custom: Charger Card_ in the list.
-5. Choose `brand` from the list which fits your need or select other.
-6. Choose `entity` and select the main status sensor of your charger.
-7. Now you should see the preview of the card!
-8. Do your customizations in UI editor or manually in the YAML code editor.
+1. In Lovelace UI, click the 3 dots in top right corner and select _Edit Dashboard_
+2. Click Plus button to add a new card.
+3. Find _Custom: Charger Card_ in the list.
+4. Choose `brand` from the list which fits your need or select other.
+5. Choose `entity` and select the main status sensor of your charger.
+6. Now you should see the preview of the card!
+7. Do your customizations in UI editor or manually in the YAML code editor.
 
-A minimum example of using this card in YAML config would look like this:
+Even if you prefer to configure an advanced and custom YAML-code, it is reccomended to use the UI at first since it will generate a template for the YAML-code that you can continue modifying.
 
-```yaml
-type: 'custom:charger-card'
-brand: easee
-entity: sensor.easee_status
-```
-
-Here is a list of the basic options. See [_advanced configuration_](#advanced-configuration) further down for more details.
+Here is a list of the options. See [_advanced configuration_](#advanced-configuration) further down for more details.
 
 | Name                               |   Type    | Default      | Description                                                                                                                                                                                                                                                                                                                            |
 | ---------------------------------- | :-------: | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
