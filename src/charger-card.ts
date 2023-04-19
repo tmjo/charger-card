@@ -21,7 +21,7 @@ import {cconst} from './internals';
 
 /* eslint no-console: 0 */
 console.info(
-  `%c  CHARGER-CARD \n%c  ${localize('common.version')} ${VERSION}    `,
+  `%c  CHARGER-CARD %c  ${localize('common.version')} ${VERSION}    `,
   'color: orange; font-weight: bold; background: black',
   'color: white; font-weight: bold; background: dimgray',
 );
