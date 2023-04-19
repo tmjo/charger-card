@@ -1,4 +1,4 @@
-export const VERSION = '0.2.3';
+export const VERSION = '0.2.4';
 
 //Replacement tags for card editor and templates
 export const TEMPLATE_EDITOR = {
@@ -84,4 +84,3 @@ export const LEDIMAGES = {
   };
 
   export const DEFAULT_PRECISION = 1;
-  
