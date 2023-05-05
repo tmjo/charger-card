@@ -117,7 +117,68 @@
             "cost_per_kwh": "Kosten per kWh",
             "update_available": "Aktualisierung verfügbar",
             "schedule": "Zeitplan"
-
+        }
+    },
+    "vwegolf": {
+        "status": {
+            "home": "Zuhause",
+            "away": "Abwesend"
+        },
+        "substatus": {
+            "ok": "Ok"
+        },
+        "common": {
+            "click_for_group1": "Klicken für Verriegelungen",
+            "click_for_group2": "Klicken für Infos",
+            "click_for_group3": "Klicken für Konfiguration",
+            "soc": "%SOC"
+        }
+    },
+    "test": {
+        "status": {
+            "disconnected": "Getrennt",
+            "awaiting_start": "Pausiert oder warte auf Start",
+            "charging": "Laden",
+            "completed": "Fertig oder warte auf Auto",
+            "error": "Fehler",
+            "ready_to_charge": "Bereit zum Laden"
+        },
+        "substatus": {
+            "ok": "Ok",
+            "pending_schedule": "Ausstehender Zeitplan",
+            "none": "None",
+            "max_circuit_current_too_low": "Maximalstrom zu niedrig",
+            "max_dynamic_circuit_current_too_low": "Dynamischer Stromkreis Maximalstrom zu niedrig",
+            "max_dynamic_charger_current_too_low": "MDynamischer Ladegerät Maximalstrom zu niedrig",
+            "max_dynamic_offline_fallback_circuit_current_too_low": "Dynamischer offline Maximalstrom zu niedrig",
+            "max_charger_current_too_low": "Maximaler Ladestrom zu niedrig",
+            "circuit_fuse_too_low": "Stromkreissicherung zu niedrig",
+            "waiting_in_queue": "Warten in der Warteschlange",
+            "waiting_in_fully": "Warten in vollem Umfang",
+            "illegal_grid_type": "Unzulässiger Grid Typ",
+            "no_current_request": "Keine aktuelle Anfrage",
+            "not_requesting_current": "Keine Nachfrage nach Strom",
+            "charger_disabled": "Ladegerät Deaktiviert",
+            "pending_authorization": "Ausstehende Autorisierung",
+            "charger_in_error_state": "Ladegerät im Fehlerzustand",
+            "undefined": "Undefiniert"
+        },
+        "common": {
+            "start": "Start",
+            "continue": "Weiter",
+            "pause": "Pause",
+            "stop": "Stopp",
+            "override": "Zeitplan überschreiben",
+            "reboot": "Ladegerät neu starten",
+            "not_available": "Ladegerät nicht verfügbar",
+            "online": "Online",
+            "voltage": "Spannung",
+            "power": "Leistung",
+            "charger_current": "Ladestrom",
+            "energy_per_hour": "Energie pro Stunde",
+            "lifetime_energy": "Energie Gesamt",
+            "circuit_current": "Aktueller Strom",
+            "schedule": "Zeitplan"
         }
     }
 }
