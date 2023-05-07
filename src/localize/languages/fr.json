@@ -1,0 +1,189 @@
+{
+  "common": {
+    "name": "Charger Card",
+    "description": "La carte de chargeur vous permet de contrôler votre chargeur domestique EV (ou autre chose).",
+    "version": "Version",
+    "invalid_configuration": "Configuration invalide",
+    "show_warning": "Montrer Alerte",
+    "show_error": "Montrer Erreur"
+  },
+  "error": {
+    "missing_entity": "La spécification de l'entité est obligatoire !",
+    "not_available": "Indisponible",
+    "missing_config": "Erreur dans la config!",
+    "missing_group": "Aucune entitée definee dans le groupe!"
+  },
+  "states": {
+    "on" : "on",
+    "off" : "off",
+    "unavailable" : "Indisponible"
+  },
+  "editor": {
+    "instruction": "Sélectionnez votre entité principale et votre type/marque. La carte essaiera automatiquement de détecter les autres capteurs. Si vous avez une marque qui n'est pas prise en charge par défaut, vous pouvez choisir «Autre» et faire le mappage des entités manuellement. En cas d'échec, veuillez vérifier la configuration YAML (cliquez sur «Afficher l'éditeur de code»).",
+    "brand": "Marque/Template (Requis)",
+    "entity": "Entité principale (Requis)",
+    "chargerImage": "Images incluses et couleur",
+    "customImage": "Image personnalisée (Optionel - écrase l'image chargeur)",
+    "theme": "Thème couleur",
+    "compact_view": "Vue Compacte",
+    "compact_view_aria_label_on": "Activer la vue compacte",
+    "compact_view_aria_label_off": "Désactiver la vue compacte",
+    "show_name": "Afficher Nom",
+    "show_name_aria_label_on": "Activer le nom d'affichage",
+    "show_name_aria_label_off": "Désactiver le nom d'affichage",
+    "show_leds": "Afficher Leds",
+    "show_leds_aria_label_on": "Activer les leds animées (superposition sur l'image)",
+    "show_leds_aria_label_off": "Désactiver les leds animées (superposition sur l'image)",
+    "show_status": "Afficher Status",
+    "show_status_aria_label_on": "Activer le status",
+    "show_status_aria_label_off": "Désactiver le status",
+    "show_stats": "Afficher le tableau de données (statistiques)",
+    "show_stats_aria_label_on": "Activer le tableau de données",
+    "show_stats_aria_label_off": "Désactiver le tableau de données",
+    "show_collapsibles": "Afficher les boutons de menu réduit",
+    "show_collapsibles_aria_label_on": "Activer le menu réduit",
+    "show_collapsibles_aria_label_off": "Désactiver le menu réduit",
+    "show_toolbar": "Afficher barre d'outils",
+    "show_toolbar_aria_label_on": "Activer l'affichage de la barre d'outils",
+    "show_toolbar_aria_label_off": "Désactiver l'affichage de la barre d'outils",
+    "code_only_note": "Remarque : Les configurations avancées telles que la barre d'outils et la table de données (statistiques) ne sont disponibles qu'en mode YAML."
+  },
+
+  "easee": {
+    "status" : {
+      "disconnected": "Deconnecté",
+      "awaiting_start": "En pause/Démarrage en attente",
+      "charging": "Charge en cours",
+      "completed": "Compléte/en attente de voiture",
+      "error": "Erreur",
+      "ready_to_charge": "Prêt pour la charge"
+    },
+    "substatus" : {
+      "ok": "Ok",
+      "pending_schedule": "Calendrier en attente",
+      "none": "Aucune",
+      "max_circuit_current_too_low": "Courant de circuit max trop faible",
+      "max_dynamic_circuit_current_too_low": "Courant de circuit dynamique max trop faible",
+      "max_dynamic_charger_current_too_low": "Courant de chargeur dynamique max trop faible",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Courant de circuit hors ligne dynamique maximum trop faible",
+      "max_charger_current_too_low": "Courant max du chargeur trop faible",
+      "circuit_fuse_too_low": "Fusible du circuit trop faible",
+      "waiting_in_queue": "Queue en attente",
+      "waiting_in_fully": "En attente complète",
+      "illegal_grid_type": "Type de réseau illégal",
+      "no_current_request": "Aucune demande en cours",
+      "not_requesting_current": "Pas de courant demandé",
+      "charger_disabled": "Chargeur Désactivé",
+      "pending_authorization": "Autorisation en attente",
+      "charger_in_error_state": "Chargeur dans un status erreur",
+      "undefined": "Non défini"
+    },
+    "common" : {
+      "click_for_group1": "Cliquez pour les Limites",
+      "click_for_group2": "Cliquez pour les Infos",
+      "click_for_group3": "Cliquez pour la Config",
+      "start": "Démarrer",
+      "continue": "Continuer",
+      "pause": "Pause",
+      "stop": "Stop",
+      "resume": "Reprendre",
+      "override": "Ecraser le calendrier",
+      "update": "Mise à jour du firmware",
+      "reboot": "Redémarrer le chargeur",
+      "not_available": "Chargeur indisponible",
+      "online": "En ligne",
+      "voltage": "Voltage",
+      "power": "Puissance",
+      "current": "Courrant",
+      "charger_current": "Chargeur actuel",
+      "energy_per_hour": "Energy par Heure",
+      "session_energy": "Energie de la session",
+      "lifetime_energy": "Energie depuis l'installation",
+      "circuit_current": "Courrant du Circuit",
+      "dyn_charger_limit" : "Limite Dynamique du Chargeur",
+      "dyn_circuit_limit" : "Limite Dynamique du Circuit",
+      "max_charger_limit" : "Limite Max du Chargeur",
+      "max_circuit_limit" : "Limite Max du Circuit",
+      "output_limit" : "Courant alloué",
+      "used_limit": "Limite utilisée",
+      "offline_circuit_limit" : "Limite hors ligne du Circuit",
+      "enabled" : "Activé",
+      "idle_current" : "Courant inactif",
+      "cable_locked" : "Cable verrouillé",
+      "perm_cable_locked" : "Cable verrouillé en permanence",
+      "smart_charging" : "Charge intelligente",
+      "cost_per_kwh" : "Cout par kWh",
+      "update_available" : "Mise à jour disponible",
+      "schedule": "Calendrier"
+
+    }
+  },
+
+  "vwegolf": {
+    "status" : {
+      "home": "Maison",
+      "away": "Absent"
+    },
+    "substatus" : {
+      "ok": "Ok"
+    },
+    "common" : {
+      "click_for_group1": "Cliquez pour verrouiller",
+      "click_for_group2": "Cliquez pour les Infos",
+      "click_for_group3": "Cliquez pour la Config",
+      "soc": "%SOC"
+    }
+  },
+
+
+  "test": {
+    "status" : {
+      "disconnected": "Déconnecté",
+      "awaiting_start": "En pause ou en attente de démarrage",
+      "charging": "En charge",
+      "completed": "Complet ou en attente de voiture",
+      "error": "Erreur",
+      "ready_to_charge": "Prêt pour la charge"
+    },
+    "substatus" : {
+      "ok": "Ok",
+      "pending_schedule": "Calendrier à définir",
+      "none": "Aucun",
+      "max_circuit_current_too_low": "Courant maximum du circuit trop faible",
+      "max_dynamic_circuit_current_too_low": "Courant du circuit dynamique max trop faible",
+      "max_dynamic_charger_current_too_low": "Courant dynamique max du chargeur trop faible",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Courant du circuit hors ligne dynamique maximum trop faible",
+      "max_charger_current_too_low": "Courant max du chargeur trop faible",
+      "circuit_fuse_too_low": "Fusible du circuit trop faible",
+      "waiting_in_queue": "Attente dans la file d'attente",
+      "waiting_in_fully": "Waiting in fully",
+      "illegal_grid_type": "Illegal grid type",
+      "no_current_request": "Aucune demande en cours",
+      "not_requesting_current": "Ne demande pas de courant",
+      "charger_disabled": "Chargeur Désactivé",
+      "pending_authorization": "Attente d'autorisation",
+      "charger_in_error_state": "Chargeur en état erreur",
+      "undefined": "Non défini"
+    },
+    "common" : {
+      "start": "Démarrer",
+      "continue": "Reprendre",
+      "pause": "Pause",
+      "stop": "Stop",
+      "override": "Ecraser lle calendrier",
+      "reboot": "Redémarrer le chargeur",
+      "not_available": "Chargeur indisponible",
+      "online": "En ligne",
+      "voltage": "Voltage",
+      "power": "Puissance",
+      "charger_current": "Courrant du chargeur",
+      "energy_per_hour": "Energie sur une Heure",
+      "lifetime_energy": "Energie depuis l'installation",
+      "circuit_current": "Energie du circuit",
+      "schedule": "Calendrier"
+    }
+
+
+  }
+
+}
