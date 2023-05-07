@@ -4,6 +4,7 @@ import * as sv from './languages/sv.json';
 import * as de from './languages/de.json';
 import * as da from './languages/da.json';
 import * as ca from './languages/ca.json';
+import * as fr from './languages/fr.json';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const languages: any = {
@@ -12,7 +13,8 @@ const languages: any = {
   sv: sv,
   de: de,
   da: da,
-  ca: ca  
+  ca: ca,
+  fr: fr,  
 };
 
 export function localize(string, brand=null, search = '', replace = '', debug=false){
