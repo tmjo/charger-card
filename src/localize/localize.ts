@@ -1,4 +1,5 @@
 import * as en from './languages/en.json';
+import * as en_GB from './languages/en-GB.json';
 import * as nb from './languages/nb.json';
 import * as sv from './languages/sv.json';
 import * as de from './languages/de.json';
@@ -9,6 +10,7 @@ import * as fr from './languages/fr.json';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const languages: any = {
   en: en,
+  en_GB: en_GB,
   nb: nb,
   sv: sv,
   de: de,
@@ -19,6 +21,7 @@ const languages: any = {
 
 export function localize(string, brand=null, search = '', replace = '', debug=false){
   const lang = (localStorage.getItem('selectedLanguage') || 'en').replace(/['"]+/g, '').replace('-', '_');
+  if(debug) console.log("Received language -> " +localStorage.getItem('selectedLanguage') +" --> " +lang);
   let translated;
   let brandstr = brand === undefined || brand === null ? string : brand + "." + string;
 

@@ -11,7 +11,7 @@
     "missing_entity": "Specifying entity is required!",
     "not_available": "Not available",
     "missing_config": "Error in config!",
-    "missing_group": "No entities defined in grou.!"
+    "missing_group": "No entities defined in group!"
   },
   "states": {
     "on" : "on",
