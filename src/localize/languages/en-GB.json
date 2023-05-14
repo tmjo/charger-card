@@ -1,14 +1,14 @@
 {
   "common": {
     "name": "Charger Card",
-    "description": "Charger card allows you to control your EV homecharger (or something else).",
+    "description": "Charger card lets you control your EV homecharger (or something else).",
     "version": "Version",
     "invalid_configuration": "Invalid configuration",
     "show_warning": "Show Warning",
     "show_error": "Show Error"
   },
   "error": {
-    "missing_entity": "Specifying entity is required!",
+    "missing_entity": "Entity specification required!",
     "not_available": "Not available",
     "missing_config": "Error in config!",
     "missing_group": "No entities defined in group!"
@@ -19,12 +19,12 @@
     "unavailable" : "unavailable"
   },
   "editor": {
-    "instruction": "Select your main entity and type/brand. The card will automatically try to detect the other sensors. If you have a brand which is not supported by default, you can choose «Other» and do mapping of entities manually. If anything fails, please verify the YAML configuration (click «Show code editor»).",
+    "instruction": "Select your primary entity and type/brand. The card will automatically attempt to detect the other sensors. If your brand isn't supported by default, you can choose «Other» and map entities manually. If anything goes wrong, please check the YAML configuration (click «Show code editor»).",
     "brand": "Brand/Template (Required)",
     "entity": "Main Entity (Required)",
-    "chargerImage": "Built-in images and color",
+    "chargerImage": "Built-in images and colour",
     "customImage": "Custom image (Optional - overrides charger image)",
-    "theme": "Color theme",
+    "theme": "Colour theme",
     "compact_view": "Compact View",
     "compact_view_aria_label_on": "Toggle compact view on",
     "compact_view_aria_label_off": "Toggle compact view off",
