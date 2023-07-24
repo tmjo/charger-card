@@ -105,7 +105,9 @@ This card supports translations. Please, help to add more translations and impro
 This card was originally made to support charging robots from [Easee](https://easee-international.com/), but has been further developed to be fully configurable and customizable and can be used with any kind of charger. It can even be used for other things than EV-chargers, for instance your electric car or something completely different. Some `brand`s are added with built-in support to make the configuration really easy:
 
 - Easee
-- [_Your charger?_][edit-readme]
+- [_Your charger?_](https://github.com/tmjo/charger-card/wiki/How-to-add-template-for-new-brand)
+
+See [Wiki on how to add a brand](https://github.com/tmjo/charger-card/wiki/How-to-add-template-for-new-brand).
 
 # Advanced configuration
 
@@ -492,7 +494,7 @@ details:
 ## Development
 Want to contribute to the project? Translations? Adding your `brand` as a pre-defined template?
 
-First of all, thanks! Check [contributing guideline](./CONTRIBUTING.md) for more information.
+First of all, thanks! Check [contributing guideline](./CONTRIBUTING.md) for more information. See [Wiki on how to add a brand](https://github.com/tmjo/charger-card/wiki/How-to-add-template-for-new-brand).
 
 
 
