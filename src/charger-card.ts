@@ -156,7 +156,7 @@ export class ChargerCard extends LitElement {
       return this.config.debug !== undefined ? this.config.debug : false;
     }
     return false;
-  }  
+  }
 
   // https://lit.dev/docs/components/properties/#accessors-custom
   public setConfig(config: ChargerCardConfig): void {
@@ -164,7 +164,7 @@ export class ChargerCard extends LitElement {
     if (!config) {
       throw new Error(localize('common.invalid_configuration'));
     }else if(!config.entity){
-      throw new Error(localize('error.missing_entity'));      
+      throw new Error(localize('error.missing_entity'));
     }
 
     if (config.test_gui) {
@@ -223,7 +223,7 @@ export class ChargerCard extends LitElement {
         const stateobj = {};
         for (const [statekey, stateval] of Object.entries(data)) {
           const stateentities = {};
-          if (stateval !== null && stateval != undefined) {           
+          if (stateval !== null && stateval != undefined) {
               for (const [key, val] of Object.entries((stateval as {[index: string|number]: cardServiceEntity[]}[]))) {
               if (typeof val == 'object') {
                 stateentities[key] = this.getCardCheckData(val);
@@ -244,7 +244,7 @@ export class ChargerCard extends LitElement {
   getCardCheckData(val) {
     const data = {};
       //Set defaults if not given in config
-      data['entity_id'] = val.entity_id !== undefined ? val.entity_id : null;    
+      data['entity_id'] = val.entity_id !== undefined ? val.entity_id : null;
       data['unit'] = val.unit !== undefined ? val.unit : this.getEntityAttr(val.entity_id, 'unit_of_measurement');
       data['text'] = val.text !== undefined ? val.text : this.getEntityAttr(val.entity_id, 'friendly_name');
       data['icon'] = val.icon !== undefined ? val.icon : this.getEntityIcon(val.entity_id);
@@ -286,7 +286,7 @@ export class ChargerCard extends LitElement {
       // If useval is a number, use the configured rounding if specified and otherwise default to fixed decimal (neccessary after HA returns full blown numbers)
       var usenum:number = +data["useval"];    //cast to number
       if(!isNaN(usenum)){
-        if (data["round"]) {
+        if (data["round"] || data["round"] == 0) {
           //Round to fixed decimals if other than integer given (for instance true)
           const decimals = Number.isInteger(data["round"]) ? data["round"] : DEFAULT_PRECISION;
           data["useval"] = this.round(usenum, decimals);
@@ -323,7 +323,7 @@ export class ChargerCard extends LitElement {
 
     if ((this.config.localize === undefined || this.config.localize == true) ) {
       group = group != '' ? group + "." : group;
-      
+
       this.log("Brand: " +brand +" group: " +group +" string: " +string +" search: " +search +" replace: " +replace);
       try{
         return localize(group +string, brand, search, replace, this.debug);
@@ -467,7 +467,7 @@ export class ChargerCard extends LitElement {
       return this.hass["entities"][entity_id].device_id;
     }catch(err){
       return '';
-    }      
+    }
   }
 
   createServiceData(service, isRequest, service_data, event) {
@@ -486,7 +486,7 @@ export class ChargerCard extends LitElement {
       }else{
 
         if(typeof val == "string"){
-          service_data_mod[key] = val.replace(cconst.TEMPLATE_EDITOR.SERVICEVAL, event_val);    
+          service_data_mod[key] = val.replace(cconst.TEMPLATE_EDITOR.SERVICEVAL, event_val);
         }else if(typeof val == "object"){
           let valObj = {...val};
           for(var [k2,v2] of Object.entries(valObj as {[index:string|number] :string})){
@@ -598,7 +598,7 @@ export class ChargerCard extends LitElement {
       return html``;
     }
 
-    const carddata_name = this.getCardData(this.getConfig("details.name")); 
+    const carddata_name = this.getCardData(this.getConfig("details.name"));
     const carddata_location = this.getCardData(this.getConfig("details.location"));
     let name;
     let location;
@@ -693,7 +693,7 @@ export class ChargerCard extends LitElement {
     return html`
       <div class="status${compactview}" @click="${() => this.handleMore(carddata_status != null ? carddata_status["entity"] : null)}"?more-info="true">
         <span class="status-text${compactview}" alt=${status}>${status}${statusunit}</span>
-        
+
         <div class="status-detail-text${compactview}" alt=${substatus} @click="${() => this.handleMore(carddata_substatus != null ? carddata_substatus["entity"] : null)}"?more-info="true">
           ${substatus}${substatusunit}
         </div>
@@ -709,7 +709,7 @@ export class ChargerCard extends LitElement {
     }
     const carddatas = this.getCardData(this.getConfig("details." +group));
     return html`
-      
+
         <input id="collapsible${style}" class="toggle${style}" type="checkbox" />
         <label for="collapsible${style}" class="lbl-toggle lbl-toggle${style}">
           <div class="tooltip-right">
@@ -720,10 +720,10 @@ export class ChargerCard extends LitElement {
         <div class="collapsible-content${style}">
           <div class="content-inner${style}">
           ${carddatas !== null ? (Object.values(carddatas) as cardEntity[]).map(carddata => {return this.renderCollapsibleItems(carddata, carddata["type"] || itemtype);}):localize('error.missing_group')}
-            
+
           </div>
         </div>
-      
+
     `;
   }
 
@@ -785,7 +785,7 @@ export class ChargerCard extends LitElement {
                     ${item}
                   </mwc-list-item>`
               )}
-              </mwc-list>           
+              </mwc-list>
             </ha-button-menu>
           </div>
         `;
@@ -801,14 +801,14 @@ export class ChargerCard extends LitElement {
     } else {
       console.info("InfoLeftRight turned on but no stats given in config.")
       carddatas = {};
-    } 
+    }
     const tooltip = data == 'info_right' ? '-right' : '';
     return html`
     ${carddatas !== null ? (Object.values(carddatas) as cardEntity[]).map(carddata => {
       return html`
       <div
       class='infoitems-item-${data}'
-      @click='${() => this.handleMore(carddata.entity)}'      
+      @click='${() => this.handleMore(carddata.entity)}'
       ?more-info='true'
     >
       <div class='tooltip'>
@@ -829,7 +829,7 @@ export class ChargerCard extends LitElement {
       return html``;
     }
 
-    let toolbardata_left; 
+    let toolbardata_left;
     if (this.getConfig("details.toolbar_left") !== undefined && this.getConfig("details.toolbar_left") !== null) {
       toolbardata_left = this.getCardData(this.getConfig("details.toolbar_left"));
       toolbardata_left = (toolbardata_left !== undefined && toolbardata_left !== null) ? toolbardata_left[state] || toolbardata_left['default'] : [];
@@ -851,7 +851,7 @@ export class ChargerCard extends LitElement {
     if(toolbardata_left !== undefined){
       toolbar_left = (Object.values(toolbardata_left) as cardEntity[]).map(btn => {
         return btn.hide !== true ? this.renderToolbarButton(btn.service, btn.icon, btn.text, btn.service_data) : '';
-      }) 
+      })
     }else{
       toolbar_left = '';
     }
@@ -1018,7 +1018,7 @@ export class ChargerCard extends LitElement {
         ></ha-card>
       `;
     }
-    
+
     if (this.compactView) {
       return this.renderCompact();
     } else {
