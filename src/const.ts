@@ -1,4 +1,4 @@
-export const VERSION = '0.2.6';
+export const VERSION = '0.2.7';
 
 //Replacement tags for card editor and templates
 export const TEMPLATE_EDITOR = {
@@ -8,7 +8,7 @@ export const TEMPLATE_EDITOR = {
   SERVICEID_ENTITY : '#SERVICEID_MAIN_ENTITY#',
   SERVICEID_STATE : '#SERVICEID_MAIN_STATE#',
   SERVICEID_ATTR : '#SERVICEID_MAIN_ATTR#',
-  SERVICEVAL : '#SERVICEVAL#', 
+  SERVICEVAL : '#SERVICEVAL#',
 }
 
 // TODO: Find a way to read device_class icons instead of this
