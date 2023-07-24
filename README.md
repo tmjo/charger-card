@@ -28,6 +28,7 @@ By default, Home Assistant does not provide any card for controlling chargers fo
 Installation with [HACS][hacs] (Home Assistant Community Store) is highly reccomended but requires that you have this installed on your Home Assistant. The charger-card is available just by searching for `Charger Card` under the Frontend-section of HACS.
 
 ### Manual
+Alternatively you could install the card manually by following the steps below:
 
 1. Download `charger-card.js` file from the [latest-release].
 2. Put `charger-card.js` file into your `config/www` folder.
@@ -96,6 +97,7 @@ This card supports translations. Please, help to add more translations and impro
 - German (by [DeerMaximum](https://github.com/DeerMaximum))
 - Danish (by [dykandDK](https://github.com/dykandDK))
 - Catalan (by [gerardag](https://github.com/gerardag))
+- Dutch (by [posixx](https://github.com/posixx))
 - [_Your language?_][add-translation]
 
 ## Supported models
@@ -161,7 +163,11 @@ If your brand is on the list of supported models, you should be able to get away
 | conditional_attribute | Specify a boolean entity and its attribute (returning on/off or true/false) to define if the entity should be shown based on state attribute condition.|
 | conditional_invert    | Invert the conditional rule, so that true/on means hide and false/off means show |
 
+
 ## Advanced example (Easee charger)
+In service data, you can choose if you want to use device_id or entity_id depending on the service interface you are using. The Easee-example below was changed from entity_id to device_id due to changes in the integration.
+
+Items in capital letters are meant to be replaced with your actual names, but do not change the ones surrounded by # such as #SERVICEVAL# as these are used in the code. When you do the configuration from UI, the card config tries to fill your data automatically.
 
 ```yaml
 type: custom:charger-card
@@ -223,31 +229,31 @@ details:
       text: dyn_charger_limit
       service: easee.set_charger_dynamic_limit
       service_data:
-        charger_id: CHARGERID
+        device_id: DEVICEID
         current: '#SERVICEVAL#'
     - entity_id: sensor.CHARGERNAME_dynamic_circuit_limit
       text: dyn_circuit_limit
-      service: easee.set_charger_circuit_dynamic_limit
+      service: easee.set_circuit_dynamic_limit
       service_data:
-        charger_id: CHARGERID
+        device_id: DEVICEID
         currentP1: '#SERVICEVAL#'
     - entity_id: sensor.CHARGERNAME_max_charger_limit
       text: max_charger_limit
       service: easee.set_charger_max_limit
       service_data:
-        charger_id: CHARGERID
+        device_id: DEVICEID
         current: '#SERVICEVAL#'
     - entity_id: sensor.CHARGERNAME_max_circuit_limit
       text: max_circuit_limit
       service: easee.set_circuit_max_limit
       service_data:
-        charger_id: CHARGERID
+        device_id: DEVICEID
         currentP1: '#SERVICEVAL#'
     - entity_id: sensor.CHARGERNAME_offline_circuit_limit
       text: offline_circuit_limit
-      service: easee.set_charger_circuit_offline_limit
+      service: easee.set_circuit_offline_limit
       service_data:
-        charger_id: CHARGERID
+        device_id: DEVICEID
         currentP1: '#SERVICEVAL#'
   group2:
     - entity_id: binary_sensor.CHARGERNAME_online
@@ -400,58 +406,68 @@ details:
     disconnected:
       - {}
     awaiting_start:
-      - service: easee.stop
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: stop
         text: stop
         icon: hass:stop
-      - service: easee.resume
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: resume
         text: resume
         icon: hass:play
-      - service: easee.override_schedule
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: override_schedule
         text: override
         icon: hass:motion-play
     charging:
-      - service: easee.stop
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: stop
         text: stop
         icon: hass:stop
-      - service: easee.pause
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: pause
         text: pause
         icon: hass:pause
     completed:
-      - service: easee.stop
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: stop
         text: stop
         icon: hass:stop
-      - service: easee.override_schedule
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: override_schedule
         text: override
         icon: hass:motion-play
     error:
-      - service: easee.reboot
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: reboot
         text: reboot
         icon: hass:restart
     ready_to_charge:
-      - service: easee.stop
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: stop
         text: stop
         icon: hass:stop
-      - service: easee.override_schedule
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: override_schedule
         text: override
         icon: hass:motion-play
   toolbar_right:
@@ -464,9 +480,10 @@ details:
         icon: mdi:file-download
         conditional_entity: binary_sensor.CHARGERNAME_update_available
     disconnected:
-      - service: easee.update_firmware
+      - service: easee.action_command
         service_data:
-          charger_id: CHARGERID
+          device_id: DEVICEID
+          action_command: update_firmware
         text: update
         icon: mdi:file-download
         conditional_entity: binary_sensor.CHARGERNAME_update_available
@@ -484,7 +501,7 @@ First of all, thanks! Check [contributing guideline](./CONTRIBUTING.md) for more
 ## License
 MIT © [Tor Magne Johannessen][tmjo]
 
-This project is heavily inspired by <a href="https://github.com/denysdovhan" target="_blank">denysdovhan</a>, and his <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a>. Thanks!
+This project was initially inspired by <a href="https://github.com/denysdovhan/vacuum-card" target="_blank">vacuum card</a> by denysdovhan. Thanks!
 
 <!-- Badges -->
 [npm-url]: https://npmjs.org/package/charger-card
