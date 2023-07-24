@@ -1,0 +1,190 @@
+{
+  "common": {
+    "name": "Lader Kaart",
+    "description": "Lader kaart maakt het mogelijk uw EV lader te bedienen (of iets anders)",
+    "version": "Versie",
+    "invalid_configuration": "Ongeldige configuratie",
+    "show_warning": "Toon waarschuwing",
+    "show_error": "Toon fout"
+  },
+  "error": {
+    "missing_entity": "U dient een entiteit op te geven!",
+    "not_available": "Niet beschikbaar",
+    "missing_config": "Fout in configuratie!",
+    "missing_group": "Geen entiteit aanwezig in groep!"
+  },
+  "states": {
+    "on" : "aan",
+    "off" : "uit",
+    "unavailable" : "niet beschikbaar"
+  },
+  "editor": {
+    "instruction": "Selecteer het merk + type van uw lader. De kaart detecteert automatisch de overige sensoren. Indien uw merk niet beschikbaar is kunt u 'Anders' kiezen en de sensoren handmatig configureren. Indien er fouten optreden, kontroleer de YAML configuratie door te klikken op «Toon code editor».",
+    "brand": "Merk/Sjabloon (Verplicht)",
+    "entity": "Entiteit (Verplicht)",
+    "chargerImage": "Standaard afbeelding en kleuren",
+    "customImage": "Gebruikersspecifieke afbeelding (Optioneel - overschrijft lader afbeelding)",
+    "theme": "Kleurschema",
+    "compact_view": "Kompakte weergave",
+    "compact_view_aria_label_on": "Kompakte weergave aan",
+    "compact_view_aria_label_off": "Kompakte weergave uit",
+    "show_name": "Naam tonen",
+    "show_name_aria_label_on": "Naam tonen aan",
+    "show_name_aria_label_off": "Naam tonen uit",
+    "show_leds": "Toon Leds",
+    "show_leds_aria_label_on": "Toon geanimeerde leds aan",
+    "show_leds_aria_label_off": "Toon geanimeerde leds uit",
+    "show_status": "Status tonen",
+    "show_status_aria_label_on": "Status tonen aan",
+    "show_status_aria_label_off": "Status tonen uit",
+    "show_stats": "Data-tabel tonen",
+    "show_stats_aria_label_on": "Data-tabel tonen aan",
+    "show_stats_aria_label_off": "Data-tabel tonen uit",
+    "show_collapsibles": "Inklapbaar menu tonen",
+    "show_collapsibles_aria_label_on": "Inklapbaar menu tonen aan",
+    "show_collapsibles_aria_label_off": "Inklapbaar menu tonen uit",
+    "show_toolbar": "Werkbalk tonen",
+    "show_toolbar_aria_label_on": "Werkbalk tonen aan",
+    "show_toolbar_aria_label_off": "Werkbalk tonen uit",
+    "code_only_note": "Opmerking: Geavanceerde configuratie zoals werkbalk en data-tabel zijn enkel in YAML-mode beschikbaar."
+  },
+
+  "easee": {
+    "status" : {
+      "disconnected": "Niet verbonden",
+      "awaiting_start": "Gepauzeerd / Wacht op start",
+      "charging": "Bezig met laden",
+      "completed": "Klaar met laden / Wacht op auto",
+      "error": "Fout",
+      "ready_to_charge": "Klaar voor laden"
+    },
+    "substatus" : {
+      "ok": "Ok",
+      "pending_schedule": "Tijdplan ingesteld",
+      "none": "Geen",
+      "max_circuit_current_too_low": "Maximale stroom te laag",
+      "max_dynamic_circuit_current_too_low": "Dynamische maximale stroom te laag",
+      "max_dynamic_charger_current_too_low": "Dynamische maximale lader stroom te laag",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Dynamische offline maximale stroom te laag",
+      "max_charger_current_too_low": "Maximale lader stroom te laag",
+      "circuit_fuse_too_low": "Circuitzekering te laag",
+      "waiting_in_queue": "Wachten in wachtrij",
+      "waiting_in_fully": "Wachten in volledig",
+      "illegal_grid_type": "Ontoelaatbaar grid type",
+      "no_current_request": "Geen aktuele vraag",
+      "not_requesting_current": "Geen vraag naar stroom",
+      "charger_disabled": "Lader uitgeschakeld",
+      "pending_authorization": "Wacht op authorisatie",
+      "charger_in_error_state": "Lader in foutstatus",
+      "undefined": "Onbekend"
+    },
+    "common" : {
+      "click_for_group1": "Klik voor limieten",
+      "click_for_group2": "Klik voor informatie",
+      "click_for_group3": "Klik voor configuratie",
+      "start": "Start",
+      "continue": "Hervatten",
+      "pause": "Pauzeer",
+      "stop": "Stop",
+      "resume": "Hervatten",
+      "override": "Tijdplan negeren",
+      "update": "Firmware bijwerken",
+      "reboot": "Lader herstarten",
+      "not_available": "Lader niet beschikbaar",
+      "online": "Online",
+      "voltage": "Spanning",
+      "power": "Vermogen",
+      "current": "Stroom",
+      "charger_current": "Laadstroom",
+      "energy_per_hour": "Energie per uur",
+      "session_energy": "Sessie energie",
+      "lifetime_energy": "Totale energie",
+      "circuit_current": "Circuit stroom",
+      "dyn_charger_limit" : "Dyn Lader Limiet",
+      "dyn_circuit_limit" : "Dyn Circuit Limiet",
+      "max_charger_limit" : "Max Lader Limiet",
+      "max_circuit_limit" : "Max Circuit Limiet",
+      "output_limit" : "Toegelaten stroom",
+      "used_limit": "Gebruikte limiet",
+      "offline_circuit_limit" : "Offline Circuit Limiet",
+      "enabled" : "Ingeschakeld",
+      "idle_current" : "Ruststroom",
+      "cable_locked" : "Kabel vergrendeld",
+      "perm_cable_locked" : "Kabel permanent vergrendeld",
+      "smart_charging" : "Slim laden",
+      "cost_per_kwh" : "Kosten per kWh",
+      "update_available" : "Nieuwe versie beschikbaar",
+      "schedule": "Tijdplan"
+
+    }
+  },
+
+  "vwegolf": {
+    "status" : {
+      "home": "Thuis",
+      "away": "Afwezig"
+    },
+    "substatus" : {
+      "ok": "Ok"
+    },
+    "common" : {
+      "click_for_group1": "Klik for Limieten",
+      "click_for_group2": "Klik for Infomatie",
+      "click_for_group3": "Klik for Configuratie",
+      "soc": "%SOC"
+    }
+  },
+
+
+  "test": {
+    "status" : {
+      "disconnected": "Niet verbonden",
+      "awaiting_start": "Gepauzeerd / Wacht op start",
+      "charging": "Bezig met laden",
+      "completed": "Klaar met laden / wacht op auto",
+      "error": "Fout",
+      "ready_to_charge": "Klaar voor laden"
+    },
+    "substatus" : {
+      "ok": "Ok",
+      "pending_schedule": "Tijdplan ingesteld",
+      "none": "Geej",
+      "max_circuit_current_too_low": "Maximale stroom te laag",
+      "max_dynamic_circuit_current_too_low": "Dynamische maximale stroom te laag",
+      "max_dynamic_charger_current_too_low": "Dynamische maximale lader stroom te laag",
+      "max_dynamic_offline_fallback_circuit_current_too_low": "Dynamische offline maximale stroom te laag",
+      "max_charger_current_too_low": "Maximale lader stroom te laag",
+      "circuit_fuse_too_low": "Circuitzekering te laag",
+      "waiting_in_queue": "Wachten in wachtrij",
+      "waiting_in_fully": "Wachten in volledig",
+      "illegal_grid_type": "Ontoelaatbaar grid type",
+      "no_current_request": "Geen aktuele vraag",
+      "not_requesting_current": "Geen vraag naar stroom",
+      "charger_disabled": "Lader uitgeschakeld",
+      "pending_authorization": "Wacht op authorisatie",
+      "charger_in_error_state": "Lader in foutstatus",
+      "undefined": "Onbekend"
+    },
+    "common" : {
+      "start": "Start",
+      "continue": "Hervatten",
+      "pause": "Pauzeer",
+      "stop": "Stop",
+      "override": "Tijdplan negeren",
+      "reboot": "Lader herstarten",
+      "not_available": "Lader niet beschikbaar",
+      "online": "Online",
+      "voltage": "Spanning",
+      "power": "Vermogen",
+      "charger_current": "Laadstroom",
+      "energy_per_hour": "Energie per uur",
+      "session_energy": "Sessie energie",
+      "lifetime_energy": "Totale energie",
+      "circuit_current": "Circuit stroom",
+      "schedule": "Tijdplan"
+    }
+
+
+  }
+
+}
