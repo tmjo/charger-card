@@ -7,6 +7,7 @@ import * as openevse from './templates/const_openevse';
 import * as ocpp from './templates/const_ocpp';
 import * as wallbox from './templates/const_wallbox';
 import * as tesla_custom from './templates/const_tesla_custom';
+import * as zaptec_custom from './templates/const_zaptec';
 
 export const CARDTEMPLATES:template[] = [
   easee.data,
@@ -16,6 +17,7 @@ export const CARDTEMPLATES:template[] = [
   ocpp.data,
   wallbox.data,
   tesla_custom.data,
+  zaptec_custom.data,
 ];
 
 
